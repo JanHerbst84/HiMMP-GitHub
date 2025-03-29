@@ -9,7 +9,71 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- Favicon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/logos/favicon.png" type="image/x-icon">
+    <style>
+        /* Additional styles for partner logos and team members */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: 2rem;
+        }
+        
+        .partner-item {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .partner-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .partner-logo {
+            max-width: 100%;
+            height: 120px; /* Fixed height for consistency */
+            object-fit: contain; /* Maintain aspect ratio while fitting in container */
+            margin: 0 auto 1rem;
+            display: block;
+        }
+        
+        .partner-name {
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Hover effects for team members */
+        .producer, .artist {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .producer:hover, .artist:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Make full card clickable */
+        .team-member a.card-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+        
+        /* Ensure inner elements stay on top */
+        .team-member h4, .team-member .artist-role, .team-member .credits-link {
+            position: relative;
+            z-index: 15;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -62,7 +126,7 @@
                 <h3>Project Researchers</h3>
                 <div class="team-grid researchers-grid">
                     <div class="team-member researcher">
-                        <img src="assets/images/team/jan-herbst.jpg" alt="Professor Jan Herbst" class="team-photo">
+                        <img src="assets/images/people/herbst.jpg" alt="Professor Jan Herbst" class="team-photo">
                         <h4>Principal Investigator Prof. Dr. Dr. Jan Herbst</h4>
                         <p>
                             Jan is a popular music scholar, musicologist, music
@@ -97,7 +161,7 @@
                         </div>
                     </div>
                     <div class="team-member researcher">
-                        <img src="assets/images/team/mark-mynett.jpg" alt="Dr. Mark Mynett" class="team-photo">
+                        <img src="assets/images/people/mynett.jpg" alt="Dr. Mark Mynett" class="team-photo">
                         <h4>Co-Investigator Dr. Mark Mynett</h4>
                         <p>
                             As well as University Teaching Fellow in Music
@@ -136,42 +200,50 @@
                 <h3>The HiMMP Producers</h3>
                 <div class="team-grid producers-grid">
                     <div class="team-member producer">
-                        <img src="assets/images/team/jens-bogren.jpg" alt="Jens Bogren" class="team-photo">
+                        <a href="https://www.fascinationstreet.se/" target="_blank" class="card-link" aria-label="Visit Jens Bogren's website"></a>
+                        <img src="assets/images/people/bogren.jpg" alt="Jens Bogren" class="team-photo">
                         <h4>Jens Bogren</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/mike-exeter.jpg" alt="Mike Exeter" class="team-photo">
+                        <a href="https://www.allmusic.com/artist/mike-exeter-mn0001008207/credits" target="_blank" class="card-link" aria-label="Visit Mike Exeter's credits"></a>
+                        <img src="assets/images/people/exeter.jpg" alt="Mike Exeter" class="team-photo">
                         <h4>Mike Exeter</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/nolly-getgood.jpg" alt="Nolly Getgood" class="team-photo">
+                        <a href="https://www.getgooddrums.com/" target="_blank" class="card-link" aria-label="Visit Nolly Getgood's website"></a>
+                        <img src="assets/images/people/getgood.jpg" alt="Nolly Getgood" class="team-photo">
                         <h4>Nolly Getgood</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/josh-middleton.jpg" alt="Josh Middleton" class="team-photo">
+                        <a href="https://www.architectsofficial.com/" target="_blank" class="card-link" aria-label="Visit Josh Middleton's band website"></a>
+                        <img src="assets/images/people/middleton.jpg" alt="Josh Middleton" class="team-photo">
                         <h4>Josh Middleton</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/fredrik-nordstrom.jpg" alt="Fredrik Nordström" class="team-photo">
+                        <a href="https://www.facebook.com/StudFredman/" target="_blank" class="card-link" aria-label="Visit Fredrik Nordström's studio page"></a>
+                        <img src="assets/images/people/nordstrom.jpg" alt="Fredrik Nordström" class="team-photo">
                         <h4>Fredrik Nordström</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/buster-odeholm.jpg" alt="Buster Odeholm" class="team-photo">
+                        <a href="https://www.instagram.com/busterodeholm/" target="_blank" class="card-link" aria-label="Visit Buster Odeholm's Instagram"></a>
+                        <img src="assets/images/people/odeholm.jpg" alt="Buster Odeholm" class="team-photo">
                         <h4>Buster Odeholm</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/dave-otero.jpg" alt="Dave Otero" class="team-photo">
+                        <a href="https://www.facebook.com/daveoteroproducer/" target="_blank" class="card-link" aria-label="Visit Dave Otero's professional page"></a>
+                        <img src="assets/images/people/otero.jpg" alt="Dave Otero" class="team-photo">
                         <h4>Dave Otero</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <img src="assets/images/team/andrew-scheps.jpg" alt="Andrew Scheps" class="team-photo">
+                        <a href="https://www.andrewscheps.com/" target="_blank" class="card-link" aria-label="Visit Andrew Scheps' website"></a>
+                        <img src="assets/images/people/scheps.jpg" alt="Andrew Scheps" class="team-photo">
                         <h4>Andrew Scheps</h4>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
@@ -184,37 +256,43 @@
                 <h3>The HiMMP Artists</h3>
                 <div class="team-grid artists-grid">
                     <div class="team-member artist">
-                        <img src="assets/images/team/luke-appleton.jpg" alt="Luke Appleton" class="team-photo">
+                        <a href="https://www.facebook.com/lukeappletonofficial/" target="_blank" class="card-link" aria-label="Visit Luke Appleton's official page"></a>
+                        <img src="assets/images/people/appleton.jpg" alt="Luke Appleton" class="team-photo">
                         <h4>Luke Appleton</h4>
                         <p class="artist-role">Bass</p>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <img src="assets/images/team/mark-deeks.jpg" alt="Mark Deeks" class="team-photo">
+                        <a href="https://www.markdeeks.com/" target="_blank" class="card-link" aria-label="Visit Mark Deeks' website"></a>
+                        <img src="assets/images/people/deeks.jpg" alt="Mark Deeks" class="team-photo">
                         <h4>Mark Deeks</h4>
                         <p class="artist-role">Orchestration</p>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <img src="assets/images/team/dan-mullins.jpg" alt="Dan Mullins" class="team-photo">
+                        <a href="https://www.mydyingbride.net/" target="_blank" class="card-link" aria-label="Visit Dan Mullins' band website"></a>
+                        <img src="assets/images/people/mullins.jpg" alt="Dan Mullins" class="team-photo">
                         <h4>Dan Mullins</h4>
                         <p class="artist-role">Drums</p>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <img src="assets/images/team/ralf-scheepers.jpg" alt="Ralf Scheepers" class="team-photo">
+                        <a href="https://www.primalfear.de/" target="_blank" class="card-link" aria-label="Visit Ralf Scheepers' band website"></a>
+                        <img src="assets/images/people/scheepers.jpg" alt="Ralf Scheepers" class="team-photo">
                         <h4>Ralf Scheepers</h4>
                         <p class="artist-role">Vocals</p>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <img src="assets/images/team/rich-shaw.jpg" alt="Rich Shaw" class="team-photo">
+                        <a href="https://www.facebook.com/richshawofficial/" target="_blank" class="card-link" aria-label="Visit Rich Shaw's official page"></a>
+                        <img src="assets/images/people/shaw.jpg" alt="Rich Shaw" class="team-photo">
                         <h4>Rich Shaw</h4>
                         <p class="artist-role">Guitar</p>
                         <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <img src="assets/images/team/aaron-stainsthorpe.jpg" alt="Aaron Stainsthorpe" class="team-photo">
+                        <a href="https://www.mydyingbride.net/" target="_blank" class="card-link" aria-label="Visit Aaron Stainthorpe's band website"></a>
+                        <img src="assets/images/people/stainsthorpe.jpg" alt="Aaron Stainsthorpe" class="team-photo">
                         <h4>Aaron Stainsthorpe</h4>
                         <p class="artist-role">Vocals</p>
                         <a href="#" class="credits-link">CREDITS</a>
@@ -227,9 +305,21 @@
             <div class="container">
                 <h3>Project Partners</h3>
                 <div class="partners-grid">
-                    <img src="assets/images/partners/university-huddersfield.png" alt="University of Huddersfield" class="partner-logo">
-                    <img src="assets/images/partners/ahrc.png" alt="Arts and Humanities Research Council" class="partner-logo">
-                    <!-- Add other partner logos as needed -->
+                    <div class="partner-item">
+                        <a href="https://visualconcepts.co.uk/" target="_blank" class="card-link" aria-label="Visit Visual Concepts website"></a>
+                        <img src="assets/images/companies/viscon.jpg" alt="Visual Concepts" class="partner-logo">
+                        <div class="partner-name">Visual Concepts</div>
+                    </div>
+                    <div class="partner-item">
+                        <a href="https://www.soundonsound.com/" target="_blank" class="card-link" aria-label="Visit Sound on Sound website"></a>
+                        <img src="assets/images/companies/sos.png" alt="Sound on Sound magazine" class="partner-logo">
+                        <div class="partner-name">Sound on Sound</div>
+                    </div>
+                    <div class="partner-item">
+                        <a href="https://www.futurumgroup.com/" target="_blank" class="card-link" aria-label="Visit Futurum website"></a>
+                        <img src="assets/images/companies/futurum.jpg" alt="Futurum" class="partner-logo">
+                        <div class="partner-name">Futurum</div>
+                    </div>
                 </div>
             </div>
         </section>
