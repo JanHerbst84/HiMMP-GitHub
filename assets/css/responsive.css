@@ -1,0 +1,255 @@
+/* 
+ * HiMMP - Heaviness in Metal Music Production
+ * Responsive Stylesheet
+ */
+
+/* ---- Tablet Styles (768px to 1023px) ---- */
+@media screen and (max-width: 1023px) {
+    :root {
+        --spacing-xl: 3rem;
+        --spacing-lg: 2.5rem;
+        --spacing-md: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    h3 {
+        font-size: 1.6rem;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-content {
+        max-width: 500px;
+    }
+    
+    .section-grid {
+        gap: var(--spacing-md);
+    }
+    
+    .updates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+    
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+/* ---- Mobile Styles (Up to 767px) ---- */
+@media screen and (max-width: 767px) {
+    :root {
+        --spacing-xl: 2.5rem;
+        --spacing-lg: 2rem;
+        --spacing-md: 1.5rem;
+        --spacing-sm: 0.8rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    h3 {
+        font-size: 1.4rem;
+    }
+    
+    /* Header and Navigation */
+    .site-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .logo {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        top: var(--spacing-md);
+        right: var(--spacing-md);
+        z-index: 20;
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--background-color);
+        padding: var(--spacing-md) 0;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin: var(--spacing-xs) 0;
+        margin-left: 0;
+    }
+    
+    .nav-links a {
+        font-size: 1rem;
+        padding: var(--spacing-xs) 0;
+        display: block;
+    }
+    
+    /* Hero Section */
+    .hero {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .hero-text {
+        font-size: 1.1rem;
+    }
+    
+    /* Content Sections */
+    .section-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .updates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Team Section */
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Video Section */
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Footer */
+    .footer-nav ul {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+    
+    .footer-nav li {
+        margin-bottom: var(--spacing-xs);
+    }
+}
+
+/* ---- Small Mobile Styles (Up to 479px) ---- */
+@media screen and (max-width: 479px) {
+    :root {
+        --spacing-xl: 2rem;
+        --spacing-lg: 1.8rem;
+        --spacing-md: 1.2rem;
+        --spacing-sm: 0.7rem;
+    }
+    
+    html {
+        font-size: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    .download-links {
+        flex-direction: column;
+    }
+    
+    .download-link {
+        text-align: center;
+    }
+}
+
+/* ---- Print Styles ---- */
+@media print {
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        color: #000;
+        background: #fff;
+    }
+    
+    .site-header,
+    .audio-player,
+    .video-container,
+    .contact-form,
+    .download-links,
+    .site-footer {
+        display: none;
+    }
+    
+    a {
+        color: #000;
+        text-decoration: none;
+    }
+    
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+    }
+    
+    img {
+        max-width: 500px;
+    }
+    
+    .container {
+        max-width: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+    
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+    
+    .section-grid,
+    .updates-grid,
+    .team-grid,
+    .video-grid {
+        display: block;
+    }
+}
