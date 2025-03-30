@@ -516,6 +516,12 @@ audio {
     margin: 30px 0;
 }
 
+/* Text with the same color as headings */
+.highlight-text {
+    color: #5DC69F; /* Same teal/mint green color as headings */
+    font-weight: 600; /* Semi-bold to make it stand out */
+}
+
 /* Make buttons more compact on mobile devices */
 @media screen and (max-width: 767px) {
     .hero-buttons {
@@ -591,13 +597,28 @@ button:hover {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-md);
+    padding: 0;
+}
+
+.footer-nav li {
+    position: relative;
+    padding: 0 var(--spacing-sm);
+}
+
+.footer-nav li:not(:last-child)::after {
+    content: "//";
+    position: absolute;
+    right: -5px;
+    color: white;
 }
 
 .footer-nav a {
     color: white;
     transition: opacity 0.3s ease;
+    padding: 0 var(--spacing-xs);
 }
 
 .footer-nav a:hover {
@@ -607,4 +628,50 @@ button:hover {
 .funding-info {
     font-size: 0.9rem;
     opacity: 0.7;
+}
+
+.footer-logos {
+    display: flex;
+    justify-content: center; /* Center the logos instead of pushing them apart */
+    gap: 40px; /* Create consistent spacing between logos */
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.university-logo, .himmp-logo, .ahrc-logo {
+    padding: 10px;
+}
+
+.university-logo img, .himmp-logo img, .footer-logo {
+    height: 50px; /* Set a consistent height instead of using width */
+    width: auto; /* Let width adjust proportionally */
+    filter: brightness(0) invert(1); /* Makes the logos white */
+    object-fit: contain; /* Ensure the logo fits within the container */
+}
+
+/* Specific styling for AHRC logo */
+.ahrc-logo img {
+    height: 50px;
+    width: auto;
+    filter: brightness(1) invert(0.8); /* Less aggressive filter that preserves more details */
+    object-fit: contain;
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 767px) {
+    .footer-logos {
+        flex-direction: column;
+        gap: 30px; /* Increased gap for better separation on mobile */
+        align-items: center;
+    }
+    
+    .university-logo img, .himmp-logo img, .footer-logo {
+        height: 40px; /* Slightly smaller on mobile */
+    }
+    
+    .ahrc-logo img {
+        height: 40px; /* Slightly smaller on mobile */
+    }
 }

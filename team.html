@@ -11,6 +11,34 @@
     <!-- Favicon -->
     <link rel="icon" href="assets/images/logos/favicon.png" type="image/x-icon">
     <style>
+        /* Override default team-grid for researchers section */
+        .researchers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Force exactly 2 equal columns */
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Make researcher content more readable with better spacing */
+        .researcher {
+            padding: var(--spacing-md);
+            border-radius: 8px;
+            background-color: #f8f8f8;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .researcher:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* For mobile devices, revert to single column */
+        @media screen and (max-width: 767px) {
+            .researchers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Additional styles for partner logos and team members */
         .partners-grid {
             display: grid;
@@ -18,7 +46,7 @@
             gap: var(--spacing-md);
             margin-top: 2rem;
         }
-        
+
         .partner-item {
             text-align: center;
             padding: 1.5rem;
@@ -26,12 +54,12 @@
             border-radius: 8px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .partner-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .partner-logo {
             max-width: 100%;
             height: 120px; /* Fixed height for consistency */
@@ -39,25 +67,25 @@
             margin: 0 auto 1rem;
             display: block;
         }
-        
+
         .partner-name {
             font-weight: bold;
             margin-top: 1rem;
             font-size: 1.1rem;
         }
-        
+
         /* Hover effects for team members */
         .producer, .artist {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             padding-bottom: 15px;
         }
-        
+
         .producer:hover, .artist:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         /* Make full card clickable */
         .team-member a.card-link {
             position: absolute;
@@ -67,12 +95,124 @@
             bottom: 0;
             z-index: 10;
         }
-        
+
         /* Ensure inner elements stay on top */
         .team-member h4, .team-member .artist-role, .team-member .credits-link {
             position: relative;
             z-index: 15;
         }
+
+        /* Advisory Board styling */
+    .advisory-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+        margin: var(--spacing-md) 0;
+    }
+    
+    .advisor-item {
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        padding: var(--spacing-md);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .advisor-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .advisor-name {
+        color: #5DC69F;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+    }
+    
+    .advisor-institution {
+        font-style: italic;
+        margin-bottom: 8px;
+        color: #666;
+    }
+    
+    .advisor-expertise {
+        font-size: 0.95rem;
+        line-height: 1.4;
+    }
+    
+    /* University departments styling */
+    .departments-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-md);
+    }
+    
+    .department-item {
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        padding: var(--spacing-md);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .department-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .collaboration-note {
+        background-color: #5DC69F;
+        color: white;
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin: var(--spacing-lg) 0;
+        text-align: center;
+    }
+    
+    .collaboration-note p {
+        margin-bottom: 0;
+        font-size: 1.1rem;
+    }
+    
+    @media screen and (max-width: 767px) {
+        .advisory-grid,
+        .departments-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* University logo styling */
+.university-logo-container {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.university-logo-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.university-logo {
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto var(--spacing-sm);
+}
+
+.university-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.university-tagline {
+    font-style: italic;
+    color: #666;
+    margin-bottom: var(--spacing-sm);
+}
+
     </style>
 </head>
 <body>
@@ -113,9 +253,9 @@
                     <p class="hero-text">
                         The project draws on the complementary research expertise of the team:
                         Prof. Dr. Dr. Jan Herbst, a musicologist and accomplished metal music
-                        scholar (editor of the Cambridge Companion to Metal Music) and Dr. Mark
+                        scholar (editor of the <span class="highlight-text"><em>Cambridge Companion to Metal Music</em></span>) and Dr. Mark
                         Mynett, metal music producer and author of the first handbook for metal
-                        music production (Metal Music Manual).
+                        music production (<span class="highlight-text"><em>Metal Music Manual</em></span>).
                     </p>
                 </div>
             </div>
@@ -155,9 +295,9 @@
                             Practice' and the AHRC-funded project 'Songwriting Camps in the 21st Century' (SC21).
                         </p>
                         <div class="researcher-links">
-                            <a href="#" class="researcher-link">university profile</a> // 
-                            <a href="#" class="researcher-link">personal website</a> // 
-                            <a href="#" class="researcher-link">researchgate</a>
+                            <a href="https://pure.hud.ac.uk/en/persons/jan-herbst" target="_blank" class="researcher-link"><b>university profile</b></a> // 
+                            <a href="https://janherbst.net/" target="_blank" class="researcher-link"><b>personal website</b></a> // 
+                            <a href="https://www.researchgate.net/profile/Jan-Herbst" target="_blank" class="researcher-link"><b>researchgate</b></a>
                         </div>
                     </div>
                     <div class="team-member researcher">
@@ -186,9 +326,9 @@
                             Festival, Donnington Park, and Bloodstock Festival, Catton Hall.
                         </p>
                         <div class="researcher-links">
-                            <a href="#" class="researcher-link">university profile</a> // 
-                            <a href="#" class="researcher-link">personal website</a> // 
-                            <a href="#" class="researcher-link">artist credits</a>
+                            <a href="https://pure.hud.ac.uk/en/persons/mark-mynett" target="_blank" class="researcher-link"><b>university profile</b></a> // 
+                            <a href="https://www.mynetaur.com/" target="_blank" class="researcher-link"><b>personal website</b></a> // 
+                            <a href="https://www.discogs.com/artist/1471490-Mark-Mynett" target="_blank" class="researcher-link"><b>artist credits</b></a>
                         </div>
                     </div>
                 </div>
@@ -200,52 +340,44 @@
                 <h3>The HiMMP Producers</h3>
                 <div class="team-grid producers-grid">
                     <div class="team-member producer">
-                        <a href="https://www.fascinationstreet.se/" target="_blank" class="card-link" aria-label="Visit Jens Bogren's website"></a>
+                        <a href="https://www.discogs.com/artist/305233-Jens-Bogren" target="_blank" class="card-link" aria-label="See Jens Bogren's credits"></a>
                         <img src="assets/images/people/bogren.jpg" alt="Jens Bogren" class="team-photo">
                         <h4>Jens Bogren</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.allmusic.com/artist/mike-exeter-mn0001008207/credits" target="_blank" class="card-link" aria-label="Visit Mike Exeter's credits"></a>
+                        <a href="https://www.discogs.com/artist/388285-Mike-Exeter" target="_blank" class="card-link" aria-label="See Mike Exeter's credits"></a>
                         <img src="assets/images/people/exeter.jpg" alt="Mike Exeter" class="team-photo">
                         <h4>Mike Exeter</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.getgooddrums.com/" target="_blank" class="card-link" aria-label="Visit Nolly Getgood's website"></a>
+                        <a href="https://www.discogs.com/artist/1827526-Adam-Getgood" target="_blank" class="card-link" aria-label="See Adam Nolly Getgood's credits"></a>
                         <img src="assets/images/people/getgood.jpg" alt="Nolly Getgood" class="team-photo">
-                        <h4>Nolly Getgood</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
+                        <h4>Adam "Nolly" Getgood</h4>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.architectsofficial.com/" target="_blank" class="card-link" aria-label="Visit Josh Middleton's band website"></a>
+                        <a href="https://www.discogs.com/artist/1578148-Josh-Middleton" target="_blank" class="card-link" aria-label="See Josh Middleton's credits"></a>
                         <img src="assets/images/people/middleton.jpg" alt="Josh Middleton" class="team-photo">
                         <h4>Josh Middleton</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.facebook.com/StudFredman/" target="_blank" class="card-link" aria-label="Visit Fredrik Nordström's studio page"></a>
+                        <a href="https://www.discogs.com/artist/253127-Fredrik-Nordstr%C3%B6m" target="_blank" class="card-link" aria-label="See Fredrik Nordström's credits"></a>
                         <img src="assets/images/people/nordstrom.jpg" alt="Fredrik Nordström" class="team-photo">
                         <h4>Fredrik Nordström</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.instagram.com/busterodeholm/" target="_blank" class="card-link" aria-label="Visit Buster Odeholm's Instagram"></a>
+                        <a href="https://www.discogs.com/artist/3392673-Buster-Odeholm" target="_blank" class="card-link" aria-label="See Buster Odeholm's credits"></a>
                         <img src="assets/images/people/odeholm.jpg" alt="Buster Odeholm" class="team-photo">
                         <h4>Buster Odeholm</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.facebook.com/daveoteroproducer/" target="_blank" class="card-link" aria-label="Visit Dave Otero's professional page"></a>
+                        <a href="https://www.discogs.com/artist/305403-Dave-Otero" target="_blank" class="card-link" aria-label="See Dave Otero's credits"></a>
                         <img src="assets/images/people/otero.jpg" alt="Dave Otero" class="team-photo">
                         <h4>Dave Otero</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member producer">
-                        <a href="https://www.andrewscheps.com/" target="_blank" class="card-link" aria-label="Visit Andrew Scheps' website"></a>
+                        <a href="https://www.discogs.com/artist/450831-Andrew-Scheps target="_blank" class="card-link" aria-label="See Andrew Scheps' credits"></a>
                         <img src="assets/images/people/scheps.jpg" alt="Andrew Scheps" class="team-photo">
                         <h4>Andrew Scheps</h4>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                 </div>
             </div>
@@ -256,69 +388,40 @@
                 <h3>The HiMMP Artists</h3>
                 <div class="team-grid artists-grid">
                     <div class="team-member artist">
-                        <a href="https://www.facebook.com/lukeappletonofficial/" target="_blank" class="card-link" aria-label="Visit Luke Appleton's official page"></a>
+                        <a href="https://www.discogs.com/artist/3249535-Luke-Appleton" target="_blank" class="card-link" aria-label="See Luke Appleton's credits"></a>
                         <img src="assets/images/people/appleton.jpg" alt="Luke Appleton" class="team-photo">
                         <h4>Luke Appleton</h4>
                         <p class="artist-role">Bass</p>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <a href="https://www.markdeeks.com/" target="_blank" class="card-link" aria-label="Visit Mark Deeks' website"></a>
+                        <a href="https://www.discogs.com/artist/5224321-Mark-Deeks" target="_blank" class="card-link" aria-label="See Mark Deeks' credits"></a>
                         <img src="assets/images/people/deeks.jpg" alt="Mark Deeks" class="team-photo">
                         <h4>Mark Deeks</h4>
                         <p class="artist-role">Orchestration</p>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <a href="https://www.mydyingbride.net/" target="_blank" class="card-link" aria-label="Visit Dan Mullins' band website"></a>
+                        <a href="https://www.discogs.com/artist/684361-Dan-Mullins" target="_blank" class="card-link" aria-label="See Dan Mullins' credits"></a>
                         <img src="assets/images/people/mullins.jpg" alt="Dan Mullins" class="team-photo">
                         <h4>Dan Mullins</h4>
                         <p class="artist-role">Drums</p>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <a href="https://www.primalfear.de/" target="_blank" class="card-link" aria-label="Visit Ralf Scheepers' band website"></a>
+                        <a href="https://www.discogs.com/artist/368987-Ralf-Scheepers" target="_blank" class="card-link" aria-label="See Ralf Scheepers' credits"></a>
                         <img src="assets/images/people/scheepers.jpg" alt="Ralf Scheepers" class="team-photo">
                         <h4>Ralf Scheepers</h4>
                         <p class="artist-role">Vocals</p>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <a href="https://www.facebook.com/richshawofficial/" target="_blank" class="card-link" aria-label="Visit Rich Shaw's official page"></a>
+                        <a href="https://www.discogs.com/artist/4531387-Richard-Shaw-8" target="_blank" class="card-link" aria-label="See Rich Shaw's credits"></a>
                         <img src="assets/images/people/shaw.jpg" alt="Rich Shaw" class="team-photo">
                         <h4>Rich Shaw</h4>
                         <p class="artist-role">Guitar</p>
-                        <a href="#" class="credits-link">CREDITS</a>
                     </div>
                     <div class="team-member artist">
-                        <a href="https://www.mydyingbride.net/" target="_blank" class="card-link" aria-label="Visit Aaron Stainthorpe's band website"></a>
+                        <a href="https://www.discogs.com/artist/428189-Aaron-Stainthorpe" target="_blank" class="card-link" aria-label="See Aaron Stainthorpe's credits"></a>
                         <img src="assets/images/people/stainsthorpe.jpg" alt="Aaron Stainsthorpe" class="team-photo">
                         <h4>Aaron Stainsthorpe</h4>
                         <p class="artist-role">Vocals</p>
-                        <a href="#" class="credits-link">CREDITS</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section partners-section">
-            <div class="container">
-                <h3>Project Partners</h3>
-                <div class="partners-grid">
-                    <div class="partner-item">
-                        <a href="https://visualconcepts.co.uk/" target="_blank" class="card-link" aria-label="Visit Visual Concepts website"></a>
-                        <img src="assets/images/companies/viscon.jpg" alt="Visual Concepts" class="partner-logo">
-                        <div class="partner-name">Visual Concepts</div>
-                    </div>
-                    <div class="partner-item">
-                        <a href="https://www.soundonsound.com/" target="_blank" class="card-link" aria-label="Visit Sound on Sound website"></a>
-                        <img src="assets/images/companies/sos.png" alt="Sound on Sound magazine" class="partner-logo">
-                        <div class="partner-name">Sound on Sound</div>
-                    </div>
-                    <div class="partner-item">
-                        <a href="https://www.futurumgroup.com/" target="_blank" class="card-link" aria-label="Visit Futurum website"></a>
-                        <img src="assets/images/companies/futurum.jpg" alt="Futurum" class="partner-logo">
-                        <div class="partner-name">Futurum</div>
                     </div>
                 </div>
             </div>
@@ -327,58 +430,105 @@
         <section class="content-section advisory-board-section">
             <div class="container">
                 <h3>The HiMMP International Advisory Board</h3>
-                <p>Our International Advisory Board consists of world-leading experts in music
-                technology, production, and metal music:</p>
-                <ul class="advisory-list">
-                    <li><strong>Prof Michael Ahlers</strong> (Leuphana University Lüneburg, Germany): an expert on empirical
-                    research methodologies and popular music</li>
-                    <li><strong>Prof Samantha Bennett</strong> (Australian National University Canberra, Australia): an expert on
-                    music technology and production</li>
-                    <li><strong>Prof Karl Spracklen</strong> (Leeds Beckett University, UK): an expert on metal music studies</li>
-                    <li><strong>Dr Niall Thomas</strong> (University of Winchester, UK): an expert on metal music production</li>
-                    <li><strong>Prof Rupert Till</strong> (University of Huddersfield, UK): an expert on popular music and music
-                    production</li>
-                    <li><strong>Prof Simon Zagorski-Thomas</strong> (University of West London, UK): an expert on music
-                    technology and production</li>
-                </ul>
-                <div class="collaboration-note">
-                    <p>The HiMMP research approach is based around collaboration, a meeting of minds
-                    and, above all, a profund love of music in all its forms.</p>
+                <p><b>Our International Advisory Board consists of world-leading experts in music technology, production, and metal music:</b></p>
+                
+                <div class="advisory-grid">
+                    <div class="advisor-item">
+                        <div class="advisor-name">Prof Michael Ahlers</div>
+                        <div class="advisor-institution">Leuphana University Lüneburg, Germany</div>
+                        <div class="advisor-expertise">Expert on empirical research methodologies and popular music</div>
+                    </div>
+                    
+                    <div class="advisor-item">
+                        <div class="advisor-name">Prof Samantha Bennett</div>
+                        <div class="advisor-institution">Australian National University Canberra, Australia</div>
+                        <div class="advisor-expertise">Expert on music technology and production</div>
+                    </div>
+                    
+                    <div class="advisor-item">
+                        <div class="advisor-name">Prof Karl Spracklen</div>
+                        <div class="advisor-institution">Leeds Beckett University, UK</div>
+                        <div class="advisor-expertise">Expert on metal music studies</div>
+                    </div>
+                    
+                    <div class="advisor-item">
+                        <div class="advisor-name">Dr Niall Thomas</div>
+                        <div class="advisor-institution">University of Winchester, UK</div>
+                        <div class="advisor-expertise">Expert on metal music production</div>
+                    </div>
+                    
+                    <div class="advisor-item">
+                        <div class="advisor-name">Prof Rupert Till</div>
+                        <div class="advisor-institution">University of Huddersfield, UK</div>
+                        <div class="advisor-expertise">Expert on popular music and music production</div>
+                    </div>
+                    
+                    <div class="advisor-item">
+                        <div class="advisor-name">Prof Simon Zagorski-Thomas</div>
+                        <div class="advisor-institution">University of West London, UK</div>
+                        <div class="advisor-expertise">Expert on music technology and production</div>
+                    </div>
                 </div>
-                <div class="university-departments">
-                    <p>Conducted with the support of the following departments at The University of
-                    Huddersfield:</p>
-                    <ul>
-                        <li>Research Centre for Research in Music and Music Technology (CRMMT)</li>
-                        <li>Department of Music and Design Arts in the School of Arts and Humanities (AH) at
-                        the University of Huddersfield</li>
-                        <li>Department of Computer Science in the School of Computing and Engineering (C&E)
-                        at the University of Huddersfield</li>
-                    </ul>
+                
+                <div class="collaboration-note">
+                    <p>The HiMMP research approach is based around collaboration, a meeting of minds and, above all, a profound love of music in all its forms.</p>
+                </div>
+                
+                <h3>Institutional Support</h3>
+                <p><b>Conducted with the support of the following departments at The University of Huddersfield:</b></p>
+                
+                <div class="university-logo-container">
+                    <a href="https://www.hud.ac.uk/" target="_blank">
+                        <img src="assets/images/logos/university-logo.png" alt="University of Huddersfield" class="university-logo">
+                    </a>
+                </div>
+
+                <div class="departments-grid">
+                    <div class="department-item">
+                        <div class="advisor-name">Research Centre for Research in Music and Music Technology (CRMT)</div>
+                        <div class="advisor-expertise"><a href="https://research.hud.ac.uk/institutes-centres/centres/crmt/" target="_blank"><b>Visit the centre</b></a></div>
+                    </div>
+
+                    <div class="department-item">
+                        <div class="advisor-name">Department of Music and Design Arts in the School of Arts and Humanities (AH)</div>
+                        <div class="advisor-expertise"><a href="https://www.hud.ac.uk/media-humanities-arts/"><b>Visit the department</b></a></div>
+                    </div>
+
+                    <div class="department-item">
+                        <div class="advisor-name">Department of Computer Science in the School of Computing and Engineering (C&E)</div>
+                        <div class="advisor-expertise"><a href="https://www.hud.ac.uk/computer-science/" target="_blank"><b>Visit the department</b></a></div>
+                    </div>
                 </div>
             </div>
         </section>
-    </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-info">
-                <p>HiMMP is based within the School of Arts and Humanities (AH) and Computing and Engineering (C&E) at the University of Huddersfield. © University of Huddersfield // All rights reserved.</p>
+        <footer class="site-footer">
+            <div class="container">
+                <div class="footer-logos">
+                    <div class="university-logo">
+                        <img src="assets/images/logos/university-logo-white.png" alt="University of Huddersfield Logo" class="footer-logo">
+                    </div>
+                    <div class="himmp-logo">
+                        <img src="assets/images/logos/HiMMP-Full-Horiz.png" alt="HiMMP Logo" class="footer-logo">
+                    </div>
+                    <div class="ahrc-logo">
+                        <img src="assets/images/logos/ahrc-logo.png" alt="Arts and Humanities Research Council Logo" class="footer-logo">
+                    </div>
+                </div>
+                <div class="footer-info">
+                    <p>HiMMP is based within the School of Arts and Humanities (AH) and Computing and Engineering (C&E) at the University of Huddersfield. <span class="highlight-text">© University of Huddersfield</span> // All rights reserved // The HiMMP Project is supported by the Arts and Humanities Research Council (AHRC) in the United Kingdom.</p>
+                </div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="about.html"><span class="highlight-text">About HiMMP</span></a></li>
+                        <li><a href="approach.html"><span class="highlight-text">Approach</span></a></li>
+                        <li><a href="team.html"><span class="highlight-text">Team</span></a></li>
+                        <li><a href="contact.html"><span class="highlight-text">Contact</span></a></li>
+                        <li><a href="privacy.html"><span class="highlight-text">Privacy Policy</span></a></li>
+                    </ul>
+                </nav>
             </div>
-            <nav class="footer-nav">
-                <ul>
-                    <li><a href="about.html">About HiMMP</a></li>
-                    <li><a href="approach.html">Approach</a></li>
-                    <li><a href="team.html">Team</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </nav>
-            <div class="funding-info">
-                <p>The HiMMP Project is supported by the Arts and Humanities Research Council (AHRC) in the United Kingdom.</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
 
     <script src="assets/js/main.js"></script>
 </body>
