@@ -423,6 +423,57 @@ audio {
     margin-top: var(--spacing-xs);
 }
 
+.publication-section-nav {
+    background-color: #f5f5f5;
+    padding: var(--spacing-md) 0;
+    position: sticky;
+    top: 92px; /* Adjust based on header height */
+    z-index: 90;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: var(--spacing-sm);
+}
+
+.section-nav-button {
+    background-color: #ffffff;
+    border: 2px solid #5DC69F;
+    border-radius: 30px;
+    color: #333;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.section-nav-button:hover, 
+.section-nav-button.active {
+    background-color: #5DC69F;
+    color: white;
+}
+
+@media screen and (max-width: 767px) {
+    .publication-section-nav {
+        top: 80px; /* Adjust for mobile header */
+    }
+    
+    .section-nav-buttons {
+        gap: 8px;
+    }
+    
+    .section-nav-button {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+}
+
 /* ---- Video Feature ---- */
 .video-feature {
     padding: var(--spacing-md) 0;

@@ -262,7 +262,20 @@
             </div>
         </section>
 
-        <section class="content-section publications-section">
+        <div class="publication-section-nav">
+            <div class="container">
+                <h3>Navigate to Section</h3>
+                <div class="section-nav-buttons">
+                    <button class="section-nav-button" data-target="himmp-outputs">HiMMP Project Outputs</button>
+                    <button class="section-nav-button" data-target="herbst-publications">Jan Herbst Publications</button>
+                    <button class="section-nav-button" data-target="mynett-publications">Mark Mynett Publications</button>
+                    <button class="section-nav-button" data-target="other-research">Additional Research</button>
+                    <button class="section-nav-button" data-target="professional-resources">Professional Resources</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="content-section publications-section" id="himmp-outputs">
             <div class="container">
                 <h3>HiMMP Project Outputs</h3>
                                
@@ -502,7 +515,7 @@
             </div>
         </section>
 
-        <section class="content-section researcher-publications">
+        <section class="content-section researcher-publications" id="herbst-publications">
             <div class="container">
                 <h3>Prof. Dr. Dr. Jan Herbst // HiMMP Principal Investigator</h3>
                 
@@ -797,7 +810,7 @@
             </div>
         </section>
 
-        <section class="content-section researcher-publications">
+        <section class="content-section researcher-publications" id="mynett-publications">
             <div class="container">
                 <h3>Dr. Mark Mynett // HiMMP Co-Investigator</h3>
                 
@@ -1034,7 +1047,7 @@
             </div>
         </section>
 
-        <section class="content-section bibliography-section">
+        <section class="content-section bibliography-section" id="other-research">
             <div class="container">
                 <h3>Additional relevant material // Bibliography</h3>
                 
@@ -1217,7 +1230,7 @@
                     </li>
                 </ul>
                 
-                <h4 class="section-heading">Professional Resources</h4>
+                <h4 class="section-heading" id="professional-resources">Professional Resources</h4>
                 <ul class="publication-list">
                     <li class="publication-item">
                         <div class="publication-title"><a href="https://www.youtube.com/channel/UCsP-jKD7lKkfBZZ-wfzTocQ" target="_blank">Mark Mynett's YouTube channel with tutorials and video interviews with renowned metal producers</a></div>
@@ -1294,5 +1307,82 @@
             });
         });
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navButtons = document.querySelectorAll('.section-nav-button');
+        
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get target section ID
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                
+                // Scroll to target section with offset for fixed header
+                if (targetSection) {
+                    const headerHeight = document.querySelector('.site-header').offsetHeight;
+                    const navHeight = document.querySelector('.publication-section-nav').offsetHeight;
+                    const totalOffset = headerHeight + navHeight + 16; // Add some extra padding
+                    
+                    const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Function to highlight active section based on scroll position
+        function highlightActiveSection() {
+            const sections = [
+                document.getElementById('himmp-outputs'),
+                document.getElementById('herbst-publications'),
+                document.getElementById('mynett-publications'),
+                document.getElementById('other-research'),
+                document.getElementById('professional-resources')
+            ];
+            
+            // Get current scroll position with some offset
+            const headerHeight = document.querySelector('.site-header').offsetHeight;
+            const navHeight = document.querySelector('.publication-section-nav').offsetHeight;
+            const scrollPosition = window.scrollY + headerHeight + navHeight + 50;
+            
+            // Find section in view
+            let currentSectionId = '';
+            sections.forEach(section => {
+                if (section && section.offsetTop <= scrollPosition && 
+                    (section.offsetTop + section.offsetHeight) > scrollPosition) {
+                    currentSectionId = section.id;
+                }
+            });
+            
+            // Highlight active button
+            if (currentSectionId) {
+                navButtons.forEach(btn => {
+                    if (btn.getAttribute('data-target') === currentSectionId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+        }
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', highlightActiveSection);
+        
+        // Initial highlight
+        highlightActiveSection();
+    });
+    </script>
+
 </body>
 </html>
