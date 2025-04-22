@@ -106,6 +106,62 @@
         @keyframes spin {
             to { transform: translateY(-50%) rotate(360deg); }
         }
+        
+        .contact-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .contact-card h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .contact-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 0;
+        }
+        
+        .contact-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .contact-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #555;
+            font-weight: bold;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media screen and (max-width: 767px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -145,7 +201,7 @@
                     <h2 class="hero-title">Get in Touch</h2>
                     <p class="hero-text">
                         If you have any questions about the HiMMP project, please get in
-                        touch with us via email.
+                        touch with us via the contact form below.
                     </p>
                     <p class="hero-text">
                         We're always interested in increasing our impact and outreach, 
@@ -157,124 +213,43 @@
 
         <section class="content-section contact-section">
             <div class="container">
-                <style>
-                    .contact-card {
-                        background-color: #fff;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                        padding: 30px;
-                        margin-bottom: 30px;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    }
-                    
-                    .contact-card:hover {
-                        transform: translateY(-5px);
-                        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-                    }
-                    
-                    .contact-card h3 {
-                        color: #333;
-                        margin-top: 0;
-                        margin-bottom: 20px;
-                        font-size: 1.5rem;
-                        border-bottom: 2px solid #f0f0f0;
-                        padding-bottom: 10px;
-                    }
-                    
-                    .contact-card-icon {
-                        font-size: 2rem;
-                        margin-bottom: 15px;
-                        color: #555;
-                    }
-                    
-                    .contact-email {
-                        font-size: 1.2rem;
-                        background-color: #f8f9fa;
-                        padding: 15px;
-                        border-radius: 5px;
-                        margin: 20px 0;
-                        text-align: center;
-                        border: 1px solid #e9ecef;
-                    }
-                    
-                    .contact-email-highlight {
-                        font-weight: bold;
-                        color: #333;
-                    }
-                    
-                    .contact-list {
-                        list-style-type: none;
-                        padding-left: 0;
-                        margin-bottom: 0;
-                    }
-                    
-                    .contact-list li {
-                        padding: 8px 0;
-                        position: relative;
-                        padding-left: 25px;
-                    }
-                    
-                    .contact-list li:before {
-                        content: "•";
-                        position: absolute;
-                        left: 0;
-                        color: #555;
-                        font-weight: bold;
-                    }
-                    
-                    .contact-grid {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 30px;
-                    }
-                    
-                    @media screen and (max-width: 767px) {
-                        .contact-grid {
-                            grid-template-columns: 1fr;
-                        }
-                    }
-                    
-                    .copy-button {
-                        background-color: #555;
-                        color: white;
-                        border: none;
-                        padding: 8px 15px;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-size: 0.9rem;
-                        transition: background-color 0.3s ease;
-                        margin-top: 10px;
-                    }
-                    
-                    .copy-button:hover {
-                        background-color: #333;
-                    }
-                    
-                    .copy-success {
-                        color: #28a745;
-                        font-size: 0.9rem;
-                        margin-top: 5px;
-                        display: none;
-                    }
-                </style>
-                
                 <div class="contact-grid">
                     <div class="contact-card">
-                        <h3> <span class="highlight-text">Contact Us</span></h3>
-                        <p>For all inquiries related to the HiMMP project, please contact us via email:</p>
+                        <h3><span class="highlight-text">Contact Us</span></h3>
+                        <p>For inquiries related to the HiMMP project, please use the form below:</p>
                         
-                        <div class="contact-email">
-                            <span class="contact-email-highlight">j.herbst[at]hud[dot]ac.uk</span>
-                        </div>
-                        
-                        <div style="text-align: center;">
-                            <button id="copy-email" class="copy-button">Copy Email Address</button>
-                            <div id="copy-success" class="copy-success">Email copied to clipboard!</div>
-                        </div>
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label for="name">Name <span class="required">*</span></label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group half">
+                                    <label for="email">Email <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject <span class="required">*</span></label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message <span class="required">*</span></label>
+                                <textarea id="message" name="message" rows="6" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit">Send Message</button>
+                            </div>
+                            
+                            <div id="status-message"></div>
+                        </form>
                     </div>
                     
                     <div class="contact-card">
-                        <h3> <span class="highlight-text">When to Contact Us</span></h3>
+                        <h3><span class="highlight-text">When to Contact Us</span></h3>
                         <ul class="contact-list">
                             <li>Research collaboration opportunities</li>
                             <li>Academic inquiries about metal music production</li>
@@ -285,7 +260,7 @@
                     </div>
                     
                     <div class="contact-card">
-                        <h3> <span class="highlight-text">What to Include</span></h3>
+                        <h3><span class="highlight-text">What to Include</span></h3>
                         <p>To help us respond to your inquiry efficiently, please include:</p>
                         <ul class="contact-list">
                             <li>Your name and affiliation</li>
@@ -296,7 +271,7 @@
                     </div>
                     
                     <div class="contact-card">
-                        <h3> <span class="highlight-text">Response Time</span></h3>
+                        <h3><span class="highlight-text">Response Time</span></h3>
                         <p>We aim to respond to all inquiries within 3-5 working days.</p>
                         <p>For urgent matters, please indicate this in your subject line.</p>
                         <p>During academic holidays or conference periods, response times may be longer.</p>
@@ -338,31 +313,6 @@
     <script src="assets/js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Email copy functionality
-            const copyEmailBtn = document.getElementById('copy-email');
-            const copySuccess = document.getElementById('copy-success');
-            
-            if (copyEmailBtn) {
-                copyEmailBtn.addEventListener('click', function() {
-                    // Get the email address and convert the [at] and [dot] to @ and .
-                    const emailText = 'j.herbst@hud.ac.uk';
-                    
-                    // Copy to clipboard
-                    navigator.clipboard.writeText(emailText).then(function() {
-                        // Show success message
-                        copySuccess.style.display = 'block';
-                        
-                        // Hide after 3 seconds
-                        setTimeout(function() {
-                            copySuccess.style.display = 'none';
-                        }, 3000);
-                    }).catch(function(err) {
-                        console.error('Could not copy text: ', err);
-                        alert('Failed to copy email address. Please copy it manually.');
-                    });
-                });
-            }
-            
             const form = document.getElementById('contact-form');
             const statusMessage = document.getElementById('status-message');
             
