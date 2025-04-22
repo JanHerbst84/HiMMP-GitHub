@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize any interactive components
     setupInteractiveComponents();
+    
+    // Optimize images for mobile devices
+    optimizeImagesForMobile();
 });
 
 /**
@@ -238,4 +241,66 @@ function throttle(func, limit) {
             setTimeout(() => inThrottle = false, limit);
         }
     };
+}
+
+/**
+ * Optimizes images for mobile devices and adds fallback handling
+ * Ensures proper loading and display of images on all devices
+ */
+function optimizeImagesForMobile() {
+    // Target all content images that might have issues
+    const contentImages = document.querySelectorAll('.team-photo, .partner-logo, .team-member img, .producer img, .artist img, .university-logo, .footer-logo');
+    
+    console.log(`Optimizing ${contentImages.length} images for better display`);
+    
+    contentImages.forEach(img => {
+        // Add loading="lazy" attribute if not already present
+        if (!img.hasAttribute('loading')) {
+            img.setAttribute('loading', 'lazy');
+        }
+        
+        // Add decoding="async" for better performance
+        if (!img.hasAttribute('decoding')) {
+            img.setAttribute('decoding', 'async');
+        }
+        
+        // Log the original image path
+        const originalSrc = img.getAttribute('src');
+        console.log(`Processing image: ${originalSrc}`);
+        
+        // Add error handling to detect failed loads
+        img.onerror = function() {
+            console.error(`Failed to load image: ${originalSrc}`);
+            
+            // Try to determine if it's a case sensitivity issue
+            if (originalSrc.includes('/')) {
+                const parts = originalSrc.split('/');
+                const filename = parts[parts.length - 1];
+                console.log(`Image filename: ${filename}`);
+            }
+            
+            // Set a background color to show something is there
+            this.style.backgroundColor = '#f0f0f0';
+            
+            // Add a data attribute to track failed images
+            this.setAttribute('data-load-failed', 'true');
+        };
+        
+        // Add load success handler
+        img.onload = function() {
+            console.log(`Successfully loaded image: ${originalSrc}`);
+            // Remove any error indicators
+            this.removeAttribute('data-load-failed');
+        };
+    });
+    
+    // Log a summary after a short delay to allow images to load
+    setTimeout(() => {
+        const failedImages = document.querySelectorAll('[data-load-failed="true"]');
+        if (failedImages.length > 0) {
+            console.warn(`${failedImages.length} images failed to load. Check console for details.`);
+        } else {
+            console.log('All images loaded successfully!');
+        }
+    }, 3000);
 }

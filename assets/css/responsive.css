@@ -57,6 +57,27 @@
         --spacing-sm: 0.8rem;
     }
     
+    /* Fix for mobile image display issues */
+    .team-photo, 
+    .partner-logo,
+    .section-content img,
+    .team-member img,
+    .producer img,
+    .artist img,
+    .advisor-item img,
+    .university-logo-container img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        background-color: #f5f5f5; /* Light background while loading */
+    }
+    
+    /* Ensure image containers maintain proper dimensions */
+    .team-member, .partner-item, .producer, .artist {
+        min-height: 50px; /* Minimum height to reserve space */
+        position: relative;
+    }
+    
     h1 {
         font-size: 2rem;
     }
@@ -157,6 +178,15 @@
 
 /* ---- Small Mobile Styles (Up to 479px) ---- */
 @media screen and (max-width: 479px) {
+    /* Simple image optimizations for very small screens */
+    .team-photo, 
+    .partner-logo,
+    .team-member img,
+    .producer img,
+    .artist img {
+        max-width: 100%;
+        margin: 0 auto;
+    }
     :root {
         --spacing-xl: 2rem;
         --spacing-lg: 1.8rem;
