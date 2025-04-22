@@ -164,6 +164,12 @@
     .video-grid {
         grid-template-columns: 1fr;
     }
+
+    /* About Page Aims Grid */
+    .aims-grid {
+        grid-template-columns: 1fr; /* Ensure single column on mobile */
+        gap: var(--spacing-lg);
+    }
     
     /* Footer */
     .footer-nav ul {
@@ -224,6 +230,14 @@
     
     .download-link {
         text-align: center;
+    }
+
+    /* Footer Nav Spacing Refinement */
+    .footer-nav ul {
+        gap: var(--spacing-sm); /* Slightly increase gap */
+    }
+    .footer-nav li {
+         margin-bottom: var(--spacing-sm); /* Increase bottom margin */
     }
 }
 
