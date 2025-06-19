@@ -375,6 +375,51 @@ audio {
     line-height: 1.7;
 }
 
+/* Update Highlights Styling */
+.update-highlights {
+    margin-top: var(--spacing-md);
+}
+
+.highlight-item {
+    background-color: var(--light-gray);
+    border-left: 4px solid #5DC69F;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-radius: 0 5px 5px 0;
+    transition: all 0.3s ease;
+}
+
+.highlight-item:hover {
+    background-color: #f0f0f0;
+    transform: translateX(5px);
+}
+
+.highlight-item:last-child {
+    margin-bottom: 0;
+}
+
+.highlight-item h4 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.highlight-item p {
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+.highlight-item cite {
+    font-style: italic;
+    font-weight: 500;
+}
+
+.highlight-item strong {
+    color: #5DC69F;
+    font-weight: 600;
+}
+
 /* ---- Team Section ---- */
 .team-grid {
     display: grid;
