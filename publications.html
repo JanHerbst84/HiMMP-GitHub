@@ -217,6 +217,48 @@
             margin-top: var(--spacing-md);
             font-style: italic;
         }
+
+        /* Accordion Styles */
+        .accordion {
+            background-color: #f1f1f1;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1.2rem;
+            transition: 0.4s;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .active, .accordion:hover {
+            background-color: #ddd;
+        }
+
+        .accordion:after {
+            content: '+';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .active:after {
+            content: "−";
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
@@ -544,11 +586,11 @@
             </div>
         </section>
 
-        <section class="content-section researcher-publications" id="herbst-publications">
-            <div class="container">
-                <h3>Prof. Dr. Dr. Jan Herbst // HiMMP Principal Investigator</h3>
-                
-                <h4 class="section-heading">Books (selection)</h4>
+        <button class="accordion">Prof. Dr. Dr. Jan Herbst // HiMMP Principal Investigator</button>
+        <div class="panel">
+            <section class="content-section researcher-publications" id="herbst-publications" style="padding-top: 20px;">
+                <div class="container">
+                    <h4 class="section-heading">Books (selection)</h4>
                 <div class="publication-grid">
                     <div class="publication-card">
                         <div class="publication-type">Book</div>
@@ -835,15 +877,16 @@
                     </li>
                 </ul>
                 
-                <p class="see-more-link">The complete list of Jan's published work is available <a href="https://pure.hud.ac.uk/en/persons/jan-herbst" class="external-link">here</a>.</p>
-            </div>
-        </section>
+                    <p class="see-more-link">The complete list of Jan's published work is available <a href="https://pure.hud.ac.uk/en/persons/jan-herbst" class="external-link">here</a>.</p>
+                </div>
+            </section>
+        </div>
 
-        <section class="content-section researcher-publications" id="mynett-publications">
-            <div class="container">
-                <h3>Dr. Mark Mynett // HiMMP Co-Investigator</h3>
-                
-                <h4 class="section-heading">Thesis</h4>
+        <button class="accordion">Dr. Mark Mynett // HiMMP Co-Investigator</button>
+        <div class="panel">
+            <section class="content-section researcher-publications" id="mynett-publications" style="padding-top: 20px;">
+                <div class="container">
+                    <h4 class="section-heading">Thesis</h4>
                 <ul class="publication-list">
                     <li class="publication-item">
                         <div class="publication-year">2013</div>
@@ -1072,15 +1115,16 @@
                     </div>
                 </div>
                 
-                <p class="see-more-link">The complete list of Mark's published work is available <a href="https://pure.hud.ac.uk/en/persons/mark-mynett" class="external-link" target="_blank" rel="noopener noreferrer">here</a>.</p>
-            </div>
-        </section>
+                    <p class="see-more-link">The complete list of Mark's published work is available <a href="https://pure.hud.ac.uk/en/persons/mark-mynett" class="external-link" target="_blank" rel="noopener noreferrer">here</a>.</p>
+                </div>
+            </section>
+        </div>
 
-        <section class="content-section bibliography-section" id="other-research">
-            <div class="container">
-                <h3>Additional relevant material // Bibliography</h3>
-                
-                <h4 class="section-heading">Academic Texts</h4>
+        <button class="accordion">Additional Research // Bibliography</button>
+        <div class="panel">
+            <section class="content-section bibliography-section" id="other-research" style="padding-top: 20px;">
+                <div class="container">
+                    <h4 class="section-heading">Academic Texts</h4>
                 <ul class="publication-list">
                     <li class="publication-item">
                         <div class="publication-title">Heaviness in the Perception of Heavy Metal Guitar Timbres: The Match of Perceptual and Acoustic Features over Time</div>
@@ -1258,8 +1302,15 @@
                         <a href="https://www.academia.edu/1554745/_Real_and_Unreal_Performances_Chapter_in_Rhythm_In_The_Age_of_Digital_Reproduction_edited_by_Anne_Danielsen" class="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
                     </li>
                 </ul>
-                
-                <h4 class="section-heading" id="professional-resources">Professional Resources</h4>
+                </div>
+            </section>
+        </div>
+
+        <button class="accordion">Professional Resources</button>
+        <div class="panel">
+            <section class="content-section bibliography-section" id="professional-resources" style="padding-top: 20px;">
+                <div class="container">
+                <h4 class="section-heading">Professional Resources</h4>
                 <ul class="publication-list">
                     <li class="publication-item">
                         <div class="publication-title"><a href="https://www.youtube.com/channel/UCsP-jKD7lKkfBZZ-wfzTocQ" target="_blank">Mark Mynett's YouTube channel with tutorials and video interviews with renowned metal producers</a></div>
@@ -1285,8 +1336,9 @@
                         <div class="publication-title"><a href="https://www.recordproduction.com/" target="_blank">Record Production: Great resource for all sorts of recording, engineering and production</a></div>
                     </li>
                 </ul>
-            </div>
-        </section>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -1411,6 +1463,31 @@
         // Initial highlight
         highlightActiveSection();
     });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var accordions = document.querySelectorAll('.accordion');
+            accordions.forEach(function(acc) {
+                acc.addEventListener('click', function() {
+                    // First, close all other accordions
+                    accordions.forEach(function(otherAcc) {
+                        if (otherAcc !== acc) {
+                            otherAcc.classList.remove('active');
+                            otherAcc.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+
+                    // Then, toggle the clicked accordion
+                    this.classList.toggle('active');
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + 'px';
+                    }
+                });
+            });
+        });
     </script>
 
 </body>
