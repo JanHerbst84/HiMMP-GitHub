@@ -10,6 +10,45 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        .comparison-player-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        #comparison-player {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .mix-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .mix-btn {
+            padding: 10px 15px;
+            font-size: 1rem;
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .mix-btn:hover {
+            background-color: #ced4da;
+        }
+        .mix-btn.active {
+            background-color: #5DC69F;
+            color: white;
+            border-color: #5DC69F;
+        }
+        #currently-playing {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -65,6 +104,28 @@
                 <h3>Video Comparison of Producer Mixes</h3>
                 <div class="video-container">
                     <iframe src="https://www.youtube.com/embed/AuNs1Ga5xgM" title="8 Top Mix Engineers Mix The Same Track" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="mix-comparison-tool">
+            <div class="container">
+                <h3>Interactive Mix Comparison Tool</h3>
+                <p>Click any producer's name to instantly switch between mixes. The player will maintain the current playback position for seamless A/B comparison.</p>
+                <div class="comparison-player-container">
+                    <div id="currently-playing">Now Playing: HiMMP</div>
+                    <audio id="comparison-player" controls src="assets/audio/HiMMP.mp3"></audio>
+                    <div class="mix-buttons">
+                        <button class="mix-btn active" data-src="assets/audio/HiMMP.mp3" data-name="HiMMP">HiMMP</button>
+                        <button class="mix-btn" data-src="assets/audio/Bogren.mp3" data-name="Jens Bogren">Bogren</button>
+                        <button class="mix-btn" data-src="assets/audio/Exeter.mp3" data-name="Mike Exeter">Exeter</button>
+                        <button class="mix-btn" data-src="assets/audio/Getgood.mp3" data-name="Adam 'Nolly' Getgood">Getgood</button>
+                        <button class="mix-btn" data-src="assets/audio/Middleton.mp3" data-name="Josh Middleton">Middleton</button>
+                        <button class="mix-btn" data-src="assets/audio/Nordstrom.mp3" data-name="Fredrik Nordström">Nordström</button>
+                        <button class="mix-btn" data-src="assets/audio/Odeholm.mp3" data-name="Buster Odeholm">Odeholm</button>
+                        <button class="mix-btn" data-src="assets/audio/Otero.mp3" data-name="Dave Otero">Otero</button>
+                        <button class="mix-btn" data-src="assets/audio/Scheps.mp3" data-name="Andrew Scheps">Scheps</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -235,5 +296,39 @@
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/audio-player.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const player = document.getElementById('comparison-player');
+            const buttons = document.querySelectorAll('.mix-btn');
+            const currentlyPlayingDisplay = document.getElementById('currently-playing');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const src = this.getAttribute('data-src');
+                    const name = this.getAttribute('data-name');
+                    const currentTime = player.currentTime;
+                    const isPlaying = !player.paused;
+
+                    // Update active button
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Change source and metadata
+                    player.src = src;
+                    currentlyPlayingDisplay.textContent = 'Now Playing: ' + name;
+
+                    // When the new audio is ready, set the time and play if it was playing before
+                    player.addEventListener('loadedmetadata', function() {
+                        player.currentTime = currentTime;
+                        if (isPlaying) {
+                            player.play();
+                        }
+                    }, { once: true }); // Use { once: true } to auto-remove the event listener
+
+                    player.load(); // Load the new source
+                });
+            });
+        });
+    </script>
 </body>
 </html>
