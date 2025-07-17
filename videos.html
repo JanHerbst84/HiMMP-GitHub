@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        .video-meta {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-top: 8px;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -57,7 +65,19 @@
             </div>
         </section>
 
-        <section class="content-section concept-videos-section">
+        <div class="publication-section-nav">
+            <div class="container">
+                <h3>Navigate to Section</h3>
+                <div class="section-nav-buttons">
+                    <button class="section-nav-button" data-target="concept-videos-section">Conceptual Interviews</button>
+                    <button class="section-nav-button" data-target="mixing-videos-section">Mixing Sessions</button>
+                    <button class="section-nav-button" data-target="bonus-videos-section">Bonus Content</button>
+                    <button class="section-nav-button" data-target="user-generated-videos-section">User-Generated</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="content-section concept-videos-section" id="concept-videos-section">
             <div class="container">
                 <h3>Conceptual Interviews about 'Heaviness'</h3>
                 <div class="video-grid">
@@ -113,7 +133,7 @@
             </div>
         </section>
 
-        <section class="content-section mixing-videos-section">
+        <section class="content-section mixing-videos-section" id="mixing-videos-section">
             <div class="container">
                 <h3>Mixing 'In Solitude'</h3>
                 <div class="video-grid">
@@ -169,7 +189,7 @@
             </div>
         </section>
 
-        <section class="content-section bonus-videos-section">
+        <section class="content-section bonus-videos-section" id="bonus-videos-section">
             <div class="container">
                 <h3>Bonus Content</h3>
                 <div class="video-grid">
@@ -184,6 +204,43 @@
                             <iframe loading="lazy" src="https://www.youtube.com/embed/MzkIatgG7oQ" title="HiMMP team mixing In Solitude" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <h4>HiMMP team mixing 'In Solitude'</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section user-generated-videos-section" id="user-generated-videos-section">
+            <div class="container">
+                <h3>User-Generated Content</h3>
+                <p>Third-party videos and reactions featuring the HiMMP research content:</p>
+                <div class="video-grid">
+                    <div class="video-item">
+                        <div class="video-container">
+                            <iframe loading="lazy" src="https://www.youtube.com/embed/U_TtJo2_bh8" title="8 Top Mix Engineers Mix The Same Track" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h4>8 Top Mix Engineers Mix The Same Track</h4>
+                        <p class="video-meta">Sound on Sound • 24 July 2024</p>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-container">
+                            <iframe loading="lazy" src="https://www.youtube.com/embed/3u-NNeLa8lc" title="Mastering Engineer Reacts to 8 Pro Mixes of the Same Song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h4>Mastering Engineer Reacts to 8 Pro Mixes of the Same Song</h4>
+                        <p class="video-meta">Production Advice • 19 September 2024</p>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-container">
+                            <iframe loading="lazy" src="https://www.youtube.com/embed/OZloYQA56UQ" title="8 Famous Mix Engineers Mixed the Same Song - The Difference Is Shocking" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h4>8 Famous Mix Engineers Mixed the Same Song - The Difference Is Shocking</h4>
+                        <p class="video-meta">Beats and Meats • 9 July 2025</p>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-container">
+                            <iframe loading="lazy" src="https://www.youtube.com/embed/DOgtV0Gn87A" title="믹싱의 기준 (Basis for Mixing)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <h4>믹싱의 기준 (Basis for Mixing)</h4>
+                        <p class="video-meta">미디생활 (Live of MIDI) • 2 March 2025</p>
                     </div>
                 </div>
             </div>
@@ -219,5 +276,80 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script>
+        // Video section navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.section-nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get target section ID
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    // Scroll to target section with offset for fixed header
+                    if (targetSection) {
+                        const headerHeight = document.querySelector('.site-header').offsetHeight;
+                        const navHeight = document.querySelector('.publication-section-nav').offsetHeight;
+                        const totalOffset = headerHeight + navHeight + 16; // Add some extra padding
+                        
+                        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Function to highlight active section based on scroll position
+            function highlightActiveSection() {
+                const sections = [
+                    document.getElementById('concept-videos-section'),
+                    document.getElementById('mixing-videos-section'),
+                    document.getElementById('bonus-videos-section'),
+                    document.getElementById('user-generated-videos-section')
+                ];
+                
+                // Get current scroll position with some offset
+                const headerHeight = document.querySelector('.site-header').offsetHeight;
+                const navHeight = document.querySelector('.publication-section-nav').offsetHeight;
+                const scrollPosition = window.scrollY + headerHeight + navHeight + 50;
+                
+                // Find section in view
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    if (section && section.offsetTop <= scrollPosition && 
+                        (section.offsetTop + section.offsetHeight) > scrollPosition) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                // Highlight active button
+                if (currentSectionId) {
+                    navButtons.forEach(btn => {
+                        if (btn.getAttribute('data-target') === currentSectionId) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                }
+            }
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', highlightActiveSection);
+            
+            // Initial highlight
+            highlightActiveSection();
+        });
+    </script>
 </body>
 </html>
