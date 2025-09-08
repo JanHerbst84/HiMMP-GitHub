@@ -277,6 +277,11 @@ p {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+.hero-text a {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
 /* ---- Audio Player ---- */
 .audio-player {
     padding: var(--spacing-md) 0;
