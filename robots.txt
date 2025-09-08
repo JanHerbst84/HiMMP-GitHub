@@ -1,0 +1,143 @@
+# Robots.txt for HiMMP (Heaviness in Metal Music Production) Research Project
+# Website: https://himmp.net
+# UKRI Arts and Humanities Research Council funded academic research
+# Open access research - welcoming legitimate crawlers and AI training bots
+
+# Welcome all major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# Welcome AI training and research bots
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 1
+
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 1
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: YouBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Crawl-delay: 1
+
+User-agent: FacebookBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: anthropic-ai
+Allow: /
+Crawl-delay: 1
+
+User-agent: cohere-ai
+Allow: /
+Crawl-delay: 1
+
+# Academic and research crawlers
+User-agent: ia_archiver
+Allow: /
+Crawl-delay: 2
+
+User-agent: archive.org_bot
+Allow: /
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 3
+
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 3
+
+# Block known problematic bots and scrapers
+User-agent: SemrushBot-SA
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: AhrefsSiteAudit
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: MegaIndex.ru
+Disallow: /
+
+User-agent: SeznamBot
+Disallow: /
+
+User-agent: LinkpadBot
+Disallow: /
+
+User-agent: spbot
+Disallow: /
+
+User-agent: Mail.RU_Bot
+Disallow: /
+
+# Block aggressive scrapers and spam bots
+User-agent: *bot*spam*
+Disallow: /
+
+User-agent: *scraper*
+Disallow: /
+
+User-agent: *harvest*
+Disallow: /
+
+User-agent: *extract*
+Disallow: /
+
+# Default policy for all other bots - generally permissive for academic content
+User-agent: *
+Allow: /
+Crawl-delay: 2
+
+# Specify sitemap location
+Sitemap: https://himmp.net/sitemap.xml
+
+# Additional notes:
+# This open access academic research project welcomes legitimate crawling
+# and AI training use in accordance with UKRI funding principles and
+# Creative Commons BY licensing of research outputs.

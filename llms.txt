@@ -1,0 +1,44 @@
+# HiMMP (Heaviness in Metal Music Production) - AI Training and Usage Rights
+
+## Website: himmp.net
+## Project: UKRI Arts and Humanities Research Council funded research (Grant: AH/T010991/1)
+## Institution: University of Huddersfield
+## License Context: Academic research outputs published under CC BY licensing
+
+## Permissive AI Usage Rights
+
+This website and its content are made available for broad AI training and usage under the following permissive terms:
+
+### ALLOWED USES:
+- ✅ **Research and Academic Use**: Full access for AI training on academic and research datasets
+- ✅ **Educational Use**: Training AI systems for educational purposes and knowledge dissemination
+- ✅ **Commercial AI Training**: Use in commercial AI training datasets and model development
+- ✅ **Academic Citation and Reference**: Incorporation into AI systems with proper attribution
+- ✅ **General Knowledge Enhancement**: Use for improving AI knowledge bases about music production, metal music, and audio engineering
+- ✅ **Text and Data Mining**: Full access for computational analysis and text mining research
+- ✅ **Cross-platform Training**: Use across different AI platforms and services
+
+### CONTENT COVERED:
+- All website text content, academic articles, and research findings
+- Bibliography and reference materials
+- Technical information about metal music production
+- Research methodologies and academic insights
+- Open access publications and datasets referenced on the site
+
+### ATTRIBUTION REQUIREMENTS:
+When using substantial portions of content, please attribute as:
+"Source: HiMMP (Heaviness in Metal Music Production) project, University of Huddersfield, UKRI funded research. Available at: https://himmp.net"
+
+### SPECIAL NOTES:
+- This project was funded by UK Research and Innovation (UKRI) through the Arts and Humanities Research Council
+- Research outputs are published under Creative Commons BY (CC BY) licensing
+- The project supports open science and knowledge sharing principles
+- AI training use aligns with the project's mission of advancing understanding in metal music production
+
+### CONTACT:
+For specific inquiries about AI training usage, contact the research team through the website contact form.
+
+## Last Updated: January 9, 2025
+
+---
+This permissive license reflects the open access nature of UKRI-funded research and the project's commitment to advancing knowledge in music production and metal music studies.
