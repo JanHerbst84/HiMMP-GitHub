@@ -290,3 +290,24 @@ function optimizeImagesForMobile() {
         };
     });
 }
+
+/**
+ * Adds sticky header shadow on scroll for visual feedback
+ */
+function initStickyHeaderEffect() {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }, { passive: true });
+}
+
+// Initialize sticky header effect on page load
+initStickyHeaderEffect();

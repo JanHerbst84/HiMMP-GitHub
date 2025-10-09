@@ -3,7 +3,8 @@
     "allow": [
       "Bash(for file in team.html publications.html videos.html privacy.html audio.html)",
       "Bash(do echo \"Processing $file\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(for:*)"
     ],
     "deny": [],
     "ask": []
