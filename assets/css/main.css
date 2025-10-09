@@ -14,18 +14,23 @@
     --light-gray: #f5f5f5;
     --medium-gray: #e0e0e0;
     --dark-gray: #666666;
-    
+
+    /* Brand colors */
+    --brand-teal: #5DC69F;
+    --brand-teal-dark: #4AB089;
+    --brand-teal-light: #e9f8f5;
+
     /* Typography */
     --body-font: 'Helvetica Neue', Arial, sans-serif;
     --heading-font: 'Helvetica Neue', Arial, sans-serif;
-    
+
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 3rem;
     --spacing-xl: 4rem;
-    
+
     /* Container widths */
     --container-width: 1200px;
 }
@@ -73,6 +78,34 @@ img {
     padding: 0 var(--spacing-md);
 }
 
+/* ---- Accessibility ---- */
+.skip-to-content {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 1em;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.skip-to-content:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+}
+
+/* Focus visible styles for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--brand-teal);
+    outline-offset: 2px;
+}
+
 /* ---- Typography ---- */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--heading-font);
@@ -91,12 +124,12 @@ h2 {
 
 h3 {
     font-size: 1.8rem;
-    color: #5DC69F; /* Teal/mint green color for section headings */
+    color: var(--brand-teal);
 }
 
 h4 {
     font-size: 1.4rem;
-    color: #5DC69F; /* Maintaining color consistency for subheadings */
+    color: var(--brand-teal);
 }
 
 h5 {
@@ -118,7 +151,7 @@ p {
     display: inline-block;
     margin-top: var(--spacing-sm);
     padding: 8px 16px;
-    background-color: #5DC69F; /* Teal/mint green color from the original template */
+    background-color: var(--brand-teal);
     color: white;
     border-radius: 3px;
     transition: background-color 0.3s ease, transform 0.2s ease;
@@ -128,7 +161,7 @@ p {
 }
 
 .read-more:hover {
-    background-color: #4AB089; /* Slightly darker shade for hover state */
+    background-color: var(--brand-teal-dark);
     transform: translateY(-2px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -352,9 +385,9 @@ audio {
     display: inline-block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #5DC69F;
+    color: var(--brand-teal);
     margin-bottom: var(--spacing-sm);
-    border-bottom: 2px solid #5DC69F;
+    border-bottom: 2px solid var(--brand-teal);
     padding-bottom: 3px;
 }
 
@@ -387,7 +420,7 @@ audio {
 
 .highlight-item {
     background-color: var(--light-gray);
-    border-left: 4px solid #5DC69F;
+    border-left: 4px solid var(--brand-teal);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-md);
     border-radius: 0 5px 5px 0;
@@ -421,7 +454,7 @@ audio {
 }
 
 .highlight-item strong {
-    color: #5DC69F;
+    color: var(--brand-teal);
     font-weight: 600;
 }
 
@@ -493,7 +526,7 @@ audio {
 
 .section-nav-button {
     background-color: #ffffff;
-    border: 2px solid #5DC69F;
+    border: 2px solid var(--brand-teal);
     border-radius: 30px;
     color: #333;
     padding: 8px 16px;
@@ -503,9 +536,9 @@ audio {
     font-size: 0.95rem;
 }
 
-.section-nav-button:hover, 
+.section-nav-button:hover,
 .section-nav-button.active {
-    background-color: #5DC69F;
+    background-color: var(--brand-teal);
     color: white;
 }
 
@@ -587,7 +620,7 @@ audio {
 .resource-button {
     display: inline-block;
     padding: 12px 24px;
-    background-color: #5DC69F;
+    background-color: var(--brand-teal);
     color: #000000;
     font-weight: bold;
     font-size: 1.2rem;
@@ -619,8 +652,8 @@ audio {
 
 /* Text with the same color as headings */
 .highlight-text {
-    color: #5DC69F; /* Same teal/mint green color as headings */
-    font-weight: 600; /* Semi-bold to make it stand out */
+    color: var(--brand-teal);
+    font-weight: 600;
 }
 
 /* Make buttons more compact on mobile devices */

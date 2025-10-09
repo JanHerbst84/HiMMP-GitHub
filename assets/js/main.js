@@ -166,56 +166,68 @@ function setupTabs() {
  */
 function setupImageGallery() {
     const galleryImages = document.querySelectorAll('.gallery-image');
-    
+
     galleryImages.forEach(image => {
         image.addEventListener('click', function() {
             const src = this.getAttribute('src');
             const alt = this.getAttribute('alt');
-            
+
             // Create lightbox elements
             const lightbox = document.createElement('div');
             lightbox.classList.add('lightbox');
-            
+
             const lightboxContent = document.createElement('div');
             lightboxContent.classList.add('lightbox-content');
-            
+
             const lightboxImage = document.createElement('img');
             lightboxImage.src = src;
             lightboxImage.alt = alt;
-            
+
             const closeButton = document.createElement('button');
             closeButton.classList.add('lightbox-close');
             closeButton.innerHTML = '&times;';
             closeButton.setAttribute('aria-label', 'Close lightbox');
-            
+
             // Assemble and append to body
             lightboxContent.appendChild(lightboxImage);
             lightboxContent.appendChild(closeButton);
             lightbox.appendChild(lightboxContent);
             document.body.appendChild(lightbox);
-            
+
             // Prevent body scrolling when lightbox is open
             document.body.style.overflow = 'hidden';
-            
+
             // Close lightbox functionality
             const closeLightbox = () => {
-                document.body.removeChild(lightbox);
+                // Remove event listeners before removing element
+                closeButton.removeEventListener('click', closeLightbox);
+                lightbox.removeEventListener('click', lightboxClickHandler);
+                document.removeEventListener('keydown', escapeKeyHandler);
+
+                // Clean up DOM
+                if (document.body.contains(lightbox)) {
+                    document.body.removeChild(lightbox);
+                }
                 document.body.style.overflow = '';
             };
-            
-            closeButton.addEventListener('click', closeLightbox);
-            lightbox.addEventListener('click', function(e) {
+
+            // Define event handlers
+            const lightboxClickHandler = (e) => {
                 if (e.target === lightbox) {
                     closeLightbox();
                 }
-            });
-            
-            // Close on escape key
-            document.addEventListener('keydown', function(e) {
+            };
+
+            const escapeKeyHandler = (e) => {
                 if (e.key === 'Escape') {
                     closeLightbox();
                 }
-            });
+            };
+
+            // Attach event listeners
+            closeButton.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', lightboxClickHandler);
+            document.addEventListener('keydown', escapeKeyHandler);
         });
     });
 }
@@ -250,57 +262,31 @@ function throttle(func, limit) {
 function optimizeImagesForMobile() {
     // Target all content images that might have issues
     const contentImages = document.querySelectorAll('.team-photo, .partner-logo, .team-member img, .producer img, .artist img, .university-logo, .footer-logo');
-    
-    console.log(`Optimizing ${contentImages.length} images for better display`);
-    
+
     contentImages.forEach(img => {
         // Add loading="lazy" attribute if not already present
         if (!img.hasAttribute('loading')) {
             img.setAttribute('loading', 'lazy');
         }
-        
+
         // Add decoding="async" for better performance
         if (!img.hasAttribute('decoding')) {
             img.setAttribute('decoding', 'async');
         }
-        
-        // Log the original image path
-        const originalSrc = img.getAttribute('src');
-        console.log(`Processing image: ${originalSrc}`);
-        
+
         // Add error handling to detect failed loads
         img.onerror = function() {
-            console.error(`Failed to load image: ${originalSrc}`);
-            
-            // Try to determine if it's a case sensitivity issue
-            if (originalSrc.includes('/')) {
-                const parts = originalSrc.split('/');
-                const filename = parts[parts.length - 1];
-                console.log(`Image filename: ${filename}`);
-            }
-            
             // Set a background color to show something is there
             this.style.backgroundColor = '#f0f0f0';
-            
+
             // Add a data attribute to track failed images
             this.setAttribute('data-load-failed', 'true');
         };
-        
+
         // Add load success handler
         img.onload = function() {
-            console.log(`Successfully loaded image: ${originalSrc}`);
             // Remove any error indicators
             this.removeAttribute('data-load-failed');
         };
     });
-    
-    // Log a summary after a short delay to allow images to load
-    setTimeout(() => {
-        const failedImages = document.querySelectorAll('[data-load-failed="true"]');
-        if (failedImages.length > 0) {
-            console.warn(`${failedImages.length} images failed to load. Check console for details.`);
-        } else {
-            console.log('All images loaded successfully!');
-        }
-    }, 3000);
 }

@@ -160,50 +160,53 @@ function updatePlayButtonState(button, isPlaying) {
 function initializeMixComparisonPlayer() {
     const comparisonContainer = document.querySelector('.mix-comparison-player');
     if (!comparisonContainer) return;
-    
+
     const mainAudio = comparisonContainer.querySelector('audio');
     if (!mainAudio) return;
-    
+
     const mixButtons = comparisonContainer.querySelectorAll('.mix-button');
-    
+
     mixButtons.forEach(button => {
         button.addEventListener('click', function() {
             // Get the audio source for this mix
             const mixSrc = this.getAttribute('data-src');
             if (!mixSrc) return;
-            
+
             // Store current playback state and position
             const wasPlaying = !mainAudio.paused;
             const currentTime = mainAudio.currentTime;
-            
+
             // Update source and reload
             mainAudio.src = mixSrc;
             mainAudio.load();
-            
+
             // Set active state on button
             mixButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-            
+
             // Set mix name display if it exists
             const mixNameDisplay = comparisonContainer.querySelector('.current-mix-name');
             if (mixNameDisplay) {
                 mixNameDisplay.textContent = this.getAttribute('data-name') || '';
             }
-            
-            // When loaded, restore position and play state
-            mainAudio.addEventListener('loadedmetadata', function onceLoaded() {
+
+            // Define the one-time event handler
+            const handleLoadedMetadata = function() {
                 mainAudio.currentTime = currentTime;
-                
+
                 if (wasPlaying) {
                     mainAudio.play();
                 }
-                
-                // Remove the one-time event listener
-                mainAudio.removeEventListener('loadedmetadata', onceLoaded);
-            });
+
+                // Remove the event listener after it fires once
+                mainAudio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+            };
+
+            // When loaded, restore position and play state
+            mainAudio.addEventListener('loadedmetadata', handleLoadedMetadata);
         });
     });
-    
+
     // Initialize with first mix if available
     if (mixButtons.length > 0) {
         mixButtons[0].click();

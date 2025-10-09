@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- Favicon -->
-    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/png">
     <style>
         /* Form validation styles */
         .error-message {
@@ -329,34 +329,55 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('contact-form');
             const statusMessage = document.getElementById('status-message');
-            
+            let csrfToken = null;
+
+            // Fetch CSRF token when page loads
+            fetch('get-csrf-token.php')
+                .then(response => response.json())
+                .then(data => {
+                    csrfToken = data.token;
+                })
+                .catch(error => {
+                    console.error('Failed to fetch CSRF token:', error);
+                    statusMessage.innerHTML = '<div class="submission-message error">Security initialization failed. Please refresh the page.</div>';
+                });
+
             if (form) {
                 // Handle form submission
                 form.addEventListener('submit', function(event) {
                     event.preventDefault();
-                    
+
                     // Clear any previous messages
                     statusMessage.innerHTML = '';
-                    
+
+                    // Check if CSRF token is available
+                    if (!csrfToken) {
+                        statusMessage.innerHTML = '<div class="submission-message error">Security token not available. Please refresh the page and try again.</div>';
+                        return;
+                    }
+
                     // Validate form
                     if (!validateForm()) {
                         return;
                     }
-                    
+
                     // Show loading state
                     form.classList.add('form-loading');
                     const submitBtn = form.querySelector('button[type="submit"]');
                     const originalBtnText = submitBtn.textContent;
                     submitBtn.textContent = 'Sending...';
                     submitBtn.disabled = true;
-                    
+
                     // Show initial processing message
                     statusMessage.innerHTML = '<div class="submission-message info">Sending your message...</div>';
                     statusMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    
+
                     // Collect form data
                     const formData = new FormData(form);
-                    
+
+                    // Add CSRF token to form data
+                    formData.append('csrf_token', csrfToken);
+
                     // Submit the form to PHP handler
                     fetch('contact-handler.php', {
                         method: 'POST',
@@ -384,15 +405,25 @@
                         if (data.success) {
                             // Show success message
                             statusMessage.innerHTML = `<div class="submission-message success">${data.message || 'Thank you for your message! We will get back to you soon.'}</div>`;
-                            
+
                             // Reset form
                             form.reset();
-                            
+
                             // Remove valid classes
                             form.querySelectorAll('.valid').forEach(element => {
                                 element.classList.remove('valid');
                             });
-                            
+
+                            // Fetch new CSRF token for next submission
+                            fetch('get-csrf-token.php')
+                                .then(response => response.json())
+                                .then(data => {
+                                    csrfToken = data.token;
+                                })
+                                .catch(error => {
+                                    console.error('Failed to refresh CSRF token:', error);
+                                });
+
                             // Disable the submit button for a short period to prevent double submissions
                             submitBtn.disabled = true;
                             setTimeout(() => {
