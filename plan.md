@@ -23,3 +23,8 @@
   - [x] 🟩 Map each change to concrete files/sections (per-page head/body edits, shared assets)
   - [x] 🟩 Outline validation approach (manual checks, structured-data testing, crawlers)
   - [x] 🟩 Confirm no out-of-scope features are introduced
+
+- [x] 🟩 **Step 5: Contributor Metadata Enrichment**
+  - [x] 🟩 Catalog producers and musicians referenced in content
+  - [x] 🟩 Embed shared `Person` JSON-LD nodes across site metadata
+  - [x] 🟩 Link ResearchProject schema (`index`, `about`) to new Person IDs via `contributor`/`performer`
