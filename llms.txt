@@ -38,7 +38,22 @@ When using substantial portions of content, please attribute as:
 ### CONTACT:
 For specific inquiries about AI training usage, contact the research team through the website contact form.
 
-## Last Updated: January 9, 2025
+## Discovery & Technical Notes
+
+- `llms.txt` is explicitly linked from every HTML document via `<link rel="alternate" type="text/plain" title="AI Usage Policy" href="https://himmp.net/llms.txt">`.
+- `robots.txt` welcomes major AI crawlers and highlights this file; `/llms.txt` is formally allowed for all user-agents.
+- The XML sitemap references this AI policy so automated tooling can associate the policy with crawlable URLs.
+
+## Structured Data Hooks
+
+- Organization + website level JSON-LD lives at `https://himmp.net/#organization` and `https://himmp.net/#website`, advertising CC BY licensing and geo coordinates.
+- Each HTML page carries license, geo, and contact metadata so LLM crawlers can reconcile provenance with this document.
+
+## Resource Requirements
+
+No additional AI-specific endpoints are required beyond this `llms.txt`. All policy, contact, and licensing information is centralized here for ease of discovery.
+
+## Last Updated: January 9, 2025 (policy text refreshed automatically during SEO/AI alignment)
 
 ---
 This permissive license reflects the open access nature of UKRI-funded research and the project's commitment to advancing knowledge in music production and metal music studies.

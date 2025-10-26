@@ -2,6 +2,7 @@
 # Website: https://himmp.net
 # UKRI Arts and Humanities Research Council funded academic research
 # Open access research - welcoming legitimate crawlers and AI training bots
+# AI usage policy: https://himmp.net/llms.txt (also linked from every page head)
 
 # Welcome all major search engines
 User-agent: Googlebot
@@ -131,6 +132,7 @@ Disallow: /
 
 # Default policy for all other bots - generally permissive for academic content
 User-agent: *
+Allow: /llms.txt
 Allow: /
 Crawl-delay: 2
 

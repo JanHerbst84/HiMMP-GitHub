@@ -7,6 +7,14 @@
     <meta name="description" content="Access peer-reviewed articles, book chapters, and scholarly resources from the HiMMP project and related research on heaviness in metal music production.">
     <meta name="keywords" content="metal music academia, heaviness research publications, music production papers, metal studies, sound production literature">
     <link rel="canonical" href="https://himmp.net/publications.html">
+    <!-- Crawl + GEO metadata -->
+    <meta name="robots" content="index, follow">
+    <meta property="og:locale" content="en_GB">
+    <meta name="geo.region" content="GB-ENG">
+    <meta name="geo.placename" content="Huddersfield, West Yorkshire">
+    <meta name="geo.position" content="53.6421;-1.7770">
+    <meta name="ICBM" content="53.6421, -1.7770">
+    <link rel="alternate" href="llms.txt" type="text/plain" title="AI Usage Policy">
     
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Academic Publications | HiMMP Metal Music Research">
@@ -633,6 +641,55 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://himmp.net/#organization",
+              "name": "HiMMP - Heaviness in Metal Music Production",
+              "url": "https://himmp.net/",
+              "logo": "https://himmp.net/assets/images/logos/HiMMP-logo-small.png",
+              "email": "j.herbst@hud.ac.uk",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Queensgate",
+                "addressLocality": "Huddersfield",
+                "addressRegion": "West Yorkshire",
+                "postalCode": "HD1 3DH",
+                "addressCountry": "United Kingdom"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 53.6421,
+                "longitude": -1.777
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Research Inquiries",
+                "email": "j.herbst@hud.ac.uk",
+                "availableLanguage": "English"
+              },
+              "sameAs": [
+                "https://pure.hud.ac.uk/en/persons/jan-herbst",
+                "https://pure.hud.ac.uk/en/persons/mark-mynett"
+              ],
+              "license": "https://creativecommons.org/licenses/by/4.0/"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://himmp.net/#website",
+              "url": "https://himmp.net/",
+              "name": "HiMMP - Heaviness in Metal Music Production",
+              "publisher": {
+                "@id": "https://himmp.net/#organization"
+              },
+              "inLanguage": "en-GB"
+            }
+          ]
+        }
+        </script>
     <style>
         /* Publications Page Specific Styles */
         .publication-grid {
@@ -918,7 +975,7 @@
             <div class="hero-overlay"></div>
             <div class="container">
                 <div class="hero-content">
-                    <h2 class="hero-title">Publications, Articles & Resources</h2>
+                    <h1 class="hero-title">Publications, Articles & Resources</h1>
                     <p class="hero-text">
                         Below you will find an extensive list of project outputs alongside previously
                         published works and articles from the lead HiMMP researchers. For academic inquiries about a specific publication, please <a href="contact.html" style="color: white; text-decoration: underline;"><b>get in touch</b></a>.
