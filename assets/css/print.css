@@ -1,0 +1,73 @@
+/* A4 page size, 2cm margins */
+@page {
+  size: A4;
+  margin: 2cm;
+
+  /* Creates a 'Header' for the book */
+  @top-center {
+    content: "Heaviness in Metal Music Production";
+    font-size: 9pt;
+    color: #888;
+  }
+
+  /* Creates a page number in the 'Footer' */
+  @bottom-right {
+    content: "Page " counter(page);
+    font-size: 9pt;
+    color: #888;
+  }
+}
+
+/* --- Hide All Web-Only Elements --- */
+/* Hide nav, audio players, CTAs, footer nav, etc. */
+.site-header,
+.main-nav,
+.chapter-section-nav,
+.mix-comparison-embed,
+.chapter-resources,
+.site-footer,
+.skip-to-content,
+.citation-box,
+.endnotes {
+  display: none;
+}
+
+/* --- Control Page Breaks --- */
+/* Start each new chapter on a new page */
+.chapter-hero {
+  page-break-before: always;
+  page-break-after: avoid;
+}
+
+/* Try to keep figures and their captions together */
+.figure {
+  page-break-inside: avoid;
+}
+
+/* Try to keep pull quotes from breaking */
+.pull-quote {
+  page-break-inside: avoid;
+}
+
+/* --- Restyle Content for PDF --- */
+/* Remove the web layout and make everything flow */
+body,
+.container {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Make sidebars and pull-quotes full-width blocks */
+.sidebar-box,
+.pull-quote {
+  float: none;
+  width: 100%;
+  margin: 2em 0;
+  border: 1px solid #ccc;
+  padding: 1em;
+}
+
+.pull-quote-photo {
+  display: none; /* Hide decorative images in the PDF */
+}
