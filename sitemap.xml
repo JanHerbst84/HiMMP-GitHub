@@ -55,4 +55,46 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  
+  <!-- Findings hub and related pages -->
+  <url>
+    <loc>https://himmp.net/findings.html</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://himmp.net/faq.html</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://himmp.net/acknowledgements.html</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://himmp.net/key-findings.html</loc>
+    <lastmod>2025-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Individual Findings chapters -->
+  <url><loc>https://himmp.net/findings/01-introduction.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/02-producers.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/03-methodology.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/04-foundations.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/05-naturalistic.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/06-hyperreal.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/07-meta-instrument.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/08-drums.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/09-guitars-bass.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/10-spatial.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/11-subjective.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/12-application.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/13-future.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://himmp.net/findings/glossary.html</loc><lastmod>2025-10-28</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
