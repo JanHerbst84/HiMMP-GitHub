@@ -5,7 +5,10 @@
       "Bash(do echo \"Processing $file\")",
       "Bash(done)",
       "Bash(for:*)",
-      "Bash(do echo \"=== $file ===\")"
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(do)",
+      "Bash(echo:*)",
+      "Bash(do echo \"=== $file ===\" grep -A 20 'class=\"\"\"\"footer-nav\"\"\"\"' \"$file\")"
     ],
     "deny": [],
     "ask": []
