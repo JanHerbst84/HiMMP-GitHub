@@ -4,9 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chapter 4 — Shared Foundations of Heaviness | HiMMP Findings</title>
+  <link rel="canonical" href="https://himmp.net/findings/04-foundations.html">
+  <link rel="prev" href="https://himmp.net/findings/03-methodology.html">
+  <link rel="next" href="https://himmp.net/findings/05-naturalistic.html">
+  <meta name="description" content="Defines the shared building blocks of heaviness: performance, arrangement, sound design, and the Slow, Low, and Dense formula that underpins approaches across metal styles.">
   <link rel="stylesheet" href="../assets/css/main.css">
   <link rel="stylesheet" href="../assets/css/responsive.css">
   <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="alternate" href="https://himmp.net/llms.txt" type="text/plain" title="AI Usage Policy">
+
+  <meta property="og:title" content="Chapter 4: Shared Foundations of Heaviness">
+  <meta property="og:description" content="Common ground across producers, including the &quot;Slow, Low, and Dense&quot; formula.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://himmp.net/findings/04-foundations.html">
+  <meta property="og:image" content="https://himmp.net/assets/images/og-image.jpg">
+  <meta property="og:site_name" content="HiMMP - Heaviness in Metal Music Production">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chapter 4: Shared Foundations of Heaviness">
+  <meta name="twitter:description" content="Common ground across producers, including the &quot;Slow, Low, and Dense&quot; formula.">
+  <meta name="twitter:image" content="https://himmp.net/assets/images/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Chapter 4: Shared Foundations of Heaviness",
+    "description": "Common ground across producers, including the 'Slow, Low, and Dense' formula.",
+    "author": [
+      {"@type": "Person", "name": "Jan-Peter Herbst"},
+      {"@type": "Person", "name": "Mark Mynett"}
+    ],
+    "datePublished": "2025-10-28",
+    "dateModified": "2025-10-28",
+    "image": "https://himmp.net/findings/Figures/0_Cover.jpg",
+    "mainEntityOfPage": "https://himmp.net/findings/04-foundations.html",
+    "isPartOf": "https://himmp.net/findings.html",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "keywords": ["metal music production","heaviness","HiMMP","audio engineering","mixing"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://himmp.net/index.html"},
+      {"@type": "ListItem", "position": 2, "name": "Findings", "item": "https://himmp.net/findings.html"},
+      {"@type": "ListItem", "position": 3, "name": "Chapter 4: Shared Foundations of Heaviness", "item": "https://himmp.net/findings/04-foundations.html"}
+    ]
+  }
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
@@ -117,6 +164,14 @@
         </nav>
       </div>
     </section>
+  <section class="content-section">
+    <div class="container">
+      <aside class="citation-box" aria-label="License">
+        <strong>License</strong>
+        <p>© 2025 Jan-Peter Herbst and Mark Mynett. Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution (CC BY 4.0)</a>.</p>
+      </aside>
+    </div>
+  </section>
   </main>
   <footer class="site-footer">
     <div class="container">
@@ -133,6 +188,32 @@
       </ul></nav>
     </div>
   </footer>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.chapter-content');
+    if (!container) return;
+    const h2s = container.querySelectorAll('h2');
+    if (!h2s.length) return;
+    const slugify = s => s.toLowerCase()
+      .replace(/&amp;/g,'and')
+      .replace(/[^a-z0-9\s-]/g,'')
+      .trim()
+      .replace(/\s+/g,'-')
+      .replace(/-+/g,'-');
+    const items = [];
+    h2s.forEach(h => {
+      const text = h.textContent.trim();
+      const id = h.id && h.id.length ? h.id : slugify(text);
+      h.id = id;
+      items.push({ id, text });
+    });
+    const nav = document.createElement('nav');
+    nav.className = 'on-this-page';
+    nav.setAttribute('aria-label', 'On this page');
+    nav.innerHTML = '<strong>On this page</strong><ul>' + items.map(i => `<li><a href="#${i.id}">${i.text}</a></li>`).join('') + '</ul>';
+    container.insertBefore(nav, container.firstChild);
+  });
+  </script>
   <script src="../assets/js/main.js"></script>
 </body>
 </html>
