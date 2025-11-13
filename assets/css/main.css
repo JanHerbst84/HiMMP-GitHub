@@ -218,6 +218,7 @@ p {
     transition: all 0.3s ease;
     padding: 6px 0;
     position: relative;
+    background-color: transparent;
 }
 
 .nav-links a:hover {
@@ -242,6 +243,7 @@ p {
 
 .nav-links a.active {
     color: var(--accent-color);
+    background-color: transparent;
 }
 
 .menu-toggle {
@@ -790,7 +792,9 @@ audio {
     position: sticky;
     top: 92px; /* Adjust based on header height */
     z-index: 90;
+    border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
+    margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -1572,4 +1576,27 @@ button:focus-visible,
     margin-top: 8px;
     font-size: 0.9rem;
     color: var(--dark-gray);
+}
+
+/* ---- WebP Background Images with Fallback ---- */
+/* Using @supports for WebP background images - browsers that support WebP will use .webp, others fall back to .jpg */
+@supports (background-image: -webkit-image-set(url("data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=") 1x)) {
+    .hero[style*="HiMMP-bg-welcome.jpg"] {
+        background-image: url('../images/background/HiMMP-bg-welcome.webp') !important;
+    }
+    .hero[style*="HiMMP-bg-contact.jpg"] {
+        background-image: url('../images/background/HiMMP-bg-contact.webp') !important;
+    }
+    .hero[style*="HiMMP-bg-publications.jpg"] {
+        background-image: url('../images/background/HiMMP-bg-publications.webp') !important;
+    }
+    .hero[style*="HiMMP-bg-about.jpg"] {
+        background-image: url('../images/background/HiMMP-bg-about.webp') !important;
+    }
+    .hero[style*="HiMMP-bg-team.jpg"] {
+        background-image: url('../images/background/HiMMP-bg-team.webp') !important;
+    }
+    .hero[style*="HiMMP-bg-approach.jpg"] {
+        background-image: url('../images/background/HiMMP-bg-approach.webp') !important;
+    }
 }

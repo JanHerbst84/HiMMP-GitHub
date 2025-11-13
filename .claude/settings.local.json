@@ -8,7 +8,13 @@
       "Bash(do echo \"=== $file ===\")",
       "Bash(do)",
       "Bash(echo:*)",
-      "Bash(do echo \"=== $file ===\" grep -A 20 'class=\"\"\"\"footer-nav\"\"\"\"' \"$file\")"
+      "Bash(do echo \"=== $file ===\" grep -A 20 'class=\"\"\"\"footer-nav\"\"\"\"' \"$file\")",
+      "Bash(ffprobe:*)",
+      "Bash(do echo \"Normalizing $file...\")",
+      "Bash(ffmpeg:*)",
+      "Bash(do echo \"Processing $file...\")",
+      "Bash(find:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

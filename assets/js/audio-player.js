@@ -158,57 +158,73 @@ function updatePlayButtonState(button, isPlaying) {
  * Special player for comparing different producer mixes
  */
 function initializeMixComparisonPlayer() {
-    const comparisonContainer = document.querySelector('.mix-comparison-player');
-    if (!comparisonContainer) return;
+    const comparisonContainers = document.querySelectorAll('.mix-comparison-player');
+    if (!comparisonContainers.length) return;
 
-    const mainAudio = comparisonContainer.querySelector('audio');
-    if (!mainAudio) return;
+    comparisonContainers.forEach(comparisonContainer => {
+        const mainAudio = comparisonContainer.querySelector('audio');
+        if (!mainAudio) return;
 
-    const mixButtons = comparisonContainer.querySelectorAll('.mix-button');
+        const mixButtons = comparisonContainer.querySelectorAll('.mix-button');
 
-    mixButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Get the audio source for this mix
-            const mixSrc = this.getAttribute('data-src');
-            if (!mixSrc) return;
+        mixButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Get the audio source for this mix
+                const mixSrc = this.getAttribute('data-src');
+                if (!mixSrc) return;
 
-            // Store current playback state and position
-            const wasPlaying = !mainAudio.paused;
-            const currentTime = mainAudio.currentTime;
+                // Store current playback state and position
+                const wasPlaying = !mainAudio.paused;
+                const currentTime = mainAudio.currentTime;
 
-            // Update source and reload
-            mainAudio.src = mixSrc;
-            mainAudio.load();
+                // Update source and load
+                mainAudio.src = mixSrc;
+                mainAudio.load();
 
-            // Set active state on button
-            mixButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
+                // Set active state on button
+                mixButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
 
-            // Set mix name display if it exists
-            const mixNameDisplay = comparisonContainer.querySelector('.current-mix-name');
-            if (mixNameDisplay) {
-                mixNameDisplay.textContent = this.getAttribute('data-name') || '';
-            }
-
-            // Define the one-time event handler
-            const handleLoadedMetadata = function() {
-                mainAudio.currentTime = currentTime;
-
-                if (wasPlaying) {
-                    mainAudio.play();
+                // Set mix name display if it exists
+                const mixNameDisplay = comparisonContainer.querySelector('.current-mix-name');
+                if (mixNameDisplay) {
+                    mixNameDisplay.textContent = this.getAttribute('data-name') || '';
                 }
 
-                // Remove the event listener after it fires once
-                mainAudio.removeEventListener('loadedmetadata', handleLoadedMetadata);
-            };
+                // Define the one-time event handler
+                const handleLoadedMetadata = function() {
+                    // Restore playback position
+                    mainAudio.currentTime = currentTime;
 
-            // When loaded, restore position and play state
-            mainAudio.addEventListener('loadedmetadata', handleLoadedMetadata);
+                    // Resume playback if it was playing
+                    if (wasPlaying) {
+                        mainAudio.play().catch(e => {
+                            // Handle autoplay restrictions
+                            console.log('Autoplay prevented:', e);
+                        });
+                    }
+
+                    // Remove the event listener after it fires once
+                    mainAudio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+                };
+
+                // When loaded, restore position and play state
+                mainAudio.addEventListener('loadedmetadata', handleLoadedMetadata);
+            });
         });
-    });
 
-    // Initialize with first mix if available
-    if (mixButtons.length > 0) {
-        mixButtons[0].click();
-    }
+        // Initialize first button's source without loading
+        const firstButton = comparisonContainer.querySelector('.mix-button.active');
+        if (firstButton) {
+            const mixSrc = firstButton.getAttribute('data-src');
+            const mixName = firstButton.getAttribute('data-name');
+            if (mixSrc) {
+                mainAudio.src = mixSrc;
+            }
+            const mixNameDisplay = comparisonContainer.querySelector('.current-mix-name');
+            if (mixNameDisplay && mixName) {
+                mixNameDisplay.textContent = mixName;
+            }
+        }
+    });
 }
