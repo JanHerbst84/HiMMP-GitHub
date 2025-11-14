@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: book
+title: "Heaviness in Metal Music Production: A Producer's Guide"
+authors:
+  - family-names: Herbst
+    given-names: Jan-Peter
+    orcid: "https://orcid.org/0000-0002-0872-6084"
+  - family-names: Mynett
+    given-names: Mark
+    orcid: "https://orcid.org/0000-0003-0020-3019"
+abstract: >
+  An in-depth guide to the HiMMP research with practical explanations,
+  chapter summaries, and links to audio examples. This guide distils
+  findings from the 'Heaviness in Metal Music Production' (HiMMP) project
+  into an applied guide for contemporary metal production. Drawing on
+  interviews and production sessions with eight world-class metal producers,
+  it explores the spectrum from 'Naturalistic' to 'Hyperreal' approaches
+  to heaviness in metal music production.
+keywords:
+  - metal music production
+  - heaviness
+  - audio engineering
+  - mixing
+  - music production
+  - HiMMP
+  - naturalistic production
+  - hyperreal production
+license: CC-BY-4.0
+date-released: "2025-01-14"
+version: "1.0.0"
+doi: 10.5281/zenodo.17608064
+url: "https://himmp.net"
+repository-code: "https://github.com/yourusername/himmp-ebook"
+funding:
+  - name: "Arts and Humanities Research Council (AHRC)"
+    country: "GB"
+    award: "AH/T010991/1"
+preferred-citation:
+  type: book
+  authors:
+    - family-names: Herbst
+      given-names: Jan-Peter
+    - family-names: Mynett
+      given-names: Mark
+  title: "Heaviness in Metal Music Production: A Producer's Guide"
+  year: 2025
+  publisher:
+    name: "Self-Published"
+  url: "https://himmp.net"
+  doi: 10.5281/zenodo.17608064
