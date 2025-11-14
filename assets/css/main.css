@@ -614,6 +614,19 @@ p + ol {
     color: var(--dark-gray);
 }
 
+/* Author biography container - ensures proper clearing and alignment */
+.author-bio {
+    overflow: hidden; /* Contains floats */
+    margin-bottom: var(--spacing-lg);
+    clear: both; /* Ensures each bio starts fresh */
+}
+
+.author-bio::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 @media screen and (max-width: 767px) {
     .portrait {
         float: none;
