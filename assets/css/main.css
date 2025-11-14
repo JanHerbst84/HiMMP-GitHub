@@ -144,6 +144,32 @@ p {
     margin-bottom: var(--spacing-md);
 }
 
+/* Reduce gap between paragraph and following list */
+p + ul,
+p + ol {
+    margin-top: calc(var(--spacing-md) * -0.5);
+}
+
+/* General list styling for proper indentation */
+.content-section ul,
+.content-section ol {
+    padding-left: 2.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.content-section ul {
+    list-style-type: disc;
+}
+
+.content-section ol {
+    list-style-type: decimal;
+}
+
+.content-section li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
 .read-more {
     font-weight: bold;
     text-transform: uppercase;
@@ -1579,7 +1605,9 @@ button:focus-visible,
 }
 
 /* ---- WebP Background Images with Fallback ---- */
-/* Using @supports for WebP background images - browsers that support WebP will use .webp, others fall back to .jpg */
+/* DISABLED: The @supports rule with -webkit-image-set doesn't work reliably in modern browsers
+   and was causing hero images not to load. JPG images will be used as fallback. */
+/*
 @supports (background-image: -webkit-image-set(url("data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=") 1x)) {
     .hero[style*="HiMMP-bg-welcome.jpg"] {
         background-image: url('../images/background/HiMMP-bg-welcome.webp') !important;
@@ -1600,3 +1628,4 @@ button:focus-visible,
         background-image: url('../images/background/HiMMP-bg-approach.webp') !important;
     }
 }
+*/

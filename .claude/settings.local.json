@@ -14,7 +14,10 @@
       "Bash(ffmpeg:*)",
       "Bash(do echo \"Processing $file...\")",
       "Bash(find:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(do sed -i 's|Self-Published, <a href=\"\"https://himmp.net\"\" target=\"\"_blank\"\" rel=\"\"noopener noreferrer\"\">www.himmp.net</a>.</p>|Self-Published, <a href=\"\"https://himmp.net\"\" target=\"\"_blank\"\" rel=\"\"noopener noreferrer\"\">www.himmp.net</a>. DOI: <a href=\"\"https://doi.org/10.5281/zenodo.17608064\"\" target=\"\"_blank\"\" rel=\"\"noopener noreferrer\"\">10.5281/zenodo.17608064</a>.</p>|g' \"$file\")",
+      "Bash(do file=\"/c/Users/janhe/Desktop/GitHub/Websites/HiMMP-GitHub/findings/$chapter.html\" echo \"Processing $chapter...\" grep -n \"h2>Endnotes\\|h3>Key Heuristics\" \"$file\")"
     ],
     "deny": [],
     "ask": []
