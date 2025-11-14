@@ -402,9 +402,9 @@ p {
     left: 12px;
     font-size: 3rem;
     line-height: 1;
-    color: var(--medium-gray);
+    color: var(--dark-gray);
     font-family: Georgia, serif;
-    opacity: 0.3;
+    opacity: 0.25;
 }
 
 .pull-quote-content {
