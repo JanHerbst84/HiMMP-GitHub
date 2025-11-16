@@ -183,6 +183,46 @@
           },
           "contentUrl": "https://himmp.net/assets/audio/Scheps.mp3",
           "encodingFormat": "audio/mpeg"
+        },
+        {
+          "@type": "Dataset",
+          "name": "HiMMP 'In Solitude' Audio Comparison Dataset",
+          "description": "A research dataset comprising eight professional mixes of the track 'In Solitude' by world-leading metal music producers, created for the Heaviness in Metal Music Production (HiMMP) research project.",
+          "url": "https://himmp.net/audio.html",
+          "creator": [
+            {"@type": "Person", "name": "Jan Herbst"},
+            {"@type": "Person", "name": "Mark Mynett"}
+          ],
+          "publisher": {"@id": "https://himmp.net/#organization"},
+          "funder": {
+            "@type": "Organization",
+            "name": "Arts and Humanities Research Council",
+            "identifier": "AH/T010991/1"
+          },
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "temporalCoverage": "2020-09-01/2024-08-31",
+          "spatialCoverage": {
+            "@type": "Place",
+            "name": "University of Huddersfield, United Kingdom"
+          },
+          "distribution": {
+            "@type": "DataDownload",
+            "encodingFormat": "audio/mpeg",
+            "contentUrl": "https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur"
+          },
+          "keywords": ["metal music production", "audio mixing", "music production research", "heaviness", "comparative analysis"],
+          "isAccessibleForFree": true,
+          "hasPart": [
+            {"@type": "AudioObject", "name": "In Solitude - HiMMP Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Jens Bogren Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Mike Exeter Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Adam 'Nolly' Getgood Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Josh Middleton Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Fredrik Nordström Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Buster Odeholm Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Dave Otero Mix"},
+            {"@type": "AudioObject", "name": "In Solitude - Andrew Scheps Mix"}
+          ]
         }
       ]
     }
@@ -341,6 +381,27 @@
   ]
 }
 </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://himmp.net/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Audio",
+          "item": "https://himmp.net/audio.html"
+        }
+      ]
+    }
+    </script>
 
 </head>
 <body>

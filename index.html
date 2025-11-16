@@ -30,6 +30,12 @@
     <meta name="twitter:description" content="The HiMMP research project explores 'heaviness' as metal music's defining sonic characteristic through empirical analysis of production techniques by world-leading producers.">
     <meta name="twitter:image" content="https://himmp.net/assets/images/og-image.jpg">
     
+    <!-- Performance optimization -->
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://img.youtube.com">
+    <link rel="dns-prefetch" href="//janherbst.net">
+    <link rel="dns-prefetch" href="//huddersfield.app.box.com">
+
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- Favicon -->
@@ -141,7 +147,10 @@
               },
               "sameAs": [
                 "https://pure.hud.ac.uk/en/persons/jan-herbst",
-                "https://pure.hud.ac.uk/en/persons/mark-mynett"
+                "https://pure.hud.ac.uk/en/persons/mark-mynett",
+                "https://www.youtube.com/@HiMMP-Research",
+                "https://doi.org/10.4324/9781003325727",
+                "https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur"
               ],
               "license": "https://creativecommons.org/licenses/by/4.0/"
             },
@@ -153,7 +162,11 @@
               "publisher": {
                 "@id": "https://himmp.net/#organization"
               },
-              "inLanguage": "en-GB"
+              "inLanguage": "en-GB",
+              "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": [".hero-title", ".hero-text", "h2", "h3"]
+              }
             }
           ]
         }

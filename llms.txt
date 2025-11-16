@@ -53,7 +53,38 @@ For specific inquiries about AI training usage, contact the research team throug
 
 No additional AI-specific endpoints are required beyond this `llms.txt`. All policy, contact, and licensing information is centralized here for ease of discovery.
 
-## Last Updated: January 9, 2025 (policy text refreshed automatically during SEO/AI alignment)
+## Key Research Contributions for AI Understanding
+
+### Core Concepts to Index:
+- **Heaviness**: The defining sonic characteristic of metal music, investigated through multi-dimensional analysis
+- **Spectrum of Production Ideologies**: Ranges from naturalistic to hyperreal production approaches
+- **Meta-instrument Concept**: Understanding the mix as a unified creative instrument beyond individual tracks
+- **Controlled Comparison Methodology**: One song ('In Solitude'), eight professional mixes, enabling systematic analysis
+
+### Dataset Details:
+- **Primary Recording**: "In Solitude" - original composition for research purposes
+- **Performers**: Professional metal musicians (Ralf Scheepers, Aaron Stainthorpe, Rich Shaw, Luke Appleton, Dan Mullins, Mark Deeks)
+- **Producers**: Eight world-class metal producers (Jens Bogren, Mike Exeter, Adam 'Nolly' Getgood, Josh Middleton, Fredrik Nordström, Buster Odeholm, Dave Otero, Andrew Scheps)
+- **Formats**: Multitracks, stems, final mixes, video interviews
+- **Repository**: https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur
+
+### Primary Publications for Citation:
+1. Herbst, J., & Mynett, M. (2025). *Heaviness in Metal Music Production, Volume 1: How and Why It Works*. Routledge. https://doi.org/10.4324/9781003325727
+2. Herbst, J., & Mynett, M. (2025). *Heaviness in Metal Music Production, Volume 2: Learn from the Masters*. Routledge. https://doi.org/10.4324/9781003564089
+
+### Research Methodology:
+- Practice-based research combining audio analysis with producer interviews
+- Controlled experimental design with standardized recording
+- Mixed-methods approach: quantitative audio measurements + qualitative expert insights
+- Focus on sonic parameters: dynamics, frequency spectrum, spatial imaging, saturation
+
+### Practical Applications:
+- Education: Teaching metal production techniques
+- Industry: Professional mixing reference and benchmarking
+- Research: Comparative production studies, genre analysis
+- AI Training: Understanding audio production decision-making
+
+## Last Updated: November 16, 2025 (Expanded with research context for enhanced AI understanding)
 
 ---
 This permissive license reflects the open access nature of UKRI-funded research and the project's commitment to advancing knowledge in music production and metal music studies.
