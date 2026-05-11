@@ -33,7 +33,15 @@ Static export limits are part of the migration contract:
 
 Therefore, the migration must keep direct `.html` route output and must not depend on host rewrites for legacy URLs.
 
-Deployment hosts must be configured to serve `.html` URLs without redirecting them to extensionless paths. The current export contains both forms, for example `out/about.html` and `out/about/index.html`, because the App Router catch-all route also emits extensionless static routes. This is acceptable only if `/about.html` remains a `200` response and does not become a `301` or `308` to `/about`.
+Deployment hosts must be configured to serve `.html` URLs without redirecting them to extensionless paths. The current export contains both forms, for example `out/about.html` and `out/about/index.html`, because the App Router catch-all route also emits extensionless static routes.
+
+Serving both forms publicly creates a duplicate-content risk. The deployment configuration should prefer one of these outcomes:
+
+- Serve `.html` URLs as the public surface and do not expose extensionless route files.
+- Redirect extensionless routes to the matching `.html` routes at the host layer.
+- If both forms must remain reachable, verify that extensionless pages still declare the `.html` canonical URL and keep sitemap/internal publication surfaces `.html`-only.
+
+The local static export cannot prove host-level duplicate-route behavior. It only proves that direct `.html` files exist and render.
 
 Before production handoff, test the chosen host with representative URLs:
 
@@ -41,9 +49,11 @@ Before production handoff, test the chosen host with representative URLs:
 curl -I https://HOSTNAME/about.html
 curl -I https://HOSTNAME/publications.html
 curl -I https://HOSTNAME/findings/08-drums.html
+curl -I https://HOSTNAME/about
+curl -I https://HOSTNAME/publications
 ```
 
-Each must return a direct successful response for the `.html` URL. If the host enforces clean URLs, disable that behavior or treat URL normalization as a separate SEO migration with explicit redirect, sitemap, canonical, Open Graph, and JSON-LD updates.
+Each `.html` URL must return a direct successful response. Each extensionless URL must either be unavailable, redirect to the matching `.html` URL, or carry verified `.html` canonical metadata. If the host enforces clean URLs, disable that behavior or treat URL normalization as a separate SEO migration with explicit redirect, sitemap, canonical, Open Graph, and JSON-LD updates.
 
 ## `.html` URL Preservation
 
@@ -61,6 +71,8 @@ The route/parity gates verify this contract:
 - `npm run test:e2e` opens every generated legacy path in a browser.
 
 Do not convert canonical public URLs to extensionless routes during the fidelity phase. Extensionless routes can be considered only after switchover, with redirects and metadata changes handled as a separate SEO migration.
+
+The generated sitemap intentionally corrects one documented source defect by adding `findings/14-recommended-reading.html`, which the source `sitemap.xml` omits. The source sitemap remains unchanged, so sitemap parity is a generated-output gate rather than a byte-for-byte source-sitemap comparison.
 
 ## Audio Strategy
 
