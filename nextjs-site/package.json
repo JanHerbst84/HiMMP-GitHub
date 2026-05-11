@@ -6,6 +6,7 @@
     "prebuild": "npm run sync:public",
     "dev": "next dev",
     "build": "next build",
+    "build:audio": "npm run sync:public:audio && next build",
     "start": "python3 -m http.server 4173 -d out",
     "typecheck": "tsc --noEmit",
     "pretest:e2e": "npm run build",

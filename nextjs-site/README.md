@@ -6,11 +6,15 @@ HiMMP site in Next.js and TypeScript.
 The existing root HTML/PHP site is the source of truth until automated and
 manual parity checks pass.
 
+Deployment assumptions and non-deployment decisions are tracked in
+`../docs/nextjs-migration-deployment-decisions.md`.
+
 ## Commands
 
 ```bash
 npm run inventory
 npm run build
+npm run build:audio
 npm run typecheck
 npm run parity
 npm run parity:content
@@ -24,6 +28,8 @@ npm run test:e2e
 `sitemap.xml`, and `llms.txt` into `public/`. It does not copy audio by default;
 use `npm run sync:public:audio` only after confirming the deployment target can
 host the MP3 payload.
+
+Use `npm run build:audio` for an export artifact that co-hosts the MP3 payload.
 
 `npm run parity:visual` compares representative legacy and Next-export
 screenshots with ImageMagick and writes artifacts to `.migration/visual-parity/`.

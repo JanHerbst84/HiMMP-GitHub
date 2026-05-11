@@ -175,3 +175,36 @@ Claude review:
 
 - A bounded Claude review was attempted for this checkpoint. It produced no output after more than 120 seconds and was stopped.
 - `CANNOT VERIFY`: no Claude findings were available for this checkpoint. Codex proceeded because the full local verification suite passed.
+
+## Checkpoint 5: Deployment Decision Boundaries
+
+Scope reviewed:
+
+- Static export boundary.
+- `.html` URL preservation.
+- Audio asset handling.
+- Legacy PHP contact workflow.
+- Source-defect policy.
+
+Resolution:
+
+- Added `docs/nextjs-migration-deployment-decisions.md`.
+- Recorded the local migration default as static export with direct `.html` routes.
+- Recorded audio as excluded from default build sync, with `npm run sync:public:audio` reserved for deployment preparation after host limits are confirmed.
+- Recorded contact as a preserved PHP contract, not a Next.js API-route replacement.
+- Recorded which source defects are safe to correct in generated output and which must remain documented unless explicitly approved.
+
+Claude review:
+
+- Claude warned that preserving `.html` URLs requires deployment-host checks because static hosts can normalize to clean extensionless URLs. The deployment decisions now require representative `.html` URL header checks and state that host-level clean-URL normalization is out of scope for the fidelity phase.
+- Claude warned that PHP co-hosting must account for writable `contact_submissions/`, session support, mail configuration, and non-public handling of `config.php`. The deployment decisions now list those concrete constraints.
+- Claude warned that logo case correction was ambiguous. The deployment decisions now specify rewriting references to existing on-disk filenames, not renaming assets.
+- Claude noted that copying audio before `npm run build` relies on the current non-pruning public sync behavior. Added `npm run build:audio`, which syncs all public assets including audio immediately before `next build`.
+
+Codex verification:
+
+- `npm run build` passed.
+- `npm run typecheck` passed after build. A concurrent `typecheck`/`build` run hit a transient `.next/types` race, so these commands should not be run in parallel against the same workspace.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run build:audio` was not run at this checkpoint because it intentionally copies the about-523 MB MP3 payload into the export artifact.

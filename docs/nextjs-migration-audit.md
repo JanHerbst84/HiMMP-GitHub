@@ -167,6 +167,8 @@ npm run parity:visual
 npm run test:e2e
 ```
 
+Deployment-decision details are recorded in `docs/nextjs-migration-deployment-decisions.md`. The local migration defaults are static export, direct `.html` route preservation, audio excluded from default build sync until host limits are confirmed, and legacy PHP contact co-hosting unless a backend replacement is explicitly approved.
+
 Current-site inventory commands used for this audit:
 
 ```bash
