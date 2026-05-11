@@ -1,0 +1,38 @@
+{
+  "name": "himmp-nextjs-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prebuild": "npm run sync:public",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "python3 -m http.server 4173 -d out",
+    "typecheck": "tsc --noEmit",
+    "pretest:e2e": "npm run build",
+    "test:e2e": "playwright test",
+    "inventory": "node scripts/inventory-current-site.mjs",
+    "parity": "node scripts/check-static-parity.mjs",
+    "parity:content": "node scripts/check-content-parity.mjs",
+    "parity:links": "node scripts/check-local-references.mjs",
+    "parity:text": "node scripts/check-text-parity.mjs",
+    "parity:visual": "node scripts/check-visual-parity.mjs",
+    "sync:public": "node scripts/sync-public-assets.mjs",
+    "sync:public:audio": "node scripts/sync-public-assets.mjs --include-audio"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  },
+  "dependencies": {
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "6.0.3"
+  }
+}

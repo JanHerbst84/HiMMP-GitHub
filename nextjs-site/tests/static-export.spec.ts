@@ -1,0 +1,198 @@
+import { expect, type Page, test } from "@playwright/test";
+import { legacyRoutes } from "../src/site/routes";
+
+const legacyPaths = legacyRoutes.map((route) =>
+  route.sourceFile === "index.html" ? "/index.html" : `/${route.sourceFile}`
+);
+
+function trackUnexpectedFailures(page: Page): string[] {
+  const unexpectedFailures: string[] = [];
+
+  page.on("response", (response) => {
+    const url = response.url();
+    const status = response.status();
+
+    if (status < 400) {
+      return;
+    }
+
+    const allowedPendingAsset =
+      url.includes("/assets/audio/") || url.endsWith("/get-csrf-token.php");
+
+    if (!allowedPendingAsset) {
+      unexpectedFailures.push(`${status} ${url}`);
+    }
+  });
+
+  return unexpectedFailures;
+}
+
+async function waitForLocalResponses(): Promise<void> {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 250);
+  });
+}
+
+async function stubAudioLoading(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const mediaPrototype = window.HTMLMediaElement.prototype;
+
+    mediaPrototype.load = function load() {
+      window.setTimeout(() => {
+        this.dispatchEvent(new Event("loadedmetadata"));
+      }, 0);
+    };
+
+    mediaPrototype.play = function play() {
+      return Promise.resolve();
+    };
+  });
+
+  await page.route("**/assets/audio/**", (route) =>
+    route.fulfill({
+      contentType: "audio/mpeg",
+      body: Buffer.from("")
+    })
+  );
+}
+
+test.describe("static export legacy route smoke", () => {
+  for (const legacyPath of legacyPaths) {
+    test(`${legacyPath} responds and renders the shared shell`, async ({ page }) => {
+      const unexpectedFailures = trackUnexpectedFailures(page);
+      const response = await page.goto(legacyPath);
+
+      expect(response?.ok()).toBe(true);
+      await expect(page.locator(".site-header")).toBeVisible();
+      await expect(page.locator(".site-footer")).toBeVisible();
+      await expect(page.locator("#main-content")).toBeVisible();
+      await waitForLocalResponses();
+      expect(unexpectedFailures).toEqual([]);
+    });
+  }
+
+  test("mobile navigation can open and close", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/about.html");
+
+    const menuToggle = page.locator(".menu-toggle");
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false");
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+    await page.mouse.click(20, 20);
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false");
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/publications.html");
+
+    const mynettNavButton = page.locator(".section-nav-button", {
+      hasText: "Mark Mynett Publications"
+    });
+    await mynettNavButton.click();
+    await expect(mynettNavButton).toHaveClass(/active/);
+
+    const firstAccordion = page.locator("button.accordion").first();
+    const secondAccordion = page.locator("button.accordion").nth(1);
+    const firstPanel = firstAccordion.locator("+ .panel");
+    const secondPanel = secondAccordion.locator("+ .panel");
+
+    await firstAccordion.click();
+    await expect(firstAccordion).toHaveClass(/active/);
+    await expect
+      .poll(() => firstPanel.evaluate((panel) => (panel as HTMLElement).style.maxHeight))
+      .toMatch(/px$/);
+
+    await secondAccordion.click();
+    await expect(firstAccordion).not.toHaveClass(/active/);
+    await expect.poll(() => firstPanel.evaluate((panel) => (panel as HTMLElement).style.maxHeight)).toBe("");
+    await expect(secondAccordion).toHaveClass(/active/);
+    await expect
+      .poll(() => secondPanel.evaluate((panel) => (panel as HTMLElement).style.maxHeight))
+      .toMatch(/px$/);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("audio comparison buttons switch source, label, and active mix", async ({ page }) => {
+    await stubAudioLoading(page);
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/audio.html");
+
+    const comparisonPlayer = page.locator("#comparison-player");
+    await expect(comparisonPlayer).toHaveAttribute("src", "assets/audio/HiMMP.mp3");
+    await expect(page.locator("#currently-playing")).toHaveText("Now Playing: HiMMP");
+
+    await comparisonPlayer.evaluate((element) => {
+      let storedTime = 37;
+      Object.defineProperty(element, "currentTime", {
+        configurable: true,
+        get: () => storedTime,
+        set: (value) => {
+          storedTime = value;
+        }
+      });
+      Object.defineProperty(element, "paused", {
+        configurable: true,
+        get: () => true
+      });
+    });
+
+    const schepsButton = page.locator(".mix-btn", { hasText: "Scheps" });
+    await schepsButton.click();
+
+    await expect(schepsButton).toHaveClass(/active/);
+    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).not.toHaveClass(/active/);
+    await expect(page.locator("#currently-playing")).toHaveText("Now Playing: Andrew Scheps");
+    await expect(comparisonPlayer).toHaveAttribute("src", "assets/audio/Scheps.mp3");
+    await expect
+      .poll(() => comparisonPlayer.evaluate((element) => (element as HTMLAudioElement).currentTime))
+      .toBe(37);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("contact form validates fields and submits through the legacy handler contract", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    let submittedCsrfToken = "";
+    await page.route("**/get-csrf-token.php", (route) =>
+      route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ token: "test-csrf-token" })
+      })
+    );
+    await page.route("**/contact-handler.php", async (route) => {
+      const postData = route.request().postData() ?? "";
+      submittedCsrfToken = postData.includes("test-csrf-token") ? "test-csrf-token" : "";
+
+      await route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ success: true, message: "Message received." })
+      });
+    });
+
+    await page.goto("/contact.html");
+
+    await page.locator("#name").fill("Test Sender");
+    await page.locator("#email").fill("not-an-email");
+    await page.locator("#email").blur();
+    await expect(page.locator("#email")).toHaveClass(/invalid/);
+
+    await page.locator("#email").fill("sender@example.com");
+    await page.locator("#subject").fill("Migration check");
+    await page.locator("#message").fill("This verifies that the legacy contact script still submits.");
+    await page.locator("#contact-form button[type='submit']").click();
+
+    await expect(page.locator("#status-message")).toContainText("Message received.");
+    expect(submittedCsrfToken).toBe("test-csrf-token");
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+});
