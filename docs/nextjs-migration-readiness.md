@@ -27,6 +27,7 @@ Migration checkpoints currently pushed to `origin/main`:
 - `efc87bc` - `docs: record next migration deployment decisions`
 - `df2400d` - `fix: ensure generated sitemap covers legacy routes`
 - `12e07c2` - `test: cover remaining legacy interactions`
+- `154af6d` - `docs: record next migration readiness`
 
 ## Final Local Verification
 
@@ -41,6 +42,8 @@ Run from `nextjs-site/` on 2026-05-11:
 - `npm run parity:sitemap` passed for 27 generated legacy routes.
 - `npm run parity:visual` passed for 16 representative main-content captures. The visual gate uses `VISUAL_MAX_RMSE=0.20` unless overridden, so it is a regression smoke test rather than a pixel-perfect proof.
 - `npm run test:e2e` passed 35 Playwright tests. These tests prove the browser-side contracts against the exported static site; they do not exercise real PHP endpoints or real MP3 playback from copied audio files.
+- `npm run preflight:deploy` passed with three inherited source-metadata warnings.
+- `npm audit --omit=dev` passed after adding an npm `overrides` pin for `postcss` to the fixed 8.5 line while keeping `next@16.2.6`.
 
 ## Review Caveats
 
@@ -58,7 +61,7 @@ These items remain intentionally outside the local migration:
 - Duplicate route handling: the current export also emits extensionless routes. Production must either avoid serving those publicly or define an explicit canonical/indexation strategy that keeps `.html` as the public URL surface.
 - Real integration checks: production preparation must exercise real MP3 delivery and the real PHP contact endpoints together with the exported static files.
 - Analytics: Matomo markup is preserved, but the final local gates do not prove that production analytics requests are accepted by the live Matomo endpoint.
-- Dependency advisories: `npm audit` previously reported two moderate advisories through `next@16.2.6 -> postcss@8.4.31`; the automatic suggested fix was an inappropriate downgrade. Deployment preparation should record risk acceptance or a package update path.
+- Dependency advisories: `npm audit --omit=dev` now reports no vulnerabilities after overriding transitive `postcss` to the fixed 8.5 line. Keep this checked during deployment preparation because the override should be removed once Next depends on a fixed PostCSS release directly.
 - Source-site defects: documented source defects are carried forward or safely corrected only where the decision file permits it; references, prose, empirical claims, and methodological text have not been rewritten.
 - `himmp-ebook/`: this duplicate/generated package remains outside the 27-page route parity baseline until its intended public role is confirmed.
 

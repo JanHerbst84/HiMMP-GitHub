@@ -267,3 +267,39 @@ Codex verification:
 - `npm run parity:text` passed for 27 generated HTML files.
 - `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
 - `npm run parity:sitemap` passed for 27 generated legacy routes.
+
+## Checkpoint 8: Deployment Preparation Gates
+
+Scope reviewed:
+
+- Deployment-preflight script.
+- PostCSS audit mitigation.
+- Deployment-preparation handoff documentation.
+
+Resolution:
+
+- Added `npm run preflight:deploy` to check the generated static artifact for route metadata preservation, Matomo markers, contact endpoint references, PHP source-file availability, local static files, and extensionless duplicate HTML files.
+- Added `npm run preflight:deploy:audio` for an audio-inclusive artifact after `npm run build:audio`.
+- Added an npm `overrides` pin for `postcss` to the fixed 8.5 line while keeping `next@16.2.6`, because the automatic audit fix would downgrade Next.
+- Added `docs/nextjs-migration-deployment-prep.md` with default, audio-inclusive, PHP co-hosting, and target-host URL checks.
+
+Claude review:
+
+- Claude warned that the initial preflight route regex only matched double-quoted `sourceFile` entries and could silently skip all per-route checks if `routes.ts` were reformatted. The regex now accepts single and double quotes, and the script fails if fewer than 27 legacy routes are found.
+- Claude warned that the duplicate extensionless HTML guarantee was narrower than the documentation implied. The script now performs a global `out/**/index.html` sweep for sibling `.html` duplicates, while still checking known legacy routes.
+- Claude noted that generated `og:url` metadata on a page without source `og:url` would not be surfaced. The script now warns in that case.
+- Claude follow-up review returned `No findings.`
+
+Codex verification:
+
+- `npm run build` passed.
+- `npm run typecheck` passed.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run preflight:deploy` passed with three inherited source-metadata warnings.
+- `npm audit --omit=dev` passed with no vulnerabilities.
+- `npm run parity:visual` passed for 16 representative main-content captures.
+- `npm run test:e2e` passed 35 Playwright tests.

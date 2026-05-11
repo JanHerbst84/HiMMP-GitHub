@@ -18,6 +18,8 @@
     "parity:sitemap": "node scripts/check-sitemap-parity.mjs",
     "parity:text": "node scripts/check-text-parity.mjs",
     "parity:visual": "node scripts/check-visual-parity.mjs",
+    "preflight:deploy": "node scripts/check-deployment-preflight.mjs",
+    "preflight:deploy:audio": "node scripts/check-deployment-preflight.mjs --require-audio",
     "sync:public": "node scripts/sync-public-assets.mjs",
     "sync:public:audio": "node scripts/sync-public-assets.mjs --include-audio"
   },
@@ -29,6 +31,9 @@
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6"
+  },
+  "overrides": {
+    "postcss": "^8.5.14"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",

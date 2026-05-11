@@ -33,15 +33,15 @@ Static export limits are part of the migration contract:
 
 Therefore, the migration must keep direct `.html` route output and must not depend on host rewrites for legacy URLs.
 
-Deployment hosts must be configured to serve `.html` URLs without redirecting them to extensionless paths. The current export contains both forms, for example `out/about.html` and `out/about/index.html`, because the App Router catch-all route also emits extensionless static routes.
+Deployment hosts must be configured to serve `.html` URLs without redirecting them to extensionless paths. The current export contains direct `.html` files, for example `out/about.html`, and also emits extensionless route data directories used by Next's client runtime.
 
-Serving both forms publicly creates a duplicate-content risk. The deployment configuration should prefer one of these outcomes:
+If a host maps extensionless paths to duplicate HTML, it creates a duplicate-content risk. The deployment configuration should prefer one of these outcomes:
 
 - Serve `.html` URLs as the public surface and do not expose extensionless route files.
 - Redirect extensionless routes to the matching `.html` routes at the host layer.
 - If both forms must remain reachable, verify that extensionless pages still declare the `.html` canonical URL and keep sitemap/internal publication surfaces `.html`-only.
 
-The local static export cannot prove host-level duplicate-route behavior. It only proves that direct `.html` files exist and render.
+The local static export cannot prove host-level duplicate-route behavior. `npm run preflight:deploy` verifies that the local artifact does not contain extensionless duplicate `index.html` files, but the target host still needs to be checked because hosting layers can add clean-URL behavior.
 
 Before production handoff, test the chosen host with representative URLs:
 
@@ -69,6 +69,7 @@ The route/parity gates verify this contract:
 - `npm run parity:links` checks local references against generated files, allowing only documented pending audio/PHP references.
 - `npm run parity:sitemap` checks that the exported sitemap covers every generated legacy route.
 - `npm run test:e2e` opens every generated legacy path in a browser.
+- `npm run preflight:deploy` checks generated metadata, Matomo markers, contact endpoint references, PHP source-file availability, and the absence of extensionless duplicate HTML files in the local artifact.
 
 Do not convert canonical public URLs to extensionless routes during the fidelity phase. Extensionless routes can be considered only after switchover, with redirects and metadata changes handled as a separate SEO migration.
 
