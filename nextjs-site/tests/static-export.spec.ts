@@ -38,6 +38,7 @@ async function stubAudioLoading(page: Page): Promise<void> {
     const mediaPrototype = window.HTMLMediaElement.prototype;
 
     mediaPrototype.load = function load() {
+      this.currentTime = 0;
       window.setTimeout(() => {
         this.dispatchEvent(new Event("loadedmetadata"));
       }, 0);
@@ -158,6 +159,86 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("findings chapter mix buttons use the shared audio-player behavior", async ({ page }) => {
+    await stubAudioLoading(page);
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/findings/07-meta-instrument.html");
+
+    const comparisonPlayer = page.locator(".mix-comparison-player").first();
+    const audio = comparisonPlayer.locator("audio");
+    await expect(comparisonPlayer.locator(".current-mix-name")).toHaveText("HiMMP Team");
+
+    await audio.evaluate((element) => {
+      let storedTime = 42;
+      Object.defineProperty(element, "currentTime", {
+        configurable: true,
+        get: () => storedTime,
+        set: (value) => {
+          storedTime = value;
+        }
+      });
+      Object.defineProperty(element, "paused", {
+        configurable: true,
+        get: () => true
+      });
+    });
+
+    const oteroButton = comparisonPlayer.locator(".mix-button", { hasText: "Otero" });
+    await oteroButton.click();
+
+    await expect(oteroButton).toHaveClass(/active/);
+    await expect(comparisonPlayer.locator(".mix-button", { hasText: "HiMMP" })).not.toHaveClass(/active/);
+    await expect(comparisonPlayer.locator(".current-mix-name")).toHaveText("Dave Otero");
+    await expect(audio).toHaveAttribute("src", "../assets/audio/Otero.mp3");
+    await expect.poll(() => audio.evaluate((element) => (element as HTMLAudioElement).currentTime)).toBe(42);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("video section navigation preserves active button behavior", async ({ page }) => {
+    await page.addInitScript(() => {
+      Object.defineProperty(window, "__himmpScrollCalls", {
+        configurable: true,
+        value: [] as ScrollToOptions[]
+      });
+
+      window.scrollTo = (options?: ScrollToOptions | number, y?: number) => {
+        const scrollOptions = typeof options === "object" ? options : { left: options, top: y };
+        (window as typeof window & { __himmpScrollCalls: ScrollToOptions[] }).__himmpScrollCalls.push(
+          scrollOptions
+        );
+      };
+    });
+
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/videos.html");
+
+    const bonusButton = page.locator(".section-nav-button", { hasText: "Bonus Content" });
+    await bonusButton.click();
+
+    await expect(bonusButton).toHaveClass(/active/);
+    await expect(page.locator(".section-nav-button", { hasText: "Conceptual Interviews" })).not.toHaveClass(
+      /active/
+    );
+    await expect
+      .poll(() =>
+        page.evaluate(() => (window as typeof window & { __himmpScrollCalls: ScrollToOptions[] }).__himmpScrollCalls)
+      )
+      .toHaveLength(1);
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const calls = (window as typeof window & { __himmpScrollCalls: ScrollToOptions[] }).__himmpScrollCalls;
+          return calls[0]?.top;
+        })
+      )
+      .toBeGreaterThan(0);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("contact form validates fields and submits through the legacy handler contract", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
 
@@ -192,6 +273,62 @@ test.describe("static export legacy route smoke", () => {
 
     await expect(page.locator("#status-message")).toContainText("Message received.");
     expect(submittedCsrfToken).toBe("test-csrf-token");
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("contact form reports unavailable CSRF token", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    await page.route("**/get-csrf-token.php", (route) =>
+      route.fulfill({
+        status: 500,
+        contentType: "text/plain",
+        body: "csrf unavailable"
+      })
+    );
+
+    await page.goto("/contact.html");
+
+    await expect(page.locator("#status-message")).toContainText("Security initialization failed.");
+    await page.locator("#name").fill("Test Sender");
+    await page.locator("#email").fill("sender@example.com");
+    await page.locator("#subject").fill("Migration check");
+    await page.locator("#message").fill("This verifies the CSRF failure state.");
+    await page.locator("#contact-form button[type='submit']").click();
+    await expect(page.locator("#status-message")).toContainText("Security token not available.");
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("contact form reports handler errors without resetting valid input", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    await page.route("**/get-csrf-token.php", (route) =>
+      route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ token: "test-csrf-token" })
+      })
+    );
+    await page.route("**/contact-handler.php", (route) =>
+      route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ success: false, message: "Submission blocked for test." })
+      })
+    );
+
+    await page.goto("/contact.html");
+    await page.locator("#name").fill("Test Sender");
+    await page.locator("#email").fill("sender@example.com");
+    await page.locator("#subject").fill("Migration check");
+    await page.locator("#message").fill("This verifies the handler failure state.");
+    await page.locator("#contact-form button[type='submit']").click();
+
+    await expect(page.locator("#status-message")).toContainText("Submission blocked for test.");
+    await expect(page.locator("#name")).toHaveValue("Test Sender");
+    await expect(page.locator("#email")).toHaveValue("sender@example.com");
+    await expect(page.locator("#subject")).toHaveValue("Migration check");
+    await expect(page.locator("#message")).toHaveValue("This verifies the handler failure state.");
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
   });

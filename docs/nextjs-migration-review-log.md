@@ -235,3 +235,35 @@ Codex verification:
 - `npm run parity:sitemap` passed for 27 generated legacy routes.
 - `npm run parity:content` passed for 27 generated HTML files.
 - `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+
+## Checkpoint 7: Remaining Legacy Interaction Coverage
+
+Scope reviewed:
+
+- Shared `.mix-comparison-player` behavior on findings pages.
+- `videos.html` section navigation.
+- Contact-form failure states.
+
+Resolution:
+
+- Added Playwright coverage for a findings-page mix comparison player, including active button changes, label updates, source switching, and playback-position restoration after the mocked media element reloads.
+- Added Playwright coverage for `videos.html` section navigation, including active button updates and the actual scroll target behavior.
+- Added Playwright coverage for the unavailable-CSRF state and handler-error state of the preserved legacy contact-form contract.
+- Expanded the handler-error assertion so valid `name`, `email`, `subject`, and `message` inputs must all remain intact after a failed submission.
+
+Claude review:
+
+- Claude warned that the original playback-position assertion was tautological because the mocked media reload never reset `currentTime`. The audio stub now resets `currentTime` before firing `loadedmetadata`, so the test exercises the legacy restoration behavior.
+- Claude warned that the initial video navigation test only checked active classes. The test now captures `window.scrollTo` calls and verifies the selected section receives a positive scroll target.
+- Claude warned that the CSRF-unavailable test did not guard unexpected network failures after page load. The test now uses the shared unexpected-response tracker and local-response settle helper.
+- Claude warned that the handler-error test only proved `name` was retained. It now verifies all user-entered fields.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- `npm run test:e2e` passed 35 Playwright tests.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
