@@ -163,6 +163,7 @@ npm run parity
 npm run parity:content
 npm run parity:text
 npm run parity:links
+npm run parity:sitemap
 npm run parity:visual
 npm run test:e2e
 ```

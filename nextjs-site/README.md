@@ -20,6 +20,7 @@ npm run parity
 npm run parity:content
 npm run parity:text
 npm run parity:links
+npm run parity:sitemap
 npm run parity:visual
 npm run test:e2e
 ```
@@ -36,6 +37,10 @@ screenshots with ImageMagick and writes artifacts to `.migration/visual-parity/`
 It hides the fixed header during main-content captures because the current source
 site has known case-sensitive logo-reference defects that are documented in the
 migration audit.
+
+`npm run sync:public` copies the legacy `sitemap.xml` and then patches the
+generated copy so it covers every generated legacy route. `npm run parity:sitemap`
+checks the exported sitemap after `npm run build`.
 
 ## Migration Rules
 

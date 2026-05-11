@@ -208,3 +208,30 @@ Codex verification:
 - `npm run parity` passed for 27 legacy HTML files.
 - `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
 - `npm run build:audio` was not run at this checkpoint because it intentionally copies the about-523 MB MP3 payload into the export artifact.
+
+## Checkpoint 6: Generated Sitemap Coverage
+
+Scope reviewed:
+
+- Generated `public/sitemap.xml` and exported `out/sitemap.xml`.
+- Route coverage for all `legacyRoutes` source files.
+
+Resolution:
+
+- Updated `sync-public-assets.mjs` so the generated public sitemap is patched after copying the legacy source sitemap.
+- Added the missing `findings/14-recommended-reading.html` URL to the generated sitemap without editing the source `sitemap.xml`.
+- Added `npm run parity:sitemap` to fail if the exported sitemap omits any generated legacy route.
+
+Claude review:
+
+- Claude warned that the appended sitemap `lastmod` value was hardcoded. The sync script now derives appended lastmod values from `git log` for the source HTML file, falling back to the latest existing sitemap lastmod.
+- Claude warned that the site origin was duplicated across scripts. Added `scripts/site-config.mjs` and imported the shared `siteOrigin`.
+- Claude warned that sitemap parity was one-directional. `npm run parity:sitemap` now also fails same-origin `.html` sitemap entries that do not correspond to a generated legacy route.
+
+Codex verification:
+
+- `npm run build` passed and added the missing generated sitemap URL.
+- `npm run typecheck` passed.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.

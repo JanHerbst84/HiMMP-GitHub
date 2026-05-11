@@ -57,6 +57,7 @@ The route/parity gates verify this contract:
 
 - `npm run parity` checks exported HTML file presence for all 27 baseline pages.
 - `npm run parity:links` checks local references against generated files, allowing only documented pending audio/PHP references.
+- `npm run parity:sitemap` checks that the exported sitemap covers every generated legacy route.
 - `npm run test:e2e` opens every generated legacy path in a browser.
 
 Do not convert canonical public URLs to extensionless routes during the fidelity phase. Extensionless routes can be considered only after switchover, with redirects and metadata changes handled as a separate SEO migration.
@@ -143,6 +144,7 @@ npm run parity
 npm run parity:content
 npm run parity:text
 npm run parity:links
+npm run parity:sitemap
 npm run parity:visual
 npm run test:e2e
 ```

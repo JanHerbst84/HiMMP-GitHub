@@ -15,6 +15,7 @@
     "parity": "node scripts/check-static-parity.mjs",
     "parity:content": "node scripts/check-content-parity.mjs",
     "parity:links": "node scripts/check-local-references.mjs",
+    "parity:sitemap": "node scripts/check-sitemap-parity.mjs",
     "parity:text": "node scripts/check-text-parity.mjs",
     "parity:visual": "node scripts/check-visual-parity.mjs",
     "sync:public": "node scripts/sync-public-assets.mjs",
