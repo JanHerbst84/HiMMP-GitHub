@@ -42,6 +42,23 @@ function neighborLinks(currentRoute: LegacyRoute) {
   };
 }
 
+function ChapterLabel({ label }: { label: string }) {
+  const numbered = label.match(/^(\d+)\.\s(.+)$/);
+
+  if (!numbered) {
+    return <span className="findings-reader-panel__nav-title">{label}</span>;
+  }
+
+  const [, num, title] = numbered;
+
+  return (
+    <>
+      <span className="findings-reader-panel__nav-num">{num}.</span>{" "}
+      <span className="findings-reader-panel__nav-title">{title}</span>
+    </>
+  );
+}
+
 function PagingLink({
   direction,
   link
@@ -88,7 +105,7 @@ export function EnhancedFindingsShell({ currentRoute, children }: EnhancedFindin
                   href={link.href}
                   aria-current={link.routePath === currentRoute.routePath ? "page" : undefined}
                 >
-                  {link.shortLabel}
+                  <ChapterLabel label={link.shortLabel} />
                 </a>
               </li>
             ))}
