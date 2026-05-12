@@ -55,8 +55,8 @@ Run from `nextjs-site/` on 2026-05-11:
 
 These items remain intentionally outside the local migration:
 
-- Audio deployment: `assets/audio` is about 523 MB and is excluded from default sync/build. Run `npm run build:audio` only after host storage and bandwidth limits are confirmed.
-- PHP contact workflow: the static export preserves the browser-side contract, but production must co-host `get-csrf-token.php`, `contact-handler.php`, `config.php`, and a non-public writable `contact_submissions/` directory, or explicitly replace the workflow.
+- Audio deployment: `assets/audio` is about 523 MB and is excluded from default sync/build. The host can carry the audio payload, so staging/production prep should use `npm run build:audio` and `npm run preflight:deploy:audio`.
+- PHP contact workflow: the static export preserves the browser-side contract. The first deployment should co-host `get-csrf-token.php`, `contact-handler.php`, `config.php`, and a non-public writable `contact_submissions/` directory, with `npm run smoke:contact:php` used against staging.
 - Host URL behavior: the production host must serve representative `.html` URLs directly, without redirecting them to extensionless routes.
 - Duplicate route handling: the current export also emits extensionless routes. Production must either avoid serving those publicly or define an explicit canonical/indexation strategy that keeps `.html` as the public URL surface.
 - Real integration checks: production preparation must exercise real MP3 delivery and the real PHP contact endpoints together with the exported static files.
@@ -67,4 +67,4 @@ These items remain intentionally outside the local migration:
 
 ## Decision Supported
 
-The local migration can be treated as ready for deployment preparation. The next decision is deployment architecture, specifically whether the production host will co-host the large audio payload and PHP contact workflow or whether those two surfaces will be replaced deliberately in a separate phase.
+The local migration can be treated as ready for deployment preparation. The current deployment architecture is static export plus hosted audio plus one co-hosted PHP contact endpoint surface. Replacement of the contact workflow should be treated as a later backend decision, not part of the first deployment.

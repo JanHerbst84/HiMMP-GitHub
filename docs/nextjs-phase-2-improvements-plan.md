@@ -113,9 +113,9 @@ Done when:
 
 ### 5. Contact Workflow Decision
 
-Goal: decide whether contact remains PHP co-hosted or moves to a new backend.
+Goal: keep contact co-hosted in PHP for the first deployment, while preserving a clear path to a later backend replacement if hosting constraints change.
 
-Recommended default for first deployment: keep PHP co-hosting.
+Current decision for first deployment: keep PHP co-hosting.
 
 Later replacement options:
 
@@ -131,7 +131,7 @@ Guardrails:
 Done when:
 
 - A staging form sends a real message or records a deliberate test submission.
-- PHP/session/mail/logging behavior is verified, or a replacement backend has equivalent tests.
+- PHP/session/mail/logging behavior is verified with `npm run smoke:contact:php` against staging, or a replacement backend has equivalent tests in a later phase.
 
 ### 6. SEO, Accessibility, And Analytics Cleanup
 

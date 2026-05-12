@@ -101,7 +101,7 @@ Accepted deployment options:
    - Lowest artifact size.
    - Not equivalent to the current interactive audio comparison experience unless the player can stream those URLs reliably.
 
-Default recommendation before deployment: use option 1 if the host can accept the storage and bandwidth load; otherwise treat option 2 as a deliberate follow-up task.
+Current deployment decision: use option 1. The host can accept the audio payload, so staging and production deployment prep should use `npm run build:audio` and `npm run preflight:deploy:audio`.
 
 ## Contact Strategy
 
@@ -130,7 +130,9 @@ Accepted deployment options:
 3. Replace the form with a mailto or third-party form service.
    - Not fidelity-equivalent and should be treated as a product decision, not a migration default.
 
-Default recommendation before deployment: co-host the existing PHP endpoints unless the deployment target explicitly supports and justifies a backend replacement.
+Current deployment decision: co-host the existing PHP endpoints for the first deployment. This keeps the migration scoped to the frontend and preserves same-origin, locally controlled contact-data handling.
+
+Revisit replacement only if PHP support becomes unreliable, writable private storage is not available, or the project deliberately moves to a fuller backend.
 
 ## Source Defect Policy
 
@@ -172,6 +174,13 @@ npm run parity:links
 `npm run build:audio` runs the full public-asset sync including audio immediately before `next build`, avoiding dependence on the default `prebuild` sync that intentionally excludes audio.
 
 If production will co-host PHP, verify the exported static site and PHP endpoints together with the actual server configuration. The local static-export test server cannot prove PHP execution.
+
+Run the staging smoke checks from `nextjs-site/`:
+
+```bash
+CONTACT_BASE_URL=https://HOSTNAME npm run smoke:contact:php
+CONTACT_BASE_URL=https://HOSTNAME npm run smoke:contact:php -- --submit
+```
 
 ## PHP Hosting Constraints
 

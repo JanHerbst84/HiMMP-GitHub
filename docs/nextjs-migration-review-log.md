@@ -599,3 +599,36 @@ Codex verification:
 - `npm run parity:sitemap` passed for 27 generated legacy routes.
 - `npm run parity:visual` passed for 24 main-content captures.
 - `git diff --check` passed.
+
+## Checkpoint 17: Contact Workflow Deployment Smoke Test
+
+Scope reviewed:
+
+- Deployment decision after confirming audio can be hosted.
+- First-deployment contact workflow choice.
+- Staging smoke coverage for the co-hosted PHP contact endpoint surface.
+
+Resolution:
+
+- Recorded the deployment architecture as static export plus hosted audio plus the existing PHP contact workflow as one intentional dynamic surface.
+- Added `npm run smoke:contact:php`.
+- Added `scripts/check-contact-php-smoke.mjs` to verify the deployed PHP contact surface against `CONTACT_BASE_URL`.
+- The default smoke run checks CSRF JSON, PHP session cookies, handler execution, CSRF rejection, and obvious exposure of `config.php` or `contact_submissions/`.
+- The optional `--submit` run verifies the real mail/logging path and refuses production `himmp.net` submissions unless `--allow-production-submit` is passed deliberately.
+- Updated deployment prep, deployment decisions, readiness, and phase-2 docs to treat contact replacement as a later backend decision rather than a first-deployment requirement.
+
+Claude review:
+
+- Claude recommended keeping PHP co-hosting for first deployment rather than replacing the contact workflow during the frontend migration.
+- Claude reviewed the initial smoke-test diff and found issues in subpath URL handling, cookie fallback parsing, overly strict `contact_submissions/` 200 handling, brittle message coupling, missing production-submit guard, rate-limit diagnostics, and doc wording.
+- These issues were fixed.
+- Claude re-reviewed the corrected diff and returned `No findings`.
+
+Codex verification:
+
+- `node --check scripts/check-contact-php-smoke.mjs` passed.
+- `npm run smoke:contact:php` exits with the expected usage error when no `CONTACT_BASE_URL` is supplied.
+- `npm run preflight:deploy` passed for 27 legacy routes.
+- `npm run typecheck` passed.
+- `git diff --check` passed.
+- Live PHP smoke execution was not run locally because PHP is not installed in this sandbox; it must be run against staging after deployment.

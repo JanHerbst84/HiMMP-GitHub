@@ -18,6 +18,7 @@
     "parity:sitemap": "node scripts/check-sitemap-parity.mjs",
     "parity:text": "node scripts/check-text-parity.mjs",
     "parity:visual": "node scripts/check-visual-parity.mjs",
+    "smoke:contact:php": "node scripts/check-contact-php-smoke.mjs",
     "preflight:deploy": "node scripts/check-deployment-preflight.mjs",
     "preflight:deploy:audio": "node scripts/check-deployment-preflight.mjs --require-audio",
     "sync:public": "node scripts/sync-public-assets.mjs",

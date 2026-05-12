@@ -23,11 +23,11 @@ npm run preflight:deploy
 npm audit --omit=dev
 ```
 
-The default artifact excludes `assets/audio`. This is intentional until host storage and bandwidth are confirmed.
+The default artifact excludes `assets/audio`. Keep this as the lightweight local verification path; staging and production should use the audio-inclusive artifact now that audio hosting is available.
 
 ## Audio-Inclusive Artifact
 
-Use only after confirming the host can carry the audio payload:
+The host can carry the audio payload. Use the audio-inclusive artifact for staging and production deployment checks:
 
 ```bash
 npm run build:audio
@@ -46,7 +46,7 @@ Latest local check, 2026-05-12:
 
 ## PHP Contact Co-Hosting
 
-If preserving the current contact workflow, deploy these PHP-side files intentionally alongside the static artifact:
+The first deployment should preserve the current contact workflow as one intentional PHP dynamic surface alongside the static export. Deploy these PHP-side files intentionally alongside the static artifact:
 
 - `get-csrf-token.php`
 - `contact-handler.php`
@@ -54,6 +54,30 @@ If preserving the current contact workflow, deploy these PHP-side files intentio
 - `contact_submissions/` as a non-public writable directory
 
 The static export tests only prove that the browser-side form contract is preserved. A staging server must prove real PHP execution, PHP sessions, server mail behavior, writable submission/rate-limit files, and non-public handling of `config.php` and `contact_submissions/`.
+
+Run the non-submitting PHP contact smoke test against staging after the files are deployed:
+
+```bash
+CONTACT_BASE_URL=https://HOSTNAME npm run smoke:contact:php
+```
+
+This checks CSRF JSON, PHP session cookies, handler execution, CSRF rejection, and exposure of sensitive PHP/contact-submission paths. It does not create a contact submission, but it will create normal server access/session activity.
+
+Then run the mutating smoke test once on staging to verify the real mail/logging path:
+
+```bash
+CONTACT_BASE_URL=https://HOSTNAME npm run smoke:contact:php -- --submit
+```
+
+If staging intentionally has mail disabled but should still prove filesystem logging, use this only as a staging exception:
+
+```bash
+CONTACT_BASE_URL=https://HOSTNAME npm run smoke:contact:php -- --submit --allow-mail-failure
+```
+
+The production cutover should not rely on `--allow-mail-failure`; the contact form is only fully verified when the handler returns the successful mail response.
+
+The script refuses `--submit` against `himmp.net` or `www.himmp.net` unless `--allow-production-submit` is passed deliberately.
 
 ## URL Checks On The Target Host
 
