@@ -34,10 +34,10 @@ The PHP files live outside the static document root. `config.php` and `contact_s
 - The first Hostinger staging candidate uses the audio-inclusive export.
 - PHP-FPM 8.3 is required for the contact workflow.
 - PHP-FPM was installed on the VPS on 2026-05-12 and is reached through `/run/php/php8.3-fpm.sock`.
-- Active release: `/var/www/himmp-site/releases/20260512-154123`.
+- Active release: `/var/www/himmp-site/releases/20260512-160459`.
 - DNS for `himmp.net` / `www.himmp.net` was moved to the VPS on 2026-05-12.
 - A Let's Encrypt certificate for `himmp.net` and `www.himmp.net` was issued on 2026-05-12 and is configured in the versioned Nginx file.
-- Mail transport is not yet configured on the VPS. PHP reports the default `sendmail_path` as `/usr/sbin/sendmail -t -i`, but `/usr/sbin/sendmail` is absent and the checked mail services were inactive on 2026-05-12. The PHP contact handler currently validates CSRF and writes submissions, but `mail()` does not return success until a mail transport or SMTP relay is configured.
+- Mail transport is not yet configured on the VPS. PHP reports the default `sendmail_path` as `/usr/sbin/sendmail -t -i`, but `/usr/sbin/sendmail` is absent and the checked mail services were inactive on 2026-05-12. The PHP contact handler currently validates CSRF and writes submissions. It supports authenticated SMTP through environment variables or an untracked `/var/www/himmp-site/php/config.local.php`; email delivery will remain log-only until SMTP credentials or a mail transport are configured.
 
 ## Verification
 
@@ -83,12 +83,47 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/findings/08-drums.html` includes legacy chapter `prev`/`next` links, canonical/OpenGraph markers, and JSON-LD scripts.
 - `https://himmp.net/sitemap.xml` is generated from the Next route inventory and includes git-backed `lastmod` values for all 27 generated routes.
 - `https://himmp.net/acknowledgements.html` includes canonical, `og:url`, `og:image`, Twitter image metadata, and `robots` with `max-image-preview:large`.
+- `https://himmp.net/audio.html` includes high-contrast producer switch buttons for the interactive mix comparison tool.
+- `https://himmp.net/contact-handler.php` and `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed after syncing the SMTP-capable PHP handler.
 - PHP mail transport check on the VPS found no usable `/usr/sbin/sendmail`; production contact submissions should still be treated as log-only until SMTP/MTA configuration is completed.
 
 ## Remaining Before Production Cutover
 
 - Configure a real mail transport or SMTP relay for PHP contact submissions.
 - Run `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow-production-submit` only after DNS, HTTPS, and mail are configured.
+
+## Contact Mail Setup
+
+Preferred production setup is an authenticated SMTP relay rather than a local unauthenticated MTA. Keep credentials out of git by creating `/var/www/himmp-site/php/config.local.php` on the VPS:
+
+```php
+<?php
+define('CONTACT_MAIL_TRANSPORT', 'smtp');
+define('CONTACT_SMTP_HOST', 'smtp.example.com');
+define('CONTACT_SMTP_PORT', 587);
+define('CONTACT_SMTP_SECURITY', 'tls'); // tls, ssl, or none
+define('CONTACT_SMTP_USERNAME', 'smtp-user');
+define('CONTACT_SMTP_PASSWORD', 'smtp-password');
+```
+
+Equivalent environment variables are also supported:
+
+```text
+HIMMP_MAIL_TRANSPORT=smtp
+HIMMP_SMTP_HOST=smtp.example.com
+HIMMP_SMTP_PORT=587
+HIMMP_SMTP_SECURITY=tls
+HIMMP_SMTP_USERNAME=smtp-user
+HIMMP_SMTP_PASSWORD=smtp-password
+```
+
+For PHP-FPM, shell exports are not enough by themselves. Add the `HIMMP_SMTP_*` values as `env[...]` entries in the active PHP-FPM pool or systemd service environment and reload PHP-FPM, or use `config.local.php` to avoid PHP-FPM environment passthrough issues.
+
+After configuring SMTP, run:
+
+```bash
+CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow-production-submit
+```
 
 ## Post-DNS TLS Plan
 

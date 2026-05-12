@@ -112,7 +112,7 @@ $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
 $email_message = generateEmailHTML($name, $email, $subject, $message);
 
 // Send email
-$mail_sent = mail($to, $email_subject, $email_message, $headers);
+$mail_sent = sendContactEmail($to, $email_subject, $email_message, $headers, $email);
 
 // Check if mail was sent
 if ($mail_sent) {
@@ -231,6 +231,228 @@ function logSubmission($name, $email, $subject, $message) {
     $log_content .= "\n=================================\n";
 
     return file_put_contents($filename, $log_content) !== false;
+}
+
+/**
+ * Sends contact email through the configured transport.
+ */
+function sendContactEmail($to, $subject, $htmlMessage, $phpMailHeaders, $replyTo) {
+    $transport = strtolower(CONTACT_MAIL_TRANSPORT);
+
+    if ($transport === 'log') {
+        return true;
+    }
+
+    if (($transport === 'smtp' || $transport === 'auto') && isSmtpConfigured()) {
+        $smtp_sent = sendSmtpMail(
+            $to,
+            $subject,
+            $htmlMessage,
+            generatePlainTextEmail($htmlMessage),
+            CONTACT_FROM_EMAIL,
+            CONTACT_FROM_NAME,
+            $replyTo
+        );
+
+        if ($smtp_sent || $transport === 'smtp') {
+            return $smtp_sent;
+        }
+    }
+
+    if ($transport === 'mail' || $transport === 'auto') {
+        return mail($to, $subject, $htmlMessage, $phpMailHeaders);
+    }
+
+    return false;
+}
+
+function isSmtpConfigured() {
+    return CONTACT_SMTP_HOST !== '' && CONTACT_SMTP_USERNAME !== '' && CONTACT_SMTP_PASSWORD !== '';
+}
+
+function generatePlainTextEmail($htmlMessage) {
+    return html_entity_decode(
+        trim(strip_tags(str_replace(['<br>', '<br/>', '<br />'], "\n", $htmlMessage))),
+        ENT_QUOTES,
+        'UTF-8'
+    );
+}
+
+function sendSmtpMail($to, $subject, $htmlMessage, $textMessage, $fromEmail, $fromName, $replyTo) {
+    try {
+        $client = smtpConnect();
+        $ehloResponse = smtpSendCommand($client, 'EHLO ' . smtpHostname(), [250]);
+
+        if (strtolower(CONTACT_SMTP_SECURITY) === 'tls') {
+            if (!smtpSupports($ehloResponse, 'STARTTLS')) {
+                throw new RuntimeException('SMTP server does not advertise STARTTLS.');
+            }
+            smtpSendCommand($client, 'STARTTLS', [220]);
+            if (!stream_socket_enable_crypto($client, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+                throw new RuntimeException('SMTP STARTTLS negotiation failed.');
+            }
+            $ehloResponse = smtpSendCommand($client, 'EHLO ' . smtpHostname(), [250]);
+        }
+
+        smtpAuthenticate($client, $ehloResponse);
+
+        smtpSendCommand($client, 'MAIL FROM:<' . sanitizeEmailAddress($fromEmail) . '>', [250]);
+        smtpSendCommand($client, 'RCPT TO:<' . sanitizeEmailAddress($to) . '>', [250, 251]);
+        smtpSendCommand($client, 'DATA', [354]);
+
+        fwrite($client, dotStuffSmtpMessage(buildSmtpMessage(
+            $to,
+            $subject,
+            $htmlMessage,
+            $textMessage,
+            $fromEmail,
+            $fromName,
+            $replyTo
+        )) . "\r\n.\r\n");
+        smtpReadResponse($client, [250]);
+        smtpSendCommand($client, 'QUIT', [221]);
+        fclose($client);
+
+        return true;
+    } catch (Throwable $error) {
+        error_log('HiMMP contact SMTP failed: ' . $error->getMessage());
+        if (isset($client) && is_resource($client)) {
+            @fwrite($client, "QUIT\r\n");
+            fclose($client);
+        }
+        return false;
+    }
+}
+
+function smtpConnect() {
+    $security = strtolower(CONTACT_SMTP_SECURITY);
+    $scheme = $security === 'ssl' ? 'ssl://' : 'tcp://';
+    $remote = $scheme . CONTACT_SMTP_HOST . ':' . CONTACT_SMTP_PORT;
+    $errno = 0;
+    $errstr = '';
+
+    $client = stream_socket_client(
+        $remote,
+        $errno,
+        $errstr,
+        CONTACT_SMTP_TIMEOUT,
+        STREAM_CLIENT_CONNECT
+    );
+
+    if (!$client) {
+        throw new RuntimeException("SMTP connection failed: $errstr ($errno)");
+    }
+
+    stream_set_timeout($client, CONTACT_SMTP_TIMEOUT);
+    smtpReadResponse($client, [220]);
+
+    return $client;
+}
+
+function smtpSendCommand($client, $command, $expectedCodes) {
+    fwrite($client, $command . "\r\n");
+    return smtpReadResponse($client, $expectedCodes);
+}
+
+function smtpReadResponse($client, $expectedCodes) {
+    $response = '';
+    $code = null;
+
+    while (($line = fgets($client, 1024)) !== false) {
+        $response .= $line;
+        if (preg_match('/^(\d{3})([\s-])/', $line, $matches)) {
+            $code = (int) $matches[1];
+            if ($matches[2] === ' ') {
+                break;
+            }
+        }
+    }
+
+    if ($code === null || !in_array($code, $expectedCodes, true)) {
+        throw new RuntimeException('Unexpected SMTP response: ' . trim($response));
+    }
+
+    return $response;
+}
+
+function smtpSupports($ehloResponse, $capability) {
+    return preg_match('/^250[\s-]' . preg_quote($capability, '/') . '\b/im', $ehloResponse) === 1;
+}
+
+function smtpAuthenticate($client, $ehloResponse) {
+    if (preg_match('/^250[\s-]AUTH\b.*\bLOGIN\b/im', $ehloResponse)) {
+        smtpSendCommand($client, 'AUTH LOGIN', [334]);
+        smtpSendCommand($client, base64_encode(CONTACT_SMTP_USERNAME), [334]);
+        smtpSendCommand($client, base64_encode(CONTACT_SMTP_PASSWORD), [235]);
+        return;
+    }
+
+    if (preg_match('/^250[\s-]AUTH\b.*\bPLAIN\b/im', $ehloResponse)) {
+        smtpSendCommand(
+            $client,
+            'AUTH PLAIN ' . base64_encode("\0" . CONTACT_SMTP_USERNAME . "\0" . CONTACT_SMTP_PASSWORD),
+            [235]
+        );
+        return;
+    }
+
+    throw new RuntimeException('SMTP server does not advertise AUTH LOGIN or AUTH PLAIN.');
+}
+
+function buildSmtpMessage($to, $subject, $htmlMessage, $textMessage, $fromEmail, $fromName, $replyTo) {
+    $boundary = 'himmp_' . bin2hex(random_bytes(12));
+    $safeSubject = str_replace(["\r", "\n"], '', $subject);
+    $safeReplyTo = sanitizeEmailAddress($replyTo);
+    $headers = [
+        'Date: ' . date(DATE_RFC2822),
+        'To: ' . sanitizeEmailAddress($to),
+        'From: ' . encodeHeader($fromName) . ' <' . sanitizeEmailAddress($fromEmail) . '>',
+        'Reply-To: ' . $safeReplyTo,
+        'Subject: ' . encodeHeader($safeSubject),
+        'MIME-Version: 1.0',
+        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
+        'X-Mailer: HiMMP PHP SMTP'
+    ];
+
+    return implode("\r\n", $headers) . "\r\n\r\n" .
+        '--' . $boundary . "\r\n" .
+        "Content-Type: text/plain; charset=UTF-8\r\n" .
+        "Content-Transfer-Encoding: 8bit\r\n\r\n" .
+        normalizeSmtpLineEndings($textMessage) . "\r\n\r\n" .
+        '--' . $boundary . "\r\n" .
+        "Content-Type: text/html; charset=UTF-8\r\n" .
+        "Content-Transfer-Encoding: 8bit\r\n\r\n" .
+        normalizeSmtpLineEndings($htmlMessage) . "\r\n\r\n" .
+        '--' . $boundary . '--';
+}
+
+function sanitizeEmailAddress($email) {
+    return str_replace(["\r", "\n", '<', '>'], '', $email);
+}
+
+function encodeHeader($value) {
+    $value = str_replace(["\r", "\n"], '', $value);
+
+    if (preg_match('/[^\x20-\x7E]/', $value)) {
+        return '=?UTF-8?B?' . base64_encode($value) . '?=';
+    }
+
+    return $value;
+}
+
+function normalizeSmtpLineEndings($value) {
+    return preg_replace("/\r\n|\r|\n/", "\r\n", $value);
+}
+
+function dotStuffSmtpMessage($message) {
+    return preg_replace('/^\./m', '..', $message);
+}
+
+function smtpHostname() {
+    $hostname = $_SERVER['SERVER_NAME'] ?? 'himmp.net';
+    $hostname = preg_replace('/[^A-Za-z0-9.-]/', '', $hostname);
+
+    return $hostname !== '' ? $hostname : 'himmp.net';
 }
 
 /**

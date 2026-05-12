@@ -265,6 +265,9 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator("#currently-playing")).toHaveText("Now Playing: HiMMP");
     await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator(".enhanced-audio-status")).toContainText("HiMMP");
+    await page.mouse.move(0, 0);
+    await expect(page.locator(".mix-btn", { hasText: "Bogren" })).toHaveCSS("color", "rgb(31, 41, 51)");
+    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveCSS("color", "rgb(255, 255, 255)");
 
     await comparisonPlayer.evaluate((element) => {
       let storedTime = 37;
