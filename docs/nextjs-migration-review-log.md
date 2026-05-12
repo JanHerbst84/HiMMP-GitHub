@@ -667,3 +667,46 @@ Codex verification:
 - `npm audit --omit=dev` found 0 vulnerabilities.
 - Final `npm run build:audio` passed.
 - Final `npm run preflight:deploy:audio` passed again, leaving `nextjs-site/out/` in audio-inclusive staging-candidate state.
+
+## Checkpoint 19: Hostinger Static/PHP Staging Setup
+
+Scope reviewed:
+
+- Hostinger VPS serving architecture for the main `himmp.net` website.
+- No-port Nginx static + PHP-FPM deployment path.
+- Pre-DNS Host-header verification on the VPS.
+
+Resolution:
+
+- Checked `~/.claude/vps-infrastructure.md` before VPS work.
+- Chose Nginx static serving plus PHP-FPM contact endpoints, not a port-based PM2/Docker/Node deployment.
+- Updated the VPS registry to record `himmp.net` / `www.himmp.net` as a no-port deployment and to keep `3017` as the next available TCP app port.
+- Installed PHP-FPM 8.3 on the VPS.
+- Synced the audio-inclusive export to `/var/www/himmp-site/releases/20260512-132320/out`.
+- Synced `get-csrf-token.php`, `contact-handler.php`, and `config.php` to `/var/www/himmp-site/php`.
+- Created writable PHP storage at `/var/www/himmp-site/php/contact_submissions`.
+- Enabled Nginx config from `deploy/hostinger/himmp.net.nginx`.
+- Tightened Nginx so extensionless routes return `404` instead of exposing duplicate directory-style URLs.
+
+Codex verification:
+
+- `nginx -t` passed on the VPS.
+- Nginx was reloaded successfully.
+- With `Host: himmp.net` against `127.0.0.1`, `/about.html`, `/publications.html`, and `/findings/08-drums.html` returned `200 OK`.
+- `/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
+- `/about` and `/findings/08-drums` returned `404 Not Found`.
+- `/config.php` and `/contact_submissions/` returned `404 Not Found`.
+- `/get-csrf-token.php` returned a token and PHP session cookie.
+- Invalid CSRF submission returned the expected JSON rejection.
+- Valid CSRF submission wrote a file under `contact_submissions`.
+- Mail transport is not configured yet: PHP `mail()` failed, and the handler returned the logged-but-not-sent response.
+- Claude reviewed the initial Hostinger Nginx config and caught that the extensionless-route regex was too broad for a future redeploy from the repo.
+- The regex was narrowed to no-dot paths only, PHP locations were given explicit method/body limits, and PHP/static-asset response headers were reasserted inside locations that define their own headers.
+- After applying the hardened config on the VPS, `.html` routes and MP3 assets still returned `200 OK`, extensionless routes returned `404 Not Found`, sensitive paths returned `404 Not Found`, and PHP CSRF/logging checks still behaved as expected.
+- Claude final narrow review of the corrected Hostinger deployment files returned `No findings`.
+
+Remaining before production cutover:
+
+- DNS for `himmp.net` and `www.himmp.net` must point to the VPS.
+- Certbot certificates must be issued after DNS points to the VPS.
+- Mail transport or SMTP relay must be configured for the PHP contact form.

@@ -1,0 +1,74 @@
+server {
+    listen 80;
+    server_name himmp.net www.himmp.net;
+
+    root /var/www/himmp-site/current/out;
+    index index.html;
+    charset utf-8;
+
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    location = /get-csrf-token.php {
+        limit_except GET {
+            deny all;
+        }
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/himmp-site/php/get-csrf-token.php;
+        fastcgi_param SCRIPT_NAME /get-csrf-token.php;
+        fastcgi_param DOCUMENT_ROOT /var/www/himmp-site/php;
+        # Nginx built-in: "on" for SSL requests, empty for HTTP.
+        fastcgi_param HTTPS $https if_not_empty;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    }
+
+    location = /contact-handler.php {
+        client_max_body_size 64k;
+        limit_except GET POST {
+            deny all;
+        }
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/himmp-site/php/contact-handler.php;
+        fastcgi_param SCRIPT_NAME /contact-handler.php;
+        fastcgi_param DOCUMENT_ROOT /var/www/himmp-site/php;
+        # Nginx built-in: "on" for SSL requests, empty for HTTP.
+        fastcgi_param HTTPS $https if_not_empty;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+    }
+
+    location = /config.php {
+        return 404;
+    }
+
+    location ^~ /contact_submissions/ {
+        return 404;
+    }
+
+    location ~ ^/[^.]+$ {
+        return 404;
+    }
+
+    location ~* \.(?:mp3|png|jpg|jpeg|webp|css|js|woff2?)$ {
+        try_files $uri =404;
+        expires 30d;
+        add_header Cache-Control "public";
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    }
+
+    location = / {
+        try_files /index.html =404;
+    }
+
+    location / {
+        try_files $uri =404;
+    }
+}
