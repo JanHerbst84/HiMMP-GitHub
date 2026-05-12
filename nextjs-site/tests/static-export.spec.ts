@@ -518,6 +518,48 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("video embeds load YouTube only after activation", async ({ page }) => {
+    const youtubeRequests: string[] = [];
+
+    await page.route("https://img.youtube.com/**", (route) =>
+      route.fulfill({
+        contentType: "image/png",
+        body: Buffer.from(
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMB/ax9Y3sAAAAASUVORK5CYII=",
+          "base64"
+        )
+      })
+    );
+    await page.route("https://www.youtube.com/embed/**", (route) => {
+      youtubeRequests.push(route.request().url());
+      return route.fulfill({
+        contentType: "text/html",
+        body: "<!doctype html><title>Stubbed YouTube embed</title>"
+      });
+    });
+
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/videos.html");
+
+    const frames = page.locator(".video-container iframe[data-lazy-youtube-src]");
+    const firstFrame = frames.first();
+    await expect(page.locator("[data-enhanced-video-controller='ready']")).toHaveCount(1);
+    await expect(frames).toHaveCount(22);
+    await expect(page.locator(".lazy-video-trigger")).toHaveCount(22);
+    await expect(firstFrame).toHaveAttribute("data-lazy-youtube-src", "https://www.youtube.com/embed/TkLQaOkAtlw");
+    await expect(firstFrame).not.toHaveAttribute("src", /youtube\.com/);
+    expect(youtubeRequests).toEqual([]);
+
+    await page.locator(".lazy-video-trigger").first().click();
+
+    await expect(firstFrame).toHaveAttribute("src", "https://www.youtube.com/embed/TkLQaOkAtlw");
+    await expect(page.locator(".lazy-video-trigger")).toHaveCount(21);
+    expect(youtubeRequests).toEqual(["https://www.youtube.com/embed/TkLQaOkAtlw"]);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("contact form validates fields and submits through the legacy handler contract", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
 

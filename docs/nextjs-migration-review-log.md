@@ -492,3 +492,39 @@ Codex verification:
 - `npm run test:e2e` passed 44 Playwright tests.
 - `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and inherited source-metadata warnings.
 - `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.
+
+## Checkpoint 14: Video Lazy-Embed Slice
+
+Scope reviewed:
+
+- `videos.html` enhanced video render mode.
+- Static export behavior for YouTube iframe URLs.
+- Typed lazy video controller and placeholder activation behavior.
+- Existing video section navigation behavior.
+- Visual/content parity around intentional video presentation changes.
+
+Resolution:
+
+- Added `enhanced-video` as a route render mode and enabled it only for `videos.html`.
+- Rewrote YouTube iframe `src` attributes to `data-lazy-youtube-src` during page rendering, preserving iframe elements, titles, visible text, and JSON-LD while preventing immediate YouTube embed loads.
+- Added `EnhancedVideoController`, which creates thumbnail/play placeholders after hydration and restores the original iframe `src` only when the user activates a video.
+- Kept the legacy inline video section-navigation script in place.
+- Updated visual parity normalization to hide lazy-video placeholders during main-content comparison.
+- Added Playwright coverage for all 22 lazy iframe URLs, zero YouTube embed requests before activation, and iframe `src` restoration after activation.
+
+Claude review:
+
+- Claude reviewed the uncommitted video lazy-embed slice and returned `No findings`.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- Targeted video checks passed: `npm run test:e2e -- --grep "video"` and `npm run test:e2e -- --grep "video embeds"`.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run test:e2e` passed 45 Playwright tests.
+- `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and inherited source-metadata warnings.
+- `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.

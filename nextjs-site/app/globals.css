@@ -242,6 +242,76 @@ a {
   color: #6d1f1f;
 }
 
+.lazy-video-container {
+  background: #171717;
+}
+
+.lazy-video-frame[data-lazy-state="pending"] {
+  visibility: hidden;
+}
+
+.lazy-video-trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  color: #fff;
+  background: #171717;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.lazy-video-trigger::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.36));
+}
+
+.lazy-video-trigger:focus-visible {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: -5px;
+}
+
+.lazy-video-trigger__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lazy-video-trigger__icon {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 64px;
+  height: 46px;
+  background: rgba(194, 34, 45, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+}
+
+.lazy-video-trigger__icon::before {
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  width: 0;
+  height: 0;
+  content: "";
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 18px solid #fff;
+  transform: translate(-45%, -50%);
+}
+
 @media (max-width: 980px) {
   .enhanced-findings-shell {
     display: block;

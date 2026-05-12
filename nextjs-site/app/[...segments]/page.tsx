@@ -6,6 +6,7 @@ import { LegacyScripts } from "@/src/site/components/LegacyScripts";
 import { LegacyStyles } from "@/src/site/components/LegacyStyles";
 import { EnhancedFindingsShell } from "@/src/site/components/EnhancedFindingsShell";
 import { EnhancedAudioController } from "@/src/site/components/EnhancedAudioController";
+import { EnhancedVideoController } from "@/src/site/components/EnhancedVideoController";
 import { notFound } from "next/navigation";
 
 type LegacyPageProps = {
@@ -23,6 +24,14 @@ function isLegacyAudioScript(script: { src: string | null; content: string }): b
 
 function usesEnhancedAudio(route: { renderMode?: string }): boolean {
   return route.renderMode === "enhanced-audio" || route.renderMode === "enhanced-findings";
+}
+
+function prepareEnhancedVideoHtml(mainHtml: string): string {
+  return mainHtml.replace(
+    /<iframe\b([^>]*?)\s+src="(https:\/\/www\.youtube\.com\/embed\/[^"]+)"([^>]*)><\/iframe>/gi,
+    (_match, beforeSrc: string, src: string, afterSrc: string) =>
+      `<iframe${beforeSrc} data-lazy-youtube-src="${src}"${afterSrc}></iframe>`
+  );
 }
 
 export function generateStaticParams() {
@@ -65,7 +74,11 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
     <>
       <LegacyStyles styles={content.headStyles} />
       <LegacyScripts scripts={content.jsonLdScripts} />
-      <div dangerouslySetInnerHTML={{ __html: content.mainHtml }} />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: route.renderMode === "enhanced-video" ? prepareEnhancedVideoHtml(content.mainHtml) : content.mainHtml
+        }}
+      />
     </>
   );
 
@@ -78,6 +91,7 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
           legacyContent
         )}
         {usesEnhancedAudio(route) ? <EnhancedAudioController /> : null}
+        {route.renderMode === "enhanced-video" ? <EnhancedVideoController /> : null}
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={bodyScripts} />

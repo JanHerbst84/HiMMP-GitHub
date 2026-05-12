@@ -2,7 +2,7 @@ export type LegacyRoute = {
   sourceFile: string;
   routePath: string;
   title: string;
-  renderMode?: "legacy" | "enhanced-findings" | "enhanced-audio";
+  renderMode?: "legacy" | "enhanced-findings" | "enhanced-audio" | "enhanced-video";
 };
 
 function enhancedFindingsRoute(route: Omit<LegacyRoute, "renderMode">): LegacyRoute {
@@ -24,7 +24,7 @@ export const legacyRoutes: LegacyRoute[] = [
     routePath: "/findings",
     title: "Heaviness in Metal Music Production: A Practical Guide"
   }),
-  { sourceFile: "videos.html", routePath: "/videos", title: "Videos" },
+  { sourceFile: "videos.html", routePath: "/videos", title: "Videos", renderMode: "enhanced-video" },
   { sourceFile: "audio.html", routePath: "/audio", title: "HiMMP Downloads & Resources", renderMode: "enhanced-audio" },
   { sourceFile: "faq.html", routePath: "/faq", title: "Frequently Asked Questions" },
   { sourceFile: "contact.html", routePath: "/contact", title: "Get in Touch" },

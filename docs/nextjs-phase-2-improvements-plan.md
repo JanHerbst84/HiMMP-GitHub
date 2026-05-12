@@ -208,6 +208,15 @@ This gives the project a visible improvement quickly while exercising the hardes
 - Kept findings chapter audio examples in the existing DOM structure, with the typed controller adding active button state, live status text, and playback-position preservation after hydration.
 - Strengthened browser coverage for findings chapter audio by checking controller hydration, legacy-script suppression, `aria-pressed`, status text, label updates, source switching, and current-time preservation.
 
+### 2026-05-12: Video Lazy-Embed Slice
+
+- Added an `enhanced-video` render mode for `videos.html`.
+- Rewrote YouTube iframe `src` attributes to `data-lazy-youtube-src` during static rendering so exported `videos.html` preserves all iframe elements, titles, and URLs without loading YouTube embeds immediately.
+- Added a typed client video controller that creates thumbnail/play placeholders and restores the original iframe `src` only after user activation.
+- Kept the existing video section navigation script and visible video titles unchanged.
+- Added browser coverage proving all 22 lazy video URLs remain present, no YouTube embed request happens before activation, and the selected iframe loads after click.
+- Updated visual parity normalization so intentional lazy-video placeholders do not affect legacy main-content comparison.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:
