@@ -116,6 +116,8 @@ async function preparePage(page) {
       #main-content audio,
       #main-content video { visibility: hidden !important; }
       #main-content .enhanced-audio-status { display: none !important; }
+      #main-content .audio-comparison,
+      #main-content .comparison-player-container { display: none !important; }
       #main-content .lazy-video-container { background: transparent !important; }
       #main-content .lazy-video-trigger { display: none !important; }
       .enhanced-findings-shell { display: block !important; background: transparent !important; }

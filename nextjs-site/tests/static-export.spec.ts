@@ -257,7 +257,9 @@ test.describe("static export legacy route smoke", () => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/audio.html");
 
-    await expect(page.locator("[data-enhanced-audio-controller='ready']")).toHaveCount(1);
+    // The dedicated <AudioComparison> React component owns the audio.html comparison
+    // player; the legacy DOM-bound EnhancedAudioController is no longer rendered here.
+    await expect(page.locator("[data-audio-comparison='react']")).toHaveCount(1);
     await expect(page.locator("script[src$='audio-player.js']")).toHaveCount(0);
 
     const comparisonPlayer = page.locator("#comparison-player");
@@ -266,8 +268,10 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator(".enhanced-audio-status")).toContainText("HiMMP");
     await page.mouse.move(0, 0);
-    await expect(page.locator(".mix-btn", { hasText: "Bogren" })).toHaveCSS("color", "rgb(31, 41, 51)");
-    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveCSS("color", "rgb(255, 255, 255)");
+    // Inactive mix buttons use --color-bone on a graphite surface.
+    await expect(page.locator(".mix-btn", { hasText: "Bogren" })).toHaveCSS("color", "rgb(242, 239, 232)");
+    // Active mix button uses --color-graphite text on a sulfur background.
+    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveCSS("color", "rgb(17, 20, 24)");
 
     await comparisonPlayer.evaluate((element) => {
       let storedTime = 37;
