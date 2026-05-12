@@ -42,13 +42,13 @@ for (const [source, target] of entries) {
   console.log(`Synced ${source} -> ${path.relative(process.cwd(), targetPath)}`);
 }
 
-ensureSitemapCoverage();
+generateSitemap();
 
 if (!includeAudio) {
   console.log("Audio was not copied. Run npm run sync:public:audio when host limits are confirmed.");
 }
 
-function ensureSitemapCoverage() {
+function generateSitemap() {
   const routesPath = path.resolve(process.cwd(), "src/site/routes.ts");
   const sitemapPath = path.join(publicRoot, "sitemap.xml");
 
@@ -58,20 +58,31 @@ function ensureSitemapCoverage() {
 
   const routesSource = readFileSync(routesPath, "utf8");
   const routeSourceFiles = [...routesSource.matchAll(/sourceFile:\s*"([^"]+\.html)"/g)].map((match) => match[1]);
-  let sitemap = readFileSync(sitemapPath, "utf8");
-  const existingLocs = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]));
-  const fallbackLastmod = latestExistingLastmod(sitemap);
-  const missingSourceFiles = routeSourceFiles.filter(
-    (sourceFile) => !existingLocs.has(`${siteOrigin}/${sourceFile}`)
+  const sourceSitemap = readFileSync(sitemapPath, "utf8");
+  assertSupportedSitemapSource(sourceSitemap);
+  const existingMetadata = sitemapMetadataBySourceFile(sourceSitemap);
+  const routeSourceFileSet = new Set(routeSourceFiles);
+  const unmanagedSourceFiles = [...existingMetadata.keys()].filter(
+    (sourceFile) => !routeSourceFileSet.has(sourceFile)
   );
+  const fallbackLastmod = latestExistingLastmod(sourceSitemap);
 
-  if (!missingSourceFiles.length) {
-    return;
+  if (unmanagedSourceFiles.length) {
+    throw new Error(
+      [
+        "Refusing to drop sitemap URLs that are not generated from src/site/routes.ts:",
+        ...unmanagedSourceFiles.map((sourceFile) => `- ${sourceFile}`)
+      ].join("\n")
+    );
   }
 
-  const insertion = missingSourceFiles
-    .map((sourceFile) => {
-      const { changefreq, priority } = sitemapDefaultsFor(sourceFile);
+  const sitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<!-- AI usage policy for all listed URLs: https://himmp.net/llms.txt -->',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...routeSourceFiles.map((sourceFile) => {
+      const preserved = existingMetadata.get(sourceFile);
+      const { changefreq, priority } = preserved ?? sitemapDefaultsFor(sourceFile);
 
       return [
         "  <url>",
@@ -81,15 +92,13 @@ function ensureSitemapCoverage() {
         `    <priority>${priority}</priority>`,
         "  </url>"
       ].join("\n");
-    })
-    .join("\n");
+    }),
+    "</urlset>",
+    ""
+  ].join("\n");
 
-  sitemap = sitemap.replace("</urlset>", `${insertion}\n</urlset>`);
   writeFileSync(sitemapPath, sitemap);
-
-  for (const sourceFile of missingSourceFiles) {
-    console.log(`Added missing sitemap URL for ${sourceFile}`);
-  }
+  console.log(`Generated sitemap.xml for ${routeSourceFiles.length} routes`);
 }
 
 function latestExistingLastmod(sitemap) {
@@ -98,6 +107,60 @@ function latestExistingLastmod(sitemap) {
     .sort();
 
   return lastmods.at(-1) ?? new Date().toISOString().slice(0, 10);
+}
+
+function assertSupportedSitemapSource(sitemap) {
+  const urlsetTag = sitemap.match(/<urlset\b([^>]*)>/i)?.[1] ?? "";
+  const extraNamespaces = [...urlsetTag.matchAll(/\sxmlns:([a-zA-Z][\w-]*)=/g)].map((match) => match[1]);
+
+  if (extraNamespaces.length) {
+    throw new Error(
+      `Refusing to regenerate sitemap with unsupported namespace(s): ${extraNamespaces.join(", ")}`
+    );
+  }
+
+  const allowedUrlChildTags = new Set(["loc", "lastmod", "changefreq", "priority"]);
+  const unsupportedTags = new Set();
+
+  for (const match of sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    for (const tag of match[1].matchAll(/<([a-zA-Z][\w:-]*)\b/g)) {
+      if (!allowedUrlChildTags.has(tag[1])) {
+        unsupportedTags.add(tag[1]);
+      }
+    }
+  }
+
+  if (unsupportedTags.size) {
+    throw new Error(
+      `Refusing to drop unsupported sitemap child tag(s): ${[...unsupportedTags].join(", ")}`
+    );
+  }
+}
+
+function sitemapMetadataBySourceFile(sitemap) {
+  const metadata = new Map();
+
+  for (const match of sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const block = match[1];
+    const loc = firstTagValue(block, "loc");
+
+    if (!loc?.startsWith(`${siteOrigin}/`)) {
+      continue;
+    }
+
+    const sourceFile = loc.slice(`${siteOrigin}/`.length);
+    metadata.set(sourceFile, {
+      changefreq: firstTagValue(block, "changefreq") ?? sitemapDefaultsFor(sourceFile).changefreq,
+      priority: firstTagValue(block, "priority") ?? sitemapDefaultsFor(sourceFile).priority
+    });
+  }
+
+  return metadata;
+}
+
+function firstTagValue(source, tagName) {
+  const match = source.match(new RegExp(`<${tagName}>([^<]+)</${tagName}>`));
+  return match ? match[1] : null;
 }
 
 function lastmodFor(sourceFile, fallbackLastmod) {

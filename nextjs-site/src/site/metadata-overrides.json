@@ -1,9 +1,14 @@
 {
+  "title": {},
+  "description": {},
   "canonical": {
     "acknowledgements.html": "https://himmp.net/acknowledgements.html",
     "findings/glossary.html": "https://himmp.net/findings/glossary.html"
   },
   "openGraphUrl": {
+    "acknowledgements.html": "https://himmp.net/acknowledgements.html",
     "index.html": "https://himmp.net/index.html"
-  }
+  },
+  "openGraphImage": {},
+  "twitterImage": {}
 }

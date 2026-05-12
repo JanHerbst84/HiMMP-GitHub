@@ -179,6 +179,7 @@ function extractHeadMeta(source: string): LegacyMeta[] {
 
     return (
       normalizedKey === "description" ||
+      normalizedKey === "robots" ||
       normalizedKey === "viewport" ||
       (attributeName === "property" && normalizedKey.startsWith("og:")) ||
       (attributeName === "name" && normalizedKey.startsWith("twitter:"))

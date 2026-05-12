@@ -34,7 +34,7 @@ The PHP files live outside the static document root. `config.php` and `contact_s
 - The first Hostinger staging candidate uses the audio-inclusive export.
 - PHP-FPM 8.3 is required for the contact workflow.
 - PHP-FPM was installed on the VPS on 2026-05-12 and is reached through `/run/php/php8.3-fpm.sock`.
-- Active release: `/var/www/himmp-site/releases/20260512-150221`.
+- Active release: `/var/www/himmp-site/releases/20260512-154123`.
 - DNS for `himmp.net` / `www.himmp.net` was moved to the VPS on 2026-05-12.
 - A Let's Encrypt certificate for `himmp.net` and `www.himmp.net` was issued on 2026-05-12 and is configured in the versioned Nginx file.
 - Mail transport is not yet configured on the VPS. PHP reports the default `sendmail_path` as `/usr/sbin/sendmail -t -i`, but `/usr/sbin/sendmail` is absent and the checked mail services were inactive on 2026-05-12. The PHP contact handler currently validates CSRF and writes submissions, but `mail()` does not return success until a mail transport or SMTP relay is configured.
@@ -81,6 +81,8 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/index.html` includes legacy `robots`, `keywords`, `geo.*`, preconnect, and DNS-prefetch head markers.
 - `https://himmp.net/publications.html` includes legacy citation and article timestamp metadata.
 - `https://himmp.net/findings/08-drums.html` includes legacy chapter `prev`/`next` links, canonical/OpenGraph markers, and JSON-LD scripts.
+- `https://himmp.net/sitemap.xml` is generated from the Next route inventory and includes git-backed `lastmod` values for all 27 generated routes.
+- `https://himmp.net/acknowledgements.html` includes canonical, `og:url`, `og:image`, Twitter image metadata, and `robots` with `max-image-preview:large`.
 - PHP mail transport check on the VPS found no usable `/usr/sbin/sendmail`; production contact submissions should still be treated as log-only until SMTP/MTA configuration is completed.
 
 ## Remaining Before Production Cutover

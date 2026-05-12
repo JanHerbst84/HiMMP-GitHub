@@ -49,6 +49,7 @@ function additionalSeoMarkers(html) {
 
     return (
       normalizedKey === "description" ||
+      normalizedKey === "robots" ||
       normalizedKey === "viewport" ||
       (attributeName === "property" && normalizedKey.startsWith("og:")) ||
       (attributeName === "name" && normalizedKey.startsWith("twitter:"))
@@ -94,6 +95,29 @@ function urlsEqual(left, right) {
   }
 
   return left?.replace(/\/$/, "") === right?.replace(/\/$/, "");
+}
+
+function metaContentBy(html, attributeName, key) {
+  const normalizedAttributeName = attributeName.toLowerCase();
+  const normalizedKey = key.toLowerCase();
+
+  for (const match of html.matchAll(/<meta\b([^>]*)>/gi)) {
+    const attrs = parseAttributes(match[1] ?? "");
+    if (attrs[normalizedAttributeName]?.toLowerCase() === normalizedKey) {
+      return attrs.content ?? null;
+    }
+  }
+
+  return null;
+}
+
+function metaDirectiveSet(value) {
+  return new Set(
+    (value ?? "")
+      .split(",")
+      .map((directive) => directive.trim().toLowerCase())
+      .filter(Boolean)
+  );
 }
 
 function walkFiles(directory) {
@@ -170,8 +194,25 @@ for (const sourceFile of routeSourceFiles) {
   const sourceOgUrl = firstAttr(sourceHtml, /<meta\s+property="og:url"\s+content="([^"]+)"/i);
   const canonical = firstAttr(html, /<link\s+rel="canonical"\s+href="([^"]+)"/i);
   const ogUrl = firstAttr(html, /<meta\s+property="og:url"\s+content="([^"]+)"/i);
+  const robots = metaContentBy(html, "name", "robots");
+  const ogImage = metaContentBy(html, "property", "og:image");
+  const robotsDirectives = metaDirectiveSet(robots);
   const expectedCanonical = metadataOverrides.canonical[sourceFile] ?? sourceCanonical;
-  const expectedOgUrl = metadataOverrides.openGraphUrl[sourceFile] ?? sourceOgUrl;
+  const expectedOgUrl = metadataOverrides.openGraphUrl[sourceFile] ?? sourceOgUrl ?? expectedCanonical;
+
+  if (
+    !robotsDirectives.has("index") ||
+    !robotsDirectives.has("follow") ||
+    !robotsDirectives.has("max-image-preview:large")
+  ) {
+    fail(
+      `${sourceFile}: robots meta is ${robots ?? "missing"}, expected index, follow, max-image-preview:large`
+    );
+  }
+
+  if (!ogImage) {
+    fail(`${sourceFile}: missing Open Graph image`);
+  }
 
   if (expectedCanonical && !urlsEqual(canonical, expectedCanonical)) {
     fail(`${sourceFile}: canonical is ${canonical ?? "missing"}, expected ${expectedCanonical}`);
