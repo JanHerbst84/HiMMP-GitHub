@@ -213,10 +213,25 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toContainText(
       '7. The "Meta-Instrument" Concept'
     );
-    await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toContainText(
+    await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toHaveAttribute(
+      "aria-label",
       "Previous: 6. The Hyperreal Approach"
     );
-    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toContainText("Next: 8. Drum Production");
+    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toHaveAttribute(
+      "aria-label",
+      "Next: 8. Drum Production"
+    );
+    await expect(page.locator(".findings-reader-bottombar a[rel='prev']")).toHaveAttribute(
+      "aria-label",
+      "Previous: 6. The Hyperreal Approach"
+    );
+    await expect(page.locator(".findings-reader-bottombar a[rel='next']")).toHaveAttribute(
+      "aria-label",
+      "Next: 8. Drum Production"
+    );
+    await expect(page.locator(".findings-reader-topbar a[rel='prev'] .findings-reader-paging__title")).toHaveText(
+      "6. The Hyperreal Approach"
+    );
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
@@ -229,9 +244,19 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
     await expect(page.locator("#main-content h1")).toContainText("Heaviness in Metal Music Production");
     await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toHaveText("Guide home");
-    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toContainText(
+    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toHaveAttribute(
+      "aria-label",
       "Next: 1. The Pursuit of Heaviness"
     );
+
+    const portraitWidths = await page
+      .locator("#main-content .author-bio .figure.portrait")
+      .evaluateAll((portraits) => portraits.map((portrait) => portrait.getBoundingClientRect().width));
+    expect(portraitWidths).toHaveLength(2);
+    for (const width of portraitWidths) {
+      expect(width).toBeGreaterThan(0);
+      expect(width).toBeLessThanOrEqual(220);
+    }
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
@@ -280,11 +305,14 @@ test.describe("static export legacy route smoke", () => {
       await page.goto(testCase.route);
 
       await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
-      await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toContainText(testCase.previous);
+      await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toHaveAttribute(
+        "aria-label",
+        testCase.previous
+      );
 
       const nextLink = page.locator(".findings-reader-topbar a[rel='next']");
       if (testCase.next) {
-        await expect(nextLink).toContainText(testCase.next);
+        await expect(nextLink).toHaveAttribute("aria-label", testCase.next);
       } else {
         await expect(nextLink).toHaveCount(0);
       }
@@ -317,6 +345,67 @@ test.describe("static export legacy route smoke", () => {
         expect(dimensions.mainWidth).toBeGreaterThan(0);
       }
     }
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced findings reader polish keeps the legacy content intact", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.setViewportSize({ width: 1440, height: 1200 });
+    await page.goto("/findings/07-meta-instrument.html");
+
+    await expect(page.locator("#main-content .chapter-section-nav")).toHaveCount(1);
+    await expect(page.locator("#main-content .chapter-section-nav")).toBeHidden();
+    await expect(page.locator("#main-content .chapter-nav")).toHaveCount(1);
+    await expect(page.locator("#main-content .chapter-nav")).toBeHidden();
+    await expect(page.locator("#main-content .chapter-content")).toContainText(
+      "One of the most significant insights to result from the research was the concept"
+    );
+    await expect(page.locator(".findings-reader-panel__status")).toHaveText("8 of 16");
+    await expect(page.getByRole("navigation", { name: "Chapter paging at start" })).toBeVisible();
+    await expect(page.getByRole("navigation", { name: "Chapter paging at end" })).toBeVisible();
+    await expect(page.locator(".findings-reader-bottombar")).toBeVisible();
+
+    const readerMetrics = await page.evaluate(() => {
+      const chapterContent = document.querySelector("#main-content .chapter-content")?.getBoundingClientRect();
+      const figure = document.querySelector("#main-content .figure")?.getBoundingClientRect();
+      const bottomBar = document.querySelector(".findings-reader-bottombar")?.getBoundingClientRect();
+
+      return {
+        chapterWidth: chapterContent?.width ?? 0,
+        figureWidth: figure?.width ?? 0,
+        bottomBarWidth: bottomBar?.width ?? 0
+      };
+    });
+
+    expect(readerMetrics.chapterWidth).toBeGreaterThan(0);
+    expect(readerMetrics.chapterWidth).toBeLessThanOrEqual(960);
+    expect(readerMetrics.figureWidth).toBeGreaterThan(0);
+    expect(readerMetrics.figureWidth).toBeLessThanOrEqual(860);
+    expect(readerMetrics.bottomBarWidth).toBeGreaterThan(0);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced findings media remains loaded in visual-check chapters", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/findings/09-guitars-bass.html");
+
+    const figure93 = page.locator("img[src='Figures/Fig9.3_Asymmetrical_Guitar.png']");
+    await expect(figure93).toHaveCount(1);
+    await figure93.scrollIntoViewIfNeeded();
+    await expect(figure93).toBeVisible();
+    await expect
+      .poll(() =>
+        figure93.evaluate((image) => ({
+          complete: (image as HTMLImageElement).complete,
+          naturalWidth: (image as HTMLImageElement).naturalWidth,
+          naturalHeight: (image as HTMLImageElement).naturalHeight
+        }))
+      )
+      .toEqual({ complete: true, naturalWidth: 2937, naturalHeight: 2644 });
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);

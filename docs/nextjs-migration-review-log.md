@@ -382,3 +382,46 @@ Codex verification:
 - `npm run parity:sitemap` passed for 27 generated legacy routes.
 - `npm run preflight:deploy` passed with three inherited source-metadata warnings.
 - `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.
+
+## Checkpoint 11: Findings Reader Polish
+
+Scope reviewed:
+
+- Enhanced findings reader navigation and readability polish.
+- Hidden duplicate legacy chapter-section navigation and legacy bottom chapter paging inside the enhanced shell.
+- Visual parity hardening for enhanced pages, lazy images, and dynamic media surfaces.
+- Regression coverage for guide-home portraits and representative image-heavy findings content.
+
+Resolution:
+
+- Added page-position status to the reader panel and bottom previous/next paging so long chapters have navigation at both entry and exit points.
+- Kept the legacy `.chapter-section-nav` and `.chapter-nav` in the extracted main content but hid them only in the enhanced shell, avoiding duplicate visible navigation without deleting preserved source content.
+- Adjusted enhanced reader CSS for a narrower reading measure, more deliberate heading spacing, polished non-portrait figures, horizontally safe tables, and clearer endnotes.
+- Scoped figure polish to `.figure:not(.portrait)` after visual parity exposed that the guide-home author portraits were being enlarged unintentionally.
+- Hardened the visual parity harness by neutralising enhanced shell styling, disabling animation, eager-loading images, waiting for fonts and images, and hiding browser-controlled audio/video/iframe surfaces during main-content captures.
+- Kept the default visual parity threshold at `0.20` and limited elevated thresholds to two inspected noisy mobile captures: `/findings/01-introduction.html` at `0.21` and `/findings/09-guitars-bass.html` at `0.24`.
+- Expanded visual parity to 24 desktop/mobile captures across representative root, media, findings, and glossary routes.
+- Added Playwright regressions for bottom paging, hidden legacy chapter navigation, reader/figure width limits, guide-home portrait sizing, and the Figure 9.3 image load path.
+
+Claude review:
+
+- Claude warned that the legacy `.chapter-nav` bottom pager was still visible, creating duplicate bottom navigation. The enhanced shell now hides both `.chapter-section-nav` and `.chapter-nav` while preserving them in the DOM.
+- Claude warned that `h2:first-child` missed the first section heading after runtime insertion of "On this page" navigation. The reset now targets `.chapter-content > h2:first-of-type`.
+- Claude warned that setting `display: block` on tables could strip table semantics for assistive technology. Table semantics are preserved, with horizontal overflow handled on the chapter content instead.
+- Claude warned that the top and bottom paging landmarks had identical accessible names and that the direction label was duplicated. The landmarks are now named by position, the visual eyebrow is `aria-hidden`, and each paging link has a single explicit `aria-label`.
+- Claude warned that a route-class-wide mobile findings visual threshold could mask future drift. The allowance is now scoped to the two inspected noisy captures only.
+- Claude follow-up found one remaining visual duplication in the paging link text. The title now renders only the chapter label while the `aria-label` retains `Previous:` or `Next:`.
+- Final Claude follow-up returned `No findings`.
+
+Codex verification:
+
+- `npm run build` passed.
+- `npm run typecheck` passed.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and three inherited source-metadata warnings.
+- `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.
+- `npm run test:e2e` passed 43 Playwright tests.

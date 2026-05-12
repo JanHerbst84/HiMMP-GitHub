@@ -182,6 +182,15 @@ This gives the project a visible improvement quickly while exercising the hardes
 - Added first/middle/final paging coverage for the chapter navigation.
 - Restored enhanced-shell-aware visual parity captures for representative findings pages while keeping all findings pages covered by text/content parity.
 
+### 2026-05-12: Reader Polish And Visual Guardrails
+
+- Added page-position status to the findings reader panel and duplicated previous/next paging at the end of each chapter.
+- Hid the duplicate legacy chapter-section strip and bottom chapter pager inside the enhanced shell while keeping them in the DOM for content preservation and parity checks.
+- Improved the enhanced reading measure, heading rhythm, non-portrait figure presentation, table overflow handling, and endnote separation.
+- Hardened visual parity for enhanced findings pages by neutralising the reader chrome, disabling animation, eager-loading images, and hiding dynamic media surfaces during main-content comparison.
+- Expanded visual parity coverage to 24 desktop/mobile captures across representative root, media, findings, and glossary routes.
+- Added regression coverage for guide-home author portraits, bottom paging, hidden legacy chapter navigation, reader width limits, and the Figure 9.3 image load path.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:
