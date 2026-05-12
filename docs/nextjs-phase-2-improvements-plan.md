@@ -1,0 +1,184 @@
+# HiMMP Next.js Phase 2 Improvements Plan
+
+Date: 2026-05-12
+
+Purpose: define the post-fidelity improvement phase for the Next.js / TypeScript site. Phase 1 proved that the existing site can be carried over without content loss. Phase 2 should improve the experience deliberately while keeping the migration baseline available as a guardrail.
+
+## Operating Principle
+
+Treat the migrated static site as the preservation baseline. Improvements may change layout, interaction, and presentation, but they must not silently change academic content, references, empirical claims, route semantics, or public metadata.
+
+For each improvement:
+
+- Record whether it is a presentation change, interaction change, content-structure change, or deployment change.
+- Keep full text/content parity checks available until a page is intentionally converted away from mechanical legacy extraction.
+- When a parity check is expected to fail because of an intentional redesign, replace it with a more specific regression check for the preserved content.
+- Use Claude review for high-risk UX/content boundary changes, especially audio, ebook/findings, metadata, and contact workflow changes.
+
+## Recommended Sequence
+
+### 1. Stabilise The Improvement Architecture
+
+Goal: prepare the Next app for deliberate React components without breaking legacy output.
+
+Tasks:
+
+- Add a clear split between legacy-rendered pages and redesigned React pages.
+- Add a route/page registry flag such as `renderMode: "legacy" | "enhanced"` if needed.
+- Keep the legacy source extraction available for comparison.
+- Add regression fixtures for text, references, JSON-LD, and local links on any page that becomes enhanced.
+
+Done when:
+
+- The app can host both legacy-extracted pages and enhanced React pages.
+- Existing gates still pass for pages not yet enhanced.
+
+### 2. Ebook / Findings Guide Redesign
+
+Goal: turn the findings guide into a better reading and learning experience while preserving all scholarly content.
+
+Recommended first target: the `findings/` chapter set, not `himmp-ebook/`, because the 15 findings pages are already in the 27-page parity baseline.
+
+Features:
+
+- Persistent chapter navigation with previous/next controls.
+- Reading progress and section outline.
+- Search within findings chapters.
+- Glossary-aware linking.
+- Better figure presentation with captions and mobile handling.
+- Embedded audio examples using the improved audio component.
+- Print-friendly chapter styling.
+- Optional ebook-style landing page that explains the guide structure without changing chapter prose.
+
+Guardrails:
+
+- Preserve chapter titles, body text, references, captions, figure paths, and audio example labels unless explicitly changed.
+- Do not merge `himmp-ebook/` into the public route tree until its role is confirmed.
+- Keep `.html` routes working.
+
+Done when:
+
+- Chapter navigation works on desktop and mobile.
+- Text/reference parity or chapter-specific content snapshots pass.
+- Keyboard navigation and screen-reader landmarks are checked.
+
+### 3. Audio Experience
+
+Goal: replace legacy audio scripts with a typed, reusable React audio-comparison system.
+
+Features:
+
+- Shared player for `audio.html` and findings chapters.
+- Better loading, error, and unavailable-audio states.
+- Stable playback-position preservation when switching mixes/stems.
+- Clear producer/stem grouping.
+- Mobile-friendly controls.
+- Optional waveform or timeline view if it can be generated without bloating the app.
+- Optional CDN/object-storage configuration for MP3 delivery.
+
+Guardrails:
+
+- Do not import MP3 files into JavaScript bundles.
+- Preserve existing audio source paths until a deliberate audio-hosting decision is made.
+- Keep `build:audio` and `preflight:deploy:audio` as the audio-inclusive artifact path.
+
+Done when:
+
+- Unit/component tests cover switching, labels, current-time preservation, error states, and grouped track selection.
+- Playwright tests cover at least one root audio player and one findings player.
+- A real audio staging check is performed before production deployment.
+
+### 4. Video Experience
+
+Goal: make the video archive easier to browse and lighter to load.
+
+Features:
+
+- Typed video data model extracted from the current embeds.
+- Lazy-loaded YouTube embeds with click-to-load placeholders.
+- Section filters for interviews, mixing sessions, reactions, and bonus material.
+- Better scan layout with producer/session metadata.
+- Optional transcript or summary fields only if source material exists.
+
+Guardrails:
+
+- Preserve existing embed URLs, titles, and section groupings until intentionally changed.
+- Do not invent transcripts, summaries, dates, or metadata.
+
+Done when:
+
+- Video section navigation and filtering are tested.
+- Initial page load avoids loading all YouTube iframes.
+- Existing video URLs remain reachable from the enhanced UI.
+
+### 5. Contact Workflow Decision
+
+Goal: decide whether contact remains PHP co-hosted or moves to a new backend.
+
+Recommended default for first deployment: keep PHP co-hosting.
+
+Later replacement options:
+
+- Small standalone backend endpoint with SMTP.
+- Serverless form endpoint with explicit CSRF/rate-limiting design.
+- Node/Next server deployment only if the site stops being pure static export.
+
+Guardrails:
+
+- Do not remove CSRF, rate limiting, validation, logging fallback, or privacy expectations.
+- Do not replace with `mailto:` as a fidelity-equivalent solution.
+
+Done when:
+
+- A staging form sends a real message or records a deliberate test submission.
+- PHP/session/mail/logging behavior is verified, or a replacement backend has equivalent tests.
+
+### 6. SEO, Accessibility, And Analytics Cleanup
+
+Goal: improve findability and accessibility after the main experience improvements are stable.
+
+Tasks:
+
+- Decide whether to add canonicals to source pages that currently lack them in generated output.
+- Decide how to handle homepage `og:url` versus `/index.html`.
+- Confirm `.html` URL behavior on the target host.
+- Verify Matomo requests on staging.
+- Run accessibility checks on enhanced pages.
+- Revisit the PostCSS override once Next directly depends on a fixed PostCSS release.
+
+Done when:
+
+- Metadata changes are explicit and documented.
+- Host URL checks pass.
+- Accessibility regressions are fixed or recorded.
+
+## Suggested Immediate Next Step
+
+Start with a small enhanced findings-guide slice:
+
+1. Convert only the findings hub and one representative chapter to an enhanced React rendering path.
+2. Keep the original legacy-rendered chapter available for comparison during development.
+3. Build the chapter shell, navigation, and content-preservation tests.
+4. Review with Claude before expanding to all findings chapters.
+
+This gives the project a visible improvement quickly while exercising the hardest content-preservation problem before touching all pages.
+
+## Verification Commands
+
+Run from `nextjs-site/` after each significant change:
+
+```bash
+npm run build
+npm run typecheck
+npm run parity
+npm run parity:content
+npm run parity:text
+npm run parity:links
+npm run parity:sitemap
+npm run preflight:deploy
+npm run test:e2e
+```
+
+Run `npm run parity:visual` for layout-affecting changes and before commits that alter enhanced page presentation.
+
+Run `npm run build:audio` and `npm run preflight:deploy:audio` only when preparing or testing an audio-inclusive artifact.
