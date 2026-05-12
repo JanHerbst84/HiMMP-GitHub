@@ -195,14 +195,22 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
-  test("findings chapter mix buttons use the shared audio-player behavior", async ({ page }) => {
+  test("findings chapter mix buttons use the enhanced audio controller", async ({ page }) => {
     await stubAudioLoading(page);
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/findings/07-meta-instrument.html");
 
+    await expect(page.locator("[data-enhanced-audio-controller='ready']")).toHaveCount(1);
+    await expect(page.locator("script[src$='audio-player.js']")).toHaveCount(0);
+
     const comparisonPlayer = page.locator(".mix-comparison-player").first();
     const audio = comparisonPlayer.locator("audio");
     await expect(comparisonPlayer.locator(".current-mix-name")).toHaveText("HiMMP Team");
+    await expect(comparisonPlayer.locator(".mix-button", { hasText: "HiMMP" })).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    await expect(comparisonPlayer.locator(".enhanced-audio-status")).toContainText("HiMMP Team");
 
     await audio.evaluate((element) => {
       let storedTime = 42;
@@ -223,10 +231,16 @@ test.describe("static export legacy route smoke", () => {
     await oteroButton.click();
 
     await expect(oteroButton).toHaveClass(/active/);
+    await expect(oteroButton).toHaveAttribute("aria-pressed", "true");
     await expect(comparisonPlayer.locator(".mix-button", { hasText: "HiMMP" })).not.toHaveClass(/active/);
+    await expect(comparisonPlayer.locator(".mix-button", { hasText: "HiMMP" })).toHaveAttribute(
+      "aria-pressed",
+      "false"
+    );
     await expect(comparisonPlayer.locator(".current-mix-name")).toHaveText("Dave Otero");
     await expect(audio).toHaveAttribute("src", "../assets/audio/Otero.mp3");
     await expect.poll(() => audio.evaluate((element) => (element as HTMLAudioElement).currentTime)).toBe(42);
+    await expect(comparisonPlayer.locator(".enhanced-audio-status")).toContainText("Dave Otero");
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);

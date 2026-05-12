@@ -459,3 +459,36 @@ Codex verification:
 - `npm run parity:sitemap` passed for 27 generated legacy routes.
 - `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and inherited source-metadata warnings.
 - `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.
+
+## Checkpoint 13: Findings Audio Controller Expansion
+
+Scope reviewed:
+
+- Enhanced findings routes that contain `.mix-comparison-player` audio examples.
+- Shared enhanced audio controller behavior outside `audio.html`.
+- Script filtering for legacy `assets/js/audio-player.js` on enhanced findings pages.
+- Regression coverage for findings chapter audio state.
+
+Resolution:
+
+- Mounted `EnhancedAudioController` on `enhanced-findings` routes as well as `enhanced-audio`.
+- Suppressed the legacy `audio-player.js` script on enhanced findings routes while leaving the preserved chapter audio markup in place.
+- Kept all existing findings audio `data-src` paths and producer labels unchanged.
+- Expanded Playwright coverage for findings audio to assert controller hydration, legacy-script suppression, active button `aria-pressed`, live status text, source switching, label updates, and current-time preservation.
+
+Claude review:
+
+- Claude reviewed the uncommitted findings audio expansion and returned `No findings`.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- Targeted Playwright audio checks passed: `npm run test:e2e -- --grep "audio controller|findings chapter mix"`.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run test:e2e` passed 44 Playwright tests.
+- `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and inherited source-metadata warnings.
+- `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.

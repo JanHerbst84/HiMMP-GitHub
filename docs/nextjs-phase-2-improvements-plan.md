@@ -201,6 +201,13 @@ This gives the project a visible improvement quickly while exercising the hardes
 - Added browser coverage for script suppression, mix switching, `aria-pressed`, current-time preservation, and unavailable-audio reporting.
 - Updated visual parity normalization so intentional runtime audio status does not mask content/layout comparison.
 
+### 2026-05-12: Findings Audio Controller Expansion
+
+- Mounted the enhanced audio controller on enhanced findings routes as well as `audio.html`.
+- Suppressed the legacy `assets/js/audio-player.js` script on enhanced findings routes while preserving all chapter audio markup and source paths.
+- Kept findings chapter audio examples in the existing DOM structure, with the typed controller adding active button state, live status text, and playback-position preservation after hydration.
+- Strengthened browser coverage for findings chapter audio by checking controller hydration, legacy-script suppression, `aria-pressed`, status text, label updates, source switching, and current-time preservation.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:

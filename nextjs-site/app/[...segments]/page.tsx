@@ -21,6 +21,10 @@ function isLegacyAudioScript(script: { src: string | null; content: string }): b
   );
 }
 
+function usesEnhancedAudio(route: { renderMode?: string }): boolean {
+  return route.renderMode === "enhanced-audio" || route.renderMode === "enhanced-findings";
+}
+
 export function generateStaticParams() {
   return legacyRoutes
     .filter((route) => route.routePath !== "/")
@@ -54,7 +58,7 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
 
   const content = getLegacyPageContent(route.sourceFile);
   const bodyScripts =
-    route.renderMode === "enhanced-audio"
+    usesEnhancedAudio(route)
       ? content.bodyScripts.filter((script) => !isLegacyAudioScript(script))
       : content.bodyScripts;
   const legacyContent = (
@@ -73,7 +77,7 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
         ) : (
           legacyContent
         )}
-        {route.renderMode === "enhanced-audio" ? <EnhancedAudioController /> : null}
+        {usesEnhancedAudio(route) ? <EnhancedAudioController /> : null}
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={bodyScripts} />
