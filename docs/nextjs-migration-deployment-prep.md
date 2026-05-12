@@ -37,6 +37,13 @@ npm run parity:links
 
 `build:audio` copies the source MP3 payload into `out/assets/audio` immediately before the static export. The default `npm run build` will continue to omit audio.
 
+Latest local check, 2026-05-12:
+
+- `npm run build:audio` completed successfully.
+- `npm run preflight:deploy:audio` passed with 45 MP3 files in the export, about 499 MB.
+- A subsequent default `npm run build` removed generated audio from `public/assets/audio` and `out/assets/audio`.
+- `npm run preflight:deploy` then passed again with `Audio in export: not included`.
+
 ## PHP Contact Co-Hosting
 
 If preserving the current contact workflow, deploy these PHP-side files intentionally alongside the static artifact:

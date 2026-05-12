@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { siteOrigin } from "./site-config.mjs";
 
@@ -23,6 +23,10 @@ if (includeAudio) {
 }
 
 mkdirSync(publicRoot, { recursive: true });
+
+if (!includeAudio) {
+  rmSync(path.join(publicRoot, "assets/audio"), { recursive: true, force: true });
+}
 
 for (const [source, target] of entries) {
   const sourcePath = path.join(repoRoot, source);

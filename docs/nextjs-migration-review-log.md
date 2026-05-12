@@ -528,3 +528,31 @@ Codex verification:
 - `npm run test:e2e` passed 45 Playwright tests.
 - `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and inherited source-metadata warnings.
 - `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.
+
+## Checkpoint 15: Audio-Inclusive Artifact Check
+
+Scope reviewed:
+
+- Audio-inclusive static export path.
+- Default non-audio static export path after an audio build has been run.
+- Deployment preflight behavior for both artifact modes.
+
+Resolution:
+
+- Ran `npm run build:audio` and verified that the export can include the MP3 payload.
+- Ran `npm run preflight:deploy:audio`; it passed with 45 MP3 files in the export, about 499 MB.
+- Tightened `sync-public-assets.mjs` so default `npm run build` removes generated `public/assets/audio` before building.
+- Verified that a subsequent default `npm run build` removes generated audio from both `public/assets/audio` and `out/assets/audio`.
+
+Claude review:
+
+- Claude reviewed the uncommitted audio artifact cleanup and returned `No findings`.
+- Claude confirmed that the cleanup targets the generated `nextjs-site/public/assets/audio` mirror, not source `assets/audio`.
+
+Codex verification:
+
+- `npm run build:audio` passed.
+- `npm run preflight:deploy:audio` passed with 45 MP3 files, about 499 MB.
+- `npm run build` passed after the audio-inclusive build.
+- `npm run preflight:deploy` passed after the cleanup, with `Audio in export: not included`.
+- `npm run typecheck` passed.
