@@ -34,10 +34,10 @@ The PHP files live outside the static document root. `config.php` and `contact_s
 - The first Hostinger staging candidate uses the audio-inclusive export.
 - PHP-FPM 8.3 is required for the contact workflow.
 - PHP-FPM was installed on the VPS on 2026-05-12 and is reached through `/run/php/php8.3-fpm.sock`.
-- Active release: `/var/www/himmp-site/releases/20260512-132320`.
+- Active release: `/var/www/himmp-site/releases/20260512-144450`.
 - DNS for `himmp.net` / `www.himmp.net` was moved to the VPS on 2026-05-12.
 - A Let's Encrypt certificate for `himmp.net` and `www.himmp.net` was issued on 2026-05-12 and is configured in the versioned Nginx file.
-- Mail transport is not yet configured on the VPS. The PHP contact handler currently validates CSRF and writes submissions, but `mail()` does not return success until a mail transport or SMTP relay is configured.
+- Mail transport is not yet configured on the VPS. PHP reports the default `sendmail_path` as `/usr/sbin/sendmail -t -i`, but `/usr/sbin/sendmail` is absent and the checked mail services were inactive on 2026-05-12. The PHP contact handler currently validates CSRF and writes submissions, but `mail()` does not return success until a mail transport or SMTP relay is configured.
 
 ## Verification
 
@@ -77,6 +77,8 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/config.php` returned `404 Not Found`.
 - `https://himmp.net/contact_submissions/` returned `404 Not Found`.
 - `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed.
+- `https://himmp.net/contact.html` includes the contact-list marker reset that disables native list bullets and keeps only the page's custom bullet.
+- PHP mail transport check on the VPS found no usable `/usr/sbin/sendmail`; production contact submissions should still be treated as log-only until SMTP/MTA configuration is completed.
 
 ## Remaining Before Production Cutover
 

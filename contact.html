@@ -170,19 +170,24 @@
             padding-bottom: 10px;
         }
         
-        .contact-list {
-            list-style-type: none;
+        .content-section .contact-list {
+            list-style: none;
             padding-left: 0;
+            margin-left: 0;
             margin-bottom: 0;
         }
         
-        .contact-list li {
-            padding: 8px 0;
+        .content-section .contact-list li {
+            list-style: none;
+            padding: 8px 0 8px 25px;
             position: relative;
-            padding-left: 25px;
         }
         
-        .contact-list li:before {
+        .content-section .contact-list li::marker {
+            content: "";
+        }
+
+        .content-section .contact-list li:before {
             content: "•";
             position: absolute;
             left: 0;
