@@ -25,14 +25,27 @@ npm audit --omit=dev
 
 The default artifact excludes `assets/audio`. Keep this as the lightweight local verification path; staging and production should use the audio-inclusive artifact now that audio hosting is available.
 
+Because `npm run test:e2e` invokes the default non-audio build, rerun `npm run build:audio` and `npm run preflight:deploy:audio` after e2e before packaging or syncing the staging artifact.
+
 ## Audio-Inclusive Artifact
 
 The host can carry the audio payload. Use the audio-inclusive artifact for staging and production deployment checks:
 
+For a final staging candidate, run the full gate, then rebuild the final audio-inclusive artifact:
+
 ```bash
 npm run build:audio
-npm run preflight:deploy:audio
+npm run typecheck
+npm run parity
+npm run parity:content
+npm run parity:text
 npm run parity:links
+npm run parity:sitemap
+npm run parity:visual
+npm run test:e2e
+npm audit --omit=dev
+npm run build:audio
+npm run preflight:deploy:audio
 ```
 
 `build:audio` copies the source MP3 payload into `out/assets/audio` immediately before the static export. The default `npm run build` will continue to omit audio.
@@ -43,6 +56,7 @@ Latest local check, 2026-05-12:
 - `npm run preflight:deploy:audio` passed with 45 MP3 files in the export, about 499 MB.
 - A subsequent default `npm run build` removed generated audio from `public/assets/audio` and `out/assets/audio`.
 - `npm run preflight:deploy` then passed again with `Audio in export: not included`.
+- Checkpoint 18 reran the full staging gate and then reran `npm run build:audio` plus `npm run preflight:deploy:audio`, leaving `nextjs-site/out/` in the audio-inclusive staging-candidate state.
 
 ## PHP Contact Co-Hosting
 

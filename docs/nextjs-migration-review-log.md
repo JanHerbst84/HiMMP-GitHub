@@ -636,3 +636,34 @@ Codex verification:
 - `npm run typecheck` passed.
 - `git diff --check` passed.
 - Staging still must run the smoke test without `--allow-mail-failure` to prove the real production-like mail path.
+
+## Checkpoint 18: Audio-Inclusive Staging Candidate
+
+Scope reviewed:
+
+- Local staging-candidate build with hosted audio included.
+- Full parity and browser gate before staging handoff.
+- Final `out/` artifact state after tests.
+
+Resolution:
+
+- Ran the audio-inclusive build now that audio hosting is available.
+- Confirmed `out/` can carry the full audio payload: 45 MP3 files, about 499 MB of audio and about 554 MB total export size.
+- Documented that `npm run test:e2e` runs the default non-audio build first, so `npm run build:audio` and `npm run preflight:deploy:audio` must be rerun after e2e before packaging or syncing a staging artifact.
+- Rebuilt the final local `out/` directory with audio after the e2e run.
+
+Codex verification:
+
+- `npm run build:audio` passed.
+- `npm run preflight:deploy:audio` passed for 27 legacy routes with 45 MP3 files.
+- `npm run parity:links` passed.
+- `npm run typecheck` passed.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run test:e2e` passed 51 Playwright tests.
+- `npm run parity:visual` passed for 24 main-content captures.
+- `npm audit --omit=dev` found 0 vulnerabilities.
+- Final `npm run build:audio` passed.
+- Final `npm run preflight:deploy:audio` passed again, leaving `nextjs-site/out/` in audio-inclusive staging-candidate state.
