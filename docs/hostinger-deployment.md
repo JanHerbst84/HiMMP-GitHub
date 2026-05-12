@@ -37,7 +37,7 @@ The PHP files live outside the static document root. `config.php` and `contact_s
 - Active release: `/var/www/himmp-site/releases/20260512-160459`.
 - DNS for `himmp.net` / `www.himmp.net` was moved to the VPS on 2026-05-12.
 - A Let's Encrypt certificate for `himmp.net` and `www.himmp.net` was issued on 2026-05-12 and is configured in the versioned Nginx file.
-- Mail transport is not yet configured on the VPS. PHP reports the default `sendmail_path` as `/usr/sbin/sendmail -t -i`, but `/usr/sbin/sendmail` is absent and the checked mail services were inactive on 2026-05-12. The PHP contact handler currently validates CSRF and writes submissions. It supports authenticated SMTP through environment variables or an untracked `/var/www/himmp-site/php/config.local.php`; email delivery will remain log-only until SMTP credentials or a mail transport are configured.
+- Mail transport uses authenticated Brevo SMTP configured in untracked `/var/www/himmp-site/php/config.local.php`. The file is owned by `root:www-data` with mode `640` so PHP-FPM can read it while keeping credentials out of git. PHP reports the default `sendmail_path` as `/usr/sbin/sendmail -t -i`, but `/usr/sbin/sendmail` is absent and the checked local mail services were inactive on 2026-05-12; keep the SMTP relay as the production path unless this is deliberately changed.
 
 ## Verification
 
@@ -66,7 +66,7 @@ Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 - `/contact_submissions/` returned `404 Not Found`.
 - `/get-csrf-token.php` returned JSON with a CSRF token and set a PHP session cookie.
 - Invalid CSRF submission returned the expected JSON rejection.
-- Valid CSRF submission wrote to `/var/www/himmp-site/php/contact_submissions`; mail failed because no mail transport is configured.
+- Valid CSRF submission wrote to `/var/www/himmp-site/php/contact_submissions`; mail initially failed before SMTP relay configuration.
 
 Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding the 443 Nginx server block:
 
@@ -85,16 +85,17 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/acknowledgements.html` includes canonical, `og:url`, `og:image`, Twitter image metadata, and `robots` with `max-image-preview:large`.
 - `https://himmp.net/audio.html` includes high-contrast producer switch buttons for the interactive mix comparison tool.
 - `https://himmp.net/contact-handler.php` and `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed after syncing the SMTP-capable PHP handler.
-- PHP mail transport check on the VPS found no usable `/usr/sbin/sendmail`; production contact submissions should still be treated as log-only until SMTP/MTA configuration is completed.
+- `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow-production-submit` passed after adding the private Brevo SMTP config.
+- PHP local mail transport check on the VPS found no usable `/usr/sbin/sendmail`; production contact submissions use the configured SMTP relay instead.
 
 ## Remaining Before Production Cutover
 
-- Configure a real mail transport or SMTP relay for PHP contact submissions.
-- Run `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow-production-submit` only after DNS, HTTPS, and mail are configured.
+- Ask the recipient to confirm that the production smoke-test email arrived.
+- Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
 
 ## Contact Mail Setup
 
-Preferred production setup is an authenticated SMTP relay rather than a local unauthenticated MTA. Keep credentials out of git by creating `/var/www/himmp-site/php/config.local.php` on the VPS:
+Preferred production setup is an authenticated SMTP relay rather than a local unauthenticated MTA. Credentials currently live outside git in `/var/www/himmp-site/php/config.local.php` on the VPS:
 
 ```php
 <?php
