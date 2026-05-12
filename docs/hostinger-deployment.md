@@ -35,8 +35,8 @@ The PHP files live outside the static document root. `config.php` and `contact_s
 - PHP-FPM 8.3 is required for the contact workflow.
 - PHP-FPM was installed on the VPS on 2026-05-12 and is reached through `/run/php/php8.3-fpm.sock`.
 - Active release: `/var/www/himmp-site/releases/20260512-132320`.
-- DNS for `himmp.net` / `www.himmp.net` must point to the VPS before a public Certbot certificate can be issued.
-- Before DNS cutover, the site can be checked with a Host header against the VPS IP.
+- DNS for `himmp.net` / `www.himmp.net` was moved to the VPS on 2026-05-12.
+- A Let's Encrypt certificate for `himmp.net` and `www.himmp.net` was issued on 2026-05-12 and is configured in the versioned Nginx file.
 - Mail transport is not yet configured on the VPS. The PHP contact handler currently validates CSRF and writes submissions, but `mail()` does not return success until a mail transport or SMTP relay is configured.
 
 ## Verification
@@ -68,19 +68,23 @@ Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 - Invalid CSRF submission returned the expected JSON rejection.
 - Valid CSRF submission wrote to `/var/www/himmp-site/php/contact_submissions`; mail failed because no mail transport is configured.
 
+Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding the 443 Nginx server block:
+
+- `https://himmp.net/about.html` returned `200 OK`.
+- `https://www.himmp.net/about.html` returned `200 OK`.
+- `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
+- `https://himmp.net/about` returned `404 Not Found`.
+- `https://himmp.net/config.php` returned `404 Not Found`.
+- `https://himmp.net/contact_submissions/` returned `404 Not Found`.
+- `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed.
+
 ## Remaining Before Production Cutover
 
-- Point DNS for `himmp.net` and `www.himmp.net` at `5.182.18.217`.
-- Issue and enable Certbot certificates for `himmp.net` and `www.himmp.net`.
 - Configure a real mail transport or SMTP relay for PHP contact submissions.
 - Run `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow-production-submit` only after DNS, HTTPS, and mail are configured.
 
 ## Post-DNS TLS Plan
 
-After DNS points to the VPS:
-
-- Run Certbot for `himmp.net` and `www.himmp.net`.
-- Review the Certbot-edited Nginx config before accepting production cutover.
 - Ensure HTTP redirects to HTTPS.
 - Keep the `.html` URL policy under HTTPS: representative `.html` routes return `200`, extensionless routes return `404` or an explicitly documented canonical strategy.
 - Recheck PHP contact endpoints over HTTPS so PHP receives the expected HTTPS request context.

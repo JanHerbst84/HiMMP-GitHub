@@ -710,3 +710,32 @@ Remaining before production cutover:
 - DNS for `himmp.net` and `www.himmp.net` must point to the VPS.
 - Certbot certificates must be issued after DNS points to the VPS.
 - Mail transport or SMTP relay must be configured for the PHP contact form.
+
+## Checkpoint 20: Live HTTPS Cutover Fix
+
+Scope reviewed:
+
+- Live `himmp.net` behaviour after Cloudflare DNS was changed from Krystal to Hostinger.
+- Missing HTTPS server block on the Hostinger origin.
+- Live route, audio, sensitive-path, and contact smoke behaviour over HTTPS.
+
+Resolution:
+
+- Confirmed DNS had moved into Cloudflare and `himmp.net` pointed to the Hostinger VPS.
+- Diagnosed the wrong-site symptom as HTTPS traffic landing on an unrelated existing Nginx 443 server block because the new `himmp.net` config only served port 80.
+- Issued a Let's Encrypt certificate for `himmp.net` and `www.himmp.net`.
+- Updated `deploy/hostinger/himmp.net.nginx` with an explicit 443 SSL server block and HTTP-to-HTTPS redirect.
+- Applied the config on the VPS and reloaded Nginx.
+
+Codex verification:
+
+- `https://himmp.net/about.html` returned `200 OK`.
+- `https://www.himmp.net/about.html` returned `200 OK`.
+- `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
+- `https://himmp.net/about` returned `404 Not Found`.
+- `https://himmp.net/config.php` and `https://himmp.net/contact_submissions/` returned `404 Not Found`.
+- `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed.
+
+Remaining:
+
+- Configure VPS mail transport or SMTP relay before running the production submit smoke test.
