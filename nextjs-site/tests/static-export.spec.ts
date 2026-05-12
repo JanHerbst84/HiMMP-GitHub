@@ -7,6 +7,14 @@ const legacyPaths = legacyRoutes.map((route) =>
 const findingsRoutes = legacyRoutes.filter(
   (route) => route.sourceFile === "findings.html" || route.sourceFile.startsWith("findings/")
 );
+const enhancedAccessibilityRoutes = [
+  "/findings.html",
+  "/findings/07-meta-instrument.html",
+  "/findings/09-guitars-bass.html",
+  "/findings/glossary.html",
+  "/audio.html",
+  "/videos.html"
+];
 
 function findingsHref(sourceFile: string): string {
   return `/${sourceFile}`;
@@ -62,6 +70,123 @@ async function stubAudioLoading(page: Page): Promise<void> {
       body: Buffer.from("")
     })
   );
+}
+
+type AccessibilitySmokeIssue = {
+  detail: string;
+  selector: string;
+};
+
+async function accessibilitySmokeIssues(page: Page): Promise<AccessibilitySmokeIssue[]> {
+  return page.evaluate(() => {
+    const issues: AccessibilitySmokeIssue[] = [];
+    const selectorFor = (element: Element): string => {
+      if (element.id) {
+        return `#${element.id}`;
+      }
+
+      const tag = element.tagName.toLowerCase();
+      const className = [...element.classList].slice(0, 2).join(".");
+
+      return className ? `${tag}.${className}` : tag;
+    };
+    const hiddenFromAccessibilityTree = (element: Element): boolean => {
+      if (element.closest("[hidden], [aria-hidden='true']")) {
+        return true;
+      }
+
+      const style = window.getComputedStyle(element);
+      return style.display === "none" || style.visibility === "hidden";
+    };
+    const accessibleDescendantText = (element: Element): string => {
+      const texts: string[] = [];
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+      let node = walker.nextNode();
+
+      while (node) {
+        const parent = node.parentElement;
+        if (parent && !hiddenFromAccessibilityTree(parent)) {
+          const text = node.textContent?.trim();
+          if (text) {
+            texts.push(text);
+          }
+        }
+
+        node = walker.nextNode();
+      }
+
+      return texts.join(" ");
+    };
+
+    const accessibleName = (element: Element): string => {
+      const labelledBy = element
+        .getAttribute("aria-labelledby")
+        ?.split(/\s+/)
+        .map((id) => document.getElementById(id)?.textContent?.trim() ?? "")
+        .filter(Boolean)
+        .join(" ");
+
+      return (
+        [
+          labelledBy,
+          element.getAttribute("aria-label"),
+          element.getAttribute("title"),
+          accessibleDescendantText(element),
+          ...[...element.querySelectorAll("img")]
+            .filter((image) => !hiddenFromAccessibilityTree(image))
+            .map((image) => image.getAttribute("alt")),
+          ...[...element.querySelectorAll("svg title")]
+            .filter((title) => !hiddenFromAccessibilityTree(title))
+            .map((title) => title.textContent)
+        ]
+          .map((value) => value?.trim() ?? "")
+          .find(Boolean) ?? ""
+      );
+    };
+
+    if (!document.querySelector("a.skip-to-content[href='#main-content']")) {
+      issues.push({ detail: "Missing skip-to-content link", selector: "body" });
+    }
+
+    if (!document.querySelector("#main-content")) {
+      issues.push({ detail: "Missing main content landmark target", selector: "body" });
+    }
+
+    const h1Count = document.querySelectorAll("h1").length;
+    if (h1Count !== 1) {
+      issues.push({ detail: `Expected one page h1, found ${h1Count}`, selector: "body" });
+    }
+
+    for (const image of document.querySelectorAll("img")) {
+      if (!image.hasAttribute("alt")) {
+        issues.push({ detail: "Image missing alt attribute", selector: selectorFor(image) });
+      }
+    }
+
+    for (const button of document.querySelectorAll("button")) {
+      if (!accessibleName(button)) {
+        issues.push({ detail: "Button missing accessible name", selector: selectorFor(button) });
+      }
+    }
+
+    for (const frame of document.querySelectorAll("iframe")) {
+      if (!frame.getAttribute("title")?.trim()) {
+        issues.push({ detail: "Iframe missing title", selector: selectorFor(frame) });
+      }
+    }
+
+    for (const region of document.querySelectorAll("[role='status']")) {
+      const explicitLiveMode = region.getAttribute("aria-live");
+      if (explicitLiveMode && explicitLiveMode !== "polite") {
+        issues.push({
+          detail: "Status region should not override polite live updates",
+          selector: selectorFor(region)
+        });
+      }
+    }
+
+    return issues;
+  });
 }
 
 test.describe("static export legacy route smoke", () => {
@@ -559,6 +684,14 @@ test.describe("static export legacy route smoke", () => {
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
   });
+
+  for (const route of enhancedAccessibilityRoutes) {
+    test(`${route} passes accessibility smoke checks`, async ({ page }) => {
+      await page.goto(route);
+
+      expect(await accessibilitySmokeIssues(page), route).toEqual([]);
+    });
+  }
 
   test("contact form validates fields and submits through the legacy handler contract", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);

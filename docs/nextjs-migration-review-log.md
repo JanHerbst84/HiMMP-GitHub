@@ -556,3 +556,46 @@ Codex verification:
 - `npm run build` passed after the audio-inclusive build.
 - `npm run preflight:deploy` passed after the cleanup, with `Audio in export: not included`.
 - `npm run typecheck` passed.
+
+## Checkpoint 16: SEO And Accessibility Cleanup
+
+Scope reviewed:
+
+- Inherited metadata warnings from deployment preflight.
+- `.html` public URL policy for homepage, acknowledgements, and glossary metadata.
+- Accessibility smoke coverage for enhanced findings, audio, and video routes.
+
+Resolution:
+
+- Added explicit metadata overrides in the Next.js metadata layer:
+  - `index.html` Open Graph URL now resolves to `https://himmp.net/index.html`.
+  - `acknowledgements.html` now receives canonical `https://himmp.net/acknowledgements.html`.
+  - `findings/glossary.html` now receives canonical `https://himmp.net/findings/glossary.html`.
+- Updated `check-deployment-preflight.mjs` so these intentional SEO decisions are expected output rather than source-preservation warnings.
+- Added a browser accessibility smoke sweep for representative enhanced routes: findings hub, findings chapters, glossary, audio, and videos.
+- The sweep checks skip-link/main-target presence, one page `<h1>`, image `alt` attributes, button accessible names, iframe titles, and polite live regions.
+
+Claude review:
+
+- Claude reviewed the initial SEO/accessibility diff and found substantive smoke-test and metadata-preflight issues:
+  - status regions should accept the implicit polite live behavior of `role="status"`;
+  - button accessible-name checks needed to recognise common labelling patterns;
+  - enhanced accessibility routes should fail independently;
+  - SEO metadata overrides and preflight expectations should not be hard-coded in two places.
+- Claude re-reviewed after fixes and caught one latent canonical override precedence mismatch, which was fixed.
+- Claude final narrow review after the last accessibility-helper fixes returned `No findings`.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- `npm run build` passed.
+- `npm run preflight:deploy` passed without metadata warnings.
+- Targeted accessibility smoke passed: `npm run test:e2e -- --grep "accessibility smoke"` with 6 route-specific checks.
+- `npm run test:e2e` passed 51 Playwright tests.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run parity:visual` passed for 24 main-content captures.
+- `git diff --check` passed.

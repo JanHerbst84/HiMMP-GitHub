@@ -76,12 +76,12 @@ curl -I https://HOSTNAME/publications
 
 They should be unavailable, redirect to the matching `.html` URL, or carry verified `.html` canonical metadata.
 
-## Known Preflight Warnings
+## Resolved Preflight Warnings
 
-`npm run preflight:deploy` currently passes with three source-faithfulness warnings:
+Earlier migration checkpoints preserved three source-site metadata conditions as warnings:
 
 - `index.html` preserves the source homepage `og:url` as `https://himmp.net` rather than `https://himmp.net/index.html`.
 - `acknowledgements.html` has no source canonical URL to preserve.
 - `findings/glossary.html` has no source canonical URL to preserve.
 
-These are inherited source-site metadata conditions, not Next.js migration failures.
+These were intentionally cleaned up in the Next.js metadata layer on 2026-05-12. `npm run preflight:deploy` now passes without metadata warnings while preserving the `.html` public URL policy.

@@ -217,6 +217,14 @@ This gives the project a visible improvement quickly while exercising the hardes
 - Added browser coverage proving all 22 lazy video URLs remain present, no YouTube embed request happens before activation, and the selected iframe loads after click.
 - Updated visual parity normalization so intentional lazy-video placeholders do not affect legacy main-content comparison.
 
+### 2026-05-12: SEO And Accessibility Cleanup
+
+- Added explicit Next.js metadata overrides for inherited source gaps: homepage `og:url`, `acknowledgements.html` canonical, and `findings/glossary.html` canonical.
+- Updated deployment preflight so those intentional `.html` URL metadata decisions are checked as expected output rather than reported as warnings.
+- Added a browser accessibility smoke sweep for representative enhanced findings, audio, and video routes.
+- The sweep checks skip-link/main-target presence, a single page `<h1>`, image `alt` attributes, button accessible names, iframe titles, and polite live regions.
+- Centralized intentional metadata overrides in `src/site/metadata-overrides.json` so page metadata and deployment preflight share the same explicit SEO fixture.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:

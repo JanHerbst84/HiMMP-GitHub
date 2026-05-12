@@ -7,6 +7,7 @@ const appRoot = process.cwd();
 const repoRoot = path.resolve(appRoot, "..");
 const outDir = path.join(appRoot, "out");
 const routesPath = path.join(appRoot, "src/site/routes.ts");
+const metadataOverridesPath = path.join(appRoot, "src/site/metadata-overrides.json");
 const requireAudio = process.argv.includes("--require-audio");
 
 function fail(message) {
@@ -76,6 +77,9 @@ const routesSource = existsSync(routesPath) ? readText(routesPath) : "";
 const routeSourceFiles = [...routesSource.matchAll(/sourceFile:\s*["']([^"']+\.html)["']/g)].map(
   (match) => match[1]
 );
+const metadataOverrides = existsSync(metadataOverridesPath)
+  ? JSON.parse(readText(metadataOverridesPath))
+  : { canonical: {}, openGraphUrl: {} };
 
 if (routeSourceFiles.length < 27) {
   fail(`Expected at least 27 legacy routes, found ${routeSourceFiles.length}.`);
@@ -109,20 +113,22 @@ for (const sourceFile of routeSourceFiles) {
   const sourceOgUrl = firstAttr(sourceHtml, /<meta\s+property="og:url"\s+content="([^"]+)"/i);
   const canonical = firstAttr(html, /<link\s+rel="canonical"\s+href="([^"]+)"/i);
   const ogUrl = firstAttr(html, /<meta\s+property="og:url"\s+content="([^"]+)"/i);
+  const expectedCanonical = metadataOverrides.canonical[sourceFile] ?? sourceCanonical;
+  const expectedOgUrl = metadataOverrides.openGraphUrl[sourceFile] ?? sourceOgUrl;
 
-  if (sourceCanonical && !urlsEqual(canonical, sourceCanonical)) {
-    fail(`${sourceFile}: canonical is ${canonical ?? "missing"}, expected source value ${sourceCanonical}`);
-  } else if (!sourceCanonical) {
+  if (expectedCanonical && !urlsEqual(canonical, expectedCanonical)) {
+    fail(`${sourceFile}: canonical is ${canonical ?? "missing"}, expected ${expectedCanonical}`);
+  } else if (!expectedCanonical) {
     warnings.push(`${sourceFile}: source page has no canonical URL to preserve`);
   } else if (!urlsEqual(canonical, expectedUrl)) {
-    warnings.push(`${sourceFile}: canonical preserves source value ${canonical}, not ${expectedUrl}`);
+    warnings.push(`${sourceFile}: canonical is ${canonical}, not route URL ${expectedUrl}`);
   }
 
-  if (sourceOgUrl && !urlsEqual(ogUrl, sourceOgUrl)) {
-    fail(`${sourceFile}: og:url is ${ogUrl ?? "missing"}, expected source value ${sourceOgUrl}`);
-  } else if (sourceOgUrl && !urlsEqual(ogUrl, expectedUrl)) {
-    warnings.push(`${sourceFile}: og:url preserves source value ${ogUrl}, not ${expectedUrl}`);
-  } else if (!sourceOgUrl && ogUrl) {
+  if (expectedOgUrl && !urlsEqual(ogUrl, expectedOgUrl)) {
+    fail(`${sourceFile}: og:url is ${ogUrl ?? "missing"}, expected ${expectedOgUrl}`);
+  } else if (expectedOgUrl && !urlsEqual(ogUrl, expectedUrl)) {
+    warnings.push(`${sourceFile}: og:url is ${ogUrl}, not route URL ${expectedUrl}`);
+  } else if (!expectedOgUrl && ogUrl) {
     warnings.push(`${sourceFile}: generated og:url exists but source page had none`);
   }
 
