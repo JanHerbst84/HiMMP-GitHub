@@ -31,6 +31,63 @@ function firstAttr(html, pattern) {
   return match ? normalizeHtml(match[1]) : null;
 }
 
+function parseAttributes(attrs) {
+  const values = {};
+
+  for (const match of attrs.matchAll(/([a-zA-Z:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/g)) {
+    values[match[1].toLowerCase()] = normalizeHtml(match[2] ?? match[3] ?? match[4] ?? "");
+  }
+
+  return values;
+}
+
+function additionalSeoMarkers(html) {
+  const searchableHtml = html.replace(/<!--[\s\S]*?-->/g, "");
+  const markers = [];
+  const handledMeta = (attributeName, key) => {
+    const normalizedKey = key.toLowerCase();
+
+    return (
+      normalizedKey === "description" ||
+      normalizedKey === "viewport" ||
+      (attributeName === "property" && normalizedKey.startsWith("og:")) ||
+      (attributeName === "name" && normalizedKey.startsWith("twitter:"))
+    );
+  };
+  const handledLinks = new Set(["alternate", "canonical", "icon", "stylesheet"]);
+
+  for (const match of searchableHtml.matchAll(/<meta\b([^>]*)>/gi)) {
+    const attrs = parseAttributes(match[1] ?? "");
+    const content = attrs.content;
+
+    if (!content) {
+      continue;
+    }
+
+    if (attrs.name && !handledMeta("name", attrs.name)) {
+      markers.push(`meta:name:${attrs.name}:${content}`);
+    } else if (attrs.property && !handledMeta("property", attrs.property)) {
+      markers.push(`meta:property:${attrs.property}:${content}`);
+    } else if (attrs["http-equiv"]) {
+      markers.push(`meta:http-equiv:${attrs["http-equiv"]}:${content}`);
+    }
+  }
+
+  for (const match of searchableHtml.matchAll(/<link\b([^>]*)>/gi)) {
+    const attrs = parseAttributes(match[1] ?? "");
+    const rel = attrs.rel?.toLowerCase();
+    const href = attrs.href;
+
+    if (!rel || !href || handledLinks.has(rel)) {
+      continue;
+    }
+
+    markers.push(`link:${rel}:${href}`);
+  }
+
+  return markers;
+}
+
 function urlsEqual(left, right) {
   if (left === right) {
     return true;
@@ -135,6 +192,13 @@ for (const sourceFile of routeSourceFiles) {
   for (const marker of ["analytics.himmp.net", "matomo.php", "matomo.js", "setSiteId', '1'"]) {
     if (!html.includes(marker)) {
       fail(`${sourceFile}: missing Matomo marker ${marker}`);
+    }
+  }
+
+  const exportedSeoMarkers = new Set(additionalSeoMarkers(html));
+  for (const marker of additionalSeoMarkers(sourceHtml)) {
+    if (!exportedSeoMarkers.has(marker)) {
+      fail(`${sourceFile}: missing legacy SEO head marker ${marker}`);
     }
   }
 

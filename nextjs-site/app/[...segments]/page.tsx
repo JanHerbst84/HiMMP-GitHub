@@ -4,6 +4,7 @@ import { getLegacyPageContent } from "@/src/site/legacy-content";
 import { legacyContentToMetadata } from "@/src/site/metadata";
 import { LegacyScripts } from "@/src/site/components/LegacyScripts";
 import { LegacyStyles } from "@/src/site/components/LegacyStyles";
+import { LegacyHeadExtras } from "@/src/site/components/LegacyHeadExtras";
 import { EnhancedFindingsShell } from "@/src/site/components/EnhancedFindingsShell";
 import { EnhancedAudioController } from "@/src/site/components/EnhancedAudioController";
 import { EnhancedVideoController } from "@/src/site/components/EnhancedVideoController";
@@ -84,6 +85,7 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
 
   return (
     <>
+      <LegacyHeadExtras meta={content.headMeta} links={content.headLinks} />
       <SiteShell activePath={route.routePath}>
         {route.renderMode === "enhanced-findings" ? (
           <EnhancedFindingsShell currentRoute={route}>{legacyContent}</EnhancedFindingsShell>

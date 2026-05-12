@@ -11,6 +11,19 @@ export type LegacyStyle = {
   content: string;
 };
 
+export type LegacyMeta = {
+  attributeName: "name" | "property" | "httpEquiv";
+  key: string;
+  content: string;
+};
+
+export type LegacyLink = {
+  rel: string;
+  href: string;
+  type: string | null;
+  title: string | null;
+};
+
 export type LegacyPageContent = {
   sourceFile: string;
   title: string;
@@ -18,6 +31,8 @@ export type LegacyPageContent = {
   canonical: string | null;
   openGraph: Record<string, string>;
   twitter: Record<string, string>;
+  headMeta: LegacyMeta[];
+  headLinks: LegacyLink[];
   headStyles: LegacyStyle[];
   jsonLdScripts: LegacyScript[];
   mainHtml: string;
@@ -43,6 +58,20 @@ function decodeEntities(value: string): string {
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&nbsp;/g, " ");
+}
+
+function parseAttributes(attrs: string): Partial<Record<string, string>> {
+  const values: Partial<Record<string, string>> = {};
+
+  for (const match of attrs.matchAll(/([a-zA-Z:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+))/g)) {
+    values[match[1].toLowerCase()] = decodeEntities(match[2] ?? match[3] ?? match[4] ?? "");
+  }
+
+  return values;
+}
+
+function stripHtmlComments(source: string): string {
+  return source.replace(/<!--[\s\S]*?-->/g, "");
 }
 
 function firstDecodedMatch(source: string, pattern: RegExp): string | null {
@@ -143,6 +172,69 @@ function extractHeadStyles(source: string): LegacyStyle[] {
   }));
 }
 
+function extractHeadMeta(source: string): LegacyMeta[] {
+  const head = stripHtmlComments(firstMatch(source, /<head[^>]*>([\s\S]*?)<\/head>/i) ?? "");
+  const handledByNextMetadata = (attributeName: LegacyMeta["attributeName"], key: string) => {
+    const normalizedKey = key.toLowerCase();
+
+    return (
+      normalizedKey === "description" ||
+      normalizedKey === "viewport" ||
+      (attributeName === "property" && normalizedKey.startsWith("og:")) ||
+      (attributeName === "name" && normalizedKey.startsWith("twitter:"))
+    );
+  };
+
+  return [...head.matchAll(/<meta\b([^>]*)>/gi)]
+    .map((match) => {
+      const attrs = parseAttributes(match[1] ?? "");
+      const content = attrs.content;
+
+      if (!content) {
+        return null;
+      }
+
+      if (attrs.name && !handledByNextMetadata("name", attrs.name)) {
+        return { attributeName: "name" as const, key: attrs.name, content };
+      }
+
+      if (attrs.property && !handledByNextMetadata("property", attrs.property)) {
+        return { attributeName: "property" as const, key: attrs.property, content };
+      }
+
+      if (attrs["http-equiv"]) {
+        return { attributeName: "httpEquiv" as const, key: attrs["http-equiv"], content };
+      }
+
+      return null;
+    })
+    .filter((meta): meta is LegacyMeta => Boolean(meta));
+}
+
+function extractHeadLinks(source: string): LegacyLink[] {
+  const head = stripHtmlComments(firstMatch(source, /<head[^>]*>([\s\S]*?)<\/head>/i) ?? "");
+  const handledRels = new Set(["alternate", "canonical", "icon", "stylesheet"]);
+
+  return [...head.matchAll(/<link\b([^>]*)>/gi)]
+    .map((match) => {
+      const attrs = parseAttributes(match[1] ?? "");
+      const rel = attrs.rel?.toLowerCase();
+      const href = attrs.href;
+
+      if (!rel || !href || handledRels.has(rel)) {
+        return null;
+      }
+
+      return {
+        rel,
+        href,
+        type: attrs.type ?? null,
+        title: attrs.title ?? null
+      };
+    })
+    .filter((link): link is LegacyLink => Boolean(link));
+}
+
 function extractMetaMap(source: string, attributeName: "property" | "name", prefix: string): Record<string, string> {
   const values: Record<string, string> = {};
   const pattern = new RegExp(
@@ -168,6 +260,8 @@ export function getLegacyPageContent(sourceFile: string): LegacyPageContent {
     canonical: firstMatch(source, /<link\s+rel="canonical"\s+href="([^"]*)"/i),
     openGraph: extractMetaMap(source, "property", "og"),
     twitter: extractMetaMap(source, "name", "twitter"),
+    headMeta: extractHeadMeta(source),
+    headLinks: extractHeadLinks(source),
     headStyles: extractHeadStyles(source),
     jsonLdScripts: extractJsonLd(source),
     mainHtml: extractMain(source, sourceFile),
