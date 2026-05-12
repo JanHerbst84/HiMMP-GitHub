@@ -14,11 +14,16 @@ const maxNormalizedRmse = Number(process.env.VISUAL_MAX_RMSE ?? "0.20");
 const routes = [
   "/index.html",
   "/about.html",
+  "/approach.html",
   "/publications.html",
   "/videos.html",
   "/audio.html",
+  "/faq.html",
+  "/findings.html",
+  "/findings/01-introduction.html",
   "/findings/09-guitars-bass.html",
-  "/findings/14-recommended-reading.html"
+  "/findings/14-recommended-reading.html",
+  "/findings/glossary.html"
 ];
 
 const viewports = [
@@ -85,7 +90,13 @@ async function capture(locator, pathName) {
 
 async function preparePage(page) {
   await page.addStyleTag({
-    content: ".site-header { visibility: hidden !important; }"
+    content: `
+      .site-header { visibility: hidden !important; }
+      .enhanced-findings-shell { display: block !important; background: transparent !important; }
+      .enhanced-findings-shell__content { min-width: auto !important; }
+      .findings-reader-panel,
+      .findings-reader-topbar { display: none !important; }
+    `
   });
 }
 

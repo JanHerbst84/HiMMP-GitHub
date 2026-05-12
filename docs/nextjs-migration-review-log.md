@@ -346,3 +346,39 @@ Codex verification:
 Notes:
 
 - The direct Playwright screenshot helper failed in this sandbox when launching Chrome outside the test runner, but the Playwright e2e suite and visual parity script both executed successfully with system Chrome.
+
+## Checkpoint 10: Full Findings Guide Shell Expansion
+
+Scope reviewed:
+
+- Expansion of the enhanced findings-guide rendering mode from the hub/chapter 7 slice to the full findings guide.
+- Representative visual parity coverage for enhanced findings pages.
+- Full-guide e2e coverage for active chapter navigation and chapter paging boundaries.
+
+Resolution:
+
+- Added an `enhancedFindingsRoute` helper and enabled `renderMode: "enhanced-findings"` for every findings chapter and the glossary.
+- Kept the unchanged legacy `<main>` extraction path as the content payload inside the enhanced shell.
+- Added Playwright coverage that visits every findings route and verifies the enhanced shell, retained `#main-content`, and active navigation href.
+- Added first/middle/final paging assertions for chapter 1, chapter 7, and the glossary.
+- Updated visual parity so enhanced findings pages can be captured by hiding the reader chrome and comparing the unchanged `#main-content`.
+- Kept the visual parity route list to stable representative findings pages after a full all-findings pixel sweep proved too noisy for image-heavy chapters, while all findings pages remain covered by text/content parity and e2e structural checks.
+
+Claude review:
+
+- Claude warned that removing findings routes from visual parity left the guide without pixel coverage. Visual parity now includes enhanced-shell-aware representative findings captures.
+- Claude noted that a test helper duplicated the shell's title-shortening logic. The full-guide test now checks the active link href instead, and hard-coded text expectations remain in the paging boundary test.
+- Final Claude follow-up returned `No findings`, accepting the documented tradeoff between representative visual captures and full text/content/e2e structural coverage.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- `npm run build` passed.
+- `npm run test:e2e` passed 41 Playwright tests.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run preflight:deploy` passed with three inherited source-metadata warnings.
+- `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.

@@ -174,6 +174,14 @@ This gives the project a visible improvement quickly while exercising the hardes
 - Added desktop/mobile overflow checks for the enhanced findings layout.
 - Kept full text/content parity passing for all 27 generated legacy pages.
 
+### 2026-05-12: Full Findings Shell Expansion
+
+- Enabled the enhanced findings reader shell for every findings chapter and the glossary.
+- Kept legacy guide content rendered through the same extracted `<main>` payloads.
+- Added e2e coverage proving every findings route uses the enhanced shell and marks the active chapter link.
+- Added first/middle/final paging coverage for the chapter navigation.
+- Restored enhanced-shell-aware visual parity captures for representative findings pages while keeping all findings pages covered by text/content parity.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:

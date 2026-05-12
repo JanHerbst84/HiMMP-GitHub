@@ -4,6 +4,13 @@ import { legacyRoutes } from "../src/site/routes";
 const legacyPaths = legacyRoutes.map((route) =>
   route.sourceFile === "index.html" ? "/index.html" : `/${route.sourceFile}`
 );
+const findingsRoutes = legacyRoutes.filter(
+  (route) => route.sourceFile === "findings.html" || route.sourceFile.startsWith("findings/")
+);
+
+function findingsHref(sourceFile: string): string {
+  return `/${sourceFile}`;
+}
 
 function trackUnexpectedFailures(page: Page): string[] {
   const unexpectedFailures: string[] = [];
@@ -230,6 +237,63 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("enhanced findings shell is enabled across the full guide", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    for (const route of findingsRoutes) {
+      await page.goto(findingsHref(route.sourceFile));
+
+      await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+      await expect(page.locator("#main-content")).toBeVisible();
+      await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toHaveAttribute(
+        "href",
+        findingsHref(route.sourceFile)
+      );
+    }
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced findings paging handles first, middle, and final entries", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    const cases = [
+      {
+        route: "/findings/01-introduction.html",
+        previous: "Previous: Guide home",
+        next: "Next: 2. The Masters of Metal"
+      },
+      {
+        route: "/findings/07-meta-instrument.html",
+        previous: "Previous: 6. The Hyperreal Approach",
+        next: "Next: 8. Drum Production"
+      },
+      {
+        route: "/findings/glossary.html",
+        previous: "Previous: 14. Recommended Reading",
+        next: null
+      }
+    ];
+
+    for (const testCase of cases) {
+      await page.goto(testCase.route);
+
+      await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+      await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toContainText(testCase.previous);
+
+      const nextLink = page.locator(".findings-reader-topbar a[rel='next']");
+      if (testCase.next) {
+        await expect(nextLink).toContainText(testCase.next);
+      } else {
+        await expect(nextLink).toHaveCount(0);
+      }
+    }
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("enhanced findings layout does not introduce horizontal overflow", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
 
@@ -239,7 +303,7 @@ test.describe("static export legacy route smoke", () => {
     ]) {
       await page.setViewportSize(viewport);
 
-      for (const route of ["/findings.html", "/findings/07-meta-instrument.html"]) {
+      for (const route of ["/findings.html", "/findings/07-meta-instrument.html", "/findings/glossary.html"]) {
         await page.goto(route);
         await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
         await expect(page.locator("#main-content")).toBeVisible();
