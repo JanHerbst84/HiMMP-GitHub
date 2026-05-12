@@ -628,7 +628,11 @@ Codex verification:
 
 - `node --check scripts/check-contact-php-smoke.mjs` passed.
 - `npm run smoke:contact:php` exits with the expected usage error when no `CONTACT_BASE_URL` is supplied.
+- PHP 8.5.4 CLI was installed locally.
+- `php -l config.php`, `php -l get-csrf-token.php`, and `php -l contact-handler.php` passed.
+- The local PHP built-in server smoke passed against a temporary `/tmp/himmp-contact-smoke` docroot: `npm run smoke:contact:php -- --base-url http://127.0.0.1:8173`.
+- The local submit-path smoke passed with the expected mail warning: `npm run smoke:contact:php -- --base-url http://127.0.0.1:8173 --submit --allow-mail-failure`. PHP created the local submission/log path, while mail failed because local `sendmail` is not installed.
 - `npm run preflight:deploy` passed for 27 legacy routes.
 - `npm run typecheck` passed.
 - `git diff --check` passed.
-- Live PHP smoke execution was not run locally because PHP is not installed in this sandbox; it must be run against staging after deployment.
+- Staging still must run the smoke test without `--allow-mail-failure` to prove the real production-like mail path.
