@@ -4,6 +4,7 @@ import { legacyContentToMetadata } from "@/src/site/metadata";
 import { LegacyScripts } from "@/src/site/components/LegacyScripts";
 import { LegacyStyles } from "@/src/site/components/LegacyStyles";
 import { LegacyHeadExtras } from "@/src/site/components/LegacyHeadExtras";
+import { LegacyMainHtml } from "@/src/site/components/LegacyMainHtml";
 
 export function generateMetadata() {
   const content = getLegacyPageContent("index.html");
@@ -20,7 +21,9 @@ export default function Home() {
       <SiteShell activePath="/">
         <LegacyStyles styles={content.headStyles} />
         <LegacyScripts scripts={content.jsonLdScripts} />
-        <div dangerouslySetInnerHTML={{ __html: content.mainHtml }} />
+        <div data-page="home" style={{ display: "contents" }}>
+          <LegacyMainHtml transparent html={content.mainHtml} />
+        </div>
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={content.bodyScripts} />

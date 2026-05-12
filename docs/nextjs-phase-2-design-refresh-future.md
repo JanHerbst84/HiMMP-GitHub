@@ -39,7 +39,9 @@ Gating constraint: a structural-coverage audit must be completed and signed off 
 
 ### D-2: Home-Page Hero Replacement (React Component)
 
-What was proposed: extract the legacy `.hero` section from `index.html`'s injected `<main>` and slot a real React `<HomeHero>` in its place, while leaving the rest of the page legacy-rendered.
+**Status update (2026-05-12):** The visual refresh of the home hero has shipped as D-2a (commit forthcoming) via a non-invasive CSS-scoped approach: a `[data-page="home"]` attribute on a `display:contents` wrapper in `app/page.tsx`, plus token-driven CSS in `globals.css`. No markup change; JSON-LD selectors remain intact. The legacy `<main>` is rendered verbatim through `LegacyMainHtml`. D-2 proper — extracting the hero into a real `<HomeHero>` React component that owns its own JSX — remains deferred for any future slice that needs to add hero-specific interactivity (e.g. scroll-linked motion, in-place mix-snippet auditioning). The gating constraints below still apply if/when that work is opened.
+
+What was originally proposed: extract the legacy `.hero` section from `index.html`'s injected `<main>` and slot a real React `<HomeHero>` in its place, while leaving the rest of the page legacy-rendered.
 
 Why it was rejected: today `getLegacyPageContent()` exposes only one complete `mainHtml` string (`legacy-content.ts:27-39`, `:253-269`), and `app/page.tsx` injects that whole `<main>` wholesale. To extract only the hero requires either (a) HTML parsing in `legacy-content.ts`, or (b) string surgery in `page.tsx`. The v1 plan claimed both `legacy-content.ts` and `page.tsx` would stay untouched while still doing the extraction — internally inconsistent.
 

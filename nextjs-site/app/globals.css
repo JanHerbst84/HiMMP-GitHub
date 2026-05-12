@@ -44,6 +44,114 @@ a {
 }
 
 /*
+ * Home hero — token-driven dressing for the index.html hero. Class
+ * hooks .hero-title and .hero-text are preserved because the homepage
+ * JSON-LD SpeakableSpecification references them. Scoped under
+ * [data-page="home"] so other page heroes are untouched.
+ */
+[data-page="home"] .hero {
+  min-height: clamp(480px, 70vh, 720px);
+  padding: clamp(48px, 8vh, 96px) 0;
+  position: relative;
+  isolation: isolate;
+}
+
+[data-page="home"] .hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-mint-hairline, rgba(93, 198, 159, 0.4));
+  z-index: 3;
+}
+
+[data-page="home"] .hero-overlay {
+  background-color: rgba(8, 10, 12, 0.78);
+  background-image: linear-gradient(
+    100deg,
+    rgba(8, 10, 12, 0.92) 0%,
+    rgba(8, 10, 12, 0.78) 50%,
+    rgba(8, 10, 12, 0.55) 100%
+  );
+}
+
+[data-page="home"] .hero .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+[data-page="home"] .hero-content {
+  max-width: 720px;
+  margin: 0;
+  text-align: left;
+}
+
+[data-page="home"] .hero-title {
+  font-family:
+    var(--font-display),
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 1.6rem + 3.6vw, 4.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
+  margin: 0 0 22px;
+  text-align: left;
+  color: var(--color-bone, #f2efe8) !important;
+  text-shadow: none;
+}
+
+[data-page="home"] .hero-text {
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: clamp(1.04rem, 0.96rem + 0.36vw, 1.18rem);
+  line-height: 1.55;
+  color: rgba(242, 239, 232, 0.9);
+  text-shadow: none;
+  margin: 0;
+  max-width: 56ch;
+}
+
+[data-page="home"] .hero-text .highlight-text {
+  color: var(--color-mint, #5dc69f);
+  font-weight: 500;
+  background: none;
+}
+
+[data-page="home"] .hero-text a {
+  color: var(--color-bone, #f2efe8);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mint, #5dc69f);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+[data-page="home"] .hero-text a:hover {
+  text-decoration-color: var(--color-bone, #f2efe8);
+}
+
+@media (max-width: 720px) {
+  [data-page="home"] .hero {
+    min-height: clamp(420px, 60vh, 560px);
+    padding: 48px 0;
+  }
+
+  [data-page="home"] .hero-content {
+    max-width: 100%;
+  }
+}
+
+/*
  * Audio comparison surface — dark-academic dressing for the
  * <AudioComparison> React component. Selectors are scoped under
  * .audio-comparison so they beat the legacy headStyles in audio.html
