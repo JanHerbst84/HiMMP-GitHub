@@ -2,6 +2,7 @@ export type LegacyRoute = {
   sourceFile: string;
   routePath: string;
   title: string;
+  renderMode?: "legacy" | "enhanced-findings";
 };
 
 export const legacyRoutes: LegacyRoute[] = [
@@ -14,7 +15,12 @@ export const legacyRoutes: LegacyRoute[] = [
   { sourceFile: "approach.html", routePath: "/approach", title: "Research Approach & Methodology" },
   { sourceFile: "team.html", routePath: "/team", title: "Meet the Team" },
   { sourceFile: "publications.html", routePath: "/publications", title: "Publications, Articles & Resources" },
-  { sourceFile: "findings.html", routePath: "/findings", title: "Heaviness in Metal Music Production: A Practical Guide" },
+  {
+    sourceFile: "findings.html",
+    routePath: "/findings",
+    title: "Heaviness in Metal Music Production: A Practical Guide",
+    renderMode: "enhanced-findings"
+  },
   { sourceFile: "videos.html", routePath: "/videos", title: "Videos" },
   { sourceFile: "audio.html", routePath: "/audio", title: "HiMMP Downloads & Resources" },
   { sourceFile: "faq.html", routePath: "/faq", title: "Frequently Asked Questions" },
@@ -54,7 +60,8 @@ export const legacyRoutes: LegacyRoute[] = [
   {
     sourceFile: "findings/07-meta-instrument.html",
     routePath: "/findings/07-meta-instrument",
-    title: "Chapter 7: The \"Meta-Instrument\" Concept"
+    title: "Chapter 7: The \"Meta-Instrument\" Concept",
+    renderMode: "enhanced-findings"
   },
   {
     sourceFile: "findings/08-drums.html",

@@ -4,6 +4,7 @@ import { getLegacyPageContent } from "@/src/site/legacy-content";
 import { legacyContentToMetadata } from "@/src/site/metadata";
 import { LegacyScripts } from "@/src/site/components/LegacyScripts";
 import { LegacyStyles } from "@/src/site/components/LegacyStyles";
+import { EnhancedFindingsShell } from "@/src/site/components/EnhancedFindingsShell";
 import { notFound } from "next/navigation";
 
 type LegacyPageProps = {
@@ -44,13 +45,22 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
   }
 
   const content = getLegacyPageContent(route.sourceFile);
+  const legacyContent = (
+    <>
+      <LegacyStyles styles={content.headStyles} />
+      <LegacyScripts scripts={content.jsonLdScripts} />
+      <div dangerouslySetInnerHTML={{ __html: content.mainHtml }} />
+    </>
+  );
 
   return (
     <>
       <SiteShell activePath={route.routePath}>
-        <LegacyStyles styles={content.headStyles} />
-        <LegacyScripts scripts={content.jsonLdScripts} />
-        <div dangerouslySetInnerHTML={{ __html: content.mainHtml }} />
+        {route.renderMode === "enhanced-findings" ? (
+          <EnhancedFindingsShell currentRoute={route}>{legacyContent}</EnhancedFindingsShell>
+        ) : (
+          legacyContent
+        )}
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={content.bodyScripts} />

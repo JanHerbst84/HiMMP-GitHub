@@ -17,7 +17,6 @@ const routes = [
   "/publications.html",
   "/videos.html",
   "/audio.html",
-  "/findings.html",
   "/findings/09-guitars-bass.html",
   "/findings/14-recommended-reading.html"
 ];

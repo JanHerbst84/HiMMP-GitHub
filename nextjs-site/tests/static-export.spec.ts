@@ -196,6 +196,89 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("enhanced findings guide shell preserves chapter content and paging", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/findings/07-meta-instrument.html");
+
+    const shell = page.locator(".enhanced-findings-shell");
+    await expect(shell).toBeVisible();
+    await expect(page.locator("#main-content h1")).toContainText('The "Meta-Instrument" Concept');
+    await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toContainText(
+      '7. The "Meta-Instrument" Concept'
+    );
+    await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toContainText(
+      "Previous: 6. The Hyperreal Approach"
+    );
+    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toContainText("Next: 8. Drum Production");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced findings hub exposes guide navigation without replacing the legacy main content", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/findings.html");
+
+    await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+    await expect(page.locator("#main-content h1")).toContainText("Heaviness in Metal Music Production");
+    await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toHaveText("Guide home");
+    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toContainText(
+      "Next: 1. The Pursuit of Heaviness"
+    );
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced findings layout does not introduce horizontal overflow", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    for (const viewport of [
+      { width: 1440, height: 1200 },
+      { width: 390, height: 1200 }
+    ]) {
+      await page.setViewportSize(viewport);
+
+      for (const route of ["/findings.html", "/findings/07-meta-instrument.html"]) {
+        await page.goto(route);
+        await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+        await expect(page.locator("#main-content")).toBeVisible();
+
+        const dimensions = await page.evaluate(() => ({
+          viewportWidth: window.innerWidth,
+          documentWidth: document.documentElement.scrollWidth,
+          mainWidth: document.querySelector("#main-content")?.getBoundingClientRect().width ?? 0
+        }));
+        expect(dimensions.documentWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
+        expect(dimensions.mainWidth).toBeGreaterThan(0);
+      }
+    }
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced findings sticky navigation clears the desktop header", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.setViewportSize({ width: 1440, height: 1200 });
+    await page.goto("/findings/07-meta-instrument.html");
+    await page.evaluate(() => window.scrollTo(0, 700));
+
+    const positions = await page.evaluate(() => {
+      const header = document.querySelector(".site-header")?.getBoundingClientRect();
+      const panel = document.querySelector(".findings-reader-panel")?.getBoundingClientRect();
+
+      return {
+        headerBottom: header?.bottom ?? 0,
+        panelTop: panel?.top ?? 0
+      };
+    });
+
+    expect(positions.panelTop).toBeGreaterThanOrEqual(positions.headerBottom - 1);
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("video section navigation preserves active button behavior", async ({ page }) => {
     await page.addInitScript(() => {
       Object.defineProperty(window, "__himmpScrollCalls", {

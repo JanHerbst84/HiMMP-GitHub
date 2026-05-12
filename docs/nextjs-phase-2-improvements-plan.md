@@ -163,6 +163,17 @@ Start with a small enhanced findings-guide slice:
 
 This gives the project a visible improvement quickly while exercising the hardest content-preservation problem before touching all pages.
 
+## Progress
+
+### 2026-05-12: Initial Findings Slice
+
+- Added a route-level enhanced rendering path.
+- Enabled the enhanced findings reader shell for `findings.html` and `findings/07-meta-instrument.html`.
+- Preserved the original legacy `<main>` content inside the enhanced shell.
+- Added e2e coverage for findings hub navigation, chapter previous/next links, and retained chapter content.
+- Added desktop/mobile overflow checks for the enhanced findings layout.
+- Kept full text/content parity passing for all 27 generated legacy pages.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:

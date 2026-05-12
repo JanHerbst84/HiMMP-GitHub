@@ -303,3 +303,46 @@ Codex verification:
 - `npm audit --omit=dev` passed with no vulnerabilities.
 - `npm run parity:visual` passed for 16 representative main-content captures.
 - `npm run test:e2e` passed 35 Playwright tests.
+
+## Checkpoint 9: Phase 2 Findings Guide Slice
+
+Scope reviewed:
+
+- Enhanced findings-guide rendering path.
+- Findings hub and `findings/07-meta-instrument.html`.
+- Preservation behavior for mechanically extracted legacy content.
+
+Resolution:
+
+- Added a route-level `renderMode` flag so individual pages can opt into enhanced rendering without changing the legacy extraction path for other pages.
+- Added `EnhancedFindingsShell`, a reader/navigation shell around the unchanged legacy `<main>` content.
+- Enabled the enhanced shell for `findings.html` and `findings/07-meta-instrument.html`.
+- Added desktop/mobile-responsive reader navigation and previous/next chapter links.
+- Added Playwright coverage proving the enhanced shell appears while the original main content remains present.
+- Added desktop/mobile layout regression coverage for enhanced findings pages so the intentionally enhanced pages still fail on horizontal overflow.
+- Removed `findings.html` from the visual parity route list because that page is now intentionally visually different; unchanged findings chapters remain in the representative visual parity set.
+
+Claude review:
+
+- Claude warned that an `<h2>` in the reader panel appeared before the legacy page `<h1>`, which could create a heading-order anomaly for assistive technology. The panel title is now rendered as a styled paragraph inside the labelled aside.
+- Claude warned that the sticky panel used a hardcoded header offset. The offset now uses `--site-header-height`.
+- Claude follow-up warned that the header offset was still effectively hardcoded and that the overflow test contained a redundant poll. The offset now derives from the legacy header spacing/logo dimensions, a sticky-header clearance e2e test covers the behavior, and the redundant poll was removed.
+- Claude warned that removing `findings.html` from visual parity weakened layout regression coverage for the enhanced hub. Added e2e layout checks for `findings.html` and `findings/07-meta-instrument.html` at desktop and mobile widths.
+- Final Claude follow-up returned `No findings`, confirming the sticky offset, heading order, enhanced layout coverage, and unchanged legacy-content rendering path.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- `npm run build` passed.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run test:e2e` passed 39 Playwright tests.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run preflight:deploy` passed with three inherited source-metadata warnings.
+- `npm run parity:visual` passed for 14 representative non-enhanced main-content captures.
+
+Notes:
+
+- The direct Playwright screenshot helper failed in this sandbox when launching Chrome outside the test runner, but the Playwright e2e suite and visual parity script both executed successfully with system Chrome.
