@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import "./tokens.css";
 import "./globals.css";
+import { fontVariableClassName } from "@/src/site/fonts";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://himmp.net"),
@@ -14,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={fontVariableClassName}>
       <head>
         <link rel="stylesheet" href="/assets/css/main.css" />
         <link rel="stylesheet" href="/assets/css/responsive.css" />
