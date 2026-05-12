@@ -425,3 +425,37 @@ Codex verification:
 - `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and three inherited source-metadata warnings.
 - `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.
 - `npm run test:e2e` passed 43 Playwright tests.
+
+## Checkpoint 12: Audio Controller Slice
+
+Scope reviewed:
+
+- `audio.html` enhanced audio render mode.
+- Typed client audio controller bound to preserved legacy markup.
+- Route-level suppression of the legacy root audio script and inline comparison-player script.
+- Browser regression coverage for switching, accessibility state, playback-position preservation, and unavailable-audio feedback.
+
+Resolution:
+
+- Added `EnhancedAudioController`, which hydrates the existing `#comparison-player` and `.mix-btn` markup instead of replacing page content.
+- Added `enhanced-audio` as a route render mode and enabled it only for `audio.html`.
+- Filtered `assets/js/audio-player.js` and the inline `comparison-player`/`mix-btn` script only on the enhanced audio route, leaving findings chapter audio behavior unchanged for this slice.
+- Added `aria-pressed` state to producer buttons, an `aria-live` status region, loading/ready/error status messages, and current-time preservation when switching mixes.
+- Kept existing MP3 source paths as DOM attributes and did not import audio assets into the JavaScript bundle.
+- Updated visual parity normalization so the dynamic enhanced audio status does not affect main-content comparison.
+
+Claude review:
+
+- Claude reviewed the uncommitted audio slice and returned `No findings`.
+
+Codex verification:
+
+- `npm run typecheck` passed.
+- `npm run test:e2e` passed 44 Playwright tests.
+- `npm run parity:text` passed for 27 generated HTML files.
+- `npm run parity:content` passed for 27 generated HTML files.
+- `npm run parity` passed for 27 legacy HTML files.
+- `npm run parity:links` passed with 89 explicitly allowed pending audio/PHP references.
+- `npm run parity:sitemap` passed for 27 generated legacy routes.
+- `npm run preflight:deploy` passed with the expected audio-excluded artifact warning and inherited source-metadata warnings.
+- `npm run parity:visual` passed for 24 enhanced-shell-aware main-content captures.

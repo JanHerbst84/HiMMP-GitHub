@@ -115,6 +115,7 @@ async function preparePage(page) {
       #main-content iframe,
       #main-content audio,
       #main-content video { visibility: hidden !important; }
+      #main-content .enhanced-audio-status { display: none !important; }
       .enhanced-findings-shell { display: block !important; background: transparent !important; }
       .enhanced-findings-shell__content { min-width: auto !important; }
       .enhanced-findings-shell #main-content .chapter-section-nav { display: block !important; }

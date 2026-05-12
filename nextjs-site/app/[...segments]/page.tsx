@@ -5,6 +5,7 @@ import { legacyContentToMetadata } from "@/src/site/metadata";
 import { LegacyScripts } from "@/src/site/components/LegacyScripts";
 import { LegacyStyles } from "@/src/site/components/LegacyStyles";
 import { EnhancedFindingsShell } from "@/src/site/components/EnhancedFindingsShell";
+import { EnhancedAudioController } from "@/src/site/components/EnhancedAudioController";
 import { notFound } from "next/navigation";
 
 type LegacyPageProps = {
@@ -12,6 +13,13 @@ type LegacyPageProps = {
     segments: string[];
   }>;
 };
+
+function isLegacyAudioScript(script: { src: string | null; content: string }): boolean {
+  return (
+    (script.src !== null && /assets\/js\/audio-player\.js$/.test(script.src)) ||
+    (!script.src && script.content.includes("comparison-player") && script.content.includes("mix-btn"))
+  );
+}
 
 export function generateStaticParams() {
   return legacyRoutes
@@ -45,6 +53,10 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
   }
 
   const content = getLegacyPageContent(route.sourceFile);
+  const bodyScripts =
+    route.renderMode === "enhanced-audio"
+      ? content.bodyScripts.filter((script) => !isLegacyAudioScript(script))
+      : content.bodyScripts;
   const legacyContent = (
     <>
       <LegacyStyles styles={content.headStyles} />
@@ -61,9 +73,10 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
         ) : (
           legacyContent
         )}
+        {route.renderMode === "enhanced-audio" ? <EnhancedAudioController /> : null}
       </SiteShell>
       <script src="/assets/js/main.js" />
-      <LegacyScripts scripts={content.bodyScripts} />
+      <LegacyScripts scripts={bodyScripts} />
     </>
   );
 }

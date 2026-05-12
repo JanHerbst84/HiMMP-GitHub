@@ -132,9 +132,14 @@ test.describe("static export legacy route smoke", () => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/audio.html");
 
+    await expect(page.locator("[data-enhanced-audio-controller='ready']")).toHaveCount(1);
+    await expect(page.locator("script[src$='audio-player.js']")).toHaveCount(0);
+
     const comparisonPlayer = page.locator("#comparison-player");
     await expect(comparisonPlayer).toHaveAttribute("src", "assets/audio/HiMMP.mp3");
     await expect(page.locator("#currently-playing")).toHaveText("Now Playing: HiMMP");
+    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator(".enhanced-audio-status")).toContainText("HiMMP");
 
     await comparisonPlayer.evaluate((element) => {
       let storedTime = 37;
@@ -155,12 +160,36 @@ test.describe("static export legacy route smoke", () => {
     await schepsButton.click();
 
     await expect(schepsButton).toHaveClass(/active/);
+    await expect(schepsButton).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).not.toHaveClass(/active/);
+    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveAttribute("aria-pressed", "false");
     await expect(page.locator("#currently-playing")).toHaveText("Now Playing: Andrew Scheps");
     await expect(comparisonPlayer).toHaveAttribute("src", "assets/audio/Scheps.mp3");
     await expect
       .poll(() => comparisonPlayer.evaluate((element) => (element as HTMLAudioElement).currentTime))
       .toBe(37);
+    await expect(page.locator(".enhanced-audio-status")).toContainText("Andrew Scheps");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
+  test("enhanced audio controller reports unavailable audio without losing selection", async ({ page }) => {
+    await stubAudioLoading(page);
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/audio.html");
+
+    const comparisonPlayer = page.locator("#comparison-player");
+    const schepsButton = page.locator(".mix-btn", { hasText: "Scheps" });
+    await schepsButton.click();
+    await comparisonPlayer.evaluate((element) => {
+      element.dispatchEvent(new Event("error"));
+    });
+
+    await expect(schepsButton).toHaveClass(/active/);
+    await expect(page.locator("#currently-playing")).toHaveText("Now Playing: Andrew Scheps");
+    await expect(page.locator(".enhanced-audio-status")).toHaveAttribute("data-state", "error");
+    await expect(page.locator(".enhanced-audio-status")).toHaveText("Audio unavailable: Andrew Scheps");
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);

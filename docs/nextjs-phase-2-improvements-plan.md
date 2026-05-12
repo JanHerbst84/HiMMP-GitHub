@@ -191,6 +191,16 @@ This gives the project a visible improvement quickly while exercising the hardes
 - Expanded visual parity coverage to 24 desktop/mobile captures across representative root, media, findings, and glossary routes.
 - Added regression coverage for guide-home author portraits, bottom paging, hidden legacy chapter navigation, reader width limits, and the Figure 9.3 image load path.
 
+### 2026-05-12: Audio Controller Slice
+
+- Added an `enhanced-audio` render mode for `audio.html` while keeping the legacy page markup and all visible text as the content source.
+- Replaced the legacy `audio.html` comparison-player script with a typed client controller that binds the preserved DOM after hydration.
+- Preserved existing MP3 source paths and avoided importing audio into the JavaScript bundle.
+- Added accessible active-button state, live ready/loading/error status text, playback-position preservation, and resume-on-switch behavior.
+- Left findings-chapter audio players on the legacy script path for this slice so the higher-risk chapter-media migration can be handled separately.
+- Added browser coverage for script suppression, mix switching, `aria-pressed`, current-time preservation, and unavailable-audio reporting.
+- Updated visual parity normalization so intentional runtime audio status does not mask content/layout comparison.
+
 ## Verification Commands
 
 Run from `nextjs-site/` after each significant change:
