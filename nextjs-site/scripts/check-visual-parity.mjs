@@ -15,9 +15,15 @@ const scopedThresholds = new Map([
   ["mobile /findings/09-guitars-bass.html", 0.24]
 ]);
 
+/*
+ * Routes still in the migration-preservation set. Once a page is
+ * intentionally redesigned beyond just the hero (body content, section
+ * rhythm, etc.), it leaves this list — the legacy site is no longer the
+ * target for that page. Removed so far:
+ *   - /about.html (body refresh shipped 2026-05-13)
+ */
 const routes = [
   "/index.html",
-  "/about.html",
   "/approach.html",
   "/publications.html",
   "/videos.html",

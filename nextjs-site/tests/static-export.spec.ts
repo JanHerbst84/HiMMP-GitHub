@@ -219,6 +219,28 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("about body refresh renders redesigned layout primitives", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/about.html");
+
+    await expect(page.locator("[data-page='about']")).toHaveCount(1);
+    await expect(page.locator(".aim-item")).toHaveCount(5);
+    await expect(page.locator(".aims-grid")).toHaveCSS("display", "grid");
+    await expect(page.locator(".aims-grid")).toHaveCSS(
+      "grid-template-columns",
+      /^\d+(\.\d+)?px \d+(\.\d+)?px$/
+    );
+
+    await page.setViewportSize({ width: 600, height: 1200 });
+    await expect(page.locator(".aims-grid")).toHaveCSS(
+      "grid-template-columns",
+      /^\d+(\.\d+)?px$/
+    );
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/publications.html");
