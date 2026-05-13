@@ -100,16 +100,43 @@ html :is(h1, h2, h3, h4, h5, h6) {
  * also unaffected by the body-link treatment above.
  */
 html a.read-more,
-html a.resource-button {
-  color: var(--color-graphite);
+html a.resource-button,
+html a.external-link,
+html a.internal-link {
+  color: var(--color-graphite) !important;
   text-decoration: none;
 }
 
 html a.read-more:hover,
-html a.resource-button:hover {
-  color: var(--color-graphite);
+html a.resource-button:hover,
+html a.external-link:hover,
+html a.internal-link:hover {
+  color: var(--color-graphite) !important;
   text-decoration: none;
 }
+
+/*
+ * `.download-link` is a dark-pill button (legacy `background-color:
+ * var(--primary-color)` = pure black). Body-link rule from Slice E
+ * makes the text graphite by default; on the black pill that becomes
+ * graphite-on-black (~1.14 contrast). Restore bone text so the dark
+ * pill reads as intended. No `!important` needed — legacy uses no
+ * `!important` here.
+ */
+html a.download-link,
+html a.download-link:hover {
+  color: var(--color-bone);
+  text-decoration: none;
+}
+
+/*
+ * `!important` use justification: publications.html ships an inline
+ * `<style>` block with `.external-link { color: white !important; }`
+ * that loads after globals.css, main.css, AND responsive.css in the
+ * cascade. The only way to override a per-page inline `!important`
+ * without editing the legacy HTML (forbidden — it's the parity:text
+ * source of truth) is to match `!important` here.
+ */
 
 .content-section table {
   font-variant-numeric: tabular-nums;
