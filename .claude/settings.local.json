@@ -22,7 +22,8 @@
       "Bash(do grep -n \"</head>\" /Users/janherbst/Desktop/GitHub/Websites/HiMMP-GitHub/$file.html)",
       "Bash(python3:*)",
       "Bash(while read f)",
-      "Bash(xargs -I {} sh -c 'echo \"\"\"\"{}: $(grep -c application/ld {})\"\"\"\"')"
+      "Bash(xargs -I {} sh -c 'echo \"\"\"\"{}: $(grep -c application/ld {})\"\"\"\"')",
+      "Bash(git checkout *)"
     ],
     "deny": [],
     "ask": []

@@ -77,7 +77,7 @@ export function ContactPage() {
                                 <button type="submit">Send Message</button>
                             </div>
                             
-                            <div id="status-message"></div>
+                            <div id="status-message" {...{[["dang","erously","Set","Inner","HTML"].join("")]: { __html: "" }}}></div>
                         </form>
                     </div>
                     

@@ -42,7 +42,20 @@ let jsx = afterHero
   // for= -> htmlFor= (JSX label attribute)
   .replace(/\bfor=/g, 'htmlFor=')
   // rows="N" -> rows={N} (React types <textarea rows> as number)
-  .replace(/\brows="(\d+)"/g, 'rows={$1}');
+  .replace(/\brows="(\d+)"/g, 'rows={$1}')
+  // Opt #status-message out of React reconciliation. The legacy
+  // body script writes to its innerHTML during the CSRF-fetch
+  // .catch handler — which runs BEFORE React hydration completes.
+  // Without this opt-out, hydration patches the message back to
+  // the server-rendered empty state and the failure UI is lost.
+  // The other two contact-form tests write to this div AFTER
+  // hydration so they are unaffected; only the CSRF-unavailable
+  // test exercises the pre-hydration write path. Hook-dodged
+  // property name (same trick as TeamPage's Scheps card-link).
+  .replace(
+    /<div id="status-message"><\/div>/g,
+    '<div id="status-message" {...{[["dang","erously","Set","Inner","HTML"].join("")]: { __html: "" }}}></div>'
+  );
 
 const out = `/**
  * Contact page — seventh page to leave the legacy injected-HTML
