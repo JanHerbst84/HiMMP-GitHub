@@ -205,6 +205,76 @@ html .highlight-item:hover {
 }
 
 /*
+ * Slice L — point-fixes flagged in a manual visual sweep:
+ *
+ *  - Team /team.html: the "Institutional Support" section's h3 +
+ *    paragraph + `.department-item` cards read left-anchored at wide
+ *    viewports because legacy `.department-item` left-aligns its
+ *    contents. Centre the heading + intro paragraph + per-card text
+ *    so the institutional block reads like the home output-cards.
+ *  - Publications /publications.html: `.publication-item` ships with
+ *    inline `background-color: var(--light-gray)` (#f5f5f5) which sits
+ *    only ~3 levels off the new bone body bg — cards visually blend.
+ *    Repaint as white with a 1px graphite-rule hairline so the card
+ *    reads as a distinct surface; keep the legacy 4px mint left bar.
+ *  - Findings reader sidebar TOC: `.findings-reader-panel__nav-title`
+ *    uses Fraunces (display serif) on what is functionally a
+ *    navigation list. Display serif on long chapter titles wraps
+ *    awkwardly. Demote to body sans (Inter Tight) so the sidebar
+ *    reads as nav, not editorial.
+ *  - Audio /audio.html: the hero ships 4 stacked `<p class="hero-text">`
+ *    elements; the inner-page hero rule sets `margin: 0`, so the
+ *    paragraphs jam together. Restore vertical rhythm inside the
+ *    hero-text block.
+ */
+
+/* Team — Institutional Support centring. The `.container:has(.departments-grid)`
+   target reliably picks out only the institutional section because
+   `.departments-grid` appears nowhere else on the team page. */
+.container:has(> .departments-grid) > h3,
+.container:has(> .departments-grid) > h3 + p {
+  text-align: center;
+}
+
+html .department-item {
+  text-align: center;
+}
+
+/* Publications — visible card surface. Repaint to white with a
+   graphite-rule hairline on three sides; keep the legacy 4px mint
+   `border-left` accent. Using a shorthand `border: ...` here would
+   wipe the legacy left bar, so set the three sides explicitly. */
+html .publication-item {
+  background-color: var(--color-paper);
+  border-top: 1px solid var(--color-rule);
+  border-right: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+/* Findings sidebar — TOC nav-title to Inter Tight */
+html .findings-reader-panel__nav-title {
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+/* Audio hero — paragraph spacing inside hero-text. The inner-page
+   hero `:is(...) .hero-text { margin: 0; }` rule lives later in the
+   cascade at equal specificity (0,2,0), so bump to 0,2,1 with the
+   `html` prefix to win without reordering. */
+html [data-page="audio"] .hero-text {
+  margin: 0 0 0.6em;
+}
+html [data-page="audio"] .hero-text:last-child {
+  margin-bottom: 0;
+}
+
+/*
  * Slice F (Family B, D-1) — dark-academic header + nav re-skin.
  * Additive over legacy main.css (.site-header / .nav-links rules at lines
  * 196-273). Structural rules — sticky positioning, flex layout, mobile
