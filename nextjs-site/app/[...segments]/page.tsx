@@ -115,9 +115,17 @@ function prepareEnhancedVideoHtml(mainHtml: string): string {
   );
 }
 
+/*
+ * Routes that have been ported off the legacy injected-HTML pipeline
+ * and own a dedicated `app/<route>/page.tsx`. They are excluded here so
+ * generateStaticParams does not collide with the explicit route file
+ * (Next.js refuses to build two static routes for the same path).
+ */
+const REACT_OWNED_ROUTES = new Set<string>(["/", "/about"]);
+
 export function generateStaticParams() {
   return legacyRoutes
-    .filter((route) => route.routePath !== "/")
+    .filter((route) => !REACT_OWNED_ROUTES.has(route.routePath))
     .map((route) => ({
       segments: routePathToSegments(route.routePath)
     }));
