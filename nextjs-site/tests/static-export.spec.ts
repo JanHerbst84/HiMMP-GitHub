@@ -270,14 +270,19 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator("h1.hero-title")).toHaveText("Meet the Team");
 
     // Legacy team.html:667 ships the Andrew Scheps card-link with a
-    // malformed href (missing closing quote). The port preserves that
-    // byte-for-byte via SchepsLegacyCardLink. This assertion fails if
-    // any future edit accidentally "fixes" the defect inside the port
-    // slice — the repair must be an explicit follow-up commit.
+    // malformed href (missing closing quote). The original port
+    // preserved that byte-for-byte; this follow-up slice repairs the
+    // URL to the correct Discogs link with a proper target="_blank".
+    // The assertion now verifies the repaired state so the link
+    // cannot silently regress to the legacy broken form.
     const schepsCard = page.locator(".team-member.producer").nth(7);
     await expect(schepsCard.locator("h4")).toHaveText("Andrew Scheps");
-    const schepsHref = await schepsCard.locator(".card-link").getAttribute("href");
-    expect(schepsHref).toBe("https://www.discogs.com/artist/450831-Andrew-Scheps target=");
+    const schepsCardLink = schepsCard.locator(".card-link");
+    await expect(schepsCardLink).toHaveAttribute(
+      "href",
+      "https://www.discogs.com/artist/450831-Andrew-Scheps"
+    );
+    await expect(schepsCardLink).toHaveAttribute("target", "_blank");
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
