@@ -242,13 +242,41 @@ html .department-item {
 
 /* Publications — visible card surface. Repaint to white with a
    graphite-rule hairline on three sides; keep the legacy 4px mint
-   `border-left` accent. Using a shorthand `border: ...` here would
-   wipe the legacy left bar, so set the three sides explicitly. */
+   `border-left` accent on `.publication-item`. Using a shorthand
+   `border: ...` here would wipe the legacy left bar, so set the
+   three sides explicitly.
+
+   `.publication-card` (the larger Media/Dataset/Book cards at the
+   top of /publications.html) has no left bar to preserve, so it
+   gets a full 4-sided border. */
 html .publication-item {
   background-color: var(--color-paper);
   border-top: 1px solid var(--color-rule);
   border-right: 1px solid var(--color-rule);
   border-bottom: 1px solid var(--color-rule);
+}
+
+html .publication-card {
+  background-color: var(--color-paper);
+  border: 1px solid var(--color-rule);
+}
+
+/* Advisor cards on /team.html (the international advisory board grid)
+   carry the same "department info" semantics as the institutional
+   block below: institution + role. Centre their text too so the team
+   page reads consistently — the inline italic + body lines were
+   ambiguous as "left-anchored" vs "centred" CV entries. */
+html .advisor-item {
+  text-align: center;
+}
+
+/* Audio comparison status lines. Two elements both echo the active
+   mix name ("Now Playing: HiMMP" + "Ready: HiMMP"), which is
+   redundant when the active mix-button already carries an `.active`
+   state + sulfur colour. Hide both. */
+html #currently-playing,
+html .enhanced-audio-status {
+  display: none;
 }
 
 /* Findings sidebar — TOC nav-title to Inter Tight */
