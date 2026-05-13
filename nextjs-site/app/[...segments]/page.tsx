@@ -121,7 +121,7 @@ function prepareEnhancedVideoHtml(mainHtml: string): string {
  * generateStaticParams does not collide with the explicit route file
  * (Next.js refuses to build two static routes for the same path).
  */
-const REACT_OWNED_ROUTES = new Set<string>(["/", "/about", "/approach"]);
+const REACT_OWNED_ROUTES = new Set<string>(["/", "/about", "/approach", "/team"]);
 
 export function generateStaticParams() {
   return legacyRoutes

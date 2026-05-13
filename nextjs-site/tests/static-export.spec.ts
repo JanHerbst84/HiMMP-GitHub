@@ -256,6 +256,33 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("team page renders React-owned researcher, producer, artist, and advisory grids", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/team.html");
+
+    await expect(page.locator("[data-page='team']")).toHaveCount(1);
+    await expect(page.locator(".team-member.researcher")).toHaveCount(2);
+    await expect(page.locator(".team-member.producer")).toHaveCount(8);
+    await expect(page.locator(".team-member.artist")).toHaveCount(6);
+    await expect(page.locator(".advisor-item")).toHaveCount(6);
+    await expect(page.locator(".department-item")).toHaveCount(3);
+    await expect(page.locator(".team-photo")).toHaveCount(16);
+    await expect(page.locator("h1.hero-title")).toHaveText("Meet the Team");
+
+    // Legacy team.html:667 ships the Andrew Scheps card-link with a
+    // malformed href (missing closing quote). The port preserves that
+    // byte-for-byte via SchepsLegacyCardLink. This assertion fails if
+    // any future edit accidentally "fixes" the defect inside the port
+    // slice — the repair must be an explicit follow-up commit.
+    const schepsCard = page.locator(".team-member.producer").nth(7);
+    await expect(schepsCard.locator("h4")).toHaveText("Andrew Scheps");
+    const schepsHref = await schepsCard.locator(".card-link").getAttribute("href");
+    expect(schepsHref).toBe("https://www.discogs.com/artist/450831-Andrew-Scheps target=");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/publications.html");
