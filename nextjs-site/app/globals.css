@@ -87,6 +87,50 @@ body :is(.content-section, .chapter-content, main) a:not(.skip-to-content):not(.
   font-family: var(--font-mono), ui-monospace, Menlo, Consolas, monospace;
 }
 
+/*
+ * Slice F (Family B, D-1) — dark-academic header + nav re-skin.
+ * Additive over legacy main.css (.site-header / .nav-links rules at lines
+ * 196-273). Structural rules — sticky positioning, flex layout, mobile
+ * breakpoint behaviour — are intentionally NOT touched; only palette and
+ * accent treatment changes. `html` prefix raises specificity to 0,0,2 so
+ * these rules beat the legacy 0,0,1 selectors regardless of source order.
+ */
+html .site-header {
+  background-color: var(--color-bone);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+html .nav-links a {
+  color: var(--color-graphite);
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+html .nav-links a:hover {
+  color: var(--color-graphite);
+}
+
+html .nav-links a::after {
+  background-color: var(--color-mint);
+}
+
+html .nav-links a.active {
+  color: var(--color-graphite);
+}
+
+@media (max-width: 767px) {
+  html .nav-links {
+    background-color: var(--color-bone);
+    border-top: 1px solid var(--color-rule);
+  }
+}
+
 a {
   color: inherit;
 }
