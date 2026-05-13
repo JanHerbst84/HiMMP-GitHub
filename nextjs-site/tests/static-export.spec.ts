@@ -799,10 +799,18 @@ test.describe("static export legacy route smoke", () => {
     await expect(firstFrame).not.toHaveAttribute("src", /youtube\.com/);
     expect(youtubeRequests).toEqual([]);
 
+    // Set up the request-fired promise BEFORE the click so the route
+    // interception can't race the post-click assertion. Under parallel
+    // load the previous form (synchronous read of `youtubeRequests`
+    // immediately after the click) would intermittently see the array
+    // before the route handler had executed the .push, even though
+    // toHaveAttribute("src", ...) had already polled the iframe state.
+    const youtubeFetchFired = page.waitForRequest("https://www.youtube.com/embed/TkLQaOkAtlw");
     await page.locator(".lazy-video-trigger").first().click();
 
     await expect(firstFrame).toHaveAttribute("src", "https://www.youtube.com/embed/TkLQaOkAtlw");
     await expect(page.locator(".lazy-video-trigger")).toHaveCount(21);
+    await youtubeFetchFired;
     expect(youtubeRequests).toEqual(["https://www.youtube.com/embed/TkLQaOkAtlw"]);
 
     await waitForLocalResponses();
