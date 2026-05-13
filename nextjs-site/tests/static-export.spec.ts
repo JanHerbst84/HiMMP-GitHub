@@ -299,6 +299,19 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("faq page renders React-owned Q&A sections", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/faq.html");
+
+    await expect(page.locator("[data-page='faq']")).toHaveCount(1);
+    await expect(page.locator("h1.hero-title")).toHaveText("Frequently Asked Questions");
+    await expect(page.locator(".content-section h2")).toHaveCount(4);
+    await expect(page.locator(".content-section p strong")).toHaveCount(15);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/publications.html");
