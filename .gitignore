@@ -2,3 +2,4 @@ nul
 himmp-ebook/himmp_ebook.zip
 *.bak
 test-results/
+.playwright-mcp/

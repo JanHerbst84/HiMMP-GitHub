@@ -918,4 +918,45 @@ test.describe("static export legacy route smoke", () => {
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
   });
+
+  /*
+   * Slice E (Family A) body-smoke. The routes below were dropped from
+   * parity:visual when the dark-academic chrome shipped site-wide; this
+   * thin test asserts the token chrome is actually applied on each one.
+   * See docs/nextjs-phase-2-slice-e-family-a-plan.md.
+   */
+  const darkAcademicRoutes = [
+    "/index.html",
+    "/approach.html",
+    "/publications.html",
+    "/videos.html",
+    "/audio.html",
+    "/faq.html",
+    "/findings.html",
+    "/findings/01-introduction.html",
+    "/findings/09-guitars-bass.html",
+    "/findings/14-recommended-reading.html",
+    "/findings/glossary.html"
+  ];
+
+  for (const route of darkAcademicRoutes) {
+    test(`dark-academic chrome applied on ${route}`, async ({ page }) => {
+      const unexpectedFailures = trackUnexpectedFailures(page);
+      await page.goto(route);
+
+      const body = page.locator("body");
+      await expect(body).toHaveCSS("background-color", "rgb(242, 239, 232)");
+      await expect(body).toHaveCSS("color", "rgb(17, 20, 24)");
+      const bodyFont = await body.evaluate((el) => getComputedStyle(el).fontFamily);
+      expect(bodyFont).toMatch(/Inter Tight/i);
+
+      const h1 = page.locator("h1").first();
+      await expect(h1).toBeVisible();
+      const h1Font = await h1.evaluate((el) => getComputedStyle(el).fontFamily);
+      expect(h1Font).toMatch(/Fraunces/i);
+
+      await waitForLocalResponses();
+      expect(unexpectedFailures).toEqual([]);
+    });
+  }
 });

@@ -21,20 +21,15 @@ const scopedThresholds = new Map([
  * rhythm, etc.), it leaves this list — the legacy site is no longer the
  * target for that page. Removed so far:
  *   - /about.html (body refresh shipped 2026-05-13)
+ *   - All remaining 11 routes (Slice E / Family A dark-academic chrome,
+ *     2026-05-13) — body bg, body type, link/heading treatment diverge
+ *     site-wide from legacy. Per-route body-smoke coverage now lives in
+ *     tests/static-export.spec.ts ("dark-academic chrome applied").
+ *     The script + .migration/visual-parity/ baselines are kept for
+ *     reference; a future slice that re-introduces visual regression
+ *     coverage should record new baselines against the redesigned state.
  */
-const routes = [
-  "/index.html",
-  "/approach.html",
-  "/publications.html",
-  "/videos.html",
-  "/audio.html",
-  "/faq.html",
-  "/findings.html",
-  "/findings/01-introduction.html",
-  "/findings/09-guitars-bass.html",
-  "/findings/14-recommended-reading.html",
-  "/findings/glossary.html"
-];
+const routes = [];
 
 const viewports = [
   { name: "desktop", width: 1440, height: 1400 },
@@ -204,6 +199,12 @@ async function preparePage(page) {
 
     await document.fonts?.ready;
   });
+}
+
+if (routes.length === 0) {
+  console.log("Visual parity preservation set is empty — no routes to compare.");
+  console.log("See the routes-list comment in this file for the migration history.");
+  process.exit(0);
 }
 
 if (!existsSync(outDir)) {
