@@ -23,7 +23,8 @@
       "Bash(python3:*)",
       "Bash(while read f)",
       "Bash(xargs -I {} sh -c 'echo \"\"\"\"{}: $(grep -c application/ld {})\"\"\"\"')",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(npm run *)"
     ],
     "deny": [],
     "ask": []
