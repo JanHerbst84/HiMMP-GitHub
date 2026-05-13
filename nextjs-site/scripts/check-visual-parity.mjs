@@ -128,7 +128,8 @@ async function preparePage(page) {
       #main-content section.hero[style*="HiMMP-bg-about.jpg"],
       #main-content section.hero[style*="HiMMP-bg-approach.jpg"],
       #main-content section.hero[style*="HiMMP-bg-team.jpg"],
-      #main-content section.hero[style*="HiMMP-bg-publications.jpg"] { display: none !important; }
+      #main-content section.hero[style*="HiMMP-bg-publications.jpg"],
+      #main-content section.hero[style*="HiMMP-bg-contact.jpg"] { display: none !important; }
       #main-content .lazy-video-container { background: transparent !important; }
       #main-content .lazy-video-trigger { display: none !important; }
       .enhanced-findings-shell { display: block !important; background: transparent !important; }

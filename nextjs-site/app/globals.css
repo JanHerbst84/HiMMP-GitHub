@@ -152,29 +152,50 @@ a {
 }
 
 /*
- * Inner-page heroes (about / approach / team / publications) — token-driven
- * dressing that mirrors the home hero's typographic treatment with a softer
- * gradient and a shorter min-height. Each page's legacy <main> ships the
- * hero block as static HTML with class hooks `.hero`, `.hero-overlay`,
- * `.hero-title`, `.hero-text`. We scope to a data-page allowlist so the
- * dressing only lands on the four primary content pages; other legacy
- * pages with .hero (audio/videos/contact/etc.) keep their existing chrome
- * until a future slice opts them in.
+ * Inner-page heroes — token-driven dressing that mirrors the home hero's
+ * typographic treatment with a softer gradient and a shorter min-height.
+ * Each page's legacy <main> ships the hero block as static HTML with class
+ * hooks `.hero`, `.hero-overlay`, `.hero-title`, `.hero-text`. The
+ * `:is()` allowlist scopes the dressing only to the named pages; other
+ * legacy pages keep their existing chrome until opted in. Specificity of
+ * `:is()` is the max specificity of its arguments — `[data-page="about"]`
+ * is 0,1,0, matching the home-hero rules above.
+ *
+ * Findings is intentionally excluded: chapter sub-pages use `.chapter-hero`
+ * with descendant `.hero-title` / `.hero-text` class hooks, so a
+ * data-page="findings" allowlist entry would cascade onto every chapter.
+ * Findings deserves its own slice.
  */
-[data-page="about"] .hero,
-[data-page="approach"] .hero,
-[data-page="team"] .hero,
-[data-page="publications"] .hero {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero {
   min-height: clamp(360px, 50vh, 520px);
   padding: clamp(36px, 6vh, 72px) 0;
   position: relative;
   isolation: isolate;
 }
 
-[data-page="about"] .hero::after,
-[data-page="approach"] .hero::after,
-[data-page="team"] .hero::after,
-[data-page="publications"] .hero::after {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero::after {
   content: "";
   position: absolute;
   left: 0;
@@ -185,10 +206,18 @@ a {
   z-index: 3;
 }
 
-[data-page="about"] .hero-overlay,
-[data-page="approach"] .hero-overlay,
-[data-page="team"] .hero-overlay,
-[data-page="publications"] .hero-overlay {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-overlay {
   background-color: rgba(8, 10, 12, 0.74);
   background-image: linear-gradient(
     105deg,
@@ -198,28 +227,52 @@ a {
   );
 }
 
-[data-page="about"] .hero .container,
-[data-page="approach"] .hero .container,
-[data-page="team"] .hero .container,
-[data-page="publications"] .hero .container {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero .container {
   position: relative;
   z-index: 2;
   width: 100%;
 }
 
-[data-page="about"] .hero-content,
-[data-page="approach"] .hero-content,
-[data-page="team"] .hero-content,
-[data-page="publications"] .hero-content {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-content {
   max-width: 720px;
   margin: 0;
   text-align: left;
 }
 
-[data-page="about"] .hero-title,
-[data-page="approach"] .hero-title,
-[data-page="team"] .hero-title,
-[data-page="publications"] .hero-title {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-title {
   font-family:
     var(--font-display),
     Georgia,
@@ -235,10 +288,18 @@ a {
   text-shadow: none;
 }
 
-[data-page="about"] .hero-text,
-[data-page="approach"] .hero-text,
-[data-page="team"] .hero-text,
-[data-page="publications"] .hero-text {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-text {
   font-family:
     var(--font-body),
     -apple-system,
@@ -255,19 +316,35 @@ a {
   max-width: 56ch;
 }
 
-[data-page="about"] .hero-text .highlight-text,
-[data-page="approach"] .hero-text .highlight-text,
-[data-page="team"] .hero-text .highlight-text,
-[data-page="publications"] .hero-text .highlight-text {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-text .highlight-text {
   color: var(--color-mint, #5dc69f);
   font-weight: 500;
   background: none;
 }
 
-[data-page="about"] .hero-text a,
-[data-page="approach"] .hero-text a,
-[data-page="team"] .hero-text a,
-[data-page="publications"] .hero-text a {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-text a {
   color: var(--color-bone, #f2efe8);
   text-decoration: underline;
   text-decoration-color: var(--color-mint, #5dc69f);
@@ -275,26 +352,50 @@ a {
   text-underline-offset: 3px;
 }
 
-[data-page="about"] .hero-text a:hover,
-[data-page="approach"] .hero-text a:hover,
-[data-page="team"] .hero-text a:hover,
-[data-page="publications"] .hero-text a:hover {
+:is(
+  [data-page="about"],
+  [data-page="approach"],
+  [data-page="team"],
+  [data-page="publications"],
+  [data-page="audio"],
+  [data-page="videos"],
+  [data-page="contact"],
+  [data-page="faq"],
+  [data-page="privacy"],
+  [data-page="acknowledgements"]
+) .hero-text a:hover {
   text-decoration-color: var(--color-bone, #f2efe8);
 }
 
 @media (max-width: 720px) {
-  [data-page="about"] .hero,
-  [data-page="approach"] .hero,
-  [data-page="team"] .hero,
-  [data-page="publications"] .hero {
+  :is(
+    [data-page="about"],
+    [data-page="approach"],
+    [data-page="team"],
+    [data-page="publications"],
+    [data-page="audio"],
+    [data-page="videos"],
+    [data-page="contact"],
+    [data-page="faq"],
+    [data-page="privacy"],
+    [data-page="acknowledgements"]
+  ) .hero {
     min-height: clamp(320px, 44vh, 440px);
     padding: 40px 0;
   }
 
-  [data-page="about"] .hero-content,
-  [data-page="approach"] .hero-content,
-  [data-page="team"] .hero-content,
-  [data-page="publications"] .hero-content {
+  :is(
+    [data-page="about"],
+    [data-page="approach"],
+    [data-page="team"],
+    [data-page="publications"],
+    [data-page="audio"],
+    [data-page="videos"],
+    [data-page="contact"],
+    [data-page="faq"],
+    [data-page="privacy"],
+    [data-page="acknowledgements"]
+  ) .hero-content {
     max-width: 100%;
   }
 }
