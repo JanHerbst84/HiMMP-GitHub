@@ -68,7 +68,16 @@ html :is(h1, h2, h3, h4, h5, h6) {
   letter-spacing: -0.012em;
 }
 
-body :is(.content-section, .chapter-content, main) a:not(.skip-to-content):not(.read-more):not(.resource-button):not(.mix-btn):not(.mix-button):not(.section-nav-button) {
+/*
+ * Body link treatment. Scoped to `.content-section` and `.chapter-content`
+ * only — NOT `main`, which would match hero links (Slice E regression
+ * fixed in Slice H: hero links were rendering graphite-on-dark and
+ * invisible). The `:not()` chain is gone too; pill-button variants
+ * (`.read-more`, `.resource-button`, etc.) get their own colour rules
+ * below with higher specificity, so the exclusion is no longer needed
+ * to prevent text-only styling bleeding into buttons.
+ */
+:is(.content-section, .chapter-content) a {
   color: var(--color-graphite);
   text-decoration: underline;
   text-decoration-color: var(--color-mint);
@@ -76,8 +85,30 @@ body :is(.content-section, .chapter-content, main) a:not(.skip-to-content):not(.
   text-underline-offset: 3px;
 }
 
-body :is(.content-section, .chapter-content, main) a:not(.skip-to-content):not(.read-more):not(.resource-button):not(.mix-btn):not(.mix-button):not(.section-nav-button):hover {
+:is(.content-section, .chapter-content) a:hover {
   text-decoration-color: var(--color-graphite);
+}
+
+/*
+ * Slice H — pill-button contrast fix. Legacy main.css renders
+ * `.read-more` / `.resource-button` as `color: #fff` on a mint
+ * background, which scores ~2.09 contrast (WCAG AA needs 4.5).
+ * Replacing the text colour with graphite raises contrast on mint
+ * (#5dc69f) to ~8.87 (AAA). Mint background, padding, and pill shape
+ * are unchanged. `html` prefix lifts specificity to (0,1,1) so the
+ * graphite colour beats the legacy 0,1,0 single-class rule and is
+ * also unaffected by the body-link treatment above.
+ */
+html a.read-more,
+html a.resource-button {
+  color: var(--color-graphite);
+  text-decoration: none;
+}
+
+html a.read-more:hover,
+html a.resource-button:hover {
+  color: var(--color-graphite);
+  text-decoration: none;
 }
 
 .content-section table {
