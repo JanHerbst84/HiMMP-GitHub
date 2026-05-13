@@ -176,17 +176,21 @@ export default async function LegacyPlaceholderPage({ params }: LegacyPageProps)
     </>
   );
 
+  const pageSlug = route.routePath.split("/").filter(Boolean)[0] ?? "home";
+
   return (
     <>
       <LegacyHeadExtras meta={content.headMeta} links={content.headLinks} />
       <SiteShell activePath={route.routePath}>
-        {route.renderMode === "enhanced-findings" ? (
-          <EnhancedFindingsShell currentRoute={route}>{legacyContent}</EnhancedFindingsShell>
-        ) : (
-          legacyContent
-        )}
-        {usesFindingsAudioController(route) ? <EnhancedAudioController /> : null}
-        {route.renderMode === "enhanced-video" ? <EnhancedVideoController /> : null}
+        <div data-page={pageSlug} style={{ display: "contents" }}>
+          {route.renderMode === "enhanced-findings" ? (
+            <EnhancedFindingsShell currentRoute={route}>{legacyContent}</EnhancedFindingsShell>
+          ) : (
+            legacyContent
+          )}
+          {usesFindingsAudioController(route) ? <EnhancedAudioController /> : null}
+          {route.renderMode === "enhanced-video" ? <EnhancedVideoController /> : null}
+        </div>
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={bodyScripts} />

@@ -119,11 +119,16 @@ async function preparePage(page) {
       #main-content .audio-comparison,
       #main-content .comparison-player-container { display: none !important; }
       /*
-       * Home hero is deliberately redesigned in the design-refresh slice.
-       * Targeted by the welcome-page background image to scope to index.html
-       * only — other pages' heroes stay in the visual-parity coverage set.
+       * Inner-page heroes deliberately redesigned in the design-refresh slice
+       * (D-2a home, D-2b about/approach/team/publications). Each is targeted
+       * via its distinct background image substring so the rest of the legacy
+       * page bodies stay in the visual-parity coverage set.
        */
-      #main-content section.hero[style*="HiMMP-bg-welcome.jpg"] { display: none !important; }
+      #main-content section.hero[style*="HiMMP-bg-welcome.jpg"],
+      #main-content section.hero[style*="HiMMP-bg-about.jpg"],
+      #main-content section.hero[style*="HiMMP-bg-approach.jpg"],
+      #main-content section.hero[style*="HiMMP-bg-team.jpg"],
+      #main-content section.hero[style*="HiMMP-bg-publications.jpg"] { display: none !important; }
       #main-content .lazy-video-container { background: transparent !important; }
       #main-content .lazy-video-trigger { display: none !important; }
       .enhanced-findings-shell { display: block !important; background: transparent !important; }
