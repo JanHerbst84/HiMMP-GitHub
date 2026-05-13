@@ -146,6 +146,65 @@ html a.download-link:hover {
 }
 
 /*
+ * Slice K (Family E, D-1) — content section + table + highlights re-skin.
+ * Additive over legacy main.css (.content-section, tables, .update-item,
+ * .update-date, .highlight-item rules at lines 568-756). Structural —
+ * grid layout, padding, table width: 100%, borders themselves —
+ * unchanged; only the colours and the radius/teal-accent treatments
+ * change. `html` prefix bumps specificity to beat the legacy single-
+ * or double-class rules.
+ */
+
+/* Section divider between content blocks: warm hairline, not cool grey. */
+html .content-section {
+  border-bottom-color: var(--color-rule);
+}
+
+/* Update list dividers + date stamp. The legacy date uses teal text +
+   teal underline. Demote to graphite text with a mint hairline, matching
+   the header-nav active treatment. */
+html .update-item {
+  border-bottom-color: var(--color-rule);
+}
+
+html .update-date {
+  color: var(--color-graphite);
+  border-bottom-color: var(--color-mint);
+}
+
+/* Tables: bone-tinted thead, graphite-rule borders, subtle alternating
+   row tint. Uses rgba(graphite) over the bone body bg rather than
+   color-mix(in oklch, ...) — Chromium renders oklch mixes between warm
+   bone (#f2efe8) and cool graphite (#111418) with a magenta cast at
+   midtones, so the explicit rgba avoids that. */
+html .content-section thead th {
+  background: rgba(17, 20, 24, 0.07);
+}
+
+html .content-section th,
+html .content-section td {
+  border: 1px solid var(--color-rule);
+}
+
+html .content-section tbody tr:nth-child(even) {
+  background: rgba(17, 20, 24, 0.035);
+}
+
+/* Highlight callout cards. Drop the legacy light-grey background and
+   border-radius pill; use a bone-tinted block with a mint hairline rule
+   on the left. The translateX(5px) hover stays — it's a small motion
+   affordance we don't need to retire. */
+html .highlight-item {
+  background-color: rgba(17, 20, 24, 0.045);
+  border-left: 2px solid var(--color-mint);
+  border-radius: 0;
+}
+
+html .highlight-item:hover {
+  background-color: rgba(17, 20, 24, 0.08);
+}
+
+/*
  * Slice F (Family B, D-1) — dark-academic header + nav re-skin.
  * Additive over legacy main.css (.site-header / .nav-links rules at lines
  * 196-273). Structural rules — sticky positioning, flex layout, mobile
