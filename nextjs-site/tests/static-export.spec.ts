@@ -312,6 +312,25 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("privacy page renders React-owned GDPR sections", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/privacy.html");
+
+    await expect(page.locator("[data-page='privacy']")).toHaveCount(1);
+    await expect(page.locator("h1.hero-title")).toHaveText("Privacy Policy");
+    // Legacy privacy.html has 13 h3 headings (one "Definitions" + 12
+    // numbered sections "2." through "13.") and 13 section-divider
+    // separators (one between each pair of sections, one before the
+    // final section). Note: `grep -c 'section-divider' privacy.html`
+    // returns 14, but one match is the CSS rule in the head <style>
+    // block — only 13 are actual divider elements in the body.
+    await expect(page.locator(".content-section h3")).toHaveCount(13);
+    await expect(page.locator(".content-section .section-divider")).toHaveCount(13);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/publications.html");
