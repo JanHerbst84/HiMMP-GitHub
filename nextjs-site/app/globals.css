@@ -190,6 +190,65 @@ html .nav-links a.active {
 }
 
 /*
+ * Slice J (Family K, D-1) — dark-academic footer re-skin.
+ * Additive over legacy main.css (.site-footer / .footer-nav rules at
+ * lines 1199-1273). Structural rules — flex layout, logo sizing, the
+ * brightness-invert filters on the three brand logos — are NOT
+ * touched. Palette and accent only.
+ *
+ * The legacy footer renders on pure black (`--primary-color: #000`)
+ * with white text and a `//`-separator decoration in white; the
+ * .highlight-text spans inside .footer-nav a render mint+bold. The
+ * re-skin softens black to graphite (matches the dark hero overlay
+ * tone), demotes the mint+bold treatment in the footer to bone-on-
+ * graphite at normal weight (matching the header nav register), and
+ * uses a mint hairline underline on hover (matching the header nav
+ * active treatment). The `//` separator stays as a typographic mark
+ * but at low-opacity bone so it reads as restrained rather than
+ * decorative.
+ */
+html .site-footer {
+  background-color: var(--color-graphite);
+  color: var(--color-bone);
+}
+
+html .footer-nav a {
+  color: var(--color-bone);
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+  text-decoration: none;
+}
+
+html .footer-nav a:hover {
+  opacity: 1;
+  color: var(--color-bone);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mint);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+html .footer-nav .highlight-text {
+  color: var(--color-bone);
+  font-weight: 400;
+  background: none;
+}
+
+html .footer-nav li:not(:last-child)::after {
+  color: rgba(242, 239, 232, 0.4);
+}
+
+html .footer-logos {
+  border-bottom-color: rgba(242, 239, 232, 0.15);
+}
+
+/*
  * Slice G — responsive breathing room on wide displays.
  * Legacy main.css caps .container at 1200px which feels cramped on
  * 1440px+ monitors and orphans the 4th card in the home output-card
