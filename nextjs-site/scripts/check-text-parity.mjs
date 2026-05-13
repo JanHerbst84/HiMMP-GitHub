@@ -6,18 +6,52 @@ const repoRoot = path.join(appRoot, "..");
 const inventoryPath = path.join(appRoot, ".migration/current-site-inventory.json");
 const outDir = path.join(appRoot, "out");
 
+const NAMED_ENTITY_MAP = {
+  quot: '"',
+  apos: "'",
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  nbsp: " ",
+  rarr: "→",
+  larr: "←",
+  uarr: "↑",
+  darr: "↓",
+  hellip: "…",
+  mdash: "—",
+  ndash: "–",
+  copy: "©",
+  reg: "®",
+  trade: "™",
+  laquo: "«",
+  raquo: "»",
+  ldquo: "“",
+  rdquo: "”",
+  lsquo: "‘",
+  rsquo: "’",
+  middot: "·",
+  bull: "•",
+  deg: "°",
+  times: "×",
+  divide: "÷"
+};
+
+/*
+ * Single-pass decoder. Double-encoded entities (`&amp;rarr;`) would
+ * decode to literal `&rarr;` rather than `→` because `String.replace`
+ * does not re-scan replaced substrings. None of the in-scope legacy
+ * pages use double-encoding; if a future page does the parity check
+ * will fail loudly (visible-text mismatch) rather than corrupting
+ * silently. Extend with a fixpoint loop if that ever becomes a real
+ * case.
+ */
 function decodeEntities(value) {
   return value
     .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
     .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(Number.parseInt(code, 16)))
-    .replace(/&quot;/g, '"')
     .replace(/&#x27;/g, "'")
     .replace(/&#39;/g, "'")
-    .replace(/&apos;/g, "'")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&nbsp;/g, " ");
+    .replace(/&([a-zA-Z]+);/g, (match, name) => NAMED_ENTITY_MAP[name] ?? match);
 }
 
 function extractLegacyMain(source, sourceFile) {

@@ -283,6 +283,22 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("acknowledgements page renders React-owned content", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/acknowledgements.html");
+
+    await expect(page.locator("[data-page='acknowledgements']")).toHaveCount(1);
+    await expect(page.locator("h1.hero-title")).toHaveText("Acknowledgements");
+    await expect(page.locator(".content-section h2")).toHaveText(
+      "This guide was supported by the following:"
+    );
+    await expect(page.locator(".content-section p")).toHaveCount(3);
+    await expect(page.locator("a.read-more")).toHaveText("Back to Findings →");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/publications.html");
