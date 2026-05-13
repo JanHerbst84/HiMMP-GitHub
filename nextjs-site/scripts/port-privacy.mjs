@@ -1,7 +1,13 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const repoRoot = '/home/jan-herbst/github/Websites/HiMMP-GitHub';
+// Derive the repo root from this script's own location so the port is
+// reproducible from any checkout. Script lives at
+// `<repo>/nextjs-site/scripts/port-privacy.mjs`, so repo root is two
+// levels up.
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(scriptDir, '../..');
 const source = readFileSync(path.join(repoRoot, 'privacy.html'), 'utf8');
 
 const mainMatch = source.match(/<main\b[^>]*id="main-content"[^>]*>([\s\S]*?)<\/main>/i);
