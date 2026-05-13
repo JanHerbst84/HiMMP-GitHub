@@ -256,6 +256,11 @@ html .publication-item {
   border-bottom: 1px solid var(--color-rule);
 }
 
+html .publication-card,
+html .publication-item {
+  box-shadow: 0 1px 3px rgba(17, 20, 24, 0.07);
+}
+
 html .publication-card {
   background-color: var(--color-paper);
   border: 1px solid var(--color-rule);
@@ -268,6 +273,20 @@ html .publication-card {
    ambiguous as "left-anchored" vs "centred" CV entries. */
 html .advisor-item {
   text-align: center;
+}
+
+/* The /team.html `.departments-grid` and `.advisory-grid` legacy CSS
+   uses `grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))`
+   which at wide viewports (1920+) produces 4 columns. With 3 dept
+   cards or 6 advisor cards that leaves the last row partly empty
+   (3-in-a-row of 4, then orphan/empties), reading as "the block is
+   not centred". Force the canonical count: 3 for departments
+   (exactly 3 items), 3 for advisors (6 items → two full rows of 3). */
+@media (min-width: 768px) {
+  html .departments-grid,
+  html .advisory-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* Audio comparison status lines. Two elements both echo the active
