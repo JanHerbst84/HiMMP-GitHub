@@ -241,6 +241,21 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("approach page renders React-owned timeline and feature video", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/approach.html");
+
+    await expect(page.locator("[data-page='approach']")).toHaveCount(1);
+    await expect(page.locator(".timeline-item")).toHaveCount(3);
+    await expect(
+      page.locator(".video-container iframe[src='https://www.youtube.com/embed/s51zs_ZVVoA']")
+    ).toHaveCount(1);
+    await expect(page.locator("h1.hero-title")).toHaveText("Research Approach & Methodology");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("publication section navigation and accordions preserve legacy behavior", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/publications.html");
