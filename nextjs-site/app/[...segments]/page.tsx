@@ -130,7 +130,8 @@ const REACT_OWNED_ROUTES = new Set<string>([
   "/faq",
   "/privacy",
   "/contact",
-  "/audio"
+  "/audio",
+  "/videos"
 ]);
 
 export function generateStaticParams() {
