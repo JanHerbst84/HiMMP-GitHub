@@ -45,7 +45,7 @@ export function FindingsChapter03() {
       <div className="container chapter-content" style={{ "--chapter": "'3'" } as Record<string, string>}>
         <p>The 'Heaviness in Metal Music Production' (HiMMP) project was built on a unique principle: to gain practical insight into <em>how</em> top producers create heaviness, we had to eliminate all other variables. By providing identical, high-quality source material to eight producers, we established a controlled environment. This methodology allowed us to go beyond mere variations in recording quality or performance and discover the fundamental philosophical differences that drive metal production today.</p>
 
-        <h2>The Test Track: 'In Solitude'</h2>
+        <h2 id="the-test-track-in-solitude">The Test Track: 'In Solitude'</h2>
         <p>The experiment was based on 'In Solitude', a five-minute composition created specifically for this research.<sup id="ref-1"><a href="#endnote-1">1</a></sup> The song incorporated elements from various metal subgenres: it featured blast beats, technical sections, a half-time breakdown, and atmospheric passages. This varied arrangement provided producers with a comprehensive setup to demonstrate their approach to heaviness across different musical contexts.</p>
         <p>Following composition, the song was recorded professionally. The multi-track session<sup id="ref-2"><a href="#endnote-2">2</a></sup> provided to producers included:</p>
         <ul>
@@ -72,10 +72,10 @@ export function FindingsChapter03() {
 
         <p>Comparing these mixes is not intended as a competition. A closer examination of each mix instead demonstrates the production techniques that have proven effective for these eight highly respected, Grammy Award-winning producers, each bringing a unique sonic identity to their work. The approaches and methods that work for one producer may not necessarily apply to another. Each of these producers has developed a mixing methodology that succeeds within their own framework. The project aims to document and understand these different pathways to heaviness. Ranking them or determining which is "best" would miss the fundamental purpose of the research.</p>
 
-        <h2>The "No Reference Mix" Approach</h2>
+        <h2 id="the-no-reference-mix-approach">The "No Reference Mix" Approach</h2>
         <p>A strategic decision involved providing no reference mix to the producers. While unconventional, this approach ensured each producer's mix represented their uninfluenced vision for how the song should sound. This methodology revealed stark differences and unprecedented insight into their conceptualization of heaviness that might have been obscured had producers been working toward a predetermined sonic blueprint.</p>
 
-        <h2>Data Collection and Documentation: Unprecedented Access</h2>
+        <h2 id="data-collection-and-documentation-unprecedented-access">Data Collection and Documentation: Unprecedented Access</h2>
         <p>We collected multiple forms of data from each producer:</p>
         <ul>
           <li>Video recordings of mixing sessions;</li>
@@ -106,7 +106,7 @@ export function FindingsChapter03() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">You can listen to our own mix of 'In Solitude' on Spotify: <a href="https://open.spotify.com/track/3qk8nfMpCTLHtGSew8oD7O?si=dc064f8fa2fb4bfd" target="_blank" rel="noopener noreferrer">https://open.spotify.com/track/3qk8nfMpCTLHtGSew8oD7O?si=dc064f8fa2fb4bfd</a> <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">A project within a digital audio workstation that allows processing on individual tracks of a recording. <a className="backref" href="#ref-2">↩</a></li>

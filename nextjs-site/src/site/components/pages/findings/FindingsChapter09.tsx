@@ -45,7 +45,7 @@ export function FindingsChapter09() {
       <div className="container chapter-content" style={{ "--chapter": "'9'" } as Record<string, string>}>
         <p>Guitar and bass processing form the tonal centre of metal production, as they occupy the majority of the frequency spectrum and define the music's textural character. Our research documented different approaches to engineering these instruments, with specific techniques that varied dramatically between producers, yet shared common conceptual foundations.</p>
 
-        <h2>Guitar Tone Development</h2>
+        <h2 id="guitar-tone-development">Guitar Tone Development</h2>
         <p>All producers agreed that guitar heaviness begins at the source, with appropriate amplification, cabinet selection, and microphone placement. In the 'In Solitude' mix, all producers but Scheps and Exeter reamped the provided DI tracks or used amplifier simulation<sup id="ref-1"><a href="#endnote-1">1</a></sup> to craft their signature high-gain sound, rather than working with pre-recorded guitar tracks (Figure 9.1). This approach emphasizes a central principle: in metal production, the foundational guitar tone must be established before mixing begins.</p>
 
         <div className="figure figure-numbered">
@@ -144,7 +144,7 @@ export function FindingsChapter09() {
           </div>
         </div>
 
-        <h2>Bass Guitar Processing</h2>
+        <h2 id="bass-guitar-processing">Bass Guitar Processing</h2>
         <p>Bass treatment varied considerably between producers, which reflects different conceptual approaches to its role in the meta-instrument:</p>
         <ul>
           <li><strong>Extreme Dynamic Control:</strong> All producers applied substantial compression to bass but with varying philosophies. Bogren, Getgood, and Middleton employed aggressive limiting<sup id="ref-7"><a href="#endnote-7">7</a></sup> and multiband compression to create what Odeholm described as a 'sausage of low-end', an extremely consistent dynamic profile where every note maintains identical power regardless of playing dynamics. This approach ensures the bass foundation remains stable throughout various performance techniques.</li>
@@ -181,7 +181,7 @@ export function FindingsChapter09() {
           </div>
         </div>
 
-        <h2>Practical Implementation</h2>
+        <h2 id="practical-implementation">Practical Implementation</h2>
         <p>The research documented that regardless of philosophical approach, achieving heavy guitar and bass sounds involves addressing several universal challenges:</p>
         <ul>
           <li><strong>Palm-mute control:</strong> Managing the resonant booms that occur during chugging passages through multiband compression or dynamic EQ.</li>
@@ -223,7 +223,7 @@ export function FindingsChapter09() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Software plugins that replicate hardware amplifiers, cabinets, and microphones. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">Equalization with compression-like controls for specific frequency bands. <a className="backref" href="#ref-2">↩</a></li>

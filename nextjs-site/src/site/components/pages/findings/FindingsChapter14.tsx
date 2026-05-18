@@ -45,7 +45,7 @@ export function FindingsChapter14() {
       <div className="container chapter-content" style={{ "--chapter": "'14'" } as Record<string, string>}>
         <p>This guide has synthesized insights from the HiMMP research project to provide practical guidance on creating heaviness in metal production. For those seeking to deepen their understanding of the theoretical foundations, production techniques, and broader context of this research, we recommend the following essential reading.</p>
 
-        <h2>Core HiMMP Publications</h2>
+        <h2 id="core-himmp-publications">Core HiMMP Publications</h2>
         <p>The comprehensive scholarly work underlying this practical guide is available in two complementary volumes published by Routledge:</p>
 
         <h3>Volume 1: Theoretical Framework</h3>
@@ -56,17 +56,17 @@ export function FindingsChapter14() {
         <p><strong>Herbst, Jan-Peter &amp; Mynett, Mark</strong> (2025). <em>Heaviness in Metal Music Production, Volume 2: Learn from the Masters</em>. Abingdon: Routledge. DOI: <a href="https://doi.org/10.4324/9781003564089" target="_blank" rel="noopener noreferrer">10.4324/9781003564089</a></p>
         <p>Volume 2 presents in-depth case studies of the eight world-class producers featured in the HiMMP research project. Through extended interviews and detailed technical analysis of their commissioned mixes, this volume offers unprecedented insight into how leading professionals conceptualize and create heaviness across the naturalistic-hyperreal spectrum.</p>
 
-        <h2>Foundational Journal Article</h2>
+        <h2 id="foundational-journal-article">Foundational Journal Article</h2>
 
         <p><strong>Herbst, Jan-Peter &amp; Smialek, Eric</strong> (2025). "'Mixed' Results: An Introduction to Analyzing Metal Production through Eight Commissioned Metal Mixes". <em>Zeitschrift der Gesellschaft für Musiktheorie</em> (Journal of the German-Speaking Society for Music Theory), 22/1. DOI: <a href="https://doi.org/10.31751/1222" target="_blank" rel="noopener noreferrer">10.31751/1222</a></p>
         <p>This peer-reviewed article introduces the methodological approach of the HiMMP project and explains how commissioned mixes from leading producers enable controlled analysis of production variables. The article demonstrates how this research method reveals the philosophical and technical diversity within professional metal production. It establishes the framework for understanding the naturalistic and hyperreal approaches detailed in this guide.</p>
 
-        <h2>Professional Production Guide</h2>
+        <h2 id="professional-production-guide">Professional Production Guide</h2>
 
         <p><strong>Mynett, Mark</strong> (2017). <em>Metal Music Manual: Producing, Engineering, Mixing, and Mastering Contemporary Heavy Music</em>. Abingdon: Routledge. DOI: <a href="https://doi.org/10.4324/9781315750071" target="_blank" rel="noopener noreferrer">10.4324/9781315750071</a></p>
         <p>This comprehensive professional guide covers all aspects of metal music production, from pre-production through mastering. Written by HiMMP co-investigator Mark Mynett, the Manual provides detailed technical instruction alongside conceptual frameworks for understanding heavy music production. It serves as an essential companion to this guide and offers extensive practical guidance on implementing the techniques and approaches discussed throughout the HiMMP research.</p>
 
-        <h2>Further HiMMP Project Outputs</h2>
+        <h2 id="further-himmp-project-outputs">Further HiMMP Project Outputs</h2>
         <p>The HiMMP project has generated a substantial body of research outputs including journal articles, book chapters, conference presentations, and industry publications. For a complete listing of project outputs and additional recommended reading on metal music production, heaviness, and related topics, please visit our <a href="../publications.html">Publications page</a>.</p>
         <p>The Publications page includes:</p>
         <ul>

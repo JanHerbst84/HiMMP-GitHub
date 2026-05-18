@@ -45,19 +45,19 @@ export function FindingsChapter04() {
       <div className="container chapter-content" style={{ "--chapter": "'4'" } as Record<string, string>}>
         <p>Despite different production philosophies, all producers share a foundational consensus on the nature of heaviness in metal:</p>
 
-        <h2>Heaviness: A Holistic Quality</h2>
+        <h2 id="heaviness-a-holistic-quality">Heaviness: A Holistic Quality</h2>
         <p>While production techniques contribute considerably, the producers emphasized that heaviness transcends pure sonics. Heavy music creates a physical reaction (body) and an emotional response (mind) through a combination of composition and performance, enhanced by production. This holistic quality explains why records like Black Sabbath's debut album remain heavy (to some listeners, at least) despite primitive production technology, while some technically perfect modern productions lack emotional impact (for some).</p>
 
-        <h2>The Multidimensional Nature of Heaviness</h2>
+        <h2 id="the-multidimensional-nature-of-heaviness">The Multidimensional Nature of Heaviness</h2>
         <p>While the introduction established heaviness as metal's defining quality, the research captured producers' shared understanding of its complex nature. This complexity explains why diverse subgenres, such as the brutal intensity of death metal and the lo-fi abrasiveness of black metal, can all be perceived as "heavy" despite considerable sonic differences.</p>
 
         <p>The producers emphasized that heaviness is a moving target, continually developing as audiences become accustomed to previously extreme sounds. This perceptual adaptation drives metal's constant innovation; what was very heavy in the 1970s might sound tame by today's standards. Heaviness tends to have the strongest effect when it either surprises the listener or breaks conventional rules, especially when performances exceed current artistic standards. For this reason, the pursuit of greater heaviness has been a constant driver of metal's development.</p>
 
-        <h2>Foundations in Performance and Composition</h2>
+        <h2 id="foundations-in-performance-and-composition">Foundations in Performance and Composition</h2>
         <p>The producers unanimously emphasized that high-quality performance forms the bedrock of any heavy production. Strong performances are essential for maximizing impact and punch<sup id="ref-1"><a href="#endnote-1">1</a></sup>, while weak or sloppy execution becomes more evident in clear productions, which negatively affects the listening experience. As all producers highlighted, good performances are required for achieving natural-sounding productions that maintain emotional expression and resonance.</p>
         <p>Similarly, songwriting and arrangement were considered fundamental. Several producers argued that a heavy song, if performed expressively, could retain its heaviness regardless of how it is produced. This aligns with the observation that musical progression and contrast, such as dynamic peaks and troughs, tempo variations, and rhythmic shifts, are essential to creating effective heaviness through "sonic storytelling".</p>
 
-        <h2>A Simple Formula: Slow, Low, and Dense</h2>
+        <h2 id="a-simple-formula-slow-low-and-dense">A Simple Formula: Slow, Low, and Dense</h2>
         <p>Setting aside subjectivity and subgenre variations, most producers agreed on a rough formula for what they considered heavy: metal is at its heaviest when it is slow, low, and dense (see also Figure 4.1). This is the mechanism behind effective breakdowns, which typically feature half-time tempos and open space for low-end frequencies<sup id="ref-2"><a href="#endnote-2">2</a></sup> to bloom. As Andrew Scheps noted regarding the breakdown in 'In Solitude': 'That's when the track just drops and gets really heavy because you have the room in the mix'.</p>
         <p>Across all production philosophies, all producers agreed that metal requires a balance between technical precision and emotional expression, as well as between clarity and density. They also stressed the need to balance individual instrument identity with collective impact. Finding the right balance for each production remains both the challenge and the art of creating effective heaviness in metal.</p>
         <div className="figure figure-numbered">
@@ -80,7 +80,7 @@ export function FindingsChapter04() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Characterized by clear transients and a pronounced attack phase that conveys a feeling of energy. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">The bass area of the frequency spectrum. <a className="backref" href="#ref-2">↩</a></li>

@@ -53,8 +53,46 @@ function cssToJsxStyle(decl) {
     : `style={${inner}}`;
 }
 
+// Match the legacy on-this-page script's slug rule verbatim so any
+// JSON-LD URL or external link that was built against the legacy
+// runtime IDs still resolves after the port. See
+// `findings/<chapter>.html` bottom inline `<script>` for the source.
+function slugifyHeading(text) {
+  return text
+    .toLowerCase()
+    .replace(/&amp;/g, 'and')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
+// Inject stable `id="<slug>"` on every `<h2>` that does not already
+// declare one. Mirrors what the legacy on-this-page script does at
+// runtime, but at port time, so the IDs are present in the
+// SSR-rendered HTML rather than appearing after `DOMContentLoaded`
+// (which races React hydration and triggers #418). Inner HTML tags
+// in the heading (e.g. `<sup>` footnote refs) are stripped before
+// slugification, matching `.textContent`.
+function injectH2Ids(html) {
+  return html.replace(
+    /<h2\b([^>]*)>([\s\S]*?)<\/h2>/g,
+    (match, attrs, inner) => {
+      if (/\bid\s*=/.test(attrs)) {
+        return match;
+      }
+      const text = inner.replace(/<[^>]+>/g, '');
+      const slug = slugifyHeading(text);
+      if (!slug) {
+        return match;
+      }
+      return `<h2${attrs} id="${slug}">${inner}</h2>`;
+    }
+  );
+}
+
 function convertMain(html) {
-  return html
+  return injectH2Ids(html)
     .replace(/\bclass=/g, 'className=')
     .replace(/\bfor=/g, 'htmlFor=')
     .replace(/<br>/gi, '<br />')

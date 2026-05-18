@@ -45,11 +45,11 @@ export function FindingsChapter05() {
       <div className="container chapter-content" style={{ "--chapter": "'5'" } as Record<string, string>}>
         <p>The naturalistic approach to metal production is one of the two primary philosophical frameworks we identified. Championed most explicitly by Mike Exeter and Fredrik Nordström, and to some extent Andrew Scheps, this school prioritizes capturing and preserving the organic interaction between musicians, even when using modern production tools. This philosophy has deep roots in traditional rock and metal production, dating back to the formative recordings that established the genre's sonic foundation.</p>
 
-        <h2>Historical Context and Evolution</h2>
+        <h2 id="historical-context-and-evolution">Historical Context and Evolution</h2>
         <p>The naturalistic approach emerged during metal's formative years (early 1970s) when technological limitations necessitated capturing bands performing together with minimal editing possibilities. Albums like Black Sabbath's early recordings engineered by Rodger Bain exemplify this approach, where heaviness derived primarily from the band's raw power rather than production enhancement. Mike Exeter, who later worked with Black Sabbath, carries this legacy forward while integrating modern techniques.</p>
         <p>'If everything is super tight, super synced, it's not going to be heavy', explains Fredrik Nordström, articulating the core philosophy. 'You need to have some errors in there. Human feel'. This perspective values the subtle timing discrepancies and performance variations that occur when musicians interact, what Exeter describes as the 'ensemble feel'. Naturalistic producers consider these essential components of a convincing heavy sound rather than mere imperfections to be corrected.</p>
 
-        <h2>Technical Implementation</h2>
+        <h2 id="technical-implementation">Technical Implementation</h2>
         <p>While grounded in traditional values, the naturalistic approach has developed considerably with technology. Modern proponents like Exeter and Nordström do not reject contemporary tools, they simply employ them with restraint and purpose. Key characteristics of their technical implementation include:</p>
         <ul>
           <li><strong>Selective Sample Reinforcement:</strong> Unlike the sample-replacement approach that hyperreal producers favour, naturalistic mixing typically employs samples selectively to support rather than replace the original performance. Nordström's technique exemplifies this philosophy where he added samples under the real tom hits to bring out the finer details in the fills. This maintains the original toms' character and resonance while ensuring clarity and impact.</li>
@@ -59,7 +59,7 @@ export function FindingsChapter05() {
           <li><strong>Three-Dimensional Soundstage:</strong> Naturalistic mixing often creates a more three-dimensional sound field where instruments occupy distinct spaces, including the depth plane (foreground and background). This approach gives the listener a sense of being in the room with the band, as opposed to being confronted by a single sonic mass "in your face". This spatial approach will be explored further in <a href="./10-spatial.html">Chapter 10</a>, but it represents a fundamental difference in how naturalistic producers conceptualize the relationship between listener and performance.</li>
         </ul>
 
-        <h2>Effectiveness and Application</h2>
+        <h2 id="effectiveness-and-application">Effectiveness and Application</h2>
         <p>The research demonstrated that naturalistic approaches produce heavy results despite (or perhaps because of) their restrained application of technology. When compared with hyperreal mixes of 'In Solitude', the naturalistic versions displayed several notable characteristics:</p>
         <ul>
           <li>Greater dynamic range between song sections;</li>
@@ -68,7 +68,7 @@ export function FindingsChapter05() {
         </ul>
         <p>This approach is particularly effective in styles like traditional heavy metal, doom, stoner metal, and classic death/thrash where the "band in a room" aesthetic remains culturally significant. As Nordström observed regarding Slayer's <em>Reign in Blood</em>, which 'does not sound good sound-wise' in a traditional sense yet conveys aggressive energy, sometimes technical imperfection creates a more energetic form of heaviness.</p>
 
-        <h2>Challenges and Limitations</h2>
+        <h2 id="challenges-and-limitations">Challenges and Limitations</h2>
         <p>The naturalistic approach faces particular challenges in extreme metal subgenres where speed and technical complexity push against human performance capabilities. Techniques like blast beats in subgenres like technical death metal, or sub-bass-rich styles like djent often benefit from more interventionist production techniques. Additionally, the approach requires exceptional performances at the source. As Exeter noted, you should ideally be able to 'broom-handle the mix' (set all faders to equal levels) and have it basically work, which demands impeccable recording balance and performance.</p>
 
         <blockquote className="pull-quote">
@@ -119,7 +119,7 @@ export function FindingsChapter05() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Reduce dynamic range through processing. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">Equalization to adjust frequency response. <a className="backref" href="#ref-2">↩</a></li>

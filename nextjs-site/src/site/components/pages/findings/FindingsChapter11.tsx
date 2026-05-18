@@ -45,10 +45,10 @@ export function FindingsChapter11() {
       <div className="container chapter-content" style={{ "--chapter": "'11'" } as Record<string, string>}>
         <p>Moving past technical implementation, this section examines how heaviness functions as a perceptual experience: one that varies between listeners based on their musical background, listening environment, and cultural context. The eight producers’ distinct interpretations of ‘In Solitude’ clearly demonstrate heaviness as a subjective rather than purely objective quality.</p>
 
-        <h2>Beyond Technical Definitions</h2>
+        <h2 id="beyond-technical-definitions">Beyond Technical Definitions</h2>
         <p>Despite identifying common technical elements that contribute to heaviness, our research suggested that listeners do not always agree on which production approach sounds “heaviest”. Some find maximum impact in hyperreal techniques with perfect alignment and enhanced clarity and sonic weight, while others connect more with the organic power of naturalistic approaches that preserve performance energy. This divergence is not about right or wrong; it is about different pathways to creating powerful musical experiences. Dave Otero described heaviness as ‘that thing that washes over you and makes you feel such undeniable weight’, which highlights how it operates as an emotional and physical experience rather than just a technical achievement.</p>
 
-        <h2>The Perception Framework</h2>
+        <h2 id="the-perception-framework">The Perception Framework</h2>
         <p>Our perception of heaviness is influenced by several factors, such as:</p>
         <ul>
           <li><strong>Listening History</strong>: Previous exposure to metal creates reference points that shape expectations.</li>
@@ -57,10 +57,10 @@ export function FindingsChapter11() {
         </ul>
         <p>The perception of heaviness is not limited to purely sonic elements but also includes visual and contextual dimensions. Album artwork, band image, and cultural associations all contribute to how we experience heaviness.</p>
 
-        <h2>The Personal History Effect</h2>
+        <h2 id="the-personal-history-effect">The Personal History Effect</h2>
         <p>Our individual musical journeys significantly influence our perception of heaviness. A listener raised on 1980s thrash might find Nordström's production style authentically heavy, while someone who discovered metal through modern djent might connect more deeply with Odeholm's hyperreal approach. Even within the same subgenre, our formative listening experiences, such as which albums introduced us to metal or which bands defined "heaviness" during our most impressionable years, create powerful reference points that colour all future listening experiences.</p>
 
-        <h2>Building Your Own Heaviness Reference Library</h2>
+        <h2 id="building-your-own-heaviness-reference-library">Building Your Own Heaviness Reference Library</h2>
         <p>Recognising heaviness as a subjective experience does not mean abandoning standards; it means making them explicit. One practical way to do this is to build your own reference library of 'heavy for me' tracks across eras and subgenres.</p>
         <p>Start by choosing recordings that once felt overwhelmingly heavy when you first encountered them – not only current favourites, but also albums that defined heaviness at different points in your listening life. Include both more naturalistic, 'band in a room' productions and more hyperreal, engineered examples.</p>
         <p>For each track, ask yourself:</p>
@@ -71,7 +71,7 @@ export function FindingsChapter11() {
         </ul>
         <p>Over time, this curated library becomes a personal calibration tool. Returning to it while you mix helps you anchor decisions about tone, dynamics, and balance in a set of references that are historically and emotionally meaningful to you, rather than in abstract ideals.</p>
 
-        <h2>Balancing Act</h2>
+        <h2 id="balancing-act">Balancing Act</h2>
         <p>The most effective approaches to creating heaviness recognize and work with these subjective dimensions. Rather than pursuing technical ideals in isolation, producers balance several perceptual trade-offs:</p>
         <ul>
           <li><strong>Clarity vs. Density</strong>: Finding the right balance between clear definition and overwhelming sonic mass.</li>

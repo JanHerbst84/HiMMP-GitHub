@@ -45,7 +45,7 @@ export function FindingsChapter07() {
       <div className="container chapter-content" style={{ "--chapter": "'7'" } as Record<string, string>}>
         <p>One of the most significant insights to result from the research was the concept of the <strong>"meta-instrument"</strong>: a production approach that reframes how instruments interact in heavy music. This concept, while particularly prominent in hyperreal production, has influenced metal mixing across the spectrum and represents a paradigm shift in how engineers conceptualize heaviness.</p>
 
-        <h2>Conventional vs. Meta-Instrument Mixing</h2>
+        <h2 id="conventional-vs-meta-instrument-mixing">Conventional vs. Meta-Instrument Mixing</h2>
 
         <p><strong>Traditional Approach: Each instrument as a separate entity.</strong></p>
         <ul>
@@ -62,7 +62,7 @@ export function FindingsChapter07() {
           <li>Focus on collective impact rather than individual clarity.</li>
         </ul>
 
-        <h2>Technical Implementation</h2>
+        <h2 id="technical-implementation">Technical Implementation</h2>
         <p>Implementing the meta-instrument approach requires specific technical strategies:</p>
         <ul>
           <li><strong>Transient Alignment:</strong> The foundation of the meta-instrument concept is precise rhythmic alignment between instruments. In other words, the same kind of timing care that traditionally applied within the drum kit is now applied across kick, bass, and guitars. Odeholm's sample-level editing approach (detailed in <a href="./06-hyperreal.html">Chapter 6</a>) represents the extreme application of this principle. Even slightly more conservative producers like Getgood and Otero emphasize the importance of aligned attacks for maximum heaviness, though with less microscopic attention to waveform alignment.</li>
@@ -71,10 +71,10 @@ export function FindingsChapter07() {
           <li><strong>Interconnected Processing Chains:</strong> The approach often integrates signal paths between instruments that traditionally would be processed independently. For example, several producers mentioned using a send from the kick drum to trigger a specific distortion characteristic on the bass or linking compressors across instrument groups. These interconnections create a cohesive texture where instruments enhance rather than compete with each other.</li>
         </ul>
 
-        <h2>The Physics of Unity</h2>
+        <h2 id="the-physics-of-unity">The Physics of Unity</h2>
         <p>The meta-instrument concept has acoustic foundations: when waveforms align in phase, they create constructive interference and double their physical power. This matters in practice because the listener experiences that constructive interference as a tighter, more solid low-end ‘hit’ (i.e. a sensation of weight and punch) even if the overall meter level has not changed dramatically. When kick, bass, and guitar transients align perfectly, they create a pressure wave far greater than the sum of individual instruments.</p>
 
-        <h2>Spectral and Spatial Distribution</h2>
+        <h2 id="spectral-and-spatial-distribution">Spectral and Spatial Distribution</h2>
         <p>The meta-instrument concept manifests in unconventional approaches to both frequency allocation and stereo positioning:</p>
         <ul>
           <li><strong>Frequency Integration:</strong> While traditional mixing often high-passes guitars around 100 Hz to make room for bass, meta-instrument mixing might allow guitars to extend down to 60 Hz while carefully controlling their relationship with the bass guitar through phase alignment and dynamic processing. This creates an integrated spectrum where the listener cannot easily distinguish which instrument is generating specific low frequencies (Figures 7.1–7.3).</li>
@@ -127,7 +127,7 @@ export function FindingsChapter07() {
           </div>
         </div>
 
-        <h2>Variations Across Production Philosophies</h2>
+        <h2 id="variations-across-production-philosophies">Variations Across Production Philosophies</h2>
         <p>Now that you have explored the interactive mix comparison, it is important to note that while the meta-instrument concept reaches its logical extreme in hyperreal production, elements of this approach appear across the philosophical spectrum:</p>
         <ul>
           <li><strong>Naturalistic Implementation:</strong> Even Exeter, the most traditional producer in the study, demonstrated meta-instrument thinking through his complementary EQ choices for guitar and bass and his strategic automation of elements to work together in specific sections. Rather than enforcing rigid alignment, he created natural cohesion through careful balancing and tonal matching.</li>
@@ -135,7 +135,7 @@ export function FindingsChapter07() {
           <li><strong>Full Integration:</strong> At the furthest extreme, Odeholm treated the entire instrument section as essentially one massive synthesizer, with each component carefully tuned to contribute to a singular sonic event rather than stand as individual instruments.</li>
         </ul>
 
-        <h2>Impact on Heaviness</h2>
+        <h2 id="impact-on-heaviness">Impact on Heaviness</h2>
         <p>The meta-instrument concept addresses what many producers identified as essential to heaviness: the sensation of being confronted by an overwhelming force rather than discrete elements. By engineering instruments to function as a unified entity, producers create what Getgood describes as a mechanical yet musical quality: a sound that exceeds what humans could physically produce while maintaining musical coherence.</p>
         <p>This approach particularly excels at creating the 'freight train rolling over you' type of heaviness that Josh Middleton described. This is a sensation of density and weight that physically impacts the listener. When implemented effectively, the meta-instrument creates a sound that physically embodies heaviness rather than merely suggesting it.</p>
         <p>The meta-instrument concept raises questions about the nature of instrumental identity in modern production. While traditional approaches preserve the distinct character of each instrument, meta-instrument mixing deliberately blurs these boundaries in service of a greater sonic impact. This represents a fundamental shift from documenting a performance to engineering an experience. It is a development that continues to reshape how heaviness is conceived and created in contemporary metal.</p>
@@ -190,7 +190,7 @@ export function FindingsChapter07() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Alignment of audio signals to prevent cancellation. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">Using a high-pass filter that removes frequencies below 70 Hz. <a className="backref" href="#ref-2">↩</a></li>

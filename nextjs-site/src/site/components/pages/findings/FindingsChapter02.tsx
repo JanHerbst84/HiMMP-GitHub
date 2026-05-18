@@ -52,7 +52,7 @@ export function FindingsChapter02() {
 
         <p>To understand the philosophies of the producers profiled below, it is helpful to first recognise the generational and geographic trends influencing their work:</p>
 
-        <h2>Generational Perspectives</h2>
+        <h2 id="generational-perspectives">Generational Perspectives</h2>
         <p>The producers span three generations, a diversity that provides valuable insight into how production approaches have developed alongside the genre itself:</p>
         <ul>
           <li><strong>Veterans (late 1960s):</strong> Exeter, Nordström, Scheps. Tending towards performance capture and established analogue workflows.</li>
@@ -60,7 +60,7 @@ export function FindingsChapter02() {
           <li><strong>Newer Visionaries (late 1980s/early 1990s):</strong> Middleton, Getgood, Odeholm. Embracing 'in-the-box' technical innovation and creating hyperreal sonic landscapes.</li>
         </ul>
 
-        <h2>Geographic Production Schools</h2>
+        <h2 id="geographic-production-schools">Geographic Production Schools</h2>
         <p>These producers also represent distinct regional traditions, characteristics that subtly influence their approaches despite increasing global standardization:</p>
         <ul>
           <li><strong>The British School (Exeter, Getgood, Middleton):</strong> Roots in traditional heavy metal and hard rock.</li>
@@ -68,7 +68,7 @@ export function FindingsChapter02() {
           <li><strong>The American Perspective (Otero, Scheps):</strong> Influenced by thrash metal and more commercial production values.</li>
         </ul>
 
-        <h2>Jens Bogren (b. 1979)</h2>
+        <h2 id="jens-bogren-b-1979">Jens Bogren (b. 1979)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.2_Bogren.jpg" alt="Portrait of Jens Bogren" loading="lazy" />
           <div className="figure-caption">Jens Bogren</div>
@@ -77,7 +77,7 @@ export function FindingsChapter02() {
         <p>Bogren's production philosophy centres on crafting a distinct sound for each band that aligns with their musical identity. While striving to maintain authenticity through minimal editing, he emphasizes expression and emotion above technical perfection. His technical approach balances digital precision with selective analogue hardware, particularly for bass and vocals.</p>
         <p>Bogren occupies a distinctive position in our philosophical spectrum because he uniquely bridges naturalistic and hyperreal approaches with a scientifically informed and context-specific methodology that adapts to each project's needs.</p>
 
-        <h2>Mike Exeter (b. 1967)</h2>
+        <h2 id="mike-exeter-b-1967">Mike Exeter (b. 1967)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.3_Exeter.jpg" alt="Portrait of Mike Exeter" loading="lazy" />
           <div className="figure-caption">Mike Exeter</div>
@@ -86,7 +86,7 @@ export function FindingsChapter02() {
         <p>Exeter's engineering and production philosophy embodies the naturalistic approach that prioritizes the artist's vision over technological innovation. He focuses on arrangement, automation, and capturing the band's energy through collective songwriting and live recording techniques. While he has gradually embraced digital audio workstations, Exeter maintains that capturing sound at its source remains paramount, with technology serving as a tool for enhancing musical expression rather than replacing it.</p>
         <p>His approach to heaviness relies on preserving the human element in performance. He uses automation to enhance rather than correct and maintains dynamic range in a genre that increasingly sacrifices it for sheer loudness. Exeter is perhaps the most traditionally-minded producer in our study, yet his results demonstrate that naturalistic approaches can be highly effective in creating authentic heaviness. More information about his work can be found at <a href="https://www.mikeexeter.com/" target="_blank" rel="noopener noreferrer">mikeexeter.com</a>.</p>
 
-        <h2>Adam "Nolly" Getgood (b. 1987)</h2>
+        <h2 id="adam-nolly-getgood-b-1987">Adam "Nolly" Getgood (b. 1987)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.4_Getgood.jpg" alt="Portrait of Adam Nolly Getgood" loading="lazy" />
           <div className="figure-caption">Adam "Nolly" Getgood</div>
@@ -95,7 +95,7 @@ export function FindingsChapter02() {
         <p>Working entirely in the box, Getgood harnesses digital technology while maintaining a performance-oriented approach. His production philosophy is artist-centred; he focuses on supporting bands in realizing their vision rather than imposing his own sonic signature. This balanced approach places him in the hyperreal camp technically but with a musicality that transcends pure technical perfection.</p>
         <p>Getgood's approach to heaviness often builds on the "meta-instrument" concept (<a href="./07-meta-instrument.html">see Chapter 7</a>) used to create a cohesive sonic entity where the guitars and bass work with the drums as a unified force rather than competing elements. His background as a bassist gives him unique insight into low-end management which is a central component of modern heavy production. He is also the co-founder of <a href="https://ggd.co/pages/about-us" target="_blank" rel="noopener noreferrer">GetGood Drums</a>, a company specializing in sample libraries for metal production.</p>
 
-        <h2>Josh Middleton (b. 1985)</h2>
+        <h2 id="josh-middleton-b-1985">Josh Middleton (b. 1985)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.5_Middleton.jpg" alt="Portrait of Josh Middleton" loading="lazy" />
           <div className="figure-caption">Josh Middleton</div>
@@ -105,7 +105,7 @@ export function FindingsChapter02() {
         <p>Middleton takes an unconventional approach to engineering, openly prioritizing visual audio tools within digital audio workstations over traditional techniques. This visual approach to tonal shaping and frequency balancing reflects the newer generation's comfort with digital interfaces as primary production tools rather than mere recording platforms.</p>
         <p>In our philosophical spectrum, Middleton leans toward hyperreal production techniques while maintaining a performer's sensibility about what creates an emotional impact in metal music. His dual perspective as both performer and producer provides valuable insight into how production choices affect the listener's experience of heaviness. Learn more about his work at <a href="https://www.joshmiddleton.com/" target="_blank" rel="noopener noreferrer">joshmiddleton.com</a>.</p>
 
-        <h2>Fredrik Nordström (b. 1967)</h2>
+        <h2 id="fredrik-nordstrm-b-1967">Fredrik Nordström (b. 1967)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.6_Nordstrom.jpg" alt="Portrait of Fredrik Nordström" loading="lazy" />
           <div className="figure-caption">Fredrik Nordström</div>
@@ -114,7 +114,7 @@ export function FindingsChapter02() {
         <p>Nordström's production philosophy rests on two key principles: supporting the band's vision rather than imposing his own sonic signature and adhering to a "less is more" approach to processing. While his background in pop music inevitably influenced Swedish melodic death metal's accessibility, he prioritizes capturing each band's unique personality. Despite working in the box, his production style largely replicates his earlier analogue workflow by using only essential plugins and favouring minimal processing.</p>
         <p>Nordström leans more towards the naturalistic school in our study. He prioritizes performance capture over technical manipulation, yet his innovations have paradoxically enabled some of the techniques now employed in hyperreal production approaches.</p>
 
-        <h2>Buster Odeholm (b. 1992)</h2>
+        <h2 id="buster-odeholm-b-1992">Buster Odeholm (b. 1992)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.7_Odeholm.jpg" alt="Portrait of Buster Odeholm" loading="lazy" />
           <div className="figure-caption">Buster Odeholm</div>
@@ -123,7 +123,7 @@ export function FindingsChapter02() {
         <p>Unlike many metal producers who avoid imposing a signature sound, Odeholm deliberately cultivates a "larger-than-life" production style. Technically, Odeholm embraces the most advanced aspects of digital production, including phase alignment, extensive sample reinforcement, and meticulous editing to create a level of precision that exceeds human performance capabilities. His approach to the "meta-instrument" concept (<a href="./07-meta-instrument.html">see Chapter 7</a>) reaches its logical extreme, treating guitars, bass, and drums as components of a unified sonic entity rather than separate instruments.</p>
         <p>Odeholm is the clearest representative of the hyperreal philosophy in our study, who deliberately pursues an engineered presentation of heaviness that transcends natural performance limitations. His quick rise to prominence speaks to the growing influence of this production aesthetic in contemporary extreme metal. He runs <a href="https://odeholm-audio.com/" target="_blank" rel="noopener noreferrer">Odeholm Audio</a>, offering mixing, mastering, and production services.</p>
 
-        <h2>Dave Otero (b. 1981)</h2>
+        <h2 id="dave-otero-b-1981">Dave Otero (b. 1981)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.8_Otero.jpg" alt="Portrait of Dave Otero" loading="lazy" />
           <div className="figure-caption">Dave Otero</div>
@@ -133,7 +133,7 @@ export function FindingsChapter02() {
         <p>Compression forms the cornerstone of Otero's sound. He views compressors less as tools for controlling dynamics but as devices for achieving specific sonic qualities like air, bloom, or snap, especially in drum sounds. His technique often involves multiple compressors for different characteristics, blended through faders as needed. To enhance sonic density and consistency, he also relies on console and tape emulation to add warmth and saturation to his naturally clean, precise sound.</p>
         <p>In our philosophical spectrum, Otero occupies a middle ground but leans towards hyperrealism. He employs modern techniques with restraint and always in service of the musical context rather than technical perfection for its own sake.</p>
 
-        <h2>Andrew Scheps (b. 1969)</h2>
+        <h2 id="andrew-scheps-b-1969">Andrew Scheps (b. 1969)</h2>
         <div className="figure portrait">
           <img src="Figures/Fig2.9_Scheps.jpg" alt="Portrait of Andrew Scheps" loading="lazy" />
           <div className="figure-caption">Andrew Scheps</div>
@@ -142,7 +142,7 @@ export function FindingsChapter02() {
         <p>Scheps approaches mixing from an artist-centred philosophy, using rough mixes as a tool to understand and engage with the band's vision rather than imposing his own preferences. However, he acknowledges that iconic bands like Metallica and Black Sabbath carry sonic expectations that must be honoured: "You're not going to not put a delay on Ozzy's vocal; he's never not had a delay".</p>
         <p>Though primarily a mixing engineer rather than a producer, Scheps plays an influential role in shaping the sound of artists' songs by bridging the gap between technical engineering and creative production. His broad perspective across genres provides valuable context for understanding heaviness as both a metal-specific quality and a universal sonic characteristic. More about his work can be found at <a href="https://mcdman.com/scheps" target="_blank" rel="noopener noreferrer">mcdman.com/scheps</a>.</p>
 
-        <h2>Producer Resources</h2>
+        <h2 id="producer-resources">Producer Resources</h2>
         <p>Explore the complete works and online presence of the producers featured in this study:</p>
 
         <table className="producer-resources-table">

@@ -46,13 +46,13 @@ export function FindingsChapter01() {
         <p>Metal music appeared over fifty years ago with one element at its core: heaviness. From the doomy beginnings of Black Sabbath to the technical precision of modern extreme metal, the genre has developed considerably. But despite metal's diversification into countless subgenres, the pursuit of heaviness has remained a consistent thread throughout its history, linked to advancements in technology and engineering practices.</p>
         <p>The research project 'Heaviness in Metal Music Production' (HiMMP)<sup id="ref-1"><a href="#endnote-1">1</a></sup> is the first controlled analysis of how leading metal producers conceptualize and create heaviness. By engaging eight world-class producers to mix identical source material, our study isolated the production variables in ways previous research could not. We did not observe a single "correct" approach to heavy production but two philosophical frameworks that represent idealized poles on a continuum, each with its own technical implementation and conceptual foundation. Participating producers occupied various points along this spectrum, with some leaning more toward one philosophical approach while incorporating elements of the other.</p>
 
-        <h2>From Primitive Beginnings to Hyperreal Production</h2>
+        <h2 id="from-primitive-beginnings-to-hyperreal-production">From Primitive Beginnings to Hyperreal Production</h2>
         <p>The contrast between early metal production and contemporary practices is striking. Black Sabbath's self-titled debut album (1970) was recorded in a single day with minimal equipment. The session relied on only a 4-track tape machine and a basic microphone setup, with virtually no post-processing. Yet this record, with its massive guitar and bass wall of sound, defined the sonic foundation of metal, combining powerful sounds and controlled performances with thick distortion<sup id="ref-2"><a href="#endnote-2">2</a></sup> that made it sound exceptionally heavy for its time.</p>
         <p>Before Black Sabbath's breakthrough, the term "heavy" was mainly used to describe isolated moments in songs, what journalist Ian Christe calls "a bridge between melodies that tried to resolve conflicting emotions".<sup id="ref-3"><a href="#endnote-3">3</a></sup> Sabbath transformed heaviness into a sustained aesthetic that defined entire compositions. This fundamental shift established metal and heaviness as its defining quality, one that continues to develop across generations of producers, musicians, and listeners.</p>
         <p>Fifty years later, metal production has developed significantly. Contemporary metal recordings often involve extensive pre-production and separate tracking of instruments. The recording is followed by meticulous editing, sample reinforcement, and sophisticated processing chains.<sup id="ref-4"><a href="#endnote-4">4</a></sup> Modern productions regularly exceed 50 to 100 tracks per song, with some productions even using hundreds of layers to create a hyperreal sonic experience that transcends what's physically possible in live performance.</p>
         <p>This development reflects metal's unique relationship with technology. As producer Russ Russell notes, 'A lot of metal has been born directly from breakthroughs in technology, and a lot of the technology has been inspired by the developments in heavy metal'.<sup id="ref-5"><a href="#endnote-5">5</a></sup> Unlike many genres that prioritize capturing natural performances, metal has embraced technological advancement as a means to enhance heaviness: the genre's defining quality.</p>
 
-        <h2>The Great Debate: Natural vs. Hyperreal</h2>
+        <h2 id="the-great-debate-natural-vs-hyperreal">The Great Debate: Natural vs. Hyperreal</h2>
         <p>The eight producers featured in this research occupy different positions on a philosophical spectrum (Figure&nbsp;1.1). At one end stands the <em><strong>"Naturalistic School"</strong></em>, championed by veterans like Mike Exeter and Fredrik Nordström, which prioritizes expressive performance capture, dynamic preservation, and organic interaction between musicians. At the opposite end, the <em><strong>"Hyperreal School"</strong></em>, exemplified by younger generation producers like Buster Odeholm and Adam "Nolly" Getgood, employs precise editing, phase alignment<sup id="ref-6"><a href="#endnote-6">6</a></sup>, and other sophisticated processing to create heaviness that exceeds what performers could physically produce.</p>
 
         <div className="figure figure-numbered">
@@ -63,7 +63,7 @@ export function FindingsChapter01() {
         <p>This divide is more than just personal preference or technical approach; it reflects fundamentally different conceptions of what creates the most effective heaviness in metal. These philosophies both acknowledge the centrality of heaviness while approaching its realization through contrasting means.</p>
         <p>Think of it this way: The naturalistic approach is like filming a documentary that captures real performances with subtle enhancements, while the hyperreal approach is more like creating a CGI film that constructs a perfectly engineered experience that could not exist in the real world.</p>
 
-        <h2>The Technical Divide: A Quick Look</h2>
+        <h2 id="the-technical-divide-a-quick-look">The Technical Divide: A Quick Look</h2>
         <p>While this guide will explore these approaches in detail, their core technical distinctions can be summarised as follows:</p>
         <p><strong>Naturalistic School:</strong></p>
         <ul>
@@ -115,7 +115,7 @@ export function FindingsChapter01() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Jan Herbst &amp; Mark Mynett (2025). <em>Heaviness in Metal Music Production, Volume 1: How and Why It Works</em>. London: Routledge, <a href="https://doi.org/10.4324/9781003325727" target="_blank" rel="noopener noreferrer">https://doi.org/10.4324/9781003325727</a>; Jan Herbst &amp; Mark Mynett (2025). <em>Heaviness in Metal Music Production, Volume 2: Learn from the Masters</em>. London: Routledge, <a href="https://doi.org/10.4324/9781003564089" target="_blank" rel="noopener noreferrer">https://doi.org/10.4324/9781003564089</a>. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">A change in audio waveform that produces harmonic or inharmonic components depending on the cause. <a className="backref" href="#ref-2">↩</a></li>

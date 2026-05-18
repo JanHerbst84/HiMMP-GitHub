@@ -45,14 +45,14 @@ export function FindingsChapter13() {
       <div className="container chapter-content" style={{ "--chapter": "'13'" } as Record<string, string>}>
         <p>As metal production continues to develop, the philosophical divide between naturalistic and hyperreal approaches seems likely to persist; though it will be in increasingly nuanced forms. Several trends suggest where the pursuit of heaviness might lead in the coming years:</p>
 
-        <h2>Bridging the Philosophical Divide</h2>
+        <h2 id="bridging-the-philosophical-divide">Bridging the Philosophical Divide</h2>
         <p>While this research identified naturalistic and hyperreal schools, the most innovative producers already incorporate elements of both approaches. Middleton’s observation that ‘I always chase perfection in editing, but I know when it just sounds fake’ suggests an emerging hybrid philosophy that values technical precision without sacrificing emotional impact.</p>
         <p>This balanced approach seems particularly significant as metal continues to diversify. Technical subgenres may continue pushing the boundaries of precision and production complexity, while more traditional styles might rediscover the value of naturalistic production; with both approaches borrowing selective techniques from each other.</p>
 
-        <h2>Beyond Western Production Paradigms</h2>
+        <h2 id="beyond-western-production-paradigms">Beyond Western Production Paradigms</h2>
         <p>A significant limitation of current metal production discourse is its focus on Western perspectives. As metal continues to flourish globally, from Asia to South America, and from India to the Middle East, new production aesthetics are emerging that challenge conventional Western approaches to heaviness.</p>
 
-        <h2>The Enduring Fundamentals</h2>
+        <h2 id="the-enduring-fundamentals">The Enduring Fundamentals</h2>
         <p>Despite the continuous advancement of technology and technique, the core insights from this research suggest certain fundamentals of heaviness will endure: the essential role of composition and performance, the importance of dynamic contrast, and the delicate balance between clarity and power. As Bogren noted, ‘You could get a heavy song... and shape it in a hundred different ways, and it could still be as heavy’.</p>
         <p>Perhaps the most valuable takeaway for the future of metal production is not any specific technique but the philosophical understanding that heaviness ultimately resides in the emotional impact of music, which relies on the enduring fundamentals of composition, performance, and dynamic contrast. Whether achieved through pristine hyperreal production or raw naturalistic capture, the pursuit of heaviness continues to drive metal’s sonic innovation, and it likely will for generations to come.</p>
         <p><a className="read-more" href="../audio.html">Access the Full Dataset &rarr;</a></p>

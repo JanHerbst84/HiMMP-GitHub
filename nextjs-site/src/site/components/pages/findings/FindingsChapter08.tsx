@@ -37,7 +37,7 @@ export function FindingsChapter08() {
       <div className="container chapter-content" style={{ "--chapter": "'8'" } as Record<string, string>}>
         <p>Unsurprisingly, drum production was found to be perhaps the most time-consuming and important element in creating heaviness: the foundation upon which everything else rests. Across all eight producers, careful attention was paid to drum processing, though approaches varied considerably in implementation. From minimalist enhancement to complete reimagining, each philosophy yielded distinct yet equally effective results.</p>
 
-        <h2>Sample Implementation</h2>
+        <h2 id="sample-implementation">Sample Implementation</h2>
         <p>All producers except Andrew Scheps added samples to enhance and sculpt their drum sounds, though with remarkably varied methodologies. Interestingly, the number of samples used did not align neatly with the producers' philosophical positions; Bogren, who occupies the middle ground, used four kick samples, while hyperreal adherent Odeholm relied on just one strategically implemented sample. This disconnect suggests that the definition of a production philosophy rests on how samples are integrated within the larger production framework, not on sample usage itself.</p>
         <p>The research demonstrated clear distinctions in approach: some producers like Bogren employed samples as complementary layers that enhanced specific characteristics of the original recordings, while others such as Middleton used samples as complete replacements, crafting an entirely new drum sound that aligned with their sonic vision. Between these extremes, producers like Nordström and Exeter used selective reinforcement by adding samples only where the original recordings needed enhancement.</p>
         <p>This diversity of sampling techniques within both naturalistic and hyperreal camps demonstrates that the boundary between these philosophies manifests in how producers integrate them: whether preserving the performance's original character or engineering a new sonic identity that transcends the acoustic recording.</p>
@@ -93,7 +93,7 @@ export function FindingsChapter08() {
           <p>The research documented three distinct approaches to sample integration: replacement, reinforcement, and contextual blending. While replacement provides maximum control, reinforcement maintains the original character while enhancing impact. The most sophisticated approach, contextual blending, involves automated sample amounts across different song sections that creates a balance between natural feel and consistent power.</p>
         </aside>
 
-        <h2>Kick Drum: The Cornerstone of Heaviness</h2>
+        <h2 id="kick-drum-the-cornerstone-of-heaviness">Kick Drum: The Cornerstone of Heaviness</h2>
         <p>Apart from Andrew Scheps, every producer in the study employed some form of sample reinforcement on the kick drum, but with significantly different methodologies and intent:</p>
         <ul>
           <li><strong>Layered Approach:</strong> Jens Bogren employed one of the most complex techniques, using four distinct kick samples layered with the original recording. Each sample served a specific purpose: one for consistency across hits, another for attack definition, a third for "wet" character, and a fourth for what he termed 'obnoxious click' to cut through dense guitar sections. Despite this complexity, Bogren emphasized that these samples complemented rather than replaced the original recording in order to preserve its natural quality while enhancing specific characteristics.</li>
@@ -112,7 +112,7 @@ export function FindingsChapter08() {
           <p>Modern drum production increasingly focuses on phase relationships between microphones and instruments. While naturalistic producers typically align drum mics at recording for a cohesive kit sound, this ensure that individual hits reinforce one another rather than partially cancelling each other out, which creates a more solid and punchy foundation even before further processing. Hyperreal producers like Odeholm take this further by aligning the kick drum’s transient with bass and guitar at the sample level. In practice, this extends what was once an internal drum-kit concern to the entire low-end meta-instrument: kick, bass, and guitars are engineered to ‘fire’ as a single composite hit rather than as three loosely related events. This microscopic attention to timing creates the “wall of impact” characteristic of modern extreme metal.</p>
         </aside>
 
-        <h2>Snare Drum: The Aggressive Edge</h2>
+        <h2 id="snare-drum-the-aggressive-edge">Snare Drum: The Aggressive Edge</h2>
         <p>The snare treatment showed another spectrum of approaches, with producers balancing natural character against consistency and cut:</p>
         <ul>
           <li><strong>Bogren's 'Snare Smorgasbord':</strong> Jens Bogren applied the same layered philosophy to snare as he did to kick drums, with each sample serving a specific function: a 'natural and ringy' layer for fills, a 'beefy crack' sample for weight, a consistency layer for backbeats, and a transient 'spike' sample for definition in dense sections.</li>
@@ -127,14 +127,14 @@ export function FindingsChapter08() {
         </ul>
         <p>The solutions ranged from frequency-specific compression to enhance attack, strategic automation across song sections, and careful layering of samples to complement rather than replace the original recording.</p>
 
-        <h2>Toms and Cymbals: Detail and Dimension</h2>
+        <h2 id="toms-and-cymbals-detail-and-dimension">Toms and Cymbals: Detail and Dimension</h2>
         <p>While kick and snare received the most attention, tom and cymbal treatment offered insights about how producers approached the overall drum presentation:</p>
         <ul>
           <li><strong>Tom Replacement vs. Reinforcement:</strong> Three distinct approaches were observed for tom treatment. Middleton and Exeter chose complete replacement, using programmed MIDI and samples to achieve consistent tone and impact. Nordström took a reinforcement approach by adding samples beneath the original performances to enhance detail without sacrificing character. The remaining producers employed varying degrees of augmentation while retaining the original recordings as the primary source.</li>
           <li><strong>Cymbal Space and Control:</strong> Cymbals were generally not sample-reinforced or replaced, but producers differed in spatial treatment. Scheps positioned cymbals in a wide stereo field with natural decay. In contrast, Odeholm tightly controlled cymbal resonance through gating<sup id="ref-4"><a href="#endnote-4">4</a></sup> and aggressive EQ to prevent wash from obscuring other elements. These opposing approaches reflect broader philosophical differences: naturalistic production values space and dimension, while hyperreal approaches prioritize control and impact.</li>
         </ul>
 
-        <h2>Dynamic Processing Strategies</h2>
+        <h2 id="dynamic-processing-strategies">Dynamic Processing Strategies</h2>
         <p>Beyond sample reinforcement, the research documented sophisticated dynamic processing techniques that impacted perceived heaviness:</p>
         <ul>
           <li><strong>Transient Design:</strong> Several producers applied transient designers to customize the attack and sustain characteristics of drum elements independently. Middleton described using transient designers on toms to increase sustain while controlling the initial attack, which allowed them to resonate more fully in sparse sections. Getgood took this approach further by automating transient designer settings throughout different parts of the song, decreasing attack on isolated hits while increasing it during fast fills for a clearer sound.</li>
@@ -142,7 +142,7 @@ export function FindingsChapter08() {
           <li><strong>Parallel Processing:</strong> Many producers employed parallel compression<sup id="ref-5"><a href="#endnote-5">5</a></sup> on drums by blending heavily compressed versions with the original signals to maintain both impact and natural dynamics. Scheps relied heavily on parallel processing rather than multiband compression, believing it preserved more of the drums' natural phase relationships while still providing the necessary control.</li>
         </ul>
 
-        <h2>Spatial Treatment and Cohesion</h2>
+        <h2 id="spatial-treatment-and-cohesion">Spatial Treatment and Cohesion</h2>
         <p>The final dimension of drum production involved creating appropriate spatial characteristics to support the overall mix approach:</p>
         <ul>
           <li><strong>Room Sound Implementation:</strong> Approaches to drum ambience fell along the natural-hyperreal spectrum. Scheps and Bogren employed room mics and reverb<sup id="ref-6"><a href="#endnote-6">6</a></sup> to create a three-dimensional drum sound with natural depth. Odeholm and Getgood favoured extremely controlled, minimal ambience with precisely tailored reverb processors only on specific elements. Between these extremes, Middleton and Otero used short, tight room simulations to add dimension without sacrificing impact.</li>
@@ -221,7 +221,7 @@ export function FindingsChapter08() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Processing only certain frequencies of an instrument by removing frequencies above and below the desired range. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">Low-frequency energy that creates physical sensation and perceived weight. <a className="backref" href="#ref-2">↩</a></li>

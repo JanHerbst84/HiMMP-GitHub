@@ -45,12 +45,12 @@ export function FindingsChapter06() {
       <div className="container chapter-content" style={{ "--chapter": "'6'" } as Record<string, string>}>
         <p>The hyperreal approach stands in stark contrast to the naturalistic philosophy: it is a production methodology that utilizes technology to create performances and production aesthetics that transcend natural limitations. Championed prominently by Buster Odeholm, Adam Getgood, and Josh Middleton, this school represents a fundamental reconceptualization of metal production, where heaviness is engineered with technological precision rather than just captured.</p>
 
-        <h2>Emergence and Philosophy</h2>
+        <h2 id="emergence-and-philosophy">Emergence and Philosophy</h2>
         <p>The hyperreal approach developed alongside digital recording technology, particularly with the advent of Digital Audio Workstations (DAWs) that enabled unprecedented editing precision and powerful audio processing. While early metal production sought to document band performances, the hyperreal philosophy embraces the studio as an instrument itself that creates sounds that would be physically impossible to achieve in a live setting.</p>
         <p>Ultimate tightness, even beyond human capabilities, is the foundation of maximum sonic weight<sup id="ref-1"><a href="#endnote-1">1</a></sup> and impact, explains Odeholm, articulating the central tenet of this approach. Consistent with hyperreal philosophy, these producers believe that eliminating every microsecond of performance inconsistency allows the combined sonic elements to achieve maximum power. Getgood describes the resulting sound as 'mechanical yet musical', a seemingly paradoxical quality that characterizes modern extreme metal production.</p>
         <p>This philosophy has been particularly influential in contemporary technical death metal, deathcore, djent, and progressive metal, where extreme precision has become not just a production value but a compositional element itself.</p>
 
-        <h2>Technical Implementation</h2>
+        <h2 id="technical-implementation">Technical Implementation</h2>
         <p>Hyperreal production employs numerous specialized techniques to achieve its characteristic sonic impact:</p>
         <ul>
           <li><strong>Phase-Aligned Transients:</strong> Perhaps the most radical departure from traditional mixing is Odeholm's approach to phase relationships. He precisely aligned the transients<sup id="ref-2"><a href="#endnote-2">2</a></sup> and even waveform cycles of kick drum, bass, and guitars, rather than accepting the natural timing variations between instruments. 'I edit down to the sample level for phase alignment', Odeholm explained, 'something that cannot be accomplished with even the tightest but unedited performances'. This creates the sensation of a single, massive sonic event rather than separate instruments.</li>
@@ -60,7 +60,7 @@ export function FindingsChapter06() {
           <li><strong>Multiband Dynamic Control:</strong> All hyperreal producers employed sophisticated multiband compression<sup id="ref-5"><a href="#endnote-5">5</a></sup> on guitars to control palm-muted<sup id="ref-6"><a href="#endnote-6">6</a></sup> resonances without compromising overall tone. Middleton described the outcome as creating a 'linear sausage shape' of guitar sound that produces a waveform with remarkably consistent spectral content regardless of playing technique or note choice. This creates the wall-of-sound effect characteristic of modern metal production.</li>
         </ul>
 
-        <h2>The "Meta-Instrument" Concept</h2>
+        <h2 id="the-meta-instrument-concept">The "Meta-Instrument" Concept</h2>
         <p>The defining characteristic of hyperreal production culminates in what we will explore in <a href="./07-meta-instrument.html">Chapter 7</a> as the "meta-instrument" concept, where guitars, bass, and drums blend into a single unified force. Getgood describes the resulting sound as one cohesive entity that creates a singular sonic impact beyond what is possible in acoustic reality.</p>
 
                 <aside className="sidebar-box">
@@ -73,7 +73,7 @@ export function FindingsChapter06() {
           <p>While sample-perfect editing might seem at odds with musical feel, hyperreal producers argue that listeners actually perceive ultra-tight performances as more powerful than natural playing: the apparent contradiction between mechanical precision and emotional impact.</p>
         </aside>
 
-        <h2>Effectiveness and Application</h2>
+        <h2 id="effectiveness-and-application">Effectiveness and Application</h2>
         <p>The research demonstrated that hyperreal approaches excel at creating specific qualities valued in modern extreme metal:</p>
         <ul>
           <li>Exceptional clarity in fast technical sections;</li>
@@ -83,7 +83,7 @@ export function FindingsChapter06() {
         </ul>
         <p>These characteristics are particularly effective in subgenres like technical death metal, deathcore, and djent, where compositional complexity demands exceptional clarity to be properly appreciated. As Getgood noted, certain musical ideas simply cannot be properly conveyed without the precision that hyperreal production provides.</p>
 
-        <h2>Challenges and Limitations</h2>
+        <h2 id="challenges-and-limitations">Challenges and Limitations</h2>
         <p>Despite its effectiveness, hyperreal production faces criticism for potentially sacrificing emotional connection in pursuit of technical perfection. Even Odeholm acknowledged this limitation, particularly regarding vocals: 'Vocals are of minimal importance for heaviness to me', he admitted, sometimes seeing them as detracting from the instrumental impact. This perspective highlights the potential trade-off between technical impressiveness and emotional resonance.</p>
         <p>Additionally, the hyperreal approach requires exceptional technical expertise and significant time investment, which makes it less accessible to developing producers or bands with limited resources. As Dave Otero noted, while acknowledging the power of hyperreal techniques, 'It's a question of appropriate application. Not every band needs or benefits from this approach'.</p>
 
@@ -139,7 +139,7 @@ export function FindingsChapter06() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Pronounced bass response that increases physical perception and contributes to heaviness. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">The attack portion of sounds that contain energy peaks, particularly in percussive signals. <a className="backref" href="#ref-2">↩</a></li>

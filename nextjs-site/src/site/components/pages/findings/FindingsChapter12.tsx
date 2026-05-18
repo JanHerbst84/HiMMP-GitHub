@@ -45,7 +45,7 @@ export function FindingsChapter12() {
       <div className="container chapter-content" style={{ "--chapter": "'12'" } as Record<string, string>}>
         <p>The research presented in this guide documents multiple valid paths to achieving heaviness in metal production. These findings provide a framework for producers to make informed choices based on both musical context and technical resources, as well as artistic intent, rather than prescribing a single “correct” methodology. This section offers practical guidance for applying these insights to your own productions.</p>
 
-        <h2>Assessing Musical Context</h2>
+        <h2 id="assessing-musical-context">Assessing Musical Context</h2>
         <p>The first step in selecting appropriate production techniques is analyzing the compositional and performance characteristics of the material:</p>
 
         <h3>Subgenre Considerations</h3>
@@ -85,7 +85,7 @@ export function FindingsChapter12() {
           <li>Consider whether heaviness derives from emotional intensity or technical precision in each section.</li>
         </ul>
 
-        <h2>Balancing Philosophy and Practicality</h2>
+        <h2 id="balancing-philosophy-and-practicality">Balancing Philosophy and Practicality</h2>
         <p>Musical considerations aside, practical factors influence which approaches are most appropriate for a given project:</p>
         <ul>
           <li><strong>Technical Resources:</strong> Not all productions have access to the extensive tools employed by elite producers. However, the research demonstrates that the philosophical approach matters more than specific equipment. Mike Exeter achieved competitive results through minimal but strategic processing, proving that sophisticated outcomes do not necessarily require complex signal chains.</li>
@@ -105,7 +105,7 @@ export function FindingsChapter12() {
           </ul>
         </aside>
 
-        <h2>Hybrid Implementation Strategies</h2>
+        <h2 id="hybrid-implementation-strategies">Hybrid Implementation Strategies</h2>
         <p>Most real-world productions benefit from strategic hybridisation of naturalistic and hyperreal techniques, rather than adopting purist approaches:</p>
         <ul>
           <li><strong>Element-Specific Application:</strong> Apply different philosophies to different instruments based on their role and characteristics. For example, drums might benefit from hyperreal precision to provide a solid foundation, while guitars maintain more natural dynamics to preserve expressive qualities.</li>
@@ -113,7 +113,7 @@ export function FindingsChapter12() {
           <li><strong>Selective Enhancement:</strong> Target specific aspects of the performance for enhancement rather than applying processing universally. A naturalistic base with strategic hyperreal moments often creates more engaging results than consistently processed material.</li>
         </ul>
 
-        <h2>Workflow Considerations</h2>
+        <h2 id="workflow-considerations">Workflow Considerations</h2>
         <p>Implementing these approaches effectively requires thoughtful workflow design:</p>
         <ul>
           <li><strong>Early Decision-Making:</strong> Determine core production philosophy during pre-production rather than mixing. Recording decisions significantly impact which options remain available during later stages. For example, capturing multiple microphone positions provides flexibility for spatial approaches, while careful performance editing during tracking facilitates meta-instrument implementation.</li>
@@ -121,7 +121,7 @@ export function FindingsChapter12() {
           <li><strong>Contextual Evaluation:</strong> Always evaluate processing decisions in the context of the full mix rather than in isolation. As Jens Bogren emphasized, ‘If you start to isolate things too much, it’s not going to work’. Processing that sounds extreme or, conversely, unspectacular in solo may function perfectly within the overall balance.</li>
         </ul>
 
-        <h2>Future-Proofing Your Approach</h2>
+        <h2 id="future-proofing-your-approach">Future-Proofing Your Approach</h2>
         <p>As metal production continues to develop, developing a sustainable approach requires balancing innovation with fundamental principles:</p>
         <ul>
           <li><strong>Evolving Standards:</strong> What constitutes “heavy” continues to shift with audience expectations and technological capabilities. Maintaining awareness of current production trends helps inform when to embrace new techniques and when to prioritize timeless qualities.</li>

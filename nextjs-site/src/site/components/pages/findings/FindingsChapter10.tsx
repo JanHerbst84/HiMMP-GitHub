@@ -45,7 +45,7 @@ export function FindingsChapter10() {
       <div className="container chapter-content" style={{ "--chapter": "'10'" } as Record<string, string>}>
         <p>While previous sections have addressed tonal, dynamic, and technical elements of heaviness, this section explores an often-overlooked dimension: how spatial characteristics shape the listener’s perception. The research documented distinct approaches to spatial design that significantly impact the effectiveness of heavy productions.</p>
 
-        <h2>Width: Beyond Pan Positions</h2>
+        <h2 id="width-beyond-pan-positions">Width: Beyond Pan Positions</h2>
         <p>All producers employed stereo techniques to sculpt width, but with different approaches and philosophical underpinnings:</p>
         <ul>
           <li><strong>Traditional Hard-Panning</strong>: The foundational approach to width in metal involves hard-panning rhythm guitars left and right. This technique, dating back to early metal productions, creates a wide stereo field while maintaining a strong centre presence through kick, snare, bass, and vocals. Jens Bogren, representing the traditional Swedish death metal sound, maintained this approach with minimal embellishment, creating a classic metal wall of guitars.</li>
@@ -80,7 +80,7 @@ export function FindingsChapter10() {
 
         <p>Now that we have explored the various approaches to stereo width, let us turn our attention to the vertical dimension of the soundstage: depth.</p>
 
-        <h2>Depth: From In-Your-Face to Three-Dimensional</h2>
+        <h2 id="depth-from-in-your-face-to-three-dimensional">Depth: From In-Your-Face to Three-Dimensional</h2>
         <p>The research identified depth perception as a central yet often overlooked dimension of heaviness, with approaches falling into several overlapping categories (Figures 10.1–10.2):</p>
         <ul>
           <li><strong>Immersive Depth Staging</strong>: Several producers including Andrew Scheps employed a virtual soundstage concept where instruments occupy distinct positions in a three-dimensional space. In Scheps’s mix, backing vocals were positioned deep in the soundstage while lead elements remained upfront. This creates a believable space where the band exists, which enhances the perceived authenticity and depth of the production. This approach aligns with traditional rock production values, where creating a realistic performance space enhances listener engagement.</li>
@@ -126,7 +126,7 @@ export function FindingsChapter10() {
           </ul>
         </aside>
 
-        <h2>Endnotes</h2>
+        <h2 id="endnotes">Endnotes</h2>
         <ol className="endnotes">
           <li id="endnote-1">Processors that create phase differences between channels. <a className="backref" href="#ref-1">↩</a></li>
           <li id="endnote-2">With minimal or no effects applied. <a className="backref" href="#ref-2">↩</a></li>

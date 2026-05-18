@@ -96,6 +96,25 @@ Why it was deferred: the procedural version is tied to D-3 (audio page re-skin) 
 
 Gating constraint: defer until at least one real `<AudioComparison>` component is in place (D-3). A feature-derived version is a Phase 3 conversation, not Phase 2.
 
+### D-8: Within-Chapter "On This Page" TOC As A React Component
+
+Date added: 2026-05-18.
+
+What was previously in place: 14 of 15 findings chapters (all except `glossary.html`) shipped an inline body `<script>` that, on `DOMContentLoaded`, scanned `.chapter-content` for `<h2>` headings, slugified their text into `id` attributes, and prepended a `<nav class="on-this-page">` TOC with anchor links.
+
+Why it was removed (Slice P, commit 2026-05-18): the DOM-mutation ran before React hydration on the static export, causing a `#418` hydration mismatch (`<nav>` injected where the React tree expected the chapter's first `<p>`). The fix bakes the slugified h2 IDs into `EnhancedFindingsShell`-rendered HTML at port time (via `scripts/port-findings-chapters.mjs`) and strips the inline TOC-building script.
+
+What is missing: the visible "On this page" navigation aside is no longer rendered on any chapter route. The `EnhancedFindingsShell` sidebar covers chapter-to-chapter navigation but not within-chapter section navigation (linking to `<h2>` landmarks inside the current chapter). For long chapters (`01-introduction.html`, `08-drums.html`, `10-spatial.html` and others with 4+ headings), readers have lost a scanning affordance.
+
+Gating constraints:
+
+- The replacement must be a React component, not a DOM-mutation script.
+- It must consume the h2 IDs that `port-findings-chapters.mjs` now bakes into chapter components (no runtime DOM scan; read from a static heading list passed from the chapter component or derived at build time).
+- It must preserve the legacy class name `.on-this-page` and `aria-label="On this page"` if any external CSS in `main.css` styles those selectors (verify via the D-1 audit before opening this slice).
+- No hydration mismatch — the component renders identically on SSR and client.
+
+This is properly a Family L (affordances + cards) sub-slice within D-1 and should be opened after Family L lands. Until then, readers rely on the chapter's natural h2 visual hierarchy + the `EnhancedFindingsShell` sidebar.
+
 ### D-7: Stylesheet Removal And `public/assets/` Cleanup
 
 What was proposed: stop loading the legacy stylesheet (D-1) and, eventually, remove it from disk.

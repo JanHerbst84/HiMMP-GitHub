@@ -60,6 +60,32 @@ function isLegacyAudioScript(script: LegacyScript): boolean {
   return script.src !== null && /assets\/js\/audio-player\.js$/.test(script.src);
 }
 
+/*
+ * Chapters 01–14 (glossary exempt) ship an inline body `<script>`
+ * at the very bottom that, on `DOMContentLoaded`, scans
+ * `.chapter-content` for `<h2>` headings, slugifies their text into
+ * `id` attributes, and prepends a `<nav class="on-this-page">` TOC.
+ * Because that mutation runs before React hydration on the static
+ * export, hydration finds an unexpected `<nav>` where its tree
+ * expects the chapter's first `<p>` and throws a #418 mismatch.
+ *
+ * Fix is in two parts: (a) `scripts/port-findings-chapters.mjs`
+ * now bakes the same slugified `id` attributes onto h2 elements at
+ * port time, so the IDs are present in SSR-rendered HTML rather
+ * than appearing post-DOMContentLoaded; (b) the inline script is
+ * filtered out before reaching `<LegacyScripts>`. The within-chapter
+ * TOC affordance is deliberately deferred — see
+ * `docs/nextjs-phase-2-design-refresh-future.md` §D-8 for the
+ * React-component replacement plan.
+ */
+function isLegacyOnThisPageScript(script: LegacyScript): boolean {
+  return (
+    script.src === null &&
+    script.content.includes(".chapter-content") &&
+    script.content.includes("on-this-page")
+  );
+}
+
 type Params = Promise<{ slug: string }>;
 
 export function generateStaticParams() {
@@ -88,7 +114,9 @@ export default async function FindingsChapterRoute({ params }: { params: Params 
 
   const sourceFile = `findings/${slug}.html`;
   const content = getLegacyPageContent(sourceFile);
-  const bodyScripts = content.bodyScripts.filter((script) => !isLegacyAudioScript(script));
+  const bodyScripts = content.bodyScripts.filter(
+    (script) => !isLegacyAudioScript(script) && !isLegacyOnThisPageScript(script)
+  );
 
   return (
     <>
