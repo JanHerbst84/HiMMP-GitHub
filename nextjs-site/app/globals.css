@@ -1539,3 +1539,68 @@ html .section-nav-button,
 html .chapter-nav-button {
   background-color: var(--color-paper);
 }
+
+/*
+ * Slice S — secondary-nav palette harmonisation. Tightly-scoped pull-
+ * forward from D-1 Family G after the user reported the chapter
+ * `.chapter-section-nav` strip + publication `.publication-section-nav`
+ * pills reading as a different visual world from the rest of the
+ * dark-academic chrome:
+ *  - `.chapter-section-nav` container shipped #f5f5f5 (cool light grey)
+ *    — visible cool-grey island in a sea of cream body.
+ *  - `.chapter-section-nav h3` ("NAVIGATE CHAPTERS") shipped #666 mid-
+ *    grey, low-contrast against the cool bg.
+ *  - `.section-nav-button` / `.chapter-nav-button` shipped #333 text,
+ *    teal border, and white-on-mint on active/hover. The white-on-mint
+ *    is the same WCAG ~2.09 contrast pattern Slice H fixed on
+ *    `.read-more` / `.resource-button`.
+ *  - `.section-nav-button` is a `<button>` element, so it inherits the
+ *    UA-default Arial font rather than Inter Tight (the body font does
+ *    not cross the form-control boundary without an explicit rule).
+ *  - `.chapter-nav-button` is an `<a>`, so already inherits Inter Tight.
+ *
+ * Scope intentionally tight: palette + font alignment only, no
+ * structural / geometry changes. Pill borders stay teal — that's a
+ * deeper design call deferred to the full Family G slice.
+ */
+
+/* Strip background — match the body so the chapter-section-nav no
+ * longer reads as a cool-grey island. */
+html .chapter-section-nav {
+  background-color: var(--color-bone);
+  border-bottom-color: var(--color-rule);
+}
+
+/* Strip title — graphite over bone instead of #666 over #f5f5f5. */
+html .chapter-section-nav h3 {
+  color: var(--color-graphite);
+}
+
+/* Pill text colour + font-family. The `font-family` rule is what
+ * forces Inter Tight onto the `<button>` `.section-nav-button` (form
+ * controls don't inherit body font without an explicit declaration).
+ * `.chapter-nav-button` already inherits it as an `<a>` but we set it
+ * here too for consistency in case the legacy markup changes. */
+html .section-nav-button,
+html .chapter-nav-button {
+  color: var(--color-graphite);
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+/* Active + hover — Slice H pattern: graphite text on mint, not white
+ * on mint. WCAG-compliant and palette-coherent with the rest of the
+ * dark-academic chrome. Specificity (0,2,1) beats the legacy 0,2,0
+ * compound `.section-nav-button.active` rules. */
+html .section-nav-button:hover,
+html .section-nav-button.active,
+html .chapter-nav-button:hover,
+html .chapter-nav-button.active {
+  color: var(--color-graphite);
+}
