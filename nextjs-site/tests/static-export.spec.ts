@@ -204,6 +204,31 @@ test.describe("static export legacy route smoke", () => {
     });
   }
 
+  test("nav 'findings' tab is active on chapter sub-routes (prefix match)", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    // Index — exact match.
+    await page.goto("/findings.html");
+    await expect(page.locator(".nav-links a.active")).toHaveText("findings");
+
+    // Chapter — prefix match. The activePath is "/findings/<slug>"; without
+    // prefix matching in SiteHeader, no nav link would carry the active class.
+    await page.goto("/findings/01-introduction.html");
+    await expect(page.locator(".nav-links a.active")).toHaveText("findings");
+
+    // Glossary — same sub-route family, should still highlight findings.
+    await page.goto("/findings/glossary.html");
+    await expect(page.locator(".nav-links a.active")).toHaveText("findings");
+
+    // Home should never match a sub-route — prefix-match guard prevents
+    // "/" matching everything.
+    await page.goto("/about.html");
+    await expect(page.locator(".nav-links a.active")).toHaveText("about");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("mobile navigation can open and close", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.setViewportSize({ width: 390, height: 844 });

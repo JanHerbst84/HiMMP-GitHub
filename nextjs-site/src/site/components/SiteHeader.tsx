@@ -1,8 +1,22 @@
-import { mainNavItems } from "@/src/site/navigation";
+import { mainNavItems, type NavItem } from "@/src/site/navigation";
 
 type SiteHeaderProps = {
   activePath: string;
 };
+
+/*
+ * Nav active-state match. Exact-equal handles the simple case (/about,
+ * /publications, etc.). The prefix branch covers sub-routes — primarily
+ * the 14 findings chapter routes `/findings/<slug>`, which should
+ * activate the "findings" tab the same way `/findings` does. The
+ * `routePath !== "/"` guard prevents the home item from matching every
+ * other path (every path starts with "/").
+ */
+function isNavItemActive(item: NavItem, activePath: string): boolean {
+  if (item.routePath === activePath) return true;
+  if (item.routePath === "/") return false;
+  return activePath.startsWith(item.routePath + "/");
+}
 
 export function SiteHeader({ activePath }: SiteHeaderProps) {
   return (
@@ -28,7 +42,7 @@ export function SiteHeader({ activePath }: SiteHeaderProps) {
             <ul className="nav-links">
               {mainNavItems.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className={item.routePath === activePath ? "active" : undefined}>
+                  <a href={item.href} className={isNavItemActive(item, activePath) ? "active" : undefined}>
                     {item.label}
                   </a>
                 </li>
