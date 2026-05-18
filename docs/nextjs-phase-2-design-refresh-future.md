@@ -74,11 +74,20 @@ Gating constraints, all required:
 
 ### D-4: Findings Sidebar Re-Skin
 
-What was proposed: re-skin the findings reader sidebar — numbered prefixes in mono, chapter titles in display serif at two distinct sizes, active state on a left hairline rule rather than a tinted background.
+**Status update (2026-05-18): SHIPPED — closed as implemented across Slices E–F + the `EnhancedFindingsShell` introduction.**
 
-Why it was rejected at the v1 risk level: classified as "low" but actually **medium**. The findings shell active-state selector is tested via `aria-current="page"` in the existing accessibility coverage. Restyling that selector without preserving the `[aria-current="page"]` hook breaks the a11y assertion. Acceptance criteria did not name that test.
+What was originally proposed: re-skin the findings reader sidebar — numbered prefixes in mono, chapter titles in display serif at two distinct sizes, active state on a left hairline rule rather than a tinted background.
 
-Gating constraint: keep the `[aria-current="page"]` selector intact and verify the existing a11y smoke sweep passes in the same PR. With that constraint stated, this workstream is genuinely small and could ship in its own slice after D-1's structural-coverage audit, since the sidebar lives inside the enhanced-findings shell rather than inside a legacy `<main>` blob, so it is less coupled to `main.css` than the rest of the deferred set.
+What actually shipped (`globals.css:1164–1248`):
+
+- Numbered prefixes in mono — `.findings-reader-panel__nav-num` uses `var(--font-mono)`, mono `0.74rem`, muted graphite, tabular-nums. ✓
+- Chapter titles at a distinct second size — `.findings-reader-panel__nav-title` uses `0.96rem` with weight `500`. ✓ on the second-size point.
+- Active state on a left hairline rule rather than a tinted background — `.findings-reader-panel__nav a[aria-current="page"]` sets `background: transparent; border-left-color: var(--color-mint)` with the resting state already declaring `border-left: 2px solid transparent`. ✓
+- The `[aria-current="page"]` selector hook is preserved verbatim (a11y gating constraint satisfied).
+
+Deliberate adaptation from the original spec: chapter titles render in **Inter Tight (body sans-serif)**, not Fraunces (display serif). The `html .findings-reader-panel__nav-title { font-family: var(--font-body), ... }` override at `globals.css:302` raises specificity over the later 0.96rem rule to enforce sans. The rationale is legibility — Fraunces at 0.96rem inside a narrow ~260px column read as cramped and lower-contrast than Inter Tight at the same size. If the project wants to revisit display-serif in the sidebar, swap the `html`-prefixed override at line 302 to use `var(--font-display)`; that is a one-line change.
+
+No outstanding D-4 work. The within-chapter "On this page" TOC affordance (a related-but-distinct surface) is now tracked separately as D-8.
 
 ### D-5: View Transitions API + Page Transitions
 
