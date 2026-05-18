@@ -1120,7 +1120,7 @@ a {
   grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
   gap: 0;
   align-items: start;
-  background: #f6f6f6;
+  background: var(--color-bone);
 }
 
 .findings-reader-panel {
@@ -1130,7 +1130,7 @@ a {
   overflow: auto;
   padding: 24px 18px 32px;
   border-right: 1px solid rgba(17, 17, 17, 0.12);
-  background: #ffffff;
+  background: var(--color-paper);
 }
 
 .findings-reader-panel__header {
@@ -1257,7 +1257,7 @@ a {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px;
   padding: 14px 24px;
-  background: #fbfbfb;
+  background: var(--color-bone);
 }
 
 .findings-reader-topbar {
@@ -1273,7 +1273,7 @@ a {
 .findings-reader-bottombar a {
   padding: 10px 12px;
   border: 1px solid rgba(17, 17, 17, 0.12);
-  background: #ffffff;
+  background: var(--color-paper);
   font-size: 0.9rem;
   line-height: 1.25;
 }
@@ -1490,7 +1490,7 @@ a {
   .findings-reader-panel__nav a {
     min-width: 120px;
     border: 1px solid rgba(17, 17, 17, 0.12);
-    background: #fff;
+    background: var(--color-paper);
   }
 
   .findings-reader-panel__nav a[aria-current="page"] {
@@ -1518,4 +1518,24 @@ a {
   .findings-reader-bottombar a:last-child {
     text-align: left;
   }
+}
+
+
+/*
+ * Slice Q — reconcile `--color-paper` with `--color-bone`.
+ *
+ * `--color-paper` is now `color-mix(in oklch, var(--color-bone) 92%, white)`
+ * (see `app/tokens.css`) — a warm off-bone rather than pure white. The
+ * three legacy white pill-button surfaces here pick up the new token so
+ * they sit on the cream body without the previous #fff/#f2efe8 cliff that
+ * read as palette inconsistency in the dark-academic look.
+ *
+ * Scope is intentionally tight: only the background of pill buttons that
+ * previously rendered literal #ffffff is repainted. Border, text colour,
+ * and hover behaviour stay on the existing legacy rules — that's D-1
+ * Family G scope and not on this slice's plate.
+ */
+html .section-nav-button,
+html .chapter-nav-button {
+  background-color: var(--color-paper);
 }

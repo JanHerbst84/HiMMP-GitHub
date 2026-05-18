@@ -15,10 +15,20 @@
   /* Palette */
   --color-graphite: #111418;
   --color-bone: #f2efe8;
-  --color-paper: #ffffff;
+  /* `--color-paper` is the card/panel surface that sits on the `--color-bone`
+   * page background. Static off-bone fallback covers browsers that don't
+   * support `color-mix(in oklch, ...)` (Safari <16.2, Firefox <113, Chrome
+   * <111 — pre-May-2023). The @supports block below ties it to bone via
+   * color-mix on modern browsers so the two tokens drift together if either
+   * is re-tuned. */
+  --color-paper: #f6f3ec;
   --color-ink: #111111;
   --color-mint: #5dc69f;
-  --color-mint-hairline: color-mix(in oklch, #5dc69f 70%, #111418);
+  /* Static fallback for browsers without color-mix support (see
+   * `--color-paper` above for the floor). sRGB approximation of
+   * `color-mix(in oklch, #5dc69f 70%, #111418)`. Modern browsers
+   * override below via @supports. */
+  --color-mint-hairline: #3e9171;
   --color-sulfur: #e8c547;
   --color-rule: rgba(17, 20, 24, 0.12);
 
@@ -56,5 +66,20 @@
   :root {
     --duration-fast: 0ms;
     --duration-slow: 0ms;
+  }
+}
+
+/* Modern-browser overrides for tokens whose authored value relies on
+ * `color-mix(in oklch, ...)`. Without an `@supports` gate, browsers that
+ * cannot parse `color-mix()` leave the custom property defined-but-
+ * invalid-at-computed-value-time, which does NOT trigger consumer-side
+ * `var(--token, fallback)` defaults (that fallback only fires for
+ * undefined tokens). The static values declared in `:root` above are
+ * the load-bearing fallbacks; this block layers the modern values on
+ * top when the browser can resolve them. */
+@supports (color: color-mix(in oklch, black, white)) {
+  :root {
+    --color-paper: color-mix(in oklch, var(--color-bone) 92%, white);
+    --color-mint-hairline: color-mix(in oklch, var(--color-mint) 70%, var(--color-graphite));
   }
 }
