@@ -15,6 +15,12 @@ function readArg(name) {
 
 const baseUrlInput = readArg("--base-url") ?? process.env.CONTACT_BASE_URL;
 const submit = args.includes("--submit") || process.env.CONTACT_SMOKE_SUBMIT === "1";
+// `--message-tag <text>` prepends a grep-able tag to the submission
+// subject + message body so a deliberate production submission (e.g. the
+// far-goal criterion 10 stability gate) can be identified and cleaned
+// up after the fact. Without the flag, the legacy hardcoded copy is
+// used.
+const messageTag = readArg("--message-tag");
 const allowProductionSubmit =
   args.includes("--allow-production-submit") ||
   process.env.CONTACT_SMOKE_ALLOW_PRODUCTION_SUBMIT === "1";
@@ -186,12 +192,14 @@ async function checkSensitivePaths() {
 
 async function checkRealSubmission(token) {
   const body = new FormData();
+  const subjectPrefix = messageTag ? `${messageTag} ` : "";
+  const bodyPrefix = messageTag ? `${messageTag}\n\n` : "";
   body.set("name", "HiMMP Staging Smoke Test");
   body.set("email", "noreply@himmp.net");
-  body.set("subject", `[staging smoke] ${new Date().toISOString()}`);
+  body.set("subject", `${subjectPrefix}[staging smoke] ${new Date().toISOString()}`);
   body.set(
     "message",
-    "Automated staging smoke test for the HiMMP contact form. This checks the real PHP mail/log path."
+    `${bodyPrefix}Automated staging smoke test for the HiMMP contact form. This checks the real PHP mail/log path.`
   );
   body.set("csrf_token", token);
 

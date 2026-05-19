@@ -22,7 +22,15 @@
     "preflight:deploy": "node scripts/check-deployment-preflight.mjs",
     "preflight:deploy:audio": "node scripts/check-deployment-preflight.mjs --require-audio",
     "sync:public": "node scripts/sync-public-assets.mjs",
-    "sync:public:audio": "node scripts/sync-public-assets.mjs --include-audio"
+    "sync:public:audio": "node scripts/sync-public-assets.mjs --include-audio",
+    "audit:family-map": "node scripts/audit-legacy-css.mjs ../assets/css/main.css --json > /tmp/himmp-main-audit.json && node scripts/audit-legacy-css.mjs ../assets/css/responsive.css --json > /tmp/himmp-resp-audit.json && node scripts/classify-css-families.mjs /tmp/himmp-main-audit.json /tmp/himmp-resp-audit.json",
+    "audit:family-manifest": "node scripts/audit-legacy-css.mjs ../assets/css/main.css --json > /tmp/himmp-main-audit.json && node scripts/audit-legacy-css.mjs ../assets/css/responsive.css --json > /tmp/himmp-resp-audit.json && node scripts/classify-css-families.mjs /tmp/himmp-main-audit.json /tmp/himmp-resp-audit.json --manifest-json",
+    "audit:family-coverage:H": "MANIFEST=/tmp/himmp-family-manifest.$$.json && npm run -s audit:family-manifest -- $MANIFEST && node scripts/audit-d1-family-coverage.mjs --family H --manifest $MANIFEST",
+    "audit:family-coverage:D": "MANIFEST=/tmp/himmp-family-manifest.$$.json && npm run -s audit:family-manifest -- $MANIFEST && node scripts/audit-d1-family-coverage.mjs --family D --manifest $MANIFEST",
+    "audit:family-coverage:all": "MANIFEST=/tmp/himmp-family-manifest.$$.json && npm run -s audit:family-manifest -- $MANIFEST && node scripts/audit-d1-family-coverage.mjs --all-families --manifest $MANIFEST",
+    "audit:token-coverage": "node scripts/audit-token-coverage.mjs --legacy-styles",
+    "audit:tsx-inline-styles": "node scripts/audit-tsx-inline-styles.mjs",
+    "audit:tsx-inline-styles:update": "node scripts/audit-tsx-inline-styles.mjs --update"
   },
   "engines": {
     "node": ">=24.0.0",

@@ -1,0 +1,2033 @@
+[
+  {
+    "file": "app/about/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/acknowledgements/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/approach/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/audio/page.tsx",
+    "line": 44,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/contact/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/faq/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/findings/[slug]/page.tsx",
+    "line": 125,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/findings/page.tsx",
+    "line": 31,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/page.tsx",
+    "line": 25,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/privacy/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/publications/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/team/page.tsx",
+    "line": 24,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "app/videos/page.tsx",
+    "line": 25,
+    "expr": "{ display: \"contents\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"contents\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/AboutPage.tsx",
+    "line": 22,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-about.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-about.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/AboutPage.tsx",
+    "line": 115,
+    "expr": "{ maxWidth: \"300px\", height: \"auto\", marginTop: \"10px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "maxWidth",
+        "value": "\"300px\""
+      },
+      {
+        "kind": "kv",
+        "key": "height",
+        "value": "\"auto\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"10px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/AcknowledgementsPage.tsx",
+    "line": 19,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-welcome.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-welcome.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/ApproachPage.tsx",
+    "line": 43,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-approach.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-approach.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/ApproachPage.tsx",
+    "line": 92,
+    "expr": "{ marginTop: \"15px\", textAlign: \"center\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"15px\""
+      },
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/AudioPage.tsx",
+    "line": 48,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-about.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-about.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/AudioPage.tsx",
+    "line": 62,
+    "expr": "{ marginTop: \"10px\", fontSize: \"0.95em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"10px\""
+      },
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"0.95em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/ContactPage.tsx",
+    "line": 25,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-contact.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-contact.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/FaqPage.tsx",
+    "line": 23,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-welcome.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-welcome.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/FindingsIndexPage.tsx",
+    "line": 18,
+    "expr": "{ camel: \"val\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "camel",
+        "value": "\"val\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/FindingsIndexPage.tsx",
+    "line": 33,
+    "expr": "{ backgroundImage: \"url('findings/Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('findings/Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/FindingsIndexPage.tsx",
+    "line": 54,
+    "expr": "{ marginTop: \"1rem\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"1rem\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/FindingsIndexPage.tsx",
+    "line": 213,
+    "expr": "{ textAlign: \"center\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeHero.tsx",
+    "line": 34,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-welcome.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-welcome.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 21,
+    "expr": "{ backgroundColor: \"#f8f9fa\", padding: \"50px 0\", borderTop: \"1px solid #eee\", borderBottom: \"1px solid #eee\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundColor",
+        "value": "\"#f8f9fa\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"50px 0\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderTop",
+        "value": "\"1px solid #eee\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderBottom",
+        "value": "\"1px solid #eee\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 23,
+    "expr": "{ textAlign: \"center\", fontSize: \"2rem\", marginBottom: \"40px\", color: \"#333\", fontWeight: \"bold\", textTransform: \"uppercase\", letterSpacing: \"1px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"2rem\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"40px\""
+      },
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"#333\""
+      },
+      {
+        "kind": "kv",
+        "key": "fontWeight",
+        "value": "\"bold\""
+      },
+      {
+        "kind": "kv",
+        "key": "textTransform",
+        "value": "\"uppercase\""
+      },
+      {
+        "kind": "kv",
+        "key": "letterSpacing",
+        "value": "\"1px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 24,
+    "expr": "{ gridTemplateColumns: \"repeat(auto-fit, minmax(280px, 1fr))\", gap: \"30px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "gridTemplateColumns",
+        "value": "\"repeat(auto-fit, minmax(280px, 1fr))\""
+      },
+      {
+        "kind": "kv",
+        "key": "gap",
+        "value": "\"30px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 26,
+    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundColor",
+        "value": "\"#fff\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"30px\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderRadius",
+        "value": "\"8px\""
+      },
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "boxShadow",
+        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
+      },
+      {
+        "kind": "kv",
+        "key": "transition",
+        "value": "\"all 0.3s ease\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 27,
+    "expr": "{ marginTop: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 29,
+    "expr": "{ fontSize: \"1.1em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.1em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 32,
+    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundColor",
+        "value": "\"#fff\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"30px\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderRadius",
+        "value": "\"8px\""
+      },
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "boxShadow",
+        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
+      },
+      {
+        "kind": "kv",
+        "key": "transition",
+        "value": "\"all 0.3s ease\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 33,
+    "expr": "{ marginTop: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 35,
+    "expr": "{ fontSize: \"1.1em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.1em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 38,
+    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundColor",
+        "value": "\"#fff\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"30px\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderRadius",
+        "value": "\"8px\""
+      },
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "boxShadow",
+        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
+      },
+      {
+        "kind": "kv",
+        "key": "transition",
+        "value": "\"all 0.3s ease\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 39,
+    "expr": "{ marginTop: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 41,
+    "expr": "{ fontSize: \"1.1em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.1em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 44,
+    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundColor",
+        "value": "\"#fff\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"30px\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderRadius",
+        "value": "\"8px\""
+      },
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "boxShadow",
+        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
+      },
+      {
+        "kind": "kv",
+        "key": "transition",
+        "value": "\"all 0.3s ease\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 45,
+    "expr": "{ marginTop: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 47,
+    "expr": "{ fontSize: \"1.1em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.1em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 64,
+    "expr": "{ backgroundImage: \"linear-gradient(to right, #e9f8f5, #f8f9fa)\", borderLeft: \"5px solid #5DC69F\", padding: \"25px\", margin: \"40px auto\", textAlign: \"center\", borderRadius: \"8px\", boxShadow: \"0 4px 12px rgba(0,0,0,0.05)\", maxWidth: \"800px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"linear-gradient(to right, #e9f8f5, #f8f9fa)\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderLeft",
+        "value": "\"5px solid #5DC69F\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"25px\""
+      },
+      {
+        "kind": "kv",
+        "key": "margin",
+        "value": "\"40px auto\""
+      },
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderRadius",
+        "value": "\"8px\""
+      },
+      {
+        "kind": "kv",
+        "key": "boxShadow",
+        "value": "\"0 4px 12px rgba(0,0,0,0.05)\""
+      },
+      {
+        "kind": "kv",
+        "key": "maxWidth",
+        "value": "\"800px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 65,
+    "expr": "{ marginTop: \"0\", color: \"#333\", fontSize: \"1.5em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"0\""
+      },
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"#333\""
+      },
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.5em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 66,
+    "expr": "{ fontSize: \"1.2em\", marginBottom: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.2em\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 109,
+    "expr": "{ background: \"linear-gradient(135deg, #5DC69F 0%, #4BA87E 100%)\", padding: \"40px 0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "background",
+        "value": "\"linear-gradient(135deg, #5DC69F 0%, #4BA87E 100%)\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"40px 0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 110,
+    "expr": "{ textAlign: \"center\", color: \"white\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"white\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 111,
+    "expr": "{ color: \"white\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"white\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 112,
+    "expr": "{ fontSize: \"1.2em\", maxWidth: \"700px\", margin: \"0 auto 20px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.2em\""
+      },
+      {
+        "kind": "kv",
+        "key": "maxWidth",
+        "value": "\"700px\""
+      },
+      {
+        "kind": "kv",
+        "key": "margin",
+        "value": "\"0 auto 20px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 115,
+    "expr": "{ background: \"white\", color: \"#333\", padding: \"12px 30px\", fontSize: \"1.1em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "background",
+        "value": "\"white\""
+      },
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"#333\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"12px 30px\""
+      },
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.1em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 119,
+    "expr": "{ paddingTop: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "paddingTop",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 121,
+    "expr": "{ textAlign: \"center\", marginBottom: \"40px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"40px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 122,
+    "expr": "{ gridTemplateColumns: \"1fr 1fr\", gap: \"40px\", alignItems: \"start\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "gridTemplateColumns",
+        "value": "\"1fr 1fr\""
+      },
+      {
+        "kind": "kv",
+        "key": "gap",
+        "value": "\"40px\""
+      },
+      {
+        "kind": "kv",
+        "key": "alignItems",
+        "value": "\"start\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 123,
+    "expr": "{ textAlign: \"center\", display: \"flex\", flexDirection: \"column\", alignItems: \"center\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"flex\""
+      },
+      {
+        "kind": "kv",
+        "key": "flexDirection",
+        "value": "\"column\""
+      },
+      {
+        "kind": "kv",
+        "key": "alignItems",
+        "value": "\"center\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 126,
+    "expr": "{ width: \"100%\", maxWidth: \"300px\", border: \"1px solid #ddd\", marginBottom: \"15px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "width",
+        "value": "\"100%\""
+      },
+      {
+        "kind": "kv",
+        "key": "maxWidth",
+        "value": "\"300px\""
+      },
+      {
+        "kind": "kv",
+        "key": "border",
+        "value": "\"1px solid #ddd\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"15px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 128,
+    "expr": "{ marginBottom: \"5px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"5px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 129,
+    "expr": "{ fontSize: \"1em\", marginTop: \"10px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1em\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"10px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 131,
+    "expr": "{ textAlign: \"center\", display: \"flex\", flexDirection: \"column\", alignItems: \"center\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"flex\""
+      },
+      {
+        "kind": "kv",
+        "key": "flexDirection",
+        "value": "\"column\""
+      },
+      {
+        "kind": "kv",
+        "key": "alignItems",
+        "value": "\"center\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 132,
+    "expr": "{ width: \"100%\", maxWidth: \"300px\", border: \"1px solid #ddd\", marginBottom: \"15px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "width",
+        "value": "\"100%\""
+      },
+      {
+        "kind": "kv",
+        "key": "maxWidth",
+        "value": "\"300px\""
+      },
+      {
+        "kind": "kv",
+        "key": "border",
+        "value": "\"1px solid #ddd\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"15px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 133,
+    "expr": "{ marginBottom: \"5px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"5px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 134,
+    "expr": "{ fontSize: \"1em\", marginTop: \"10px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1em\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"10px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 137,
+    "expr": "{ textAlign: \"center\", marginTop: \"40px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"40px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 138,
+    "expr": "{ fontSize: \"1.2em\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1.2em\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PrivacyPage.tsx",
+    "line": 20,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-contact.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-contact.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 39,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-publications.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-publications.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 52,
+    "expr": "{ color: \"white\", textDecoration: \"underline\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"white\""
+      },
+      {
+        "kind": "kv",
+        "key": "textDecoration",
+        "value": "\"underline\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 75,
+    "expr": "{ backgroundColor: \"#f0f8f5\", borderLeft: \"5px solid #5DC69F\", padding: \"30px\", margin: \"30px 0\", borderRadius: \"4px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundColor",
+        "value": "\"#f0f8f5\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderLeft",
+        "value": "\"5px solid #5DC69F\""
+      },
+      {
+        "kind": "kv",
+        "key": "padding",
+        "value": "\"30px\""
+      },
+      {
+        "kind": "kv",
+        "key": "margin",
+        "value": "\"30px 0\""
+      },
+      {
+        "kind": "kv",
+        "key": "borderRadius",
+        "value": "\"4px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 76,
+    "expr": "{ marginTop: \"0\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"0\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 79,
+    "expr": "{ marginTop: \"15px\", fontSize: \"0.95em\", color: \"#666\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"15px\""
+      },
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"0.95em\""
+      },
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"#666\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 391,
+    "expr": "{ paddingTop: \"20px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "paddingTop",
+        "value": "\"20px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 687,
+    "expr": "{ paddingTop: \"20px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "paddingTop",
+        "value": "\"20px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 925,
+    "expr": "{ paddingTop: \"20px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "paddingTop",
+        "value": "\"20px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/PublicationsPage.tsx",
+    "line": 1111,
+    "expr": "{ paddingTop: \"20px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "paddingTop",
+        "value": "\"20px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/TeamPage.tsx",
+    "line": 57,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-team.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-team.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/VideosPage.tsx",
+    "line": 88,
+    "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-welcome.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('assets/images/background/HiMMP-bg-welcome.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter01.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter01.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'1'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'1'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter02.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter02.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'2'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'2'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter03.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter03.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'3'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'3'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter04.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter04.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'4'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'4'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter05.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter05.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'5'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'5'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter06.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter06.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'6'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'6'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter07.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter07.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'7'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'7'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter08.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter08.tsx",
+    "line": 37,
+    "expr": "{ \"--chapter\": \"'8'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'8'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter09.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter09.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'9'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'9'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter10.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter10.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'10'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'10'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter11.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter11.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'11'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'11'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter12.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter12.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'12'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'12'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter13.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter13.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'13'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'13'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter14.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter14.tsx",
+    "line": 45,
+    "expr": "{ \"--chapter\": \"'14'\" } as Record<string, string>",
+    "entries": [
+      {
+        "kind": "complex",
+        "text": "{ \"--chapter\": \"'14'\" } as Record<string, string>"
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsChapter14.tsx",
+    "line": 105,
+    "expr": "{ color: \"var(--medium-gray)\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "color",
+        "value": "\"var(--medium-gray)\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/findings/FindingsGlossary.tsx",
+    "line": 14,
+    "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "backgroundImage",
+        "value": "\"url('Figures/0_Cover.jpg')\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundSize",
+        "value": "\"cover\""
+      },
+      {
+        "kind": "kv",
+        "key": "backgroundPosition",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "position",
+        "value": "\"relative\""
+      }
+    ]
+  }
+]
