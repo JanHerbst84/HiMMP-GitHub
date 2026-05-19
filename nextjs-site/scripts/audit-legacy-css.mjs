@@ -1,51 +1,15 @@
 import { readFileSync } from 'node:fs';
+import {
+  LAYOUT_PROPS,
+  PALETTE_TYPE_PROPS,
+  BORDER_PROPS,
+  VISUAL_POLISH_PROPS
+} from './lib/css-classes.mjs';
 
-const LAYOUT_PROPS = new Set([
-  'display', 'position', 'width', 'height', 'min-width', 'min-height',
-  'max-width', 'max-height', 'top', 'right', 'bottom', 'left',
-  'flex', 'flex-direction', 'flex-wrap', 'flex-grow', 'flex-shrink', 'flex-basis',
-  'justify-content', 'align-items', 'align-self', 'align-content',
-  'gap', 'row-gap', 'column-gap', 'order',
-  'grid', 'grid-template', 'grid-template-columns', 'grid-template-rows',
-  'grid-template-areas', 'grid-column', 'grid-row', 'grid-area',
-  'grid-auto-flow', 'grid-auto-columns', 'grid-auto-rows', 'place-items', 'place-self',
-  'padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-  'padding-block', 'padding-inline',
-  'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
-  'margin-block', 'margin-inline',
-  'overflow', 'overflow-x', 'overflow-y', 'overflow-wrap',
-  'box-sizing', 'z-index', 'float', 'clear', 'transform', 'transform-origin',
-  'aspect-ratio', 'isolation', 'inset'
-]);
-
-const PALETTE_TYPE_PROPS = new Set([
-  'color', 'background-color', 'background', 'background-image',
-  'background-size', 'background-position', 'background-repeat',
-  'font-family', 'font-size', 'font-weight', 'font-style',
-  'line-height', 'letter-spacing', 'text-align', 'text-decoration',
-  'text-transform', 'text-indent', 'text-shadow', 'word-spacing',
-  'white-space', 'list-style', 'list-style-type'
-]);
-
-const BORDER_PROPS = new Set([
-  'border', 'border-top', 'border-right', 'border-bottom', 'border-left',
-  'border-color', 'border-style', 'border-width',
-  'border-radius', 'border-top-left-radius', 'border-top-right-radius',
-  'border-bottom-left-radius', 'border-bottom-right-radius',
-  'outline', 'outline-color', 'outline-style', 'outline-width'
-]);
-
-const VISUAL_POLISH_PROPS = new Set([
-  'opacity', 'visibility', 'box-shadow', 'filter', 'backdrop-filter',
-  'cursor', 'pointer-events', 'user-select', 'transition', 'animation',
-  'animation-name', 'animation-duration', 'animation-timing-function',
-  'animation-delay', 'animation-iteration-count', 'will-change',
-  'scroll-behavior', 'content', 'object-fit', 'object-position'
-]);
-
-function classifyRule(decl) {
+function classifyRule(decls) {
   const counts = { layout: 0, palette: 0, border: 0, visual: 0, other: 0 };
-  for (const prop of decl) {
+  for (const d of decls) {
+    const prop = typeof d === 'string' ? d : d.property;
     if (LAYOUT_PROPS.has(prop)) counts.layout++;
     else if (PALETTE_TYPE_PROPS.has(prop)) counts.palette++;
     else if (BORDER_PROPS.has(prop)) counts.border++;
@@ -57,6 +21,7 @@ function classifyRule(decl) {
   if (counts.palette > 0 || counts.border > 0 || counts.visual > 0) return 'visual';
   return 'misc';
 }
+
 
 // Strip C-style comments first
 function stripComments(css) {
@@ -124,14 +89,20 @@ function* iterRules(css) {
     }
     const block = css.slice(blockStart, i - 1);
 
-    // Extract property names
+    // Extract property+value records. The `decls` array used to be
+    // property names only; downstream consumers (manifest emit, family
+    // coverage audit) now need values too to verify migrated rules
+    // reproduce `display: flex` vs `display: block`, not just that the
+    // property is declared.
     const decls = [];
     for (const part of block.split(';')) {
       const p = part.trim();
       if (!p) continue;
       const colon = p.indexOf(':');
       if (colon === -1) continue;
-      decls.push(p.slice(0, colon).trim());
+      const property = p.slice(0, colon).trim();
+      const value = p.slice(colon + 1).trim();
+      decls.push({ property, value });
     }
 
     yield { selector, decls };
@@ -157,7 +128,12 @@ if (format === 'json') {
     out[k] = list.map((r) => ({
       selector: r.selector.replace(/\s+/g, ' ').trim(),
       decls: r.decls,
-      atRule: r.atRule ?? null
+      // Normalise `atRule` the same way as `selector` so downstream
+      // exact-field matching (audit-d1-family-coverage.mjs, the
+      // legacy-style-retained whitelist) is stable across re-runs.
+      // Without this, irregular whitespace in the legacy at-rule
+      // text would produce key mismatches.
+      atRule: r.atRule ? r.atRule.replace(/\s+/g, ' ').trim() : null
     }));
   }
   process.stdout.write(JSON.stringify(out, null, 2) + '\n');
@@ -165,7 +141,11 @@ if (format === 'json') {
   for (const [k, list] of Object.entries(buckets)) {
     console.log(`\n=== ${k.toUpperCase()} (${list.length}) ===`);
     for (const r of list) {
-      console.log(`${r.selector}\n  ${r.decls.join(', ')}`);
+      const declSummary = r.decls
+        .map((d) => (typeof d === 'string' ? d : `${d.property}: ${d.value}`))
+        .join(', ');
+      console.log(`${r.selector}\n  ${declSummary}`);
     }
   }
 }
+

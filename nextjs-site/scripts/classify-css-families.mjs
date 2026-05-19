@@ -15,14 +15,57 @@
  * error if either is missing, rather than silently classifying stale
  * data from a prior run.
  *
+ * Optional: `--manifest-json <path>` writes a structured rule manifest
+ * to the named path INSTEAD OF printing the stats. The manifest is the
+ * canonical input for `audit-d1-family-coverage.mjs`:
+ *
+ *   [
+ *     {
+ *       family: "H",
+ *       sourceFile: "assets/css/main.css",
+ *       selector: ".audio-player",
+ *       atRule: null,                          // or "@media (max-width: 767px)"
+ *       structuralDecls: [
+ *         { property: "display", value: "flex" },
+ *         ...
+ *       ]
+ *     },
+ *     ...
+ *   ]
+ *
+ * `structuralDecls` is filtered to LAYOUT_PROPS only (the structural
+ * subset of each STRUCTURAL rule); palette/border/visual decls are
+ * outside the structural-coverage gate's concern and are handled by
+ * the token-coverage audit on the migrated side instead.
+ *
  * Pair with `docs/nextjs-phase-2-d1-main-css-audit.md`.
  */
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { isStructuralProp } from './lib/css-classes.mjs';
 
-const [mainPath, respPath] = process.argv.slice(2);
+const rawArgs = process.argv.slice(2);
+let manifestPath = null;
+const positionals = [];
+for (let i = 0; i < rawArgs.length; i++) {
+  if (rawArgs[i] === '--manifest-json') {
+    const next = rawArgs[i + 1];
+    if (!next || next.startsWith('--')) {
+      console.error(
+        '--manifest-json requires a non-flag path argument; falling ' +
+          'through to stats mode would silently skip the manifest emit.'
+      );
+      process.exit(2);
+    }
+    manifestPath = next;
+    i++;
+  } else {
+    positionals.push(rawArgs[i]);
+  }
+}
+const [mainPath, respPath] = positionals;
 
 if (!mainPath || !respPath) {
-  console.error('Usage: node classify-css-families.mjs <main-audit.json> <responsive-audit.json>');
+  console.error('Usage: node classify-css-families.mjs <main-audit.json> <responsive-audit.json> [--manifest-json <out-path>]');
   console.error('Produce the inputs first via `node audit-legacy-css.mjs <css-file> --json > <path>`.');
   process.exit(2);
 }
@@ -104,6 +147,65 @@ function tally(rules) {
 
 const main = tally(mainJson.STRUCTURAL);
 const resp = tally(respJson.STRUCTURAL);
+
+// Manifest mode: emit the structured rule manifest and skip the stats
+// print-out. The Unclassified: 0 gate is enforced BEFORE the manifest
+// file is written — otherwise a future unclassified rule would cause
+// an incomplete manifest to land at the requested path and a loose
+// downstream consumer (one that only checks for file existence) could
+// silently consume it.
+if (manifestPath) {
+  if (main.unclass.length > 0 || resp.unclass.length > 0) {
+    console.error(
+      `ERROR: ${main.unclass.length + resp.unclass.length} unclassified ` +
+        `STRUCTURAL selector(s) — refusing to emit manifest (would be ` +
+        `incomplete). Extend the family classifier so every STRUCTURAL ` +
+        `rule lands in exactly one family.`
+    );
+    process.exit(1);
+  }
+  const manifest = [];
+  function pushAll(rules, sourceFile) {
+    for (const r of rules) {
+      const family = classify(r.selector);
+      if (!family) continue;
+      // Filter decls down to the structural subset. Each rule's full
+      // decl set may contain palette/border/visual properties too;
+      // those are handled by the token-coverage audit, not by this
+      // gate.
+      // Manifest mode requires the new `{property, value}` decl shape
+      // emitted by audit-legacy-css.mjs in this same slice. A stale
+      // pre-slice JSON file (with bare property-name strings) would
+      // produce `value: null` entries here, silently fail downstream
+      // value matches, and undermine the structural-coverage gate.
+      // Fail fast instead.
+      const structuralDecls = (r.decls || []).filter((d) => {
+        if (typeof d === 'string' || d.value === undefined) {
+          console.error(
+            `Stale audit JSON: rule "${r.selector}" has property-name-only ` +
+              `decls. Re-run audit-legacy-css.mjs (this slice's version) to ` +
+              `regenerate JSON with property+value records.`
+          );
+          process.exit(2);
+        }
+        return isStructuralProp(d.property);
+      });
+      manifest.push({
+        family,
+        sourceFile,
+        selector: r.selector,
+        atRule: r.atRule ?? null,
+        structuralDecls
+      });
+    }
+  }
+  pushAll(mainJson.STRUCTURAL, 'assets/css/main.css');
+  pushAll(respJson.STRUCTURAL, 'assets/css/responsive.css');
+  writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+  console.log(`Manifest written: ${manifestPath}`);
+  console.log(`  ${manifest.length} structural rule(s) across families ${FAMILY_ORDER.join(', ')}.`);
+  process.exit(0);
+}
 
 console.log('main.css STRUCTURAL:', mainJson.STRUCTURAL.length);
 console.log('responsive.css STRUCTURAL:', respJson.STRUCTURAL.length);
