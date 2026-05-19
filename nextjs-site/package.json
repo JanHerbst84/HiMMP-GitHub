@@ -30,7 +30,8 @@
     "audit:family-coverage:all": "MANIFEST=/tmp/himmp-family-manifest.$$.json && npm run -s audit:family-manifest -- $MANIFEST && node scripts/audit-d1-family-coverage.mjs --all-families --manifest $MANIFEST",
     "audit:token-coverage": "node scripts/audit-token-coverage.mjs --legacy-styles",
     "audit:tsx-inline-styles": "node scripts/audit-tsx-inline-styles.mjs",
-    "audit:tsx-inline-styles:update": "node scripts/audit-tsx-inline-styles.mjs --update"
+    "audit:tsx-inline-styles:update": "node scripts/audit-tsx-inline-styles.mjs --update",
+    "audit:contrast": "node scripts/audit-contrast.mjs"
   },
   "engines": {
     "node": ">=24.0.0",
