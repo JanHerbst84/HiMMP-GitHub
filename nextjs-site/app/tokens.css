@@ -217,6 +217,40 @@
   }
 }
 
+/*
+ * D-9-d — system-preference fallback.
+ *
+ * Activates the dark scheme for users whose OS preference is dark
+ * UNLESS they have explicitly chosen light via the toggle UI. The
+ * `:not([data-theme="light"])` guard ensures an explicit light
+ * choice in localStorage wins over the system preference. An
+ * explicit dark choice goes through `[data-theme="dark"]` above
+ * (independent of the media query).
+ *
+ * The contrast audit (D-9-c) verified both schemes meet WCAG AA
+ * before this fallback shipped, so dark-OS users automatically
+ * activated by this rule are guaranteed readable rendering.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: var(--color-graphite);
+    --color-fg: var(--color-bone);
+    --color-surface: #1a1e23;
+    --color-chrome-bg: #1a1e23;
+    --color-chrome-fg: var(--color-bone);
+    --color-rule: rgba(242, 239, 232, 0.12);
+  }
+}
+
+@supports (color: color-mix(in oklch, black, white)) {
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-surface: color-mix(in oklch, var(--color-graphite) 88%, white);
+      --color-chrome-bg: color-mix(in oklch, var(--color-graphite) 88%, white);
+    }
+  }
+}
+
 /* Modern-browser overrides for tokens whose authored value relies on
  * `color-mix(in oklch, ...)`. Without an `@supports` gate, browsers that
  * cannot parse `color-mix()` leave the custom property defined-but-

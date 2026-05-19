@@ -2905,3 +2905,50 @@ html .hero-buttons {
     margin: 20px 0;
   }
 }
+
+/*
+ * D-9-d — theme toggle button styling.
+ *
+ * Sits inside `.main-nav` after `.nav-links`. Token-driven so it
+ * follows the active scheme. The glyph rotation on hover gives a
+ * small affordance cue. Width/height are explicit so SSR layout
+ * doesn't shift when the component hydrates and reads localStorage.
+ */
+html .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: var(--spacing-md);
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-rule);
+  border-radius: 50%;
+  color: var(--color-fg);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast, 160ms) var(--easing-standard, ease),
+    background-color var(--duration-fast, 160ms) var(--easing-standard, ease),
+    color var(--duration-fast, 160ms) var(--easing-standard, ease);
+}
+
+html .theme-toggle:hover,
+html .theme-toggle:focus-visible {
+  border-color: var(--color-fg);
+  background-color: transparent;
+}
+
+html .theme-toggle:focus-visible {
+  outline: 2px solid var(--color-mint);
+  outline-offset: 2px;
+}
+
+@media screen and (max-width: 767px) {
+  html .theme-toggle {
+    margin-left: 0;
+    margin-top: var(--spacing-sm);
+  }
+}

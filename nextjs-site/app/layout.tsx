@@ -3,6 +3,16 @@ import "./tokens.css";
 import "./globals.css";
 import { fontVariableClassName } from "@/src/site/fonts";
 
+// Synchronous theme-init script for the document head. Minified
+// inline because it must run before first paint. Reads
+// localStorage('himmp-theme') and sets <html data-theme> if the
+// user has explicitly chosen 'light' or 'dark'.
+const themeInitScript =
+  "(function(){try{var t=localStorage.getItem('himmp-theme');" +
+  "if(t==='light'||t==='dark'){" +
+  "document.documentElement.setAttribute('data-theme',t);" +
+  "}}catch(e){}})();";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://himmp.net"),
   title: "HiMMP - Heaviness in Metal Music Production",
@@ -19,14 +29,23 @@ export default function RootLayout({
     <html lang="en" className={fontVariableClassName}>
       <head>
         {/*
+         * D-9-d early theme init. Runs synchronously before first
+         * paint to set `data-theme` on <html> from the user's
+         * localStorage preference. Prevents FOWT (flash of wrong
+         * theme). Try/catch swallows storage failures gracefully.
+         * Static string — same pattern as the Matomo script below.
+         */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: themeInitScript
+          }}
+        />
+        {/*
          * D-1 §4.9 link-retirement gate (commit) — legacy stylesheet
          * links removed. All 207 STRUCTURAL rules across Families A
          * through L have been reproduced in `globals.css` with
          * exact-value or whitelisted-equivalent decls per the
-         * audit-d1-family-coverage.mjs gate. The legacy files remain
-         * on disk pending D-7 (out of scope). To verify the browser
-         * stopped requesting the legacy stylesheets, run:
-         *   RUN_D1_RETIREMENT_GATE=1 npx playwright test no-legacy-stylesheet-requests
+         * audit-d1-family-coverage.mjs gate.
          */}
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="alternate" href="/llms.txt" type="text/plain" title="AI Usage Policy" />

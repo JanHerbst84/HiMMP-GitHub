@@ -1,4 +1,5 @@
 import { mainNavItems, type NavItem } from "@/src/site/navigation";
+import { ThemeToggle } from "@/src/site/components/ThemeToggle";
 
 type SiteHeaderProps = {
   activePath: string;
@@ -48,6 +49,7 @@ export function SiteHeader({ activePath }: SiteHeaderProps) {
                 </li>
               ))}
             </ul>
+            <ThemeToggle />
           </nav>
         </div>
       </header>
