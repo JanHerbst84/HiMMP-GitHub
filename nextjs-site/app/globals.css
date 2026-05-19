@@ -1902,3 +1902,99 @@ html .section-nav-button {
     padding: 6px 12px;
   }
 }
+
+/*
+ * Slice F (Family F, D-1) — team grid structural CSS.
+ *
+ * Migrates legacy main.css Family F selectors + the responsive.css
+ * mobile breakpoint variants into component CSS. The team grid uses
+ * `auto-fill, minmax(250px, 1fr)` at desktop with progressive
+ * narrowing at 1023px and a single-column collapse at 767px (per
+ * responsive.css). Slice F preserves those breakpoints verbatim.
+ *
+ * Builds on Slice L's earlier point-fixes (.advisor-item centring,
+ * .departments-grid 3-col override).
+ */
+html .team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+}
+
+html .team-member {
+  margin-bottom: var(--spacing-lg);
+}
+
+html .team-member img {
+  margin-bottom: var(--spacing-sm);
+}
+
+html .team-member h4 {
+  margin-bottom: var(--spacing-xs);
+}
+
+html .team-member .title {
+  margin-bottom: var(--spacing-sm);
+}
+
+@media screen and (max-width: 1023px) {
+  html .team-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html .team-grid {
+    grid-template-columns: 1fr;
+  }
+  /*
+   * Mobile image-display fix for team / partner / producer / artist
+   * photos. The legacy rule sets a `background-color: #f5f5f5` while
+   * the image loads; that cool grey is a Slice-Q palette inconsistency
+   * candidate, but rather than fight it during D-1 we keep the legacy
+   * value and let a follow-up palette pass retune to bone if wanted.
+   */
+  html .team-photo,
+  html .partner-logo,
+  html .section-content img,
+  html .team-member img,
+  html .producer img,
+  html .artist img,
+  html .advisor-item img,
+  html .university-logo-container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  html .team-member,
+  html .partner-item,
+  html .producer,
+  html .artist {
+    min-height: 50px;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  html .team-photo,
+  html .partner-logo,
+  html .team-member img,
+  html .producer img,
+  html .artist img {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/*
+ * team.html LegacyStyles ships z-index hooks for the team-member
+ * inner elements so they sit above the photo overlay on hover.
+ * Reproduce them here so the cascade-safety check passes and the
+ * hover behaviour survives a future LegacyStyles cleanup.
+ */
+html .team-member h4,
+html .team-member .artist-role,
+html .team-member .credits-link {
+  position: relative;
+  z-index: 15;
+}
