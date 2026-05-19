@@ -47,5 +47,12 @@
     "legacyDecl": { "property": "padding", "value": "18px 20px" },
     "replacementDecl": { "property": "padding", "value": "14px 16px" },
     "rationale": "Legacy main.css declares .citation-box TWICE: line 1528 with padding 14px 16px, line 1549 with padding 18px 20px (an 'enhanced contrast' override). Slice D uses the first-instance 14px 16px because it matches the dark-academic palette's tighter card rhythm; the 18px 20px override was paired with a heavier border + box-shadow treatment that doesn't translate to the new palette. Intentional modernisation, not a coverage gap."
+  },
+  {
+    "family": "A",
+    "selector": "*",
+    "legacyDecl": { "property": "box-sizing", "value": "border-box" },
+    "replacementDecl": { "property": "box-sizing", "value": "inherit" },
+    "rationale": "globals.css uses the modern pattern `html { box-sizing: border-box }` (line 2) + `* { box-sizing: inherit }` (line 9) which is functionally equivalent to legacy's `* { box-sizing: border-box }` but lets specific elements opt out via `box-sizing: content-box` cleanly. The two patterns produce identical computed box-model behaviour for every element in the corpus. Intentional modernisation."
   }
 ]

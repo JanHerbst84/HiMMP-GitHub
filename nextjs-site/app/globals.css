@@ -2518,3 +2518,86 @@ html .highlight-item p {
     display: block;
   }
 }
+
+/*
+ * Slice A2 (Family A completion, D-1) — document chrome structural.
+ * The earlier Slice E covered body palette + font-family + heading
+ * font; this completion migrates the structural decls (universal
+ * reset, container, skip-to-content positioning, list spacing).
+ */
+html * {
+  margin: 0;
+  padding: 0;
+}
+
+html body {
+  overflow-x: hidden;
+}
+
+html img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+html .container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+html .skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 1em;
+}
+
+html .skip-to-content:focus {
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+}
+
+html :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: var(--spacing-sm);
+}
+
+html p {
+  margin-bottom: var(--spacing-md);
+}
+
+html p + ul,
+html p + ol {
+  margin-top: calc(var(--spacing-md) * -0.5);
+}
+
+html .content-section ul,
+html .content-section ol {
+  padding-left: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+html .content-section li {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 479px) {
+  html .container {
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+@media print {
+  html img {
+    max-width: 500px;
+    page-break-inside: avoid;
+  }
+  html .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+}
