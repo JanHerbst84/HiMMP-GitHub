@@ -60,6 +60,50 @@
   --duration-fast: 160ms;
   --duration-slow: 360ms;
   --easing-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /*
+   * Legacy CSS custom properties — preserved for cross-rule
+   * consumption by `globals.css` rules that were ported verbatim
+   * from `/assets/css/main.css` during D-1. The legacy stylesheet
+   * link was retired at D-1 §4.9, so these definitions move here to
+   * keep `var(--spacing-md)` etc. resolving. Values mirror the
+   * legacy `:root` block exactly.
+   *
+   * Going forward, new component CSS should reference the dark-
+   * academic tokens (`--color-bone`, `--space-5`, `--type-base`,
+   * `--font-body`, etc.) above. The legacy aliases below are a
+   * holding-pattern until D-1 follow-up slices retune individual
+   * usages.
+   */
+
+  /* Color palette (legacy) */
+  --primary-color: #000000;
+  --secondary-color: #333333;
+  --accent-color: #555555;
+  --text-color: #333333;
+  --background-color: #ffffff;
+  --light-gray: #f5f5f5;
+  --medium-gray: #e0e0e0;
+  --dark-gray: #666666;
+
+  /* Brand colors (legacy) */
+  --brand-teal: #5DC69F;
+  --brand-teal-dark: #4AB089;
+  --brand-teal-light: #e9f8f5;
+
+  /* Typography (legacy) */
+  --body-font: 'Helvetica Neue', Arial, sans-serif;
+  --heading-font: 'Helvetica Neue', Arial, sans-serif;
+
+  /* Spacing (legacy) */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 4rem;
+
+  /* Container width (legacy) */
+  --container-width: 1200px;
 }
 
 @media (prefers-reduced-motion: reduce) {
