@@ -32,6 +32,51 @@
   --color-sulfur: #e8c547;
   --color-rule: rgba(17, 20, 24, 0.12);
 
+  /*
+   * Semantic surface tokens — D-9-a foundation for dark-mode swap.
+   *
+   * These name what a colour does, not which palette primitive it is.
+   * D-9-b adds a `[data-theme="dark"]` override that re-points the
+   * semantic tokens at the inverted palette values; today they are
+   * byte-equivalent to direct primitive references and the migration
+   * is invisible.
+   *
+   *   --color-bg          page background (body, header, footer-bone)
+   *   --color-fg          body text on the page surface
+   *   --color-surface     elevated card / panel above --color-bg
+   *   --color-chrome-bg   deliberately-dark chrome (hero band, footer,
+   *                       audio player) — graphite in light scheme,
+   *                       a slightly-lifted near-graphite in dark
+   *                       scheme so the chrome stays a distinct surface
+   *                       rather than blending into the dark body bg
+   *   --color-chrome-fg   bone text on --color-chrome-bg surfaces
+   *
+   * Note on the site-header / footer asymmetry: the SITE-HEADER uses
+   * --color-bg (matches body in any scheme) because it's content-
+   * adjacent chrome that should follow the body context. The
+   * SITE-FOOTER uses --color-chrome-bg because it's a deliberately-
+   * contrasting band that should stay distinct from the body bg in
+   * both schemes. Both choices are intentional — do not "harmonise"
+   * the header to --color-chrome-bg without a separate proposal.
+   *
+   * Accent-pair contexts: pill buttons (.read-more, .resource-button,
+   * .mix-btn.active) keep `color: var(--color-graphite)` directly —
+   * the text color pairs with the mint/sulfur background for WCAG
+   * contrast and must NOT follow the body-fg swap. Migrating those
+   * to --color-fg would invert to bone-on-mint (~2.09 contrast, AA
+   * fail) in dark mode.
+   *
+   * Accents (--color-mint, --color-sulfur) intentionally do NOT swap
+   * — they are reserved palette accents that read in both schemes.
+   * --color-rule remains explicit; the D-9 contrast audit (D-9-c)
+   * will likely produce a parallel `--color-rule-dark` for inversion.
+   */
+  --color-bg: var(--color-bone);
+  --color-fg: var(--color-graphite);
+  --color-surface: var(--color-paper);
+  --color-chrome-bg: var(--color-graphite);
+  --color-chrome-fg: var(--color-bone);
+
   /* Fluid type scale (clamp: min, preferred, max) */
   --type-xs:      clamp(0.78rem, 0.74rem + 0.20vw, 0.86rem);
   --type-sm:      clamp(0.88rem, 0.84rem + 0.22vw, 0.96rem);

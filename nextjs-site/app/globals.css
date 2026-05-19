@@ -30,8 +30,11 @@ html body {
     Helvetica,
     Arial,
     sans-serif;
-  background: var(--color-bone);
-  color: var(--color-graphite);
+  /* Semantic tokens — D-9-a. --color-bg resolves to --color-bone in
+   * the light scheme (byte-equivalent to the pre-slice rendering);
+   * D-9-b swaps to graphite in dark scheme. */
+  background: var(--color-bg);
+  color: var(--color-fg);
   line-height: 1.6;
 }
 
@@ -64,7 +67,7 @@ html :is(h1, h2, h3, h4, h5, h6) {
     Georgia,
     "Times New Roman",
     serif;
-  color: var(--color-graphite);
+  color: var(--color-fg);
   letter-spacing: -0.012em;
 }
 
@@ -78,7 +81,7 @@ html :is(h1, h2, h3, h4, h5, h6) {
  * to prevent text-only styling bleeding into buttons.
  */
 :is(.content-section, .chapter-content) a {
-  color: var(--color-graphite);
+  color: var(--color-fg);
   text-decoration: underline;
   text-decoration-color: var(--color-mint);
   text-decoration-thickness: 2px;
@@ -86,7 +89,7 @@ html :is(h1, h2, h3, h4, h5, h6) {
 }
 
 :is(.content-section, .chapter-content) a:hover {
-  text-decoration-color: var(--color-graphite);
+  text-decoration-color: var(--color-fg);
 }
 
 /*
@@ -125,7 +128,7 @@ html a.internal-link:hover {
  */
 html a.download-link,
 html a.download-link:hover {
-  color: var(--color-bone);
+  color: var(--color-chrome-fg);
   text-decoration: none;
 }
 
@@ -168,7 +171,7 @@ html .update-item {
 }
 
 html .update-date {
-  color: var(--color-graphite);
+  color: var(--color-fg);
   border-bottom-color: var(--color-mint);
 }
 
@@ -330,12 +333,12 @@ html [data-page="audio"] .hero-text:last-child {
  * these rules beat the legacy 0,0,1 selectors regardless of source order.
  */
 html .site-header {
-  background-color: var(--color-bone);
+  background-color: var(--color-bg);
   border-bottom: 1px solid var(--color-rule);
 }
 
 html .nav-links a {
-  color: var(--color-graphite);
+  color: var(--color-fg);
   font-family:
     var(--font-body),
     -apple-system,
@@ -347,7 +350,7 @@ html .nav-links a {
 }
 
 html .nav-links a:hover {
-  color: var(--color-graphite);
+  color: var(--color-fg);
 }
 
 html .nav-links a::after {
@@ -355,12 +358,12 @@ html .nav-links a::after {
 }
 
 html .nav-links a.active {
-  color: var(--color-graphite);
+  color: var(--color-fg);
 }
 
 @media (max-width: 767px) {
   html .nav-links {
-    background-color: var(--color-bone);
+    background-color: var(--color-bg);
     border-top: 1px solid var(--color-rule);
   }
 }
@@ -384,12 +387,12 @@ html .nav-links a.active {
  * decorative.
  */
 html .site-footer {
-  background-color: var(--color-graphite);
-  color: var(--color-bone);
+  background-color: var(--color-chrome-bg);
+  color: var(--color-chrome-fg);
 }
 
 html .footer-nav a {
-  color: var(--color-bone);
+  color: var(--color-chrome-fg);
   font-family:
     var(--font-body),
     -apple-system,
@@ -403,7 +406,7 @@ html .footer-nav a {
 
 html .footer-nav a:hover {
   opacity: 1;
-  color: var(--color-bone);
+  color: var(--color-chrome-fg);
   text-decoration: underline;
   text-decoration-color: var(--color-mint);
   text-decoration-thickness: 2px;
@@ -411,7 +414,7 @@ html .footer-nav a:hover {
 }
 
 html .footer-nav .highlight-text {
-  color: var(--color-bone);
+  color: var(--color-chrome-fg);
   font-weight: 400;
   background: none;
 }
@@ -457,7 +460,7 @@ html .footer-logos {
  * preventing layout shift when content height crosses the viewport.
  */
 html {
-  scrollbar-color: var(--color-rule) var(--color-bone);
+  scrollbar-color: var(--color-rule) var(--color-bg);
   scrollbar-width: thin;
   scrollbar-gutter: stable;
 }
@@ -468,17 +471,17 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bone);
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--color-rule);
-  border: 3px solid var(--color-bone);
+  border: 3px solid var(--color-bg);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in oklch, var(--color-graphite) 35%, var(--color-bone));
+  background: color-mix(in oklch, var(--color-fg) 35%, var(--color-bg));
 }
 
 a {
@@ -543,7 +546,7 @@ a {
   letter-spacing: -0.018em;
   margin: 0 0 22px;
   text-align: left;
-  color: var(--color-bone, #f2efe8) !important;
+  color: var(--color-chrome-fg, #f2efe8) !important;
   text-shadow: none;
 }
 
@@ -571,7 +574,7 @@ a {
 }
 
 [data-page="home"] .hero-text a {
-  color: var(--color-bone, #f2efe8);
+  color: var(--color-chrome-fg, #f2efe8);
   text-decoration: underline;
   text-decoration-color: var(--color-mint, #5dc69f);
   text-decoration-thickness: 2px;
@@ -579,7 +582,7 @@ a {
 }
 
 [data-page="home"] .hero-text a:hover {
-  text-decoration-color: var(--color-bone, #f2efe8);
+  text-decoration-color: var(--color-chrome-fg, #f2efe8);
 }
 
 @media (max-width: 720px) {
@@ -726,7 +729,7 @@ a {
   letter-spacing: -0.016em;
   margin: 0 0 20px;
   text-align: left;
-  color: var(--color-bone, #f2efe8) !important;
+  color: var(--color-chrome-fg, #f2efe8) !important;
   text-shadow: none;
 }
 
@@ -787,7 +790,7 @@ a {
   [data-page="privacy"],
   [data-page="acknowledgements"]
 ) .hero-text a {
-  color: var(--color-bone, #f2efe8);
+  color: var(--color-chrome-fg, #f2efe8);
   text-decoration: underline;
   text-decoration-color: var(--color-mint, #5dc69f);
   text-decoration-thickness: 2px;
@@ -806,7 +809,7 @@ a {
   [data-page="privacy"],
   [data-page="acknowledgements"]
 ) .hero-text a:hover {
-  text-decoration-color: var(--color-bone, #f2efe8);
+  text-decoration-color: var(--color-chrome-fg, #f2efe8);
 }
 
 @media (max-width: 720px) {
@@ -872,7 +875,7 @@ a {
     serif;
   font-weight: 600;
   letter-spacing: -0.012em;
-  color: var(--color-graphite, #111418);
+  color: var(--color-fg, #111418);
   margin-block: 0 clamp(16px, 2vh, 28px);
 }
 
@@ -908,7 +911,7 @@ a {
   font-weight: 600;
   font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
   line-height: 1.3;
-  color: var(--color-graphite, #111418);
+  color: var(--color-fg, #111418);
   letter-spacing: -0.008em;
   margin: 0 0 12px;
 }
@@ -938,7 +941,7 @@ a {
   text-decoration-color: var(--color-mint, #5dc69f);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
-  color: var(--color-graphite, #111418);
+  color: var(--color-fg, #111418);
 }
 
 [data-page="about"] .content-section.content-section a:hover {
@@ -997,8 +1000,8 @@ a {
 .audio-comparison {
   margin: 32px -24px 8px;
   padding: 36px 24px 32px;
-  background: var(--color-graphite, #111418);
-  color: var(--color-bone, #f2efe8);
+  background: var(--color-chrome-bg, #111418);
+  color: var(--color-chrome-fg, #f2efe8);
   border-top: 1px solid var(--color-mint-hairline, rgba(93, 198, 159, 0.35));
   border-bottom: 1px solid var(--color-mint-hairline, rgba(93, 198, 159, 0.35));
   color-scheme: dark;
@@ -1019,7 +1022,7 @@ a {
   font-weight: 500;
   font-size: var(--type-lg, 1.6rem);
   line-height: 1.2;
-  color: var(--color-bone, #f2efe8);
+  color: var(--color-chrome-fg, #f2efe8);
   letter-spacing: -0.005em;
 }
 
@@ -1051,7 +1054,7 @@ a {
   font-weight: 500;
   letter-spacing: 0.01em;
   background: transparent;
-  color: var(--color-bone, #f2efe8);
+  color: var(--color-chrome-fg, #f2efe8);
   border: 1px solid rgba(242, 239, 232, 0.18);
   border-radius: var(--radius-sm, 2px);
   cursor: pointer;
@@ -1065,7 +1068,7 @@ a {
 .audio-comparison .mix-btn:hover,
 .audio-comparison .mix-btn:focus-visible {
   background: rgba(242, 239, 232, 0.07);
-  color: var(--color-bone, #f2efe8);
+  color: var(--color-chrome-fg, #f2efe8);
   border-color: rgba(242, 239, 232, 0.35);
   box-shadow: none;
 }
@@ -1120,7 +1123,7 @@ a {
   grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
   gap: 0;
   align-items: start;
-  background: var(--color-bone);
+  background: var(--color-bg);
 }
 
 .findings-reader-panel {
@@ -1257,7 +1260,7 @@ a {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 12px;
   padding: 14px 24px;
-  background: var(--color-bone);
+  background: var(--color-bg);
 }
 
 .findings-reader-topbar {
@@ -1567,13 +1570,13 @@ html .chapter-nav-button {
 /* Strip background — match the body so the chapter-section-nav no
  * longer reads as a cool-grey island. */
 html .chapter-section-nav {
-  background-color: var(--color-bone);
+  background-color: var(--color-bg);
   border-bottom-color: var(--color-rule);
 }
 
 /* Strip title — graphite over bone instead of #666 over #f5f5f5. */
 html .chapter-section-nav h3 {
-  color: var(--color-graphite);
+  color: var(--color-fg);
 }
 
 /* Pill text colour + font-family. The `font-family` rule is what
@@ -1583,7 +1586,7 @@ html .chapter-section-nav h3 {
  * here too for consistency in case the legacy markup changes. */
 html .section-nav-button,
 html .chapter-nav-button {
-  color: var(--color-graphite);
+  color: var(--color-fg);
   font-family:
     var(--font-body),
     -apple-system,
@@ -1602,7 +1605,7 @@ html .section-nav-button:hover,
 html .section-nav-button.active,
 html .chapter-nav-button:hover,
 html .chapter-nav-button.active {
-  color: var(--color-graphite);
+  color: var(--color-fg);
 }
 
 /*
