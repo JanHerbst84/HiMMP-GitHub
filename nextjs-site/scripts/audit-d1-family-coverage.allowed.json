@@ -54,5 +54,40 @@
     "legacyDecl": { "property": "box-sizing", "value": "border-box" },
     "replacementDecl": { "property": "box-sizing", "value": "inherit" },
     "rationale": "globals.css uses the modern pattern `html { box-sizing: border-box }` (line 2) + `* { box-sizing: inherit }` (line 9) which is functionally equivalent to legacy's `* { box-sizing: border-box }` but lets specific elements opt out via `box-sizing: content-box` cleanly. The two patterns produce identical computed box-model behaviour for every element in the corpus. Intentional modernisation."
+  },
+  {
+    "family": "B",
+    "selector": ".nav-links a::after",
+    "legacyDecl": { "property": "bottom", "value": "0" },
+    "replacementDecl": { "property": "bottom", "value": "-2px" },
+    "rationale": "Legacy duplicate-rule conflict: line 254 declares `bottom: 0` (underline flush with text), line 1511 declares `bottom: -2px` (slightly below text). Second rule wins in browser source order and is what users currently see — Slice B2 matches the live value. The 2px difference is a deliberate visual-polish enhancement from the legacy."
+  },
+  {
+    "family": "C",
+    "selector": ".hero",
+    "legacyDecl": { "property": "padding", "value": "var(--spacing-xl) 0" },
+    "replacementDecl": { "property": "padding", "value": "clamp(36px, 6vh, 72px) 0" },
+    "rationale": "Hero re-skin (Slice C / D-2 era) deliberately moved to viewport-relative padding with clamp for the dark-academic palette. The legacy var(--spacing-xl) was a fixed value; the clamp gives the hero proportionate breathing on different screens. Intentional modernisation."
+  },
+  {
+    "family": "C",
+    "selector": ".hero",
+    "legacyDecl": { "property": "min-height", "value": "500px" },
+    "replacementDecl": { "property": "min-height", "value": "clamp(360px, 50vh, 520px)" },
+    "rationale": "Companion to the .hero padding modernisation. Viewport-relative min-height keeps the hero hero-y across breakpoints; the fixed 500px was too tall on mobile. Intentional."
+  },
+  {
+    "family": "C",
+    "selector": ".hero-content",
+    "legacyDecl": { "property": "max-width", "value": "80%" },
+    "replacementDecl": { "property": "max-width", "value": "720px" },
+    "rationale": "Fixed-width content column reads better at desktop widths than 80% which gets too wide. Hero-content is centred at narrower breakpoints via responsive overrides. Intentional."
+  },
+  {
+    "family": "C",
+    "selector": ".hero-content",
+    "legacyDecl": { "property": "margin", "value": "0 auto" },
+    "replacementDecl": { "property": "margin", "value": "0" },
+    "rationale": "Hero re-skin uses flex centering on the hero parent rather than auto margin on the child. Functionally equivalent visual result. Intentional."
   }
 ]

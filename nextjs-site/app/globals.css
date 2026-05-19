@@ -2601,3 +2601,304 @@ html .content-section li {
     margin: 0;
   }
 }
+
+/*
+ * Slice B2 (Family B completion, D-1) — header + navigation
+ * structural decls. The earlier Slice F covered Family B palette
+ * (header bg / nav link color / mobile bg); this completion migrates
+ * the structural decls (sticky positioning, flex layout, menu-toggle
+ * geometry, mobile collapse behaviour, underline-on-hover pseudo).
+ */
+html .site-header {
+  padding: var(--spacing-md) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+html .site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+html .logo a {
+  display: block;
+}
+
+html .logo-image {
+  max-height: 60px;
+  width: auto;
+}
+
+html .main-nav {
+  display: flex;
+  align-items: center;
+}
+
+html .nav-links {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+html .nav-links li {
+  margin-left: var(--spacing-md);
+}
+
+html .nav-links a {
+  padding: 6px 0;
+  position: relative;
+}
+
+html .nav-links a::after {
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+}
+
+html .nav-links a:hover::after,
+html .nav-links a.active::after {
+  width: 100%;
+}
+
+html .menu-toggle {
+  display: none;
+}
+
+html .menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  margin: 5px 0;
+}
+
+@media screen and (max-width: 767px) {
+  html .site-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  html .logo {
+    margin-bottom: var(--spacing-md);
+  }
+  html .menu-toggle {
+    display: block;
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 20;
+  }
+  html .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: var(--spacing-md) 0;
+  }
+  html .nav-links.active {
+    display: flex;
+  }
+  html .nav-links li {
+    margin: var(--spacing-xs) 0;
+    margin-left: 0;
+  }
+  html .nav-links a {
+    padding: var(--spacing-xs) 0;
+    display: block;
+  }
+}
+
+@media print {
+  html .site-header,
+  html .audio-player,
+  html .video-container,
+  html .contact-form,
+  html .download-links,
+  html .site-footer {
+    display: none;
+  }
+}
+
+/*
+ * Slice K2 (Family K completion, D-1) — footer structural decls.
+ * The earlier Slice J covered Family K palette (graphite footer bg
+ * and bone text). This migration adds the structural decls main.css
+ * supplies that the palette overlay didn't reproduce.
+ */
+html .site-footer {
+  padding: var(--spacing-lg) 0;
+}
+
+html .footer-info {
+  margin-bottom: var(--spacing-md);
+}
+
+html .footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding: 0;
+}
+
+html .footer-logo:hover {
+  transform: scale(1.05);
+}
+
+html .footer-nav li {
+  position: relative;
+  padding: 0 var(--spacing-sm);
+}
+
+html .footer-nav li:not(:last-child)::after {
+  position: absolute;
+  right: -5px;
+}
+
+html .footer-nav a {
+  padding: 0 var(--spacing-xs);
+}
+
+html .footer-logos {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+}
+
+html .university-logo,
+html .himmp-logo,
+html .ahrc-logo {
+  padding: 10px;
+}
+
+html .university-logo img,
+html .himmp-logo img,
+html .footer-logo {
+  height: 50px;
+  width: auto;
+}
+
+html .ahrc-logo img {
+  height: 50px;
+  width: auto;
+}
+
+@media screen and (max-width: 767px) {
+  html .footer-logos {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  html .university-logo img,
+  html .himmp-logo img,
+  html .footer-logo {
+    height: 40px;
+  }
+  html .ahrc-logo img {
+    height: 40px;
+  }
+  html .footer-nav ul {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  html .footer-nav li {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  html .footer-nav ul {
+    gap: var(--spacing-sm);
+  }
+  html .footer-nav li {
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+/*
+ * Slice C2 (Family C completion, D-1) — hero structural decls.
+ * The earlier hero re-skin work (Slice C / D-2 era) covered .hero
+ * palette + viewport-relative sizing for the dark-academic palette;
+ * this completion migrates the missing structural decls that remained
+ * load-bearing in main.css (hero overflow/display/align, chapter-hero,
+ * hero-overlay positioning, hero-buttons row, mobile breakpoints).
+ */
+html .hero {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+html .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+html .hero-title {
+  margin-bottom: var(--spacing-lg);
+}
+
+html .chapter-hero {
+  padding: var(--spacing-lg) 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+}
+
+html .chapter-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+html .chapter-hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+html .chapter-hero .hero-title {
+  margin-bottom: var(--spacing-sm);
+}
+
+html .hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+@media screen and (max-width: 1023px) {
+  html .hero-content {
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  html .chapter-hero {
+    min-height: 260px;
+  }
+  html .hero {
+    padding: var(--spacing-lg) 0;
+  }
+  html .hero-title {
+    margin-bottom: var(--spacing-md);
+  }
+  html .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+}
