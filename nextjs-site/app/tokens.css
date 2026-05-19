@@ -158,6 +158,65 @@
   }
 }
 
+/*
+ * D-9-b — dark scheme override.
+ *
+ * Activated ONLY by an explicit `data-theme="dark"` attribute on
+ * `<html>`. The `@media (prefers-color-scheme: dark)` fallback that
+ * would auto-activate for dark-OS users is deliberately NOT included
+ * yet — that ships in D-9-d AFTER the D-9-c contrast audit has
+ * cleared the dark-scheme token values. Without D-9-c we cannot
+ * guarantee WCAG AA contrast in dark mode, and an unverified dark
+ * scheme reaching dark-OS users on first deploy would be a real
+ * regression.
+ *
+ * To preview the dark scheme manually in dev tools:
+ *   document.documentElement.setAttribute('data-theme', 'dark');
+ *
+ * Value-derivation rationale:
+ *   - --color-bg: full inversion to graphite (the body bg flips).
+ *   - --color-fg: full inversion to bone (body text flips).
+ *   - --color-surface: a slightly-lifted near-graphite so cards
+ *     stay distinct from the body bg, mirroring the light scheme's
+ *     paper-on-bone figure/ground.
+ *   - --color-chrome-bg: slightly-lifted near-graphite (NOT the
+ *     same value as --color-bg). Without the lift, the footer would
+ *     blend into the dark body bg. Lifted via color-mix in oklch so
+ *     it tracks the graphite primitive if that is ever re-tuned.
+ *   - --color-chrome-fg: stays bone — text on a dark surface is
+ *     bone regardless of the surrounding scheme.
+ *   - --color-rule: bone-with-low-alpha so the hairlines stay
+ *     visible on a dark body bg. The light scheme uses
+ *     rgba(17,20,24,0.12); the dark scheme inverts to
+ *     rgba(242,239,232,0.12).
+ *   - --color-mint, --color-sulfur, --color-mint-hairline: NOT
+ *     swapped. These are accents that read in both schemes.
+ *     --color-mint-hairline already involves --color-graphite as a
+ *     mix terminal; in dark mode that terminal becomes the body bg
+ *     side of the hairline, which is the right semantic result.
+ *
+ * Static fallbacks for browsers without color-mix support paired
+ * with @supports overrides at the bottom of the file, matching the
+ * pattern --color-paper uses in :root.
+ */
+[data-theme="dark"] {
+  --color-bg: var(--color-graphite);
+  --color-fg: var(--color-bone);
+  /* Static fallback ~oklch(0.20, 0.005, 250) — slightly lifted from
+   * graphite #111418. Modern browsers override via @supports below. */
+  --color-surface: #1a1e23;
+  --color-chrome-bg: #1a1e23;
+  --color-chrome-fg: var(--color-bone);
+  --color-rule: rgba(242, 239, 232, 0.12);
+}
+
+@supports (color: color-mix(in oklch, black, white)) {
+  [data-theme="dark"] {
+    --color-surface: color-mix(in oklch, var(--color-graphite) 88%, white);
+    --color-chrome-bg: color-mix(in oklch, var(--color-graphite) 88%, white);
+  }
+}
+
 /* Modern-browser overrides for tokens whose authored value relies on
  * `color-mix(in oklch, ...)`. Without an `@supports` gate, browsers that
  * cannot parse `color-mix()` leave the custom property defined-but-
