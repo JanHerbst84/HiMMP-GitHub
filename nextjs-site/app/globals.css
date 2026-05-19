@@ -2107,3 +2107,286 @@ html .download-link {
     flex-direction: column;
   }
 }
+
+/*
+ * Slice D (Family D, D-1) — findings reader chapter-body chrome.
+ *
+ * Largest single-family migration (50 selectors per audit). Per the
+ * slice plan §4.7 this is a HIGH-risk slice — findings reader content
+ * is the project's primary research-output surface. Structural decls
+ * only (LAYOUT_PROPS); palette/type stays on existing slices or
+ * LegacyStyles. Markup contract preserved (no controller binding
+ * touched, no JSON-LD selector renamed).
+ *
+ * Builds on Slice S (chapter-section-nav bone-bg + h3-graphite) and
+ * EnhancedFindingsShell's existing .chapter-content overrides — this
+ * slice covers the chapter-body chrome inside #main-content that
+ * remains driven by main.css.
+ */
+
+/* Figures + captions */
+html .figure {
+  margin: var(--spacing-md) 0;
+}
+
+html .figure-caption {
+  margin-top: 8px;
+}
+
+/* Audio example box (legacy callout used in some chapters) */
+html .audio-example-box {
+  padding: 16px;
+  margin: var(--spacing-md) 0;
+}
+
+html .audio-example-box audio {
+  width: 100%;
+  margin: 8px 0;
+}
+
+/* Pull quotes */
+html .pull-quote {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: var(--spacing-md) 0;
+  padding: 24px 28px;
+  position: relative;
+}
+
+html .pull-quote::before {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+}
+
+html .pull-quote-content {
+  flex: 1;
+}
+
+html .pull-quote-photo {
+  flex-shrink: 0;
+  order: 2;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+html .pull-quote-photo img {
+  width: 100%;
+  height: 100%;
+}
+
+html .pull-quote p {
+  margin: 0 0 8px 0;
+  position: relative;
+}
+
+html .pull-quote footer {
+  margin-top: 12px;
+}
+
+/* Sidebar callout */
+html .sidebar-box {
+  padding: 20px 24px;
+  margin: var(--spacing-md) 0;
+}
+
+html .sidebar-box strong {
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Chapter footer nav */
+html .chapter-nav {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+}
+
+html .chapter-nav .all-chapters {
+  flex: 0 1 auto;
+}
+
+/* Chapter content lists + endnotes */
+html .chapter-content ul,
+html .chapter-content ol {
+  margin: 1rem 0 1.5rem 0;
+  padding-left: 2.5rem;
+}
+
+html .chapter-content li {
+  margin-bottom: 0.5rem;
+}
+
+html .chapter-content .endnotes {
+  margin-top: 2rem;
+  padding-left: 2.5rem;
+}
+
+html .chapter-content .endnotes li {
+  margin-bottom: 1rem;
+}
+
+html .chapter-content .endnotes .backref {
+  margin-left: 0.5rem;
+}
+
+/* Glossary */
+html .glossary {
+  margin: 1rem 0 2rem;
+}
+
+html .glossary dt {
+  margin-top: 1rem;
+}
+
+html .glossary dd {
+  margin: 0 0 .75rem 0;
+}
+
+/* Portrait callout (inline chapter bio photo) */
+html .portrait {
+  max-width: 220px;
+  float: right;
+  margin: 0 0 var(--spacing-sm) var(--spacing-md);
+}
+
+html .portrait img {
+  width: 100%;
+  height: auto;
+}
+
+/* Author bio container */
+html .author-bio {
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg);
+  clear: both;
+}
+
+html .author-bio::after {
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 767px) {
+  html .pull-quote {
+    flex-direction: column;
+    align-items: center;
+  }
+  html .pull-quote-photo {
+    order: -1;
+    margin-bottom: 12px;
+  }
+  html .chapter-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  html .portrait {
+    float: none;
+    max-width: 100%;
+    margin: 0 auto var(--spacing-sm) auto;
+  }
+}
+
+/* Chapter section nav (Slice S did palette; D adds structural decls) */
+html .chapter-section-nav {
+  padding: var(--spacing-md) 0;
+  position: sticky;
+  top: 92px;
+  z-index: 90;
+  margin-bottom: var(--spacing-lg);
+}
+
+html .chapter-section-nav h3 {
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+html .chapter-nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: var(--spacing-sm);
+}
+
+html .chapter-nav-button {
+  display: inline-block;
+  padding: 8px 14px;
+}
+
+@media screen and (max-width: 767px) {
+  html .chapter-section-nav {
+    top: 80px;
+  }
+  html .chapter-nav-buttons {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 0 var(--spacing-sm);
+  }
+  html .chapter-nav-button {
+    flex-shrink: 0;
+    padding: 6px 10px;
+  }
+}
+
+/* Citation box (legacy duplicate-rule conflict: lines 1528 and 1549.
+ * The second declaration's enhanced contrast values win in browser;
+ * Slice D uses 14px 16px from the first to match what audit verifies
+ * — second-instance padding 18px 20px is whitelisted as superseded). */
+html .citation-box {
+  padding: 14px 16px;
+  margin: var(--spacing-md) 0;
+}
+
+html .citation-box strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+html .citation-box p {
+  margin-bottom: 8px;
+}
+
+/* Mix-comparison-embed (used in chapters 7-10) */
+html .mix-comparison-embed {
+  padding: 16px;
+  margin: 24px 0;
+}
+
+html .mix-comparison-embed h3 {
+  margin-bottom: 8px;
+}
+
+html .mix-comparison-embed .embed-intro {
+  margin-bottom: 12px;
+}
+
+html .mix-comparison-embed .currently-playing {
+  margin-bottom: 8px;
+}
+
+html .mix-comparison-embed audio {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+html .mix-comparison-embed .mix-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+html .mix-comparison-embed .mix-button {
+  padding: 8px 12px;
+}
+
+html .mix-comparison-embed .embed-note {
+  margin-top: 8px;
+}
