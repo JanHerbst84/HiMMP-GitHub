@@ -8,6 +8,21 @@
  * camelCase JSX style prop, `srcset=` -> `srcSet=`,
  * `for=` -> `htmlFor=`). No content is altered.
  */
+export type FindingsChapterHeading = { id: string; text: string };
+
+/*
+ * Chapter h2 headings, in document order. The D-8 within-chapter
+ * TOC component (rendered by `EnhancedFindingsShell`) reads this
+ * to emit `<nav aria-label="On this page">` for long chapters.
+ * IDs match the values baked into the JSX below by `injectH2Ids`.
+ */
+export const FindingsChapter14Headings: FindingsChapterHeading[] = [
+  { id: "core-himmp-publications", text: "Core HiMMP Publications" },
+  { id: "foundational-journal-article", text: "Foundational Journal Article" },
+  { id: "professional-production-guide", text: "Professional Production Guide" },
+  { id: "further-himmp-project-outputs", text: "Further HiMMP Project Outputs" }
+];
+
 export function FindingsChapter14() {
   return (
     <main id="main-content">

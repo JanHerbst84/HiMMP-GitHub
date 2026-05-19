@@ -1722,3 +1722,111 @@ html .content-section .contact-list li {
   padding: 8px 0 8px 25px;
   position: relative;
 }
+
+/*
+ * Slice L (Family L, D-1) — affordances + cards structural CSS.
+ *
+ * Migrates legacy main.css Family L selectors into component CSS so
+ * the legacy stylesheet can be unloaded by D-1 §4.9 without losing
+ * affordance / hover-state / pseudo-element treatments. Scope is
+ * intentionally structural only — palette decisions (the Slice H
+ * mint-pill + graphite-text colour choice; Slice J button padding
+ * via .section-nav-button) keep their existing treatment.
+ *
+ * Includes:
+ *   - .read-more / .resource-button shared positioning + the legacy
+ *     ::before sheen pseudo-element (kept token-free; visual polish).
+ *   - .resource-button (single merged rule — legacy main.css declared
+ *     it twice with overlapping decls; the second-wins values are the
+ *     ones actually applied in the browser).
+ *   - .chapter-resources strip + .chapter-resources h3 + .resource-buttons.
+ *   - .output-card:hover transform.
+ *   - .read-more / button :active transform.
+ *
+ * `html` prefix raises specificity to (0,1,1) (or (0,0,2) for element
+ * selectors), beating the legacy single-class rules. Values match the
+ * second-wins legacy declarations exactly.
+ */
+html .read-more {
+  margin-top: var(--spacing-sm);
+}
+
+html .read-more:hover {
+  transform: translateY(-2px);
+}
+
+html .resource-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  margin: 20px 0;
+  font-weight: 600;
+}
+
+html .resource-button:hover {
+  transform: translateY(-2px);
+}
+
+html .chapter-resources {
+  padding: var(--spacing-lg) 0;
+  margin: var(--spacing-xl) 0 var(--spacing-lg) 0;
+}
+
+html .chapter-resources h3 {
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+html .resource-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+@media screen and (max-width: 767px) {
+  html .chapter-resources {
+    padding: var(--spacing-md) 0;
+    margin: var(--spacing-lg) 0;
+  }
+  html .resource-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+  html .resource-button {
+    justify-content: center;
+    width: 80%;
+    padding: 10px 20px;
+  }
+}
+
+html .output-card:hover {
+  transform: translateY(-4px);
+}
+
+html .read-more,
+html .resource-button {
+  position: relative;
+  overflow: hidden;
+}
+
+html .read-more::before,
+html .resource-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+}
+
+html .read-more:hover::before,
+html .resource-button:hover::before {
+  left: 100%;
+}
+
+html .read-more:active,
+html button:active {
+  transform: translateY(-1px) scale(0.98);
+}

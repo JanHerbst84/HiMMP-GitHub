@@ -8,6 +8,23 @@
  * camelCase JSX style prop, `srcset=` -> `srcSet=`,
  * `for=` -> `htmlFor=`). No content is altered.
  */
+export type FindingsChapterHeading = { id: string; text: string };
+
+/*
+ * Chapter h2 headings, in document order. The D-8 within-chapter
+ * TOC component (rendered by `EnhancedFindingsShell`) reads this
+ * to emit `<nav aria-label="On this page">` for long chapters.
+ * IDs match the values baked into the JSX below by `injectH2Ids`.
+ */
+export const FindingsChapter08Headings: FindingsChapterHeading[] = [
+  { id: "sample-implementation", text: "Sample Implementation" },
+  { id: "kick-drum-the-cornerstone-of-heaviness", text: "Kick Drum: The Cornerstone of Heaviness" },
+  { id: "snare-drum-the-aggressive-edge", text: "Snare Drum: The Aggressive Edge" },
+  { id: "toms-and-cymbals-detail-and-dimension", text: "Toms and Cymbals: Detail and Dimension" },
+  { id: "dynamic-processing-strategies", text: "Dynamic Processing Strategies" },
+  { id: "spatial-treatment-and-cohesion", text: "Spatial Treatment and Cohesion" }
+];
+
 export function FindingsChapter08() {
   return (
     <main id="main-content">

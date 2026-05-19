@@ -1,9 +1,21 @@
 import { legacyRoutes, type LegacyRoute } from "@/src/site/routes";
 import type { ReactNode } from "react";
 
+export type ChapterHeading = { id: string; text: string };
+
 type EnhancedFindingsShellProps = {
   currentRoute: LegacyRoute;
   children: ReactNode;
+  /*
+   * D-8: the within-chapter "On this page" TOC reads from this list.
+   * Headings are pre-computed at chapter port time so they appear in
+   * the SSR HTML, not via a post-DOMContentLoaded mutation that would
+   * race React hydration (the legacy on-this-page script was the
+   * #418 cause that Slice P fixed). Omit on chapters that don't carry
+   * h2 landmarks (the findings index page). Threshold: 2 headings —
+   * a 1-item TOC is degenerate.
+   */
+  headings?: ChapterHeading[];
 };
 
 type ChapterLink = {
@@ -84,7 +96,23 @@ function PagingLink({
   );
 }
 
-export function EnhancedFindingsShell({ currentRoute, children }: EnhancedFindingsShellProps) {
+function OnThisPageNav({ headings }: { headings: ChapterHeading[] }) {
+  if (headings.length < 2) return null;
+  return (
+    <nav className="on-this-page" aria-label="On this page">
+      <strong>On this page</strong>
+      <ul>
+        {headings.map((h) => (
+          <li key={h.id}>
+            <a href={`#${h.id}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+export function EnhancedFindingsShell({ currentRoute, children, headings }: EnhancedFindingsShellProps) {
   const { currentIndex, previous, next } = neighborLinks(currentRoute);
   const pageStatus =
     currentIndex >= 0 ? `${currentIndex + 1} of ${chapterLinks.length}` : `${chapterLinks.length} chapters`;
@@ -117,6 +145,7 @@ export function EnhancedFindingsShell({ currentRoute, children }: EnhancedFindin
           <PagingLink direction="Previous" link={previous} />
           <PagingLink direction="Next" link={next} />
         </nav>
+        {headings ? <OnThisPageNav headings={headings} /> : null}
         {children}
         <nav className="findings-reader-bottombar" aria-label="Chapter paging at end">
           <PagingLink direction="Previous" link={previous} />

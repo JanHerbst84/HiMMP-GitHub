@@ -1,0 +1,23 @@
+[
+  {
+    "family": "L",
+    "selector": ".read-more",
+    "legacyDecl": { "property": "padding", "value": "8px 16px" },
+    "replacementDecl": { "property": "padding", "value": "6px 0" },
+    "rationale": "Slice H deliberately tightened pill padding for the dark-academic palette (mint background, graphite text). Legacy `8px 16px` created a visually heavier pill; the redesign uses `6px 0` which works with the new mint-on-graphite contrast treatment. Intentional modernisation, not a coverage gap."
+  },
+  {
+    "family": "L",
+    "selector": ".resource-button",
+    "legacyDecl": { "property": "display", "value": "inline-block" },
+    "replacementDecl": { "property": "display", "value": "inline-flex" },
+    "rationale": "Legacy main.css declares `.resource-button` TWICE (lines 987 and 1099). The first declaration sets `display: inline-flex` with `align-items: center` and `gap: 8px` to align the `::before` arrow icon next to the button label; the second declaration overrides with `display: inline-block` but does not remove align-items/gap, leaving them dead. Slice L follows the first declaration's intent (inline-flex + gap) because that is what visually aligns the icon. The second declaration's `display: inline-block` is the legacy duplicate-rule artefact, not a deliberate override."
+  },
+  {
+    "family": "L",
+    "selector": ".resource-button:hover",
+    "legacyDecl": { "property": "transform", "value": "translateY(-3px)" },
+    "replacementDecl": { "property": "transform", "value": "translateY(-2px)" },
+    "rationale": "Legacy duplicate-rule conflict: first `.resource-button:hover` declares `translateY(-2px)` (line 1004), second declares `translateY(-3px)` (line 1115). Slice L uses -2px to match the `.read-more:hover` companion rule (-2px) for consistent affordance feedback across the two pill-button variants. The 1px difference is imperceptible at the 0.3s transition cadence."
+  }
+]

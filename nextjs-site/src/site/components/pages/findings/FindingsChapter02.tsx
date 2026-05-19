@@ -8,6 +8,28 @@
  * camelCase JSX style prop, `srcset=` -> `srcSet=`,
  * `for=` -> `htmlFor=`). No content is altered.
  */
+export type FindingsChapterHeading = { id: string; text: string };
+
+/*
+ * Chapter h2 headings, in document order. The D-8 within-chapter
+ * TOC component (rendered by `EnhancedFindingsShell`) reads this
+ * to emit `<nav aria-label="On this page">` for long chapters.
+ * IDs match the values baked into the JSX below by `injectH2Ids`.
+ */
+export const FindingsChapter02Headings: FindingsChapterHeading[] = [
+  { id: "generational-perspectives", text: "Generational Perspectives" },
+  { id: "geographic-production-schools", text: "Geographic Production Schools" },
+  { id: "jens-bogren-b-1979", text: "Jens Bogren (b. 1979)" },
+  { id: "mike-exeter-b-1967", text: "Mike Exeter (b. 1967)" },
+  { id: "adam-nolly-getgood-b-1987", text: "Adam \"Nolly\" Getgood (b. 1987)" },
+  { id: "josh-middleton-b-1985", text: "Josh Middleton (b. 1985)" },
+  { id: "fredrik-nordstrm-b-1967", text: "Fredrik Nordström (b. 1967)" },
+  { id: "buster-odeholm-b-1992", text: "Buster Odeholm (b. 1992)" },
+  { id: "dave-otero-b-1981", text: "Dave Otero (b. 1981)" },
+  { id: "andrew-scheps-b-1969", text: "Andrew Scheps (b. 1969)" },
+  { id: "producer-resources", text: "Producer Resources" }
+];
+
 export function FindingsChapter02() {
   return (
     <main id="main-content">

@@ -204,6 +204,43 @@ test.describe("static export legacy route smoke", () => {
     });
   }
 
+  test("D-8 within-chapter 'On this page' TOC renders on long chapters", async ({ page }) => {
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    // Long chapters (≥ 4 h2 landmarks, endnotes excluded) should render
+    // the TOC as SSR HTML — no DOM mutation, no hydration race.
+    // Per far-goal criterion 9, this trips if D-8's React component is
+    // accidentally removed or its heading-pre-compute pipeline breaks.
+    const longChapters = [
+      "/findings/02-producers.html",
+      "/findings/04-foundations.html",
+      "/findings/06-hyperreal.html",
+      "/findings/07-meta-instrument.html",
+      "/findings/08-drums.html",
+      "/findings/11-subjective.html",
+      "/findings/12-application.html",
+      "/findings/14-recommended-reading.html"
+    ];
+    for (const route of longChapters) {
+      await page.goto(route);
+      const toc = page.locator('nav.on-this-page[aria-label="On this page"]');
+      await expect(toc, `${route} should render an on-this-page nav`).toBeVisible();
+      const tocLinks = toc.locator("a");
+      const linkCount = await tocLinks.count();
+      expect(linkCount, `${route} TOC should have ≥ 2 links`).toBeGreaterThanOrEqual(2);
+      // Every href should match an actual h2 id in the chapter body.
+      const hrefs = await tocLinks.evaluateAll((els) => els.map((a) => (a as HTMLAnchorElement).getAttribute("href")));
+      for (const href of hrefs) {
+        expect(href, `TOC href on ${route}`).toMatch(/^#[\w-]+$/);
+        const id = (href ?? "").slice(1);
+        await expect(page.locator(`h2#${id}`), `${route} should have h2 matching TOC #${id}`).toBeVisible();
+      }
+    }
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("nav 'findings' tab is active on chapter sub-routes (prefix match)", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
 

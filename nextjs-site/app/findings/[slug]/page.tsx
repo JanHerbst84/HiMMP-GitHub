@@ -9,38 +9,39 @@ import { LegacyStyles } from "@/src/site/components/LegacyStyles";
 import { LegacyHeadExtras } from "@/src/site/components/LegacyHeadExtras";
 import { EnhancedFindingsShell } from "@/src/site/components/EnhancedFindingsShell";
 import { EnhancedAudioController } from "@/src/site/components/EnhancedAudioController";
-import { FindingsChapter01 } from "@/src/site/components/pages/findings/FindingsChapter01";
-import { FindingsChapter02 } from "@/src/site/components/pages/findings/FindingsChapter02";
-import { FindingsChapter03 } from "@/src/site/components/pages/findings/FindingsChapter03";
-import { FindingsChapter04 } from "@/src/site/components/pages/findings/FindingsChapter04";
-import { FindingsChapter05 } from "@/src/site/components/pages/findings/FindingsChapter05";
-import { FindingsChapter06 } from "@/src/site/components/pages/findings/FindingsChapter06";
-import { FindingsChapter07 } from "@/src/site/components/pages/findings/FindingsChapter07";
-import { FindingsChapter08 } from "@/src/site/components/pages/findings/FindingsChapter08";
-import { FindingsChapter09 } from "@/src/site/components/pages/findings/FindingsChapter09";
-import { FindingsChapter10 } from "@/src/site/components/pages/findings/FindingsChapter10";
-import { FindingsChapter11 } from "@/src/site/components/pages/findings/FindingsChapter11";
-import { FindingsChapter12 } from "@/src/site/components/pages/findings/FindingsChapter12";
-import { FindingsChapter13 } from "@/src/site/components/pages/findings/FindingsChapter13";
-import { FindingsChapter14 } from "@/src/site/components/pages/findings/FindingsChapter14";
-import { FindingsGlossary } from "@/src/site/components/pages/findings/FindingsGlossary";
+import { FindingsChapter01, FindingsChapter01Headings } from "@/src/site/components/pages/findings/FindingsChapter01";
+import { FindingsChapter02, FindingsChapter02Headings } from "@/src/site/components/pages/findings/FindingsChapter02";
+import { FindingsChapter03, FindingsChapter03Headings } from "@/src/site/components/pages/findings/FindingsChapter03";
+import { FindingsChapter04, FindingsChapter04Headings } from "@/src/site/components/pages/findings/FindingsChapter04";
+import { FindingsChapter05, FindingsChapter05Headings } from "@/src/site/components/pages/findings/FindingsChapter05";
+import { FindingsChapter06, FindingsChapter06Headings } from "@/src/site/components/pages/findings/FindingsChapter06";
+import { FindingsChapter07, FindingsChapter07Headings } from "@/src/site/components/pages/findings/FindingsChapter07";
+import { FindingsChapter08, FindingsChapter08Headings } from "@/src/site/components/pages/findings/FindingsChapter08";
+import { FindingsChapter09, FindingsChapter09Headings } from "@/src/site/components/pages/findings/FindingsChapter09";
+import { FindingsChapter10, FindingsChapter10Headings } from "@/src/site/components/pages/findings/FindingsChapter10";
+import { FindingsChapter11, FindingsChapter11Headings } from "@/src/site/components/pages/findings/FindingsChapter11";
+import { FindingsChapter12, FindingsChapter12Headings } from "@/src/site/components/pages/findings/FindingsChapter12";
+import { FindingsChapter13, FindingsChapter13Headings } from "@/src/site/components/pages/findings/FindingsChapter13";
+import { FindingsChapter14, FindingsChapter14Headings } from "@/src/site/components/pages/findings/FindingsChapter14";
+import { FindingsGlossary, FindingsGlossaryHeadings } from "@/src/site/components/pages/findings/FindingsGlossary";
+import type { ChapterHeading } from "@/src/site/components/EnhancedFindingsShell";
 
-const chapterComponents: Record<string, ComponentType> = {
-  "01-introduction": FindingsChapter01,
-  "02-producers": FindingsChapter02,
-  "03-methodology": FindingsChapter03,
-  "04-foundations": FindingsChapter04,
-  "05-naturalistic": FindingsChapter05,
-  "06-hyperreal": FindingsChapter06,
-  "07-meta-instrument": FindingsChapter07,
-  "08-drums": FindingsChapter08,
-  "09-guitars-bass": FindingsChapter09,
-  "10-spatial": FindingsChapter10,
-  "11-subjective": FindingsChapter11,
-  "12-application": FindingsChapter12,
-  "13-future": FindingsChapter13,
-  "14-recommended-reading": FindingsChapter14,
-  "glossary": FindingsGlossary
+const chapterComponents: Record<string, { Component: ComponentType; headings: ChapterHeading[] }> = {
+  "01-introduction": { Component: FindingsChapter01, headings: FindingsChapter01Headings },
+  "02-producers": { Component: FindingsChapter02, headings: FindingsChapter02Headings },
+  "03-methodology": { Component: FindingsChapter03, headings: FindingsChapter03Headings },
+  "04-foundations": { Component: FindingsChapter04, headings: FindingsChapter04Headings },
+  "05-naturalistic": { Component: FindingsChapter05, headings: FindingsChapter05Headings },
+  "06-hyperreal": { Component: FindingsChapter06, headings: FindingsChapter06Headings },
+  "07-meta-instrument": { Component: FindingsChapter07, headings: FindingsChapter07Headings },
+  "08-drums": { Component: FindingsChapter08, headings: FindingsChapter08Headings },
+  "09-guitars-bass": { Component: FindingsChapter09, headings: FindingsChapter09Headings },
+  "10-spatial": { Component: FindingsChapter10, headings: FindingsChapter10Headings },
+  "11-subjective": { Component: FindingsChapter11, headings: FindingsChapter11Headings },
+  "12-application": { Component: FindingsChapter12, headings: FindingsChapter12Headings },
+  "13-future": { Component: FindingsChapter13, headings: FindingsChapter13Headings },
+  "14-recommended-reading": { Component: FindingsChapter14, headings: FindingsChapter14Headings },
+  "glossary": { Component: FindingsGlossary, headings: FindingsGlossaryHeadings }
 };
 
 /*
@@ -101,10 +102,11 @@ export async function generateMetadata({ params }: { params: Params }) {
 
 export default async function FindingsChapterRoute({ params }: { params: Params }) {
   const { slug } = await params;
-  const ChapterComponent = chapterComponents[slug];
-  if (!ChapterComponent) {
+  const entry = chapterComponents[slug];
+  if (!entry) {
     notFound();
   }
+  const { Component: ChapterComponent, headings } = entry;
 
   const routePath = `/findings/${slug}`;
   const route = legacyRoutes.find((candidate) => candidate.routePath === routePath);
@@ -123,7 +125,7 @@ export default async function FindingsChapterRoute({ params }: { params: Params 
       <LegacyHeadExtras meta={content.headMeta} links={content.headLinks} />
       <SiteShell activePath={routePath}>
         <div data-page="findings" style={{ display: "contents" }}>
-          <EnhancedFindingsShell currentRoute={route}>
+          <EnhancedFindingsShell currentRoute={route} headings={headings}>
             <LegacyStyles styles={content.headStyles} />
             <LegacyScripts scripts={content.jsonLdScripts} />
             <ChapterComponent />
