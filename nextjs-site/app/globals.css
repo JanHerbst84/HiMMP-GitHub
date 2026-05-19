@@ -2048,3 +2048,62 @@ html .video-container iframe {
     grid-template-columns: 1fr;
   }
 }
+
+/*
+ * Slice H (Family H, D-1) — page-level audio chrome.
+ *
+ * Per the slice plan §4.6, Slice H covers the page-level audio
+ * chrome (audio.html surrounding the <AudioComparison> React
+ * component). High-risk slice because EnhancedAudioController binds
+ * to several of these class hooks; markup contract is preserved and
+ * structural decls are reproduced exactly. The D-3 controller rewrite
+ * (full markup-ownership reform) is explicitly out of scope.
+ */
+html .audio-player {
+  padding: var(--spacing-md) 0;
+}
+
+html .audio-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+html audio {
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+html .audio-controls {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+html .download-item {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+}
+
+html .download-item h4 {
+  margin-bottom: var(--spacing-xs);
+}
+
+html .download-links {
+  margin-top: var(--spacing-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+html .download-link {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+@media screen and (max-width: 479px) {
+  html .download-links {
+    flex-direction: column;
+  }
+}
