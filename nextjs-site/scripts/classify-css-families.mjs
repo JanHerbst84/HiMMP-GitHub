@@ -169,6 +169,18 @@ if (manifestPath) {
     for (const r of rules) {
       const family = classify(r.selector);
       if (!family) continue;
+      // Inside an at-rule the audit yields a selector like
+      // `@media (max-width: 767px) { .form-group.half`. Strip that
+      // prefix for the manifest so downstream coverage matches the
+      // inner selector against component CSS cleanly; the at-rule
+      // context lives separately in `atRule`.
+      let manifestSelector = r.selector;
+      if (r.atRule && manifestSelector.startsWith(r.atRule)) {
+        const cut = manifestSelector.indexOf('{ ', r.atRule.length);
+        if (cut !== -1) {
+          manifestSelector = manifestSelector.slice(cut + 2).trim();
+        }
+      }
       // Filter decls down to the structural subset. Each rule's full
       // decl set may contain palette/border/visual properties too;
       // those are handled by the token-coverage audit, not by this
@@ -193,7 +205,7 @@ if (manifestPath) {
       manifest.push({
         family,
         sourceFile,
-        selector: r.selector,
+        selector: manifestSelector,
         atRule: r.atRule ?? null,
         structuralDecls
       });

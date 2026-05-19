@@ -1604,3 +1604,121 @@ html .chapter-nav-button:hover,
 html .chapter-nav-button.active {
   color: var(--color-graphite);
 }
+
+/*
+ * Slice J (Family J, D-1) — contact form structural CSS.
+ *
+ * Migrates the legacy `/assets/css/main.css` Family J selectors into
+ * component CSS so the legacy stylesheet can later be unloaded by
+ * D-1 §4.9 without losing the contact-form layout primitives. Scope
+ * is intentionally structural only — palette/border decls (input
+ * focus colour, button background, validation chrome) keep their
+ * current treatment via existing Slice K + Slice S rules plus the
+ * legacy <style> block emitted in `contact.html`. Slice J does NOT
+ * touch markup, controller bindings, or the contact-handler.php
+ * surface.
+ *
+ * `html`-prefix raises specificity from 0,0,1 (legacy single
+ * selector) to 0,0,2 (this slice). Element-name selectors (label,
+ * input, textarea, select, button) need the bump so UA defaults
+ * don't override at equal specificity. Values match the legacy rules
+ * exactly; audit-d1-family-coverage.mjs --family J verifies.
+ */
+html .contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+html .form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+html label {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-weight: bold;
+}
+
+html input,
+html textarea,
+html select {
+  width: 100%;
+  padding: var(--spacing-sm);
+}
+
+html textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+html button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+html .error-message {
+  margin-top: 5px;
+}
+
+html .submission-message {
+  padding: 15px;
+  margin-top: 20px;
+}
+
+html .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+html .form-group.half {
+  flex: 0 0 50%;
+  padding: 0 10px;
+}
+
+@media screen and (max-width: 767px) {
+  html .form-group.half {
+    flex: 0 0 100%;
+  }
+}
+
+/*
+ * Slice J — contact-page-only selectors that live in `contact.html`'s
+ * head `<style>` block (LegacyStyles) rather than `main.css`. The
+ * D-1 audit's manifest is built from `main.css` + `responsive.css`
+ * only, so these don't surface as missing-selector findings; both
+ * reviewers (Codex + internal feature-dev) caught the gap separately.
+ * Migrating them here so the contact-page layout survives a future
+ * LegacyStyles cleanup (they would also survive the D-1 §4.9 link
+ * retirement alone, but the slice plan §4.1 names them in scope).
+ * Structural decls only — `.contact-card` box-shadow/transform stays
+ * in LegacyStyles for now (visual polish, D-10 territory).
+ */
+html .contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 767px) {
+  html .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+html .contact-card {
+  margin-bottom: 30px;
+  padding: 30px;
+}
+
+html .content-section .contact-list {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+html .content-section .contact-list li {
+  padding: 8px 0 8px 25px;
+  position: relative;
+}
