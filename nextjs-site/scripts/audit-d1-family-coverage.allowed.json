@@ -19,5 +19,26 @@
     "legacyDecl": { "property": "transform", "value": "translateY(-3px)" },
     "replacementDecl": { "property": "transform", "value": "translateY(-2px)" },
     "rationale": "Legacy duplicate-rule conflict: first `.resource-button:hover` declares `translateY(-2px)` (line 1004), second declares `translateY(-3px)` (line 1115). Slice L uses -2px to match the `.read-more:hover` companion rule (-2px) for consistent affordance feedback across the two pill-button variants. The 1px difference is imperceptible at the 0.3s transition cadence."
+  },
+  {
+    "family": "G",
+    "selector": ".publication-item",
+    "legacyDecl": { "property": "margin-bottom", "value": "var(--spacing-lg)" },
+    "replacementDecl": { "property": "margin-bottom", "value": "var(--spacing-md)" },
+    "rationale": "main.css declares `.publication-item { margin-bottom: var(--spacing-lg) }` (line 808); publications.html LegacyStyles overrides with `margin-bottom: var(--spacing-md)` (closer card spacing for the actual publications page). LegacyStyles is what users currently see; Slice G matches that value so the live behavior is preserved after legacy-stylesheet retirement."
+  },
+  {
+    "family": "G",
+    "selector": ".publication-item",
+    "legacyDecl": { "property": "padding-bottom", "value": "var(--spacing-md)" },
+    "replacementDecl": { "property": "padding", "value": "var(--spacing-md)" },
+    "rationale": "main.css uses `padding-bottom: var(--spacing-md)` (line 809); publications.html LegacyStyles uses full `padding: var(--spacing-md)` (uniform padding around the card content). Slice G matches the LegacyStyles version for live-behavior parity."
+  },
+  {
+    "family": "G",
+    "selector": ".publication-meta",
+    "legacyDecl": { "property": "margin-bottom", "value": "var(--spacing-xs)" },
+    "replacementDecl": { "property": "margin-bottom", "value": "var(--spacing-sm)" },
+    "rationale": "main.css `.publication-meta { margin-bottom: var(--spacing-xs) }` (line 820); publications.html LegacyStyles uses `var(--spacing-sm)`. Slice G uses spacing-sm to match LegacyStyles live behavior."
   }
 ]

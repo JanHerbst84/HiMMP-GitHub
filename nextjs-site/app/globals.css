@@ -1830,3 +1830,75 @@ html .read-more:active,
 html button:active {
   transform: translateY(-1px) scale(0.98);
 }
+
+/*
+ * Slice G (Family G, D-1) — publications + section-nav structural CSS.
+ *
+ * Migrates legacy /assets/css/main.css Family G selectors AND the
+ * publications.html LegacyStyles head-block overrides. Where main.css
+ * and publications.html disagree, publications.html wins (it loads
+ * after main.css in the legacy document, so it's the live behavior
+ * users currently see). Differences are whitelisted in
+ * audit-d1-family-coverage.allowed.json.
+ *
+ * Builds on Slice L (publication-item background) and Slice S
+ * (.section-nav-button background + font-family). Adds the structural
+ * spacing decls that those slices skipped (Slice L was visual repaint
+ * only; Slice S was palette + font harmonisation).
+ */
+html .publication-item {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  position: relative;
+}
+
+html .publication-meta {
+  margin-bottom: var(--spacing-sm);
+}
+
+html .publication-link {
+  display: inline-block;
+  margin-top: var(--spacing-xs);
+  padding: 6px 12px;
+}
+
+/*
+ * .publication-section-nav: sticky strip with the section-nav-buttons.
+ * Top offset of 92px matches the legacy header height; the new
+ * dark-academic header is 125px tall (per Slice S audit), so this
+ * should ideally be `var(--site-header-height)` — but matching the
+ * legacy 92px value keeps the rule structurally faithful for this
+ * slice. A follow-up palette pass can retune to the variable.
+ */
+html .publication-section-nav {
+  padding: var(--spacing-md) 0;
+  position: sticky;
+  top: 92px;
+  z-index: 90;
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+html .section-nav-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: var(--spacing-sm);
+}
+
+html .section-nav-button {
+  padding: 8px 16px;
+}
+
+@media screen and (max-width: 767px) {
+  html .publication-section-nav {
+    top: 80px;
+  }
+  html .section-nav-buttons {
+    gap: 8px;
+  }
+  html .section-nav-button {
+    padding: 6px 12px;
+  }
+}
