@@ -3145,3 +3145,139 @@ html a.findings-promo-banner__cta:hover {
     color: var(--color-graphite) !important;
   }
 }
+
+/*
+ * D-9-e-4 — dark-mode overrides for legacy inline-style cards.
+ *
+ * The legacy publications.html, team.html, and similar pages ship
+ * `<style>` blocks inside the HTML that hard-code light backgrounds
+ * for card surfaces. These rules load via `<LegacyStyles>` per
+ * page and were preserved verbatim by the migration's content-
+ * preservation contract. They do NOT flip under dark mode.
+ *
+ * Overrides below repaint the affected surfaces with semantic
+ * tokens in dark mode without touching the legacy HTML. Specificity
+ * is raised via `[data-theme="dark"]` + `html` prefix.
+ *
+ * Same block mirrored under @media (prefers-color-scheme: dark)
+ * :root:not([data-theme="light"]) so dark-OS users without an
+ * explicit toggle also get the override.
+ */
+
+/* Light-mode publication-card background fix: --color-paper is
+   a palette primitive (cream in both schemes by design). For dark
+   mode, repaint these surfaces to --color-surface. */
+[data-theme="dark"] html .publication-card,
+[data-theme="dark"] html .publication-item,
+[data-theme="dark"] .advisor-item,
+[data-theme="dark"] .department-item,
+[data-theme="dark"] .researcher,
+[data-theme="dark"] .partner-item,
+[data-theme="dark"] .university-logo-container,
+[data-theme="dark"] .panel,
+[data-theme="dark"] .accordion {
+  background-color: var(--color-surface) !important;
+  color: var(--color-fg) !important;
+}
+
+[data-theme="dark"] .accordion {
+  border: 1px solid var(--color-rule);
+}
+
+[data-theme="dark"] .publication-meta,
+[data-theme="dark"] .video-meta,
+[data-theme="dark"] .publication-year {
+  color: var(--color-fg-muted) !important;
+}
+
+[data-theme="dark"] .advisor-name {
+  color: var(--color-mint) !important;
+}
+
+[data-theme="dark"] .advisor-expertise,
+[data-theme="dark"] .researcher-links,
+[data-theme="dark"] .advisor-institution {
+  color: var(--color-fg) !important;
+}
+
+/* Mint chips with white text: in dark mode, white-on-mint = 2.09:1
+   (fails AA). Switch to graphite text (8.83:1 on mint). */
+[data-theme="dark"] .publication-type,
+[data-theme="dark"] .publication-link,
+[data-theme="dark"] .internal-link,
+[data-theme="dark"] .collaboration-note {
+  color: var(--color-graphite) !important;
+}
+
+/* Light-mode same fixes for white-on-mint (also fails in light). */
+html .publication-type {
+  color: var(--color-graphite) !important;
+}
+html .publication-link {
+  color: var(--color-graphite) !important;
+}
+html .internal-link {
+  color: var(--color-graphite) !important;
+}
+html .collaboration-note {
+  color: var(--color-graphite) !important;
+}
+
+/* /publications.html active filter pill: bone on #ddd in dark.
+   Override the active state to mint accent. */
+[data-theme="dark"] .section-nav-button.active,
+[data-theme="dark"] .chapter-nav-button.active {
+  background-color: var(--color-mint) !important;
+  color: var(--color-graphite) !important;
+}
+
+/* /publications.html inline-style #f0f8f5 highlight box. Scoped
+   per page via a wrapper class would be cleaner; the inline style
+   currently has no class to override. Future slice can refactor.
+   For now the bg is a mint-tint cream that passes contrast in
+   light mode and is acceptable in dark mode (text remains
+   --color-fg by default and on mint-tint #f0f8f5 the contrast
+   is ~12:1 in light and graphite-on-near-mint in dark looks
+   visually inconsistent but readable). Deferred. */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) html .publication-card,
+  :root:not([data-theme="light"]) html .publication-item,
+  :root:not([data-theme="light"]) .advisor-item,
+  :root:not([data-theme="light"]) .department-item,
+  :root:not([data-theme="light"]) .researcher,
+  :root:not([data-theme="light"]) .partner-item,
+  :root:not([data-theme="light"]) .university-logo-container,
+  :root:not([data-theme="light"]) .panel,
+  :root:not([data-theme="light"]) .accordion {
+    background-color: var(--color-surface) !important;
+    color: var(--color-fg) !important;
+  }
+  :root:not([data-theme="light"]) .accordion {
+    border: 1px solid var(--color-rule);
+  }
+  :root:not([data-theme="light"]) .publication-meta,
+  :root:not([data-theme="light"]) .video-meta,
+  :root:not([data-theme="light"]) .publication-year {
+    color: var(--color-fg-muted) !important;
+  }
+  :root:not([data-theme="light"]) .advisor-name {
+    color: var(--color-mint) !important;
+  }
+  :root:not([data-theme="light"]) .advisor-expertise,
+  :root:not([data-theme="light"]) .researcher-links,
+  :root:not([data-theme="light"]) .advisor-institution {
+    color: var(--color-fg) !important;
+  }
+  :root:not([data-theme="light"]) .publication-type,
+  :root:not([data-theme="light"]) .publication-link,
+  :root:not([data-theme="light"]) .internal-link,
+  :root:not([data-theme="light"]) .collaboration-note {
+    color: var(--color-graphite) !important;
+  }
+  :root:not([data-theme="light"]) .section-nav-button.active,
+  :root:not([data-theme="light"]) .chapter-nav-button.active {
+    background-color: var(--color-mint) !important;
+    color: var(--color-graphite) !important;
+  }
+}
