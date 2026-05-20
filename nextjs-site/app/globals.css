@@ -1097,9 +1097,15 @@ a {
  * .audio-comparison so they beat the legacy headStyles in audio.html
  * (.mix-btn, #currently-playing) which are emitted via LegacyStyles.
  */
+/* D-3-e (FRESH-5): promote the comparator into a fuller editorial
+ * band. The legacy declaration set `margin: 32px -24px 8px` which
+ * overhung the container by 24px on each side; this slice widens
+ * the overhang to a more deliberate full-bleed-ish band and adds
+ * vertical breathing room. The 880px inner panel cap is preserved
+ * so line lengths stay comfortable. */
 .audio-comparison {
-  margin: 32px -24px 8px;
-  padding: 36px 24px 32px;
+  margin: 56px calc(50% - 50vw) 24px;
+  padding: 56px calc(50vw - 50% + 24px) 48px;
   background: var(--color-chrome-bg, #111418);
   color: var(--color-chrome-fg, #f2efe8);
   border-top: 1px solid var(--color-mint-hairline, rgba(93, 198, 159, 0.35));
@@ -1110,20 +1116,47 @@ a {
 .audio-comparison__panel {
   max-width: 880px;
   margin: 0 auto;
+  position: relative;
 }
 
+/*
+ * D-3-e (FRESH-5): "Interactive Mix Comparison" eyebrow + larger
+ * Now Playing presence. The legacy section h3 sat above the band;
+ * the band now feels like a chapter of its own.
+ */
+.audio-comparison__panel::before {
+  content: "Interactive Mix";
+  display: block;
+  margin: 0 0 14px;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+}
+
+/* D-3-e (FRESH-5): unhide #currently-playing inside the comparator
+ * band. The legacy global rule at line ~376 hides it as "redundant
+ * when the active mix-button already carries an `.active` state +
+ * sulfur colour" — that argument is weaker now that the band is
+ * promoted to a full-bleed editorial moment; the active mix needs
+ * a typographic anchor, not just a coloured pill. Unhide is scoped
+ * to `.audio-comparison` so chapter `.mix-comparison-embed` surfaces
+ * keep their legacy hide. */
 .audio-comparison #currently-playing {
-  margin: 0 0 18px;
+  display: block;
+  margin: 0 0 24px;
   font-family:
     var(--font-display),
     Georgia,
     "Times New Roman",
     serif;
   font-weight: 500;
-  font-size: var(--type-lg, 1.6rem);
-  line-height: 1.2;
+  font-size: var(--type-xl, 2.0rem);
+  line-height: 1.15;
   color: var(--color-chrome-fg, #f2efe8);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
 }
 
 .audio-comparison #comparison-player {
@@ -1165,7 +1198,17 @@ a {
 }
 
 .audio-comparison .waveform-strip {
-  margin-bottom: 18px;
+  /* D-3-e (FRESH-5): step the comparator-band waveform from 56px to
+   * 90px (~1.6×) so the strip reads as the band's visual anchor.
+   * Override is scoped via `.audio-comparison` so the smaller 44px
+   * variant on findings-chapter `.mix-comparison-player` strips
+   * (line 1171) is unaffected. */
+  height: 90px;
+  margin-bottom: 22px;
+}
+
+.audio-comparison .waveform-strip__bar {
+  opacity: 0.65;
 }
 
 .mix-comparison-player .waveform-strip {
@@ -1198,6 +1241,15 @@ a {
 
   .mix-comparison-player .waveform-strip {
     height: 36px;
+  }
+
+  /* D-3-e (FRESH-5): the promoted 90px comparator-band waveform must
+   * still collapse on mobile. Without this scoped override, the
+   * `.audio-comparison .waveform-strip { height: 90px }` rule wins
+   * by specificity (0,2,0) over the base mobile rule (0,1,0) and
+   * the band reads ~2.5× too tall on small viewports. */
+  .audio-comparison .waveform-strip {
+    height: 56px;
   }
 }
 
@@ -1251,7 +1303,14 @@ a {
   color: var(--color-graphite, #111418);
   border-color: var(--color-sulfur, #e8c547);
   box-shadow: none;
-  font-weight: 700;
+  /* D-3-e (FRESH-5): active mix-btn label switches to Fraunces so the
+   * selected mix reads as a name, not a generic UI label. Tabular
+   * figures keep the alignment stable across the 9-button row. */
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-variant-numeric: tabular-nums;
 }
 
 .audio-comparison .enhanced-audio-status {
@@ -1273,6 +1332,24 @@ a {
 
 .audio-comparison .enhanced-audio-status[data-state="error"] {
   color: var(--color-sulfur, #e8c547);
+}
+
+/* D-3-e (FRESH-5): restore visibility for loading/error states on
+ * the promoted comparator band. The global hide rule at line ~376
+ * (`html .enhanced-audio-status { display: none }`) suppresses ALL
+ * status messages, which means audio failures show nothing to the
+ * user. Codex review caught this — when an audio load fails on the
+ * promoted band, the user needs the failure message. Selector
+ * specificity is (0,3,0) — `.audio-comparison` + `.enhanced-audio-
+ * status` + attribute `[data-state="..."]` — which beats the global
+ * `html .enhanced-audio-status` hide at (0,1,1) on specificity, not
+ * just source order. The unhide is scoped to .audio-comparison +
+ * loading/error states only; the global hide still suppresses the
+ * `ready` state (which would otherwise be redundant noise alongside
+ * the visible "Now Playing" line). */
+.audio-comparison .enhanced-audio-status[data-state="loading"],
+.audio-comparison .enhanced-audio-status[data-state="error"] {
+  display: block;
 }
 
 @media (max-width: 720px) {
@@ -1365,19 +1442,22 @@ a {
 
 .findings-reader-panel__nav-num {
   flex: 0 0 auto;
+  /* D-3-e (FRESH-6): chapter numerals switch from mono to Fraunces
+   * with tabular lining figures so the sidebar reads as a numbered
+   * book TOC rather than a code-style list. Bumped from 0.74rem to
+   * 0.86rem so the numeral has parity with the title's reading
+   * weight. */
   font-family:
-    var(--font-mono),
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Consolas,
-    monospace;
-  font-size: 0.74rem;
-  font-weight: 400;
+    var(--font-display),
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 0.86rem;
+  font-weight: 500;
   color: var(--color-fg-muted);
-  letter-spacing: 0.02em;
-  font-variant-numeric: tabular-nums;
-  min-width: 1.6em;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+  min-width: 1.8em;
 }
 
 .findings-reader-panel__nav-title {
@@ -1406,6 +1486,28 @@ a {
 .findings-reader-panel__nav a[aria-current="page"] {
   background: transparent;
   border-left-color: var(--color-mint, #5dc69f);
+}
+
+/* D-3-e (FRESH-6): hairline separator before the Glossary item to
+ * mark the transition from the 14 numbered chapters to the reference
+ * material. The :has() selector lets a single CSS rule target the
+ * glossary list-item by its inner href; in browsers without :has()
+ * (Firefox <121, Safari <15.4 — all current browsers ship it) the
+ * divider just doesn't appear, which is a clean graceful degradation
+ * for a purely-decorative separator.
+ *
+ * Gated by `min-width: 981px` because at ≤980px the nav switches to
+ * a horizontal flex strip (rules at line ~1727) where a top-border +
+ * top-padding would visibly misalign the glossary pill in the row.
+ * Codex re-review caught the regression; the gate restricts the
+ * divider to the desktop vertical-sidebar layout where it reads
+ * correctly. */
+@media (min-width: 981px) {
+  .findings-reader-panel__nav li:has(a[href$="glossary.html"]) {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-rule);
+  }
 }
 
 .findings-reader-panel__nav a[aria-current="page"] .findings-reader-panel__nav-num {
