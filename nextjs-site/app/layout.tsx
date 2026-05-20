@@ -4,14 +4,25 @@ import "./globals.css";
 import { fontVariableClassName } from "@/src/site/fonts";
 
 // Synchronous theme-init script for the document head. Minified
-// inline because it must run before first paint. Reads
-// localStorage('himmp-theme') and sets <html data-theme> if the
-// user has explicitly chosen 'light' or 'dark'.
+// inline because it must run before first paint. Behaviour:
+//  - If user has explicitly chosen 'light' or 'dark' via the
+//    toggle (persisted in localStorage('himmp-theme')), honour it.
+//  - Otherwise default to 'dark' (D-9-e-17). Dark is the site's
+//    intended default presentation; the @media
+//    (prefers-color-scheme: dark) fallback in tokens.css used to
+//    handle dark-OS users but left default-OS users on the light
+//    scheme. Setting data-theme=dark unconditionally for the
+//    no-explicit-choice case makes dark the visual default while
+//    the toggle still cycles light → dark → system.
 const themeInitScript =
   "(function(){try{var t=localStorage.getItem('himmp-theme');" +
   "if(t==='light'||t==='dark'){" +
   "document.documentElement.setAttribute('data-theme',t);" +
-  "}}catch(e){}})();";
+  "}else{" +
+  "document.documentElement.setAttribute('data-theme','dark');" +
+  "}}catch(e){" +
+  "document.documentElement.setAttribute('data-theme','dark');" +
+  "}})();";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://himmp.net"),

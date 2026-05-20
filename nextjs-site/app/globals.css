@@ -72,6 +72,83 @@ html :is(h1, h2, h3, h4, h5, h6) {
 }
 
 /*
+ * D-9-e-17 — explicit type scale for h1-h6. Previously the page
+ * relied on browser default heading sizes, which gives h2 24px,
+ * h3 18.7px, h4 16px, h5 13.3px, h6 10.7px — a flat scale where
+ * h2 and h3 are only ~5px apart and lower headings collapse to
+ * body-text size. Migrate to the existing fluid type tokens for
+ * deliberate hierarchy:
+ *
+ *   h1 (non-hero) ~ 30-37px   (--type-xl)
+ *   h2            ~ 23-27px   (--type-lg)
+ *   h3            ~ 19-21px   (--type-md)
+ *   h4            ~ 17-18px   (slight uplift from base)
+ *   h5            ~ 15-17px   (--type-base bold)
+ *   h6            ~ 14-15px   (--type-sm uppercase tracking)
+ *
+ * Hero h1 keeps its own clamp(2.1rem, 1.4rem + 3vw, 3.6rem) rule
+ * (globals.css:720+ for inner pages, :2971+ for chapter pages)
+ * which wins via higher specificity.
+ */
+html h1 {
+  font-size: var(--type-xl);
+  line-height: 1.1;
+  font-weight: 700;
+}
+html h2 {
+  font-size: var(--type-lg);
+  line-height: 1.18;
+  font-weight: 700;
+  margin-top: 1.8em;
+}
+html h3 {
+  font-size: var(--type-md);
+  line-height: 1.25;
+  font-weight: 600;
+  margin-top: 1.6em;
+}
+html h4 {
+  font-size: clamp(1.06rem, 1.0rem + 0.28vw, 1.18rem);
+  line-height: 1.3;
+  font-weight: 600;
+  margin-top: 1.4em;
+  letter-spacing: -0.008em;
+}
+html h5 {
+  font-size: var(--type-base);
+  line-height: 1.35;
+  font-weight: 700;
+  margin-top: 1.2em;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+html h6 {
+  font-size: var(--type-sm);
+  line-height: 1.4;
+  font-weight: 700;
+  margin-top: 1.1em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  font-family:
+    var(--font-body),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+/*
  * Body link treatment. Scoped to `.content-section` and `.chapter-content`
  * only — NOT `main`, which would match hero links (Slice E regression
  * fixed in Slice H: hero links were rendering graphite-on-dark and
