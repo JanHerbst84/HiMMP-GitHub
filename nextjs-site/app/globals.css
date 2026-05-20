@@ -2759,9 +2759,45 @@ html .sidebar-box {
   border-radius: var(--radius-md, 6px);
 }
 
+/* D-9-h (FRESH-12): give sidebar-box callout headings a real
+ * typographic moment. The previous treatment was plain bolded body
+ * type — the callouts have good chrome (surface bg, mint left edge)
+ * but the heading didn't reflect the elevated context. The original
+ * FRESH-12 spec proposed a serif `?` for a "Key Question" callout,
+ * but no such named pattern exists in the codebase. The equivalent
+ * typographic moment is to render every sidebar-box <strong>
+ * heading in Fraunces (--font-display) with mint accent color,
+ * which uniformly elevates "Sidebar: ...", "Call to Action", "Key
+ * Heuristics", "Listening with Context", etc.
+ *
+ * Light + dark contrast: mint `--color-mint-deep` on light paper
+ * passes WCAG body+large (~5.5:1); bright mint on dark graphite
+ * passes ~7:1 (large). Same dual-token pattern as the FRESH-7 ghost
+ * button.
+ */
 html .sidebar-box strong {
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.005em;
+  color: var(--color-mint-deep);
+  line-height: 1.25;
+}
+
+/* Note: the `[data-theme]` attribute lives ON `<html>` itself, so a
+ * selector like `[data-theme="dark"] html ...` chains `html` as a
+ * descendant of itself and never matches. Codex caught the same bug
+ * in FRESH-10 and again here. Drop the `html` descendant. */
+[data-theme="dark"] .sidebar-box strong {
+  color: var(--color-mint);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sidebar-box strong {
+    color: var(--color-mint);
+  }
 }
 
 /* When a content-section wraps ONLY a sidebar-box callout (no
