@@ -2194,6 +2194,106 @@ html a.read-more.read-more--ghost:hover {
   }
 }
 
+/*
+ * Slice D-9-g-3 (FRESH-10) — three-column footer layout.
+ *
+ * Adds layout for the new SiteFooter structure: a 3-column nav grid
+ * (Project / Outputs / Institutional) with column headings, an
+ * "Institutional support" copy block underneath, and the existing
+ * 3-logo strip retained at the top of the band. Replaces the
+ * bullet-separated single-row link list rendered by the previous
+ * SiteFooter.
+ *
+ * The legacy `html .footer-nav` rules still apply to anchor text
+ * styling (the `<nav>` keeps the `footer-nav` class). The legacy
+ * `li:not(:last-child)::after` bullet rule is suppressed here
+ * because vertical column lists don't need inline bullet separators
+ * — replaced with vertical rhythm via gap.
+ */
+.site-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-7);
+  padding: var(--space-6) 0 var(--space-5);
+  margin: 0;
+  list-style: none;
+}
+
+.site-footer__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-footer__heading {
+  margin: 0;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-mint);
+}
+
+.site-footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Suppress the legacy inline-list bullet separator inside the new
+ * column layout — the bullet rule was designed for a single
+ * horizontal row of links, not vertical columns. */
+.site-footer__columns.footer-nav li::after,
+.site-footer__columns.footer-nav li:not(:last-child)::after {
+  content: none;
+}
+
+.site-footer__columns.footer-nav ul {
+  /* The legacy `html .footer-nav ul` rule centres the row and adds
+   * gap — neither belongs in the new column layout. */
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+html .footer-info {
+  max-width: 880px;
+  margin: 0;
+  padding: var(--space-4) 0 var(--space-6);
+  border-top: 1px solid var(--color-rule);
+  color: var(--color-fg-muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+/* The `[data-theme]` attribute lives on `<html>` itself, so a selector
+ * like `[data-theme="dark"] html ...` chains `html` as a descendant
+ * of an element that IS `html` and never matches. Internal review
+ * caught the bug. Drop the `html` descendant and use the documented
+ * dark-mode pattern. */
+[data-theme="dark"] .footer-info {
+  color: rgba(242, 239, 232, 0.65);
+  border-top-color: rgba(242, 239, 232, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .footer-info {
+    color: rgba(242, 239, 232, 0.65);
+    border-top-color: rgba(242, 239, 232, 0.12);
+  }
+}
+
+@media (max-width: 720px) {
+  .site-footer__columns {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    padding: var(--space-5) 0 var(--space-4);
+  }
+}
+
 html .resource-button {
   display: inline-flex;
   align-items: center;
