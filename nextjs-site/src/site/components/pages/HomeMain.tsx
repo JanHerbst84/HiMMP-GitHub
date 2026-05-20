@@ -61,11 +61,17 @@ export function HomeMain() {
 
         <section className="content-section">
             <div className="container">
-                <div className="project-completed-card" style={{ padding: "25px", margin: "40px auto", textAlign: "center", borderRadius: "8px", maxWidth: "800px" }}>
+                <div className="project-completed-card" style={{ margin: "40px auto", textAlign: "center" }}>
                     <h3 style={{ marginTop: "0", fontSize: "1.5em" }}>Project Completed</h3>
                     <p style={{ fontSize: "1.2em", marginBottom: "0" }}>
                         The HiMMP research project has now concluded. Several outputs are still forthcoming and will be made available on this website as they are finalized. This website will be regularly updated and remain online as a resource for metal music (production) scholars, producers, artists, and anybody else who may be interested in the topic of heaviness in metal music production.
                     </p>
+                    <dl className="project-stats" aria-label="Project at a glance">
+                        <div className="project-stats__item"><dt className="project-stats__value">4</dt><dd className="project-stats__label">years</dd></div>
+                        <div className="project-stats__item"><dt className="project-stats__value">8</dt><dd className="project-stats__label">producers</dd></div>
+                        <div className="project-stats__item"><dt className="project-stats__value">14</dt><dd className="project-stats__label">chapters</dd></div>
+                        <div className="project-stats__item"><dt className="project-stats__value">2</dt><dd className="project-stats__label">volumes</dd></div>
+                    </dl>
                 </div>
             </div>
         </section>

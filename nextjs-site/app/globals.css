@@ -3662,3 +3662,251 @@ html a.download-link:hover {
     color-scheme: dark;
   }
 }
+
+/*
+ * Slice D-9-f-1 (FRESH-4) — home "Project Completed" panel reframe.
+ *
+ * Pre-slice: the panel read as a stranded boilerplate paragraph in a
+ * rounded box — the only home-page module with no internal hierarchy
+ * or accent. Post-slice: keeps the load-bearing prose ("project
+ * concluded / outputs forthcoming / website remains online as a
+ * resource") and adds a ceremonial stats row underneath that names
+ * the project's actual scale: 4 years / 8 producers / 14 chapters /
+ * 2 volumes. All four numbers are verified against the codebase:
+ *   - 4 years  : project runtime 1 Sep 2020 – 31 Aug 2024
+ *                (AboutPage.tsx line 109)
+ *   - 8 producers : "collaborating with eight producers" in the
+ *                   home Approach section (HomeMain.tsx) and the
+ *                   8 audio.html producer stems
+ *   - 14 chapters : 14 numbered findings chapters (01–14). The
+ *                   glossary is a separate non-chapter section and
+ *                   is intentionally not counted.
+ *   - 2 volumes   : the two books rendered in the home books-section
+ *
+ * The panel chrome echoes the audio-card chrome added in D-3-d:
+ * surface background, mint hairline left edge, generous interior
+ * padding. Stat numerals use Fraunces (--font-display) with tabular
+ * lining figures so the row reads as a deliberate typographic moment,
+ * not boilerplate (this also retires FRESH-11 for the home stats —
+ * the same declaration is the load-bearing rule). Stat labels are
+ * eyebrow-style uppercase in --font-body.
+ */
+[data-page="home"] .project-completed-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-left: 3px solid var(--color-mint);
+  border-radius: var(--radius-md, 6px);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  /* Restored the 800px width constraint that was removed from the
+   * inline style (along with padding / borderRadius / maxWidth) so
+   * external CSS could drive those. Codex caught that without the
+   * cap the card spans the full --container-width / Next.js widened
+   * `.container` at large viewports, producing a source/export
+   * parity split (the legacy index.html kept `max-width: 800px`). */
+  max-width: 800px;
+}
+
+[data-page="home"] .project-completed-card h3 {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+}
+
+[data-page="home"] .project-completed-card p {
+  color: var(--color-fg);
+  max-width: 62ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+[data-page="home"] .project-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-5) auto 0;
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--color-rule);
+  max-width: 560px;
+}
+
+[data-page="home"] .project-stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+[data-page="home"] .project-stats__value {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 1.4rem + 1.2vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1;
+  /* Light scheme: graphite on paper (~14:1, passes body + large). Dark
+   * scheme override below switches to mint on lifted-graphite (~6.7:1,
+   * passes large text). Codex review caught that direct `--color-mint`
+   * on `--color-paper` is ~1.89:1 — WCAG large-text 3:1 fails. */
+  color: var(--color-fg);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+[data-theme="dark"] [data-page="home"] .project-stats__value {
+  color: var(--color-mint);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-page="home"] .project-stats__value {
+    color: var(--color-mint);
+  }
+}
+
+[data-page="home"] .project-stats__label {
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  [data-page="home"] .project-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3) var(--space-4);
+  }
+}
+
+/*
+ * Slice D-9-f-2 (FRESH-3) — depth + asymmetry pass on team and
+ * publications landing surfaces.
+ *
+ * 1) Background motif. A 6%-opacity procedural waveform strip placed
+ *    behind the section h3 / h2 headers on /team.html and
+ *    /publications.html so each landing surface has its own tonal
+ *    signature (echoing the home hero waveform without competing).
+ *    CSS-only: no JS, no extra assets — the strip is a stacked set of
+ *    `repeating-linear-gradient` columns producing a deterministic
+ *    bar pattern. Decorative only; `aria-hidden` is implicit because
+ *    the gradient lives on a `::before` pseudo-element.
+ *
+ * 2) Producer/artist grid asymmetry. The legacy 3-up auto-fill grid
+ *    on .producers-grid / .artists-grid reads as a symmetric portrait
+ *    matrix. We retain 8 equal-status producers (no editorial
+ *    favouritism) but introduce vertical offset on every other column
+ *    via `:nth-child(2n)`, giving an editorial-magazine flow. The
+ *    offset is dropped on tablet (≤1023px) so the visual hierarchy
+ *    stays clean on narrower viewports.
+ *
+ * 3) Hover-lift micro-interaction on producer/artist cards. Subtle
+ *    translateY + mint-tinted box-shadow so each card has a
+ *    "responsive to attention" affordance, gated by reduced-motion.
+ */
+
+/* Section-header waveform decoration */
+[data-page="team"] .producers-section,
+[data-page="team"] .artists-section,
+[data-page="publications"] .publications-section,
+[data-page="publications"] .researcher-publications,
+[data-page="publications"] .bibliography-section {
+  position: relative;
+  isolation: isolate;
+}
+
+/*
+ * Targeted heading selectors (Codex re-review caught the original
+ * `.container > h2, > h3` was both too broad AND missed real targets):
+ *
+ *   - Team page: the team-section "The HiMMP Producers" and
+ *     "The HiMMP Artists" h3 headings inside the section container.
+ *   - Publications page: the .publications-section's "HiMMP Project
+ *     Outputs" h3 PLUS the `.section-heading` h4s in publications,
+ *     researcher-publications, and bibliography-section that
+ *     introduce sub-section groupings (Audio and Video, Books,
+ *     Articles and chapters, etc.). Excluded by design: the
+ *     "Navigate to Section" nav-banner h3 and the "📖 Practical
+ *     Findings Guide" callout h3 (both are non-section UI).
+ */
+[data-page="team"] .producers-section > .container > h3,
+[data-page="team"] .artists-section > .container > h3,
+[data-page="publications"] .publications-section > .container > h3,
+[data-page="publications"] .publications-section .section-heading,
+[data-page="publications"] .researcher-publications .section-heading,
+[data-page="publications"] .bibliography-section .section-heading {
+  position: relative;
+  padding-bottom: var(--space-3);
+}
+
+[data-page="team"] .producers-section > .container > h3::before,
+[data-page="team"] .artists-section > .container > h3::before,
+[data-page="publications"] .publications-section > .container > h3::before,
+[data-page="publications"] .publications-section .section-heading::before,
+[data-page="publications"] .researcher-publications .section-heading::before,
+[data-page="publications"] .bibliography-section .section-heading::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 -2px 0;
+  height: 28px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--color-mint) 0,
+      var(--color-mint) 2px,
+      transparent 2px,
+      transparent 7px
+    );
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 35%, black 70%, transparent 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, black 35%, black 70%, transparent 100%);
+  opacity: 0.18;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Producer / artist grid asymmetric rhythm.
+ *
+ * The base `html .team-grid` declaration sets one column at ≤767px
+ * (mobile collapse). Wrap the new rule in `min-width: 768px` so the
+ * single-column mobile layout still wins at ≤767px. Codex re-review
+ * caught that an unscoped `[data-page="team"]` rule has higher
+ * specificity than `html .team-grid { grid-template-columns: 1fr }`
+ * and would silently regress the mobile breakpoint.
+ */
+@media (min-width: 768px) {
+  [data-page="team"] .producers-grid,
+  [data-page="team"] .artists-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    align-items: start;
+    gap: var(--space-6) var(--space-5);
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-page="team"] .producers-grid .team-member.producer:nth-child(2n),
+  [data-page="team"] .artists-grid .team-member.artist:nth-child(2n) {
+    margin-top: var(--space-6);
+  }
+}
+
+/* Hover-lift on cards (entire interaction gated by reduced-motion).
+ * Internal review caught that leaving the base `transition` outside
+ * the motion query lets future transform/shadow state changes
+ * animate even for `prefers-reduced-motion: reduce` users. Move
+ * everything inside the motion-allowed branch. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-page="team"] .team-member.producer,
+  [data-page="team"] .team-member.artist {
+    transition:
+      transform var(--duration-fast, 160ms) var(--easing-standard, ease),
+      box-shadow var(--duration-fast, 160ms) var(--easing-standard, ease);
+    will-change: transform;
+  }
+
+  [data-page="team"] .team-member.producer:hover,
+  [data-page="team"] .team-member.artist:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px -16px rgba(93, 198, 159, 0.55);
+  }
+}
