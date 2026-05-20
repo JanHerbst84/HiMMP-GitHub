@@ -3020,7 +3020,8 @@ html [data-page="findings"] .hero .hero-text {
   color: var(--color-chrome-fg);
 }
 
-html .chapter-hero .container {
+html .chapter-hero .container,
+html [data-page="findings"] .hero .container {
   position: relative;
   z-index: 2;
 }
