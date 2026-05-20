@@ -2965,27 +2965,47 @@ html .chapter-hero {
   align-items: center;
 }
 
+/*
+ * D-9-e-11 — findings index + chapter hero sizing.
+ *
+ * The inner-page heroes get `min-height: clamp(360px, 50vh, 520px)`
+ * + 36-72px padding (globals.css:648) via the :is(...) allowlist,
+ * but findings was excluded — so the findings index hero
+ * collapsed to its content height (~233px at wide viewport),
+ * reading as a thin strip instead of a deliberate hero. Apply
+ * the same sizing to .chapter-hero and [data-page="findings"]
+ * .hero so they get the proper hero presence.
+ */
+html .chapter-hero,
+html [data-page="findings"] .hero {
+  min-height: clamp(360px, 50vh, 520px);
+  padding: clamp(36px, 6vh, 72px) 0;
+  isolation: isolate;
+}
+
 html .chapter-hero .hero-overlay,
 html [data-page="findings"] .hero .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  /*
-   * Left-heavy darkening: text content sits in the left ~60% of
-   * the hero, so the overlay is darker there for legibility, and
-   * fades to a lighter wash on the right so the cover image
-   * remains visible as a deliberate hero element. Base bg-color
-   * is the dark cover-fade; the linear-gradient adds the spatial
-   * variation.
-   */
-  background-color: rgba(8, 10, 12, 0.72);
+  background-color: rgba(8, 10, 12, 0.78);
   background-image: linear-gradient(
-    100deg,
+    105deg,
     rgba(8, 10, 12, 0.92) 0%,
-    rgba(8, 10, 12, 0.78) 40%,
-    rgba(8, 10, 12, 0.5) 75%,
-    rgba(8, 10, 12, 0.3) 100%
+    rgba(8, 10, 12, 0.78) 55%,
+    rgba(8, 10, 12, 0.55) 100%
   );
+}
+
+/* Lift findings + chapter hero title to match inner-page hero
+   sizing (the :is(...) hero-title rule at globals.css:720 sets
+   clamp(2.1rem, 1.4rem + 3vw, 3.6rem) for inner pages; findings
+   was excluded and currently gets ~2rem). */
+html .chapter-hero .hero-title,
+html [data-page="findings"] .hero .hero-title {
+  font-size: clamp(2.1rem, 1.4rem + 3vw, 3.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.016em;
 }
 
 /* Findings hero text — both the chapter pages (using
