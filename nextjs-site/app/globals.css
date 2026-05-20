@@ -2295,10 +2295,18 @@ html .pull-quote footer {
   margin-top: 12px;
 }
 
-/* Sidebar callout */
+/* Sidebar callout — used as a centred mid-page nudge ("Want a
+   structured walkthrough?" on /videos.html and /audio.html).
+   Capped at typical body-text line length so the prose doesn't
+   stretch across the full container width and read as
+   uncomfortably long. */
 html .sidebar-box {
   padding: 20px 24px;
-  margin: var(--spacing-md) 0;
+  margin: var(--spacing-md) auto;
+  max-width: 720px;
+  background-color: var(--color-surface);
+  border-left: 3px solid var(--color-mint);
+  border-radius: var(--radius-md, 6px);
 }
 
 html .sidebar-box strong {
