@@ -117,7 +117,7 @@ function convertMain(html) {
  * literal string `__MIX_EMBED_<index>__` wrapped in a marker div so
  * JSX parsing is preserved through convertMain.
  */
-function extractMixEmbeds(html) {
+function extractMixEmbeds(html, sourcePath) {
   const mixEmbeds = [];
   const openRe = /<div\s+class="mix-comparison-player"[^>]*>/gi;
   const segments = [];
@@ -154,15 +154,42 @@ function extractMixEmbeds(html) {
     const closeEnd = i;
     const innerHtml = html.slice(openEnd, closeEnd - '</div>'.length);
 
-    const buttonRe = /<button\s+class="mix-button(?:\s+active)?"\s+data-src="([^"]+)"\s+data-name="([^"]+)"\s*>([\s\S]*?)<\/button>/gi;
+    // Match each <button class="mix-button..."> ... </button> first,
+    // then extract data-src/data-name from the attribute block in
+    // any order. Order-independent parsing closes the prior
+    // attribute-order fragility (D-3-a Codex+Internal review).
+    const buttonRe = /<button\b([^>]*\bclass="mix-button(?:\s+[^"]*)?"[^>]*)>([\s\S]*?)<\/button>/gi;
     const mixes = [];
     let bm;
     while ((bm = buttonRe.exec(innerHtml)) !== null) {
+      const attrs = bm[1];
+      const srcMatch = attrs.match(/\bdata-src="([^"]+)"/);
+      const nameMatch = attrs.match(/\bdata-name="([^"]+)"/);
+      if (!srcMatch || !nameMatch) {
+        throw new Error(
+          `mix-button missing required data-src/data-name in ${path.basename(sourcePath)}: ${bm[0].slice(0, 120)}`
+        );
+      }
       mixes.push({
-        src: bm[1],
-        name: bm[2],
-        label: bm[3].replace(/<[^>]+>/g, '').trim()
+        src: srcMatch[1],
+        name: nameMatch[1],
+        label: bm[2].replace(/<[^>]+>/g, '').trim()
       });
+    }
+    // Cross-check: count of mix-button matches must equal the count
+    // of `class="mix-button` in the inner HTML. A mismatch means a
+    // button was authored with markup the regex didn't recognise.
+    const expectedButtonCount = (innerHtml.match(/class="mix-button(?:\s|")/g) || []).length;
+    if (mixes.length !== expectedButtonCount) {
+      throw new Error(
+        `mix-button extraction mismatch in ${path.basename(sourcePath)}: ` +
+          `found ${mixes.length} parsed buttons, ${expectedButtonCount} class="mix-button" occurrences`
+      );
+    }
+    if (mixes.length === 0) {
+      throw new Error(
+        `mix-comparison-player block in ${path.basename(sourcePath)} produced zero mixes`
+      );
     }
     const noteMatch = innerHtml.match(/<div\s+class="embed-note"[^>]*>([\s\S]*?)<\/div>/i);
     const note = noteMatch ? noteMatch[1].replace(/<[^>]+>/g, '').trim() : null;
@@ -211,7 +238,7 @@ for (const { slug, component } of chapters) {
   // D-3-a — extract mix-comparison-player blocks and replace with
   // placeholders that survive convertMain unchanged. After conversion
   // we substitute the placeholders with React component invocations.
-  const { html: bodyWithEmbedsExtracted, mixEmbeds } = extractMixEmbeds(bodyWithIds);
+  const { html: bodyWithEmbedsExtracted, mixEmbeds } = extractMixEmbeds(bodyWithIds, sourcePath);
   const rawJsx = convertMain(bodyWithEmbedsExtracted);
   const jsx = substituteMixEmbeds(rawJsx, mixEmbeds);
   const hasMixEmbeds = mixEmbeds.length > 0;

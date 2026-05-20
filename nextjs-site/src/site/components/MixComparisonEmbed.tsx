@@ -61,7 +61,11 @@ export function MixComparisonEmbed({ mixes, note }: MixComparisonEmbedProps) {
 
   useEffect(() => {
     setStatus(statusFor("ready", mixes[0]));
-  }, [mixes]);
+    // Mount-only: `mixes` is a static prop on every chapter; re-running
+    // on identity change would overwrite an in-flight loading/error
+    // status if the parent re-rendered with a fresh array literal.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSelect = useCallback(
     (mix: MixEntry) => {
