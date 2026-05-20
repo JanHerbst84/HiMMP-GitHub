@@ -1,5 +1,70 @@
 # Phase 3 — Fresh-Eyes Visual Review: To-Do List
 
+## Completion status (2026-05-20)
+
+All 13 items addressed across 6 commits on `main`. Sequence:
+
+- `5f54400` — Slice D-3-d (FRESH-2): audio.html producer-mix card chrome.
+  FRESH-1 invalidated on re-inspection (the YouTube iframe renders
+  correctly at 847×476; the earlier "empty hole" was a YouTube
+  poster pre-load state caught by the screenshot, not a real bug).
+- `40dbe51` — Slice D-9-f (FRESH-3 + FRESH-4 + partial FRESH-11):
+  home Project Completed stats panel reframed (4 years · 8 producers
+  · 14 chapters · 2 volumes, all verified against the codebase);
+  publications + team section-header waveform motif; team-grid
+  asymmetric rhythm via `:nth-child(2n)`; hover-lift on team cards;
+  Fraunces tabular figures on stats. Six dual-review iterations
+  (contrast, inline-style override, chapter count, phantom
+  selectors, mobile cascade, max-width restore).
+- `d9e01bb` — Slice D-3-e (FRESH-5 + FRESH-6): interactive mix
+  comparator promoted to full-bleed band with eyebrow + larger
+  Fraunces "Now Playing" anchor + 90px waveform; sidebar chapter
+  numerals switched to Fraunces tabular figures with a
+  glossary-section hairline divider gated to ≥981px to avoid the
+  mobile horizontal-strip layout. Two dual-review iterations.
+- `5217bb3` — Slice D-9-g-1 (FRESH-7): `.read-more--ghost` modifier
+  for tertiary "+ MORE" links on the home page; new
+  `--color-mint-deep` token (#2e6e55) for WCAG-AA-clearing mint
+  text on light-mode paper.
+- `dab2981` — Slice D-9-g-2 (FRESH-9): scoped `[data-page="audio"]
+  .hero` ruleset at ~75% home-hero scale; mobile cascade fix to
+  preserve the legacy ≤720px sizing.
+- `3b67c33` — Slice D-9-g-3 (FRESH-10): three-column site footer
+  (Project / Outputs / Institutional) with mint uppercase column
+  headings, `.footer-info` paragraph restored from legacy index.html
+  (was missing from the React port), `Videos` added to the nav.
+- `61aacfd` — Slice D-9-h (FRESH-12 + FRESH-13): `.sidebar-box
+  strong` headings upgraded to Fraunces with mint accent; FRESH-13
+  audit confirmed zero motion exists on the home hero (no gate
+  needed).
+
+**FRESH-8 (copper secondary accent)** was deliberately deferred. The
+site already has mint + sulfur as two active accents (sulfur is used
+on the active mix-comparison button and on error/loading state
+text). Adding copper as a third would dilute the palette rather than
+tighten it. The original FRESH-8 framing was exploratory
+("Consider…"), not prescriptive. Can be revisited if a specific UI
+element needs a distinct third accent that mint + sulfur can't
+serve.
+
+**FRESH-11** was retired by the D-9-f stats row, which is the only
+numeric-display surface on the site that benefits from tabular
+figures. No other surfaces need it today.
+
+**FRESH-1** was invalidated by live DOM inspection (see D-3-d
+commit) — the original review claim about the YouTube container was
+based on a screenshot artefact, not a real bug.
+
+Every shipped slice ran through the project dual-review protocol
+(internal `feature-dev:code-reviewer` + Codex
+`adversarial-review`). The reviewers caught a total of 11 real
+issues across the six slices, including WCAG contrast failures,
+inline-style cascade overrides, phantom CSS selectors, invalid
+`[data-theme="dark"] html ...` selector chains, source-order
+cascade collisions on mobile breakpoints, and a max-width regression.
+
+---
+
 Captured 2026-05-20 after a fresh-eyes browser pass over the deployed site
 (`https://www.himmp.net/`) on a 1440×900 desktop viewport plus a 390×844
 mobile pass on the home page. Pages inspected: home, findings index,
