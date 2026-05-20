@@ -2299,10 +2299,12 @@ html .pull-quote footer {
    structured walkthrough?" on /videos.html and /audio.html).
    Capped at typical body-text line length so the prose doesn't
    stretch across the full container width and read as
-   uncomfortably long. */
+   uncomfortably long. Vertical margin held tight because the
+   wrapping `.content-section` already supplies 64px of padding;
+   the box reads as a callout, not a section break. */
 html .sidebar-box {
   padding: 20px 24px;
-  margin: var(--spacing-md) auto;
+  margin: 0 auto;
   max-width: 720px;
   background-color: var(--color-surface);
   border-left: 3px solid var(--color-mint);
@@ -2312,6 +2314,15 @@ html .sidebar-box {
 html .sidebar-box strong {
   display: block;
   margin-bottom: 12px;
+}
+
+/* When a content-section wraps ONLY a sidebar-box callout (no
+   other heading or body content), the default 64px section
+   padding is too generous — the box floats in too much vertical
+   space. Tighten to a calmer 24px so the callout reads as a
+   close-aside, not a stand-alone section. */
+html .content-section:has(> .container > .sidebar-box:only-child) {
+  padding: 24px 0;
 }
 
 /* Chapter footer nav */
