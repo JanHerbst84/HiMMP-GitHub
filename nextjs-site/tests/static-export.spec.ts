@@ -702,7 +702,13 @@ test.describe("static export legacy route smoke", () => {
 
       for (const route of ["/findings.html", "/findings/07-meta-instrument.html", "/findings/glossary.html"]) {
         await page.goto(route);
-        await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+        // D-9-e-8: index page (/findings.html) no longer wraps in
+        // .enhanced-findings-shell — the chapter-reader sidebar +
+        // pagination read as visual noise on the list-of-chapters
+        // page. Shell still mandatory on chapter routes.
+        if (route !== "/findings.html") {
+          await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+        }
         await expect(page.locator("#main-content")).toBeVisible();
 
         const dimensions = await page.evaluate(() => ({
