@@ -3232,13 +3232,22 @@ html a.findings-promo-banner__cta:hover {
 [data-theme="dark"] .researcher,
 [data-theme="dark"] .partner-item,
 [data-theme="dark"] .university-logo-container,
-[data-theme="dark"] .panel,
 [data-theme="dark"] .accordion,
 [data-theme="dark"] .contact-card,
 [data-theme="dark"] .chapter-card,
 [data-theme="dark"] .section-nav-button,
 [data-theme="dark"] .chapter-nav-button {
   background-color: var(--color-surface) !important;
+  color: var(--color-fg) !important;
+}
+
+/* Accordion panel sits at body-bg level so the cards inside
+   (publication-item / publication-card, both --color-surface)
+   read as elevated against the panel surround. Otherwise panel
+   and cards share --color-surface and visually merge into one
+   block. */
+[data-theme="dark"] .panel {
+  background-color: var(--color-bg) !important;
   color: var(--color-fg) !important;
 }
 
@@ -3402,13 +3411,16 @@ html a.download-link:hover {
   :root:not([data-theme="light"]) .researcher,
   :root:not([data-theme="light"]) .partner-item,
   :root:not([data-theme="light"]) .university-logo-container,
-  :root:not([data-theme="light"]) .panel,
   :root:not([data-theme="light"]) .accordion,
   :root:not([data-theme="light"]) .contact-card,
   :root:not([data-theme="light"]) .chapter-card,
   :root:not([data-theme="light"]) .section-nav-button,
   :root:not([data-theme="light"]) .chapter-nav-button {
     background-color: var(--color-surface) !important;
+    color: var(--color-fg) !important;
+  }
+  :root:not([data-theme="light"]) .panel {
+    background-color: var(--color-bg) !important;
     color: var(--color-fg) !important;
   }
   :root:not([data-theme="light"]) .filter-button.active,
