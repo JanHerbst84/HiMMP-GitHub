@@ -24,6 +24,42 @@ const chapters = [
   { slug: 'glossary', component: 'FindingsGlossary' }
 ];
 
+/*
+ * D-6 phase-1 — bar-height generator (inlined from
+ * src/site/components/Waveform.server.ts). Kept in lockstep with
+ * that module: identical FNV-1a + xorshift32 constants + bounds.
+ * Heights are baked directly into chapter JSX as a literal so the
+ * generator never ships in any bundle (chapter components are
+ * server components; the literal array crosses the client
+ * boundary as plain data into MixComparisonEmbed).
+ */
+const FNV_OFFSET_32 = 2166136261;
+const FNV_PRIME_32 = 16777619;
+const MIN_PCT = 18;
+const MAX_PCT = 92;
+function generateBarHeights(seed, count) {
+  let state = FNV_OFFSET_32;
+  for (let i = 0; i < seed.length; i++) {
+    state ^= seed.charCodeAt(i);
+    state = Math.imul(state, FNV_PRIME_32);
+  }
+  state = (state >>> 0) || 1;
+  const heights = [];
+  for (let i = 0; i < count; i++) {
+    let x = state;
+    x ^= x << 13;
+    x ^= x >>> 17;
+    x ^= x << 5;
+    state = x >>> 0;
+    const normalised = state / 0x100000000;
+    const center = 0.5 + 0.42 * Math.sin((i / count) * Math.PI);
+    const jitter = (normalised - 0.5) * 0.55;
+    const value = Math.max(0, Math.min(1, center + jitter));
+    heights.push(Math.round(MIN_PCT + (MAX_PCT - MIN_PCT) * value));
+  }
+  return heights;
+}
+
 function cssToJsxStyle(decl) {
   const props = decl.split(';').map((s) => s.trim()).filter(Boolean);
   let hasCustomProp = false;
@@ -217,7 +253,12 @@ function substituteMixEmbeds(jsx, mixEmbeds) {
       )
       .join(',\n');
     const noteAttr = entry.note ? ` note={${JSON.stringify(entry.note)}}` : '';
-    return `<MixComparisonEmbed${noteAttr} mixes={[\n${mixesLiteral}\n      ]} />`;
+    // D-6: bake waveform heights as a literal array seeded by the
+    // first mix's src. Generator runs at port-script time only;
+    // chapter components ship just the data array.
+    const heights = generateBarHeights(entry.mixes[0].src, 48);
+    const heightsLiteral = `[${heights.join(', ')}]`;
+    return `<MixComparisonEmbed${noteAttr} mixes={[\n${mixesLiteral}\n      ]} waveformHeights={${heightsLiteral}} />`;
   });
 }
 

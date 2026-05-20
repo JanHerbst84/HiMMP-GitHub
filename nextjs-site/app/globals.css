@@ -1033,6 +1033,74 @@ a {
   border-radius: var(--radius-md, 6px);
 }
 
+/*
+ * D-6 phase-1 — procedural waveform strip above the comparison
+ * player. Pure-CSS layout; bar heights are inline-styled by the
+ * server-rendered `<Waveform>` component (deterministic per audio
+ * src). No client-side JS regenerates the markup. The strip is
+ * decorative; bar pattern does not represent the audio data.
+ *
+ * Lives both on .audio-comparison (audio.html) and on
+ * .mix-comparison-player (findings chapters 7-10).
+ */
+.waveform-strip {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+  height: 56px;
+  margin: 0 0 14px;
+  padding: 0;
+  pointer-events: none;
+}
+
+.waveform-strip__bar {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--color-mint, #5dc69f);
+  opacity: 0.55;
+  border-radius: 1px;
+  transition: opacity var(--duration-fast, 160ms) var(--easing-standard, ease);
+}
+
+.audio-comparison .waveform-strip {
+  margin-bottom: 18px;
+}
+
+.mix-comparison-player .waveform-strip {
+  height: 44px;
+  margin-bottom: 12px;
+}
+
+.mix-comparison-player .waveform-strip__bar {
+  opacity: 0.5;
+}
+
+/*
+ * Hover-pulse must be triggered from the containing panel — the
+ * strip itself has `pointer-events: none` so the player controls
+ * underneath stay clickable. Codex+Internal review caught this:
+ * a `:hover` on the strip never fired and the rule was dead.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .audio-comparison:hover .waveform-strip__bar,
+  .mix-comparison-player:hover .waveform-strip__bar {
+    opacity: 0.78;
+  }
+}
+
+@media (max-width: 720px) {
+  .waveform-strip {
+    height: 44px;
+    gap: 1px;
+  }
+
+  .mix-comparison-player .waveform-strip {
+    height: 36px;
+  }
+}
+
 .audio-comparison .audio-comparison__buttons {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));

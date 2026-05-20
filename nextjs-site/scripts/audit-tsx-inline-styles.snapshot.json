@@ -277,7 +277,7 @@
   },
   {
     "file": "src/site/components/pages/AudioPage.tsx",
-    "line": 48,
+    "line": 52,
     "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-about.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -304,7 +304,7 @@
   },
   {
     "file": "src/site/components/pages/AudioPage.tsx",
-    "line": 62,
+    "line": 66,
     "expr": "{ marginTop: \"10px\", fontSize: \"0.95em\" }",
     "entries": [
       {

@@ -1,4 +1,8 @@
 import { AudioComparison } from "@/src/site/components/AudioComparison";
+import { comparisonMixes } from "@/src/site/data/audio-comparison";
+import { generateBarHeights } from "@/src/site/components/Waveform.server";
+
+const audioWaveformHeights = generateBarHeights(comparisonMixes[0].src, 72);
 
 /**
  * Audio page — eighth page to leave the legacy injected-HTML
@@ -98,7 +102,7 @@ export function AudioPage() {
         </div>
       </section>
 
-      <AudioComparison />
+      <AudioComparison waveformHeights={audioWaveformHeights} />
 
       <section className="content-section mix-comparison-section">
         <div className="container">

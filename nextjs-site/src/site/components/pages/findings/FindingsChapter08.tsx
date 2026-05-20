@@ -78,7 +78,7 @@ export function FindingsChapter08() {
         { src: "../assets/audio/Odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
         { src: "../assets/audio/Otero.mp3", name: "Dave Otero", label: "Otero" },
         { src: "../assets/audio/Scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
-      ]} />
+      ]} waveformHeights={[69, 40, 59, 50, 46, 67, 62, 84, 62, 85, 76, 72, 90, 78, 73, 92, 78, 65, 92, 80, 92, 70, 92, 66, 88, 69, 81, 73, 69, 86, 68, 92, 83, 77, 89, 76, 62, 60, 74, 92, 51, 79, 59, 46, 79, 53, 78, 72]} />
         </div>
 
         <h4>Table 8.1: Overview of drum sample use per producer</h4>
@@ -179,7 +179,7 @@ export function FindingsChapter08() {
         { src: "../assets/audio/stems/drums/odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
         { src: "../assets/audio/stems/drums/otero.mp3", name: "Dave Otero", label: "Otero" },
         { src: "../assets/audio/stems/drums/scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
-      ]} />
+      ]} waveformHeights={[56, 56, 53, 48, 73, 84, 65, 78, 75, 68, 72, 85, 79, 64, 87, 91, 81, 75, 86, 84, 92, 81, 72, 92, 92, 92, 92, 86, 68, 89, 92, 92, 92, 77, 64, 81, 92, 72, 72, 74, 74, 68, 57, 48, 62, 54, 63, 75]} />
         </div>
 
         <blockquote className="pull-quote">

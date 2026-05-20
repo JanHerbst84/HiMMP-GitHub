@@ -1077,4 +1077,49 @@ test.describe("static export legacy route smoke", () => {
     };
     expect(channelDelta(audioChromeBg, bodyBg)).toBeGreaterThanOrEqual(10);
   });
+
+  test("D-6 waveform strip renders deterministic server-side bars on audio.html", async ({ page }) => {
+    // The audio.html comparison player ships with a Waveform
+    // component above it. Bars are rendered server-side as `<span>`
+    // with inline `style="height:X%"`. Bar heights are generated
+    // by `Waveform.server.ts` (FNV-1a + xorshift32 seeded on the
+    // audio src URL) and baked into the static export at SSG time.
+    // The generator does NOT ship in the client bundle.
+    //
+    // Determinism gate: the first three bar heights are pinned to
+    // the values the seed (assets/audio/HiMMP.mp3) currently
+    // produces. If the hash function ever changes intentionally,
+    // update these pins alongside the change.
+    await page.goto("/audio.html");
+
+    const bars = page.locator(".audio-comparison .waveform-strip__bar");
+    await expect(bars).toHaveCount(72);
+
+    const strip = page.locator(".audio-comparison .waveform-strip");
+    await expect(strip).toHaveAttribute("data-waveform", "static");
+    await expect(strip).toHaveAttribute("aria-hidden", "true");
+
+    const firstThreeHeights = await bars.evaluateAll((els) =>
+      els.slice(0, 3).map((el) => (el as HTMLElement).style.height)
+    );
+    expect(firstThreeHeights).toEqual(["65%", "59%", "68%"]);
+  });
+
+  test("D-6 waveform strip renders on chapter mix-comparison embeds", async ({ page }) => {
+    await page.goto("/findings/07-meta-instrument.html");
+
+    const bars = page.locator(".mix-comparison-player .waveform-strip__bar");
+    // Chapter 7 has one mix-comparison embed × 48 bars.
+    await expect(bars).toHaveCount(48);
+
+    const strip = page.locator(".mix-comparison-player .waveform-strip");
+    await expect(strip).toHaveAttribute("data-waveform", "static");
+    await expect(strip).toHaveAttribute("aria-hidden", "true");
+
+    // Determinism gate (chapter 7 first mix src).
+    const firstThreeHeights = await bars.evaluateAll((els) =>
+      els.slice(0, 3).map((el) => (el as HTMLElement).style.height)
+    );
+    expect(firstThreeHeights).toEqual(["69%", "40%", "59%"]);
+  });
 });

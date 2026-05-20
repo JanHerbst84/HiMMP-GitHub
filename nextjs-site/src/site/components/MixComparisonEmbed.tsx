@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type SyntheticEvent } from "react";
+import { Waveform } from "@/src/site/components/Waveform";
 
 /*
  * D-3-a — react component for the in-chapter mix-comparison-player
@@ -34,6 +35,7 @@ export type MixEntry = {
 export type MixComparisonEmbedProps = {
   mixes: MixEntry[];
   note?: string;
+  waveformHeights: number[];
 };
 
 type StatusState = "ready" | "loading" | "error";
@@ -51,7 +53,7 @@ function statusFor(state: StatusState, mix: MixEntry): StatusInfo {
   }
 }
 
-export function MixComparisonEmbed({ mixes, note }: MixComparisonEmbedProps) {
+export function MixComparisonEmbed({ mixes, note, waveformHeights }: MixComparisonEmbedProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const pendingResumeRef = useRef<{ time: number; play: boolean } | null>(null);
   const [activeSrc, setActiveSrc] = useState<string>(mixes[0].src);
@@ -119,6 +121,7 @@ export function MixComparisonEmbed({ mixes, note }: MixComparisonEmbedProps) {
       <div className="currently-playing">
         Now Playing: <span className="current-mix-name">{activeMix.name}</span>
       </div>
+      <Waveform heights={waveformHeights} />
       <audio
         ref={audioRef}
         controls

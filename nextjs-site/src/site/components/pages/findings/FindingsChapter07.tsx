@@ -140,7 +140,7 @@ export function FindingsChapter07() {
         { src: "../assets/audio/Odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
         { src: "../assets/audio/Otero.mp3", name: "Dave Otero", label: "Otero" },
         { src: "../assets/audio/Scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
-      ]} />
+      ]} waveformHeights={[69, 40, 59, 50, 46, 67, 62, 84, 62, 85, 76, 72, 90, 78, 73, 92, 78, 65, 92, 80, 92, 70, 92, 66, 88, 69, 81, 73, 69, 86, 68, 92, 83, 77, 89, 76, 62, 60, 74, 92, 51, 79, 59, 46, 79, 53, 78, 72]} />
         </div>
 
         <h2 id="variations-across-production-philosophies">Variations Across Production Philosophies</h2>

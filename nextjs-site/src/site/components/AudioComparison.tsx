@@ -2,6 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState, type SyntheticEvent } from "react";
 import { comparisonMixes, type ComparisonMix } from "@/src/site/data/audio-comparison";
+import { Waveform } from "@/src/site/components/Waveform";
+
+export type AudioComparisonProps = {
+  waveformHeights: number[];
+};
 
 type StatusState = "ready" | "loading" | "error";
 type StatusInfo = { state: StatusState; message: string };
@@ -20,7 +25,7 @@ function statusFor(state: StatusState, mix: ComparisonMix): StatusInfo {
   }
 }
 
-export function AudioComparison() {
+export function AudioComparison({ waveformHeights }: AudioComparisonProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const pendingResumeRef = useRef<{ time: number; play: boolean } | null>(null);
   const [activeId, setActiveId] = useState<string>(comparisonMixes[0].id);
@@ -101,6 +106,7 @@ export function AudioComparison() {
             <p id="currently-playing" className="audio-comparison__display">
               Now Playing: {activeMix.displayName}
             </p>
+            <Waveform heights={waveformHeights} />
             <audio
               ref={audioRef}
               id="comparison-player"

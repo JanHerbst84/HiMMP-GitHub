@@ -131,7 +131,7 @@ export function FindingsChapter09() {
         { src: "../assets/audio/Odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
         { src: "../assets/audio/Otero.mp3", name: "Dave Otero", label: "Otero" },
         { src: "../assets/audio/Scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
-      ]} />
+      ]} waveformHeights={[69, 40, 59, 50, 46, 67, 62, 84, 62, 85, 76, 72, 90, 78, 73, 92, 78, 65, 92, 80, 92, 70, 92, 66, 88, 69, 81, 73, 69, 86, 68, 92, 83, 77, 89, 76, 62, 60, 74, 92, 51, 79, 59, 46, 79, 53, 78, 72]} />
         </div>
 
         <div className="mix-comparison-embed" aria-label="Interactive Guitar Stem Comparison">
@@ -147,7 +147,7 @@ export function FindingsChapter09() {
         { src: "../assets/audio/stems/guitars/odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
         { src: "../assets/audio/stems/guitars/otero.mp3", name: "Dave Otero", label: "Otero" },
         { src: "../assets/audio/stems/guitars/scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
-      ]} />
+      ]} waveformHeights={[65, 47, 66, 46, 51, 51, 67, 82, 58, 86, 74, 73, 72, 71, 91, 66, 92, 88, 75, 68, 75, 90, 92, 74, 74, 84, 92, 90, 92, 92, 81, 85, 67, 92, 83, 69, 77, 80, 56, 87, 75, 73, 62, 83, 48, 51, 45, 63]} />
         </div>
 
         <h2 id="bass-guitar-processing">Bass Guitar Processing</h2>
@@ -177,7 +177,7 @@ export function FindingsChapter09() {
         { src: "../assets/audio/stems/bass/odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
         { src: "../assets/audio/stems/bass/otero.mp3", name: "Dave Otero", label: "Otero" },
         { src: "../assets/audio/stems/bass/scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
-      ]} />
+      ]} waveformHeights={[47, 44, 42, 71, 63, 45, 85, 82, 66, 71, 77, 75, 57, 92, 81, 91, 92, 92, 92, 92, 74, 92, 66, 85, 92, 92, 92, 89, 92, 92, 64, 78, 85, 91, 60, 91, 71, 85, 86, 84, 75, 81, 57, 50, 75, 54, 54, 73]} />
         </div>
 
         <h2 id="practical-implementation">Practical Implementation</h2>
