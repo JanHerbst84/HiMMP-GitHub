@@ -280,8 +280,8 @@ for (const { slug, component } of chapters) {
  * \`for=\` -> \`htmlFor=\`). Mix-comparison-player blocks are
  * additionally replaced with \`<MixComparisonEmbed>\` React
  * component calls (D-3-a) so the chapter audio surfaces own their
- * markup and state instead of relying on EnhancedAudioController's
- * post-hydration DOM walk.
+ * markup and state. D-3-b retired the controller; nothing
+ * DOM-walks chapter audio surfaces any more.
  */
 ${importBlock}export type FindingsChapterHeading = { id: string; text: string };
 

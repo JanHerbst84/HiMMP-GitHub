@@ -73,7 +73,7 @@
   },
   {
     "file": "app/findings/[slug]/page.tsx",
-    "line": 127,
+    "line": 126,
     "expr": "{ display: \"contents\" }",
     "entries": [
       {

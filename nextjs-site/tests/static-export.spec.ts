@@ -506,12 +506,15 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
-  test("findings chapter mix buttons use the enhanced audio controller", async ({ page }) => {
+  test("findings chapter mix buttons use the React MixComparisonEmbed", async ({ page }) => {
     await stubAudioLoading(page);
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/findings/07-meta-instrument.html");
 
-    await expect(page.locator("[data-enhanced-audio-controller='ready']")).toHaveCount(1);
+    // D-3-b retired EnhancedAudioController; MixComparisonEmbed
+    // owns every chapter mix-comparison-player surface. The legacy
+    // audio-player.js script must still be filtered out.
+    await expect(page.locator("[data-mix-comparison-embed='react']")).toHaveCount(1);
     await expect(page.locator("script[src$='audio-player.js']")).toHaveCount(0);
 
     const comparisonPlayer = page.locator(".mix-comparison-player").first();

@@ -8,7 +8,6 @@ import { LegacyScripts } from "@/src/site/components/LegacyScripts";
 import { LegacyStyles } from "@/src/site/components/LegacyStyles";
 import { LegacyHeadExtras } from "@/src/site/components/LegacyHeadExtras";
 import { EnhancedFindingsShell } from "@/src/site/components/EnhancedFindingsShell";
-import { EnhancedAudioController } from "@/src/site/components/EnhancedAudioController";
 import { FindingsChapter01, FindingsChapter01Headings } from "@/src/site/components/pages/findings/FindingsChapter01";
 import { FindingsChapter02, FindingsChapter02Headings } from "@/src/site/components/pages/findings/FindingsChapter02";
 import { FindingsChapter03, FindingsChapter03Headings } from "@/src/site/components/pages/findings/FindingsChapter03";
@@ -48,8 +47,8 @@ const chapterComponents: Record<string, { Component: ComponentType; headings: Ch
  * Findings chapters 07-meta-instrument through 10-spatial ship a
  * `<script src="../assets/js/audio-player.js">` body tag whose
  * sole purpose is to wire `.mix-button` clicks against the legacy
- * comparison-player markup. The React `<EnhancedAudioController>`
- * (rendered alongside the chapter) re-implements that interactive
+ * comparison-player markup. The React `<MixComparisonEmbed>`
+ * components inside each chapter re-implement that interactive
  * surface. Leaving the legacy script in place produces double-bound
  * click handlers — two `audio.src` assignments per click + two
  * competing `loadedmetadata` listeners. Filter the legacy script
@@ -131,7 +130,6 @@ export default async function FindingsChapterRoute({ params }: { params: Params 
             <ChapterComponent />
           </EnhancedFindingsShell>
         </div>
-        <EnhancedAudioController />
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={bodyScripts} />
