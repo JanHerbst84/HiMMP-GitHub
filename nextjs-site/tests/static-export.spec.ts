@@ -447,10 +447,22 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator(".enhanced-audio-status")).toContainText("HiMMP");
     await page.mouse.move(0, 0);
-    // Inactive mix buttons use --color-bone on a graphite surface.
-    await expect(page.locator(".mix-btn", { hasText: "Bogren" })).toHaveCSS("color", "rgb(242, 239, 232)");
-    // Active mix button uses --color-graphite text on a sulfur background.
-    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveCSS("color", "rgb(17, 20, 24)");
+    // D-3-c: state assertions plus a relative-style gate. The
+    // .active / aria-pressed class state proves DOM toggling; the
+    // computed-style inequality below proves that the .mix-btn.active
+    // CSS rule itself resolves to a distinct background — without
+    // pinning the rgb() values that would be brittle to scheme +
+    // token changes. Together these catch both a class-toggle
+    // regression and an accidental drop of the .active CSS rule.
+    await expect(page.locator(".mix-btn", { hasText: "Bogren" })).not.toHaveClass(/(^|\s)active(\s|$)/);
+    await expect(page.locator(".mix-btn", { hasText: "HiMMP" })).toHaveClass(/(^|\s)active(\s|$)/);
+    const inactiveBg = await page
+      .locator(".mix-btn", { hasText: "Bogren" })
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+    const activeBg = await page
+      .locator(".mix-btn", { hasText: "HiMMP" })
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(activeBg).not.toBe(inactiveBg);
 
     await comparisonPlayer.evaluate((element) => {
       let storedTime = 37;
@@ -1024,4 +1036,45 @@ test.describe("static export legacy route smoke", () => {
       expect(unexpectedFailures).toEqual([]);
     });
   }
+
+  test("dark-mode audio page keeps the comparison chrome distinct from body bg", async ({ page }) => {
+    // D-3-c verification: the audio-comparison block uses
+    // --color-chrome-bg which resolves to a slightly-lifted near-
+    // graphite under [data-theme="dark"], distinct from --color-bg
+    // (graphite). Without that lift the chrome would blend into
+    // the page in dark mode. Ship-blocking if the chrome flattens.
+    await page.addInitScript(() => {
+      try {
+        window.localStorage.setItem("himmp-theme", "dark");
+      } catch {
+        /* swallow */
+      }
+    });
+    await page.goto("/audio.html");
+
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+
+    const bodyBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    expect(bodyBg).toBe("rgb(17, 20, 24)");
+
+    const audioChromeBg = await page
+      .locator(".audio-comparison")
+      .evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(audioChromeBg).not.toBe(bodyBg);
+
+    // Strengthen against near-flat regressions: assert a minimum
+    // RGB-channel-sum distance between chrome bg and body bg.
+    // --color-chrome-bg in dark mode is either `#1a1e23` (rgb 26,
+    // 30, 35 — sum-of-channel diff 17 vs graphite rgb 17, 20, 24)
+    // or `color-mix(in oklch, graphite 88%, white)` (modern
+    // browsers, even larger diff). A threshold of 10 is well above
+    // single-channel noise but well below any value worth shipping.
+    const channelDelta = (a: string, b: string) => {
+      const parse = (rgb: string) => rgb.match(/\d+/g)!.slice(0, 3).map(Number);
+      const [ar, ag, ab] = parse(a);
+      const [br, bg, bb] = parse(b);
+      return Math.abs(ar - br) + Math.abs(ag - bg) + Math.abs(ab - bb);
+    };
+    expect(channelDelta(audioChromeBg, bodyBg)).toBeGreaterThanOrEqual(10);
+  });
 });
