@@ -2033,6 +2033,67 @@ html .read-more:hover {
   background-color: var(--color-mint-dark, #4ab089);
 }
 
+/*
+ * Slice D-9-g (FRESH-7) — secondary "ghost" CTA variant.
+ *
+ * The filled-mint `.read-more` pill is the site's primary CTA and
+ * should remain so for the four Project-Archive home cards
+ * (ACCESS DATA / VIEW PUBLICATIONS / WATCH & LISTEN / READ GUIDE),
+ * the OPEN ACCESS book links, and other primary actions.
+ *
+ * Tertiary "+ MORE" links from blurb panels (About / Approach /
+ * Dataset / Researchers on the home page) compete visually with
+ * those primaries when every CTA is the same filled pill. The
+ * `.read-more--ghost` modifier switches those tertiary links to a
+ * mint-outline ghost variant — same hover translateY, but no fill —
+ * so the visual weight matches their narrative weight.
+ *
+ * `transform: translateY(-2px)` is inherited from the base hover
+ * rule above; the ghost adds a mint background-tint at hover for
+ * affordance feedback. Both filled and ghost use the same mint
+ * accent so the system reads as one family with two intensities.
+ */
+html a.read-more.read-more--ghost {
+  background-color: transparent;
+  /* `!important` matches the upstream `html a.read-more { color: var(--color-graphite) !important }`
+   * rule at line ~186 which forces graphite-on-mint contrast. The
+   * ghost variant has no mint fill, so it can safely take a mint
+   * colour back — but the bright `--color-mint` (#5dc69f) fails
+   * WCAG large-text 3:1 on the light-mode paper surface (~1.89:1).
+   * Internal review caught that `--color-mint-hairline` (#3e9171)
+   * also fails 4.5:1 body-text on `--color-paper` (#f6f3ec) — only
+   * scores ~3.31:1. The `--color-mint-deep` (#2e6e55) token (added
+   * to tokens.css for this slice) gives ~4.8:1 on paper and ~5.0:1
+   * on bone, passing body text. Border uses the lighter hairline
+   * token so the outline retains the mint-family signature without
+   * over-darkening; only the TEXT needs the deep variant. */
+  color: var(--color-mint-deep) !important;
+  border: 1px solid var(--color-mint-hairline);
+  /* Adjust padding to compensate for the 1px border so the visual
+   * height matches the filled pill exactly (which has no border). */
+  padding: 9px 19px;
+}
+
+html a.read-more.read-more--ghost:hover {
+  background-color: rgba(93, 198, 159, 0.10);
+  color: var(--color-mint-deep) !important;
+  border-color: var(--color-mint);
+}
+
+[data-theme="dark"] html a.read-more.read-more--ghost,
+[data-theme="dark"] html a.read-more.read-more--ghost:hover {
+  color: var(--color-mint) !important;
+  border-color: var(--color-mint);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) html a.read-more.read-more--ghost,
+  :root:not([data-theme="light"]) html a.read-more.read-more--ghost:hover {
+    color: var(--color-mint) !important;
+    border-color: var(--color-mint);
+  }
+}
+
 html .resource-button {
   display: inline-flex;
   align-items: center;

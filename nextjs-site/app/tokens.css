@@ -29,6 +29,16 @@
    * `color-mix(in oklch, #5dc69f 70%, #111418)`. Modern browsers
    * override below via @supports. */
   --color-mint-hairline: #3e9171;
+  /*
+   * Deep-mint accent token reserved for mint-coloured BODY TEXT
+   * (regular weight, ≤1rem) on light-mode paper surfaces, where the
+   * brighter `--color-mint` and `--color-mint-hairline` fail WCAG
+   * AA 4.5:1 body-text contrast. `#2e6e55` clears 4.5:1 on both
+   * `--color-paper` (#f6f3ec) and `--color-bone` (#f2efe8). Use only
+   * when mint TEXT is needed in light mode — do NOT use as a
+   * background or hairline (that's `--color-mint-hairline`).
+   */
+  --color-mint-deep: #2e6e55;
   --color-sulfur: #e8c547;
   --color-rule: rgba(17, 20, 24, 0.12);
 

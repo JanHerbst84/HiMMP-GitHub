@@ -93,7 +93,7 @@ export function HomeMain() {
                             defines 'heaviness', exploring how it is captured and conveyed in the{" "}
                             <a href="approach.html">production process</a>.
                         </p>
-                        <a href="about.html" className="read-more">+ MORE</a>
+                        <a href="about.html" className="read-more read-more--ghost">+ MORE</a>
                     </div>
                     <div className="section-content">
                         <h3>Our Approach</h3>
@@ -106,7 +106,7 @@ export function HomeMain() {
                             {" "}on a single song, 'In Solitude', we studied the diverse <a href="approach.html">approaches</a> to
                             mixing the track and creating heaviness.
                         </p>
-                        <a href="approach.html" className="read-more">+ MORE</a>
+                        <a href="approach.html" className="read-more read-more--ghost">+ MORE</a>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@ export function HomeMain() {
                             mixing experiments, the mixes and mixing stems of the producers, the
                             video interviews, and many other things.
                         </p>
-                        <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more">+ MORE</a>
+                        <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more read-more--ghost">+ MORE</a>
                     </div>
                     <div className="section-content">
                         <h3>The Researchers</h3>
@@ -170,7 +170,7 @@ export function HomeMain() {
                             of eight world-renowned <a href="team.html">metal music producers</a>, whose
                             involvement is key to broadening our understanding of 'heaviness'.
                         </p>
-                        <a href="team.html" className="read-more">+ MORE</a>
+                        <a href="team.html" className="read-more read-more--ghost">+ MORE</a>
                     </div>
                 </div>
             </div>
