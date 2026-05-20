@@ -73,6 +73,7 @@
    */
   --color-bg: var(--color-bone);
   --color-fg: var(--color-graphite);
+  --color-fg-muted: #5e636a;
   --color-surface: var(--color-paper);
   --color-chrome-bg: var(--color-graphite);
   --color-chrome-fg: var(--color-bone);
@@ -202,6 +203,7 @@
 [data-theme="dark"] {
   --color-bg: var(--color-graphite);
   --color-fg: var(--color-bone);
+  --color-fg-muted: #a8aeb8;
   /* Static fallback ~oklch(0.20, 0.005, 250) — slightly lifted from
    * graphite #111418. Modern browsers override via @supports below. */
   --color-surface: #1a1e23;
@@ -235,6 +237,7 @@
   :root:not([data-theme="light"]) {
     --color-bg: var(--color-graphite);
     --color-fg: var(--color-bone);
+    --color-fg-muted: #a8aeb8;
     --color-surface: #1a1e23;
     --color-chrome-bg: #1a1e23;
     --color-chrome-fg: var(--color-bone);

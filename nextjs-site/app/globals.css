@@ -1200,8 +1200,8 @@ a {
   max-height: calc(100vh - var(--site-header-height));
   overflow: auto;
   padding: 24px 18px 32px;
-  border-right: 1px solid rgba(17, 17, 17, 0.12);
-  background: var(--color-paper);
+  border-right: 1px solid var(--color-rule);
+  background: var(--color-surface);
 }
 
 .findings-reader-panel__header {
@@ -1210,7 +1210,7 @@ a {
 
 .findings-reader-panel__eyebrow {
   margin: 0 0 6px;
-  color: #5a5f66;
+  color: var(--color-fg-muted);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -1219,7 +1219,7 @@ a {
 
 .findings-reader-panel__title {
   margin: 0;
-  color: #111;
+  color: var(--color-fg);
   font-size: 1.1rem;
   font-weight: 700;
   line-height: 1.25;
@@ -1227,7 +1227,7 @@ a {
 
 .findings-reader-panel__status {
   margin: 10px 0 0;
-  color: #5a5f66;
+  color: var(--color-fg-muted);
   font-size: 0.85rem;
   line-height: 1.35;
 }
@@ -1245,7 +1245,7 @@ a {
 .findings-reader-bottombar a {
   display: block;
   border-radius: 6px;
-  color: #20242a;
+  color: var(--color-fg);
   text-decoration: none;
 }
 
@@ -1274,7 +1274,7 @@ a {
     monospace;
   font-size: 0.74rem;
   font-weight: 400;
-  color: #7a808a;
+  color: var(--color-fg-muted);
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
   min-width: 1.6em;
@@ -1290,7 +1290,7 @@ a {
   font-weight: 500;
   font-size: 0.96rem;
   line-height: 1.25;
-  color: #1a1d22;
+  color: var(--color-fg);
 }
 
 .findings-reader-panel__nav a:hover,
@@ -1300,7 +1300,7 @@ a {
 
 .findings-reader-panel__nav a:hover .findings-reader-panel__nav-num,
 .findings-reader-panel__nav a:focus-visible .findings-reader-panel__nav-num {
-  color: var(--color-mint, #5dc69f);
+  color: var(--color-fg);
 }
 
 .findings-reader-panel__nav a[aria-current="page"] {
@@ -1309,12 +1309,12 @@ a {
 }
 
 .findings-reader-panel__nav a[aria-current="page"] .findings-reader-panel__nav-num {
-  color: var(--color-mint, #5dc69f);
+  color: var(--color-fg);
   font-weight: 700;
 }
 
 .findings-reader-panel__nav a[aria-current="page"] .findings-reader-panel__nav-title {
-  color: #0a0c0f;
+  color: var(--color-fg);
   font-weight: 600;
 }
 
@@ -1332,19 +1332,19 @@ a {
 }
 
 .findings-reader-topbar {
-  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+  border-bottom: 1px solid var(--color-rule);
 }
 
 .findings-reader-bottombar {
   margin-top: 8px;
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  border-top: 1px solid var(--color-rule);
 }
 
 .findings-reader-topbar a,
 .findings-reader-bottombar a {
   padding: 10px 12px;
-  border: 1px solid rgba(17, 17, 17, 0.12);
-  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  background: var(--color-surface);
   font-size: 0.9rem;
   line-height: 1.25;
 }
@@ -1352,7 +1352,7 @@ a {
 .findings-reader-paging__direction {
   display: block;
   margin-bottom: 3px;
-  color: #5a5f66;
+  color: var(--color-fg-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -1372,8 +1372,8 @@ a {
 .findings-reader-topbar a:focus-visible,
 .findings-reader-bottombar a:hover,
 .findings-reader-bottombar a:focus-visible {
-  border-color: #5dc69f;
-  color: #0e3a2f;
+  border-color: var(--color-mint);
+  color: var(--color-fg);
 }
 
 .enhanced-findings-shell #main-content .chapter-section-nav,
@@ -1403,7 +1403,7 @@ a {
 .enhanced-findings-shell #main-content .chapter-content h2 {
   margin-top: 2.5rem;
   padding-top: 1.2rem;
-  border-top: 1px solid rgba(17, 17, 17, 0.1);
+  border-top: 1px solid var(--color-rule);
 }
 
 .enhanced-findings-shell #main-content .chapter-content > h2:first-of-type {
@@ -1436,7 +1436,7 @@ a {
 .enhanced-findings-shell #main-content .endnotes {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(17, 17, 17, 0.12);
+  border-top: 1px solid var(--color-rule);
 }
 
 .enhanced-audio-status {
@@ -1541,7 +1541,7 @@ a {
     max-height: none;
     padding: 16px;
     border-right: 0;
-    border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+    border-bottom: 1px solid var(--color-rule);
   }
 
   .findings-reader-panel__nav {
@@ -1560,8 +1560,8 @@ a {
 
   .findings-reader-panel__nav a {
     min-width: 120px;
-    border: 1px solid rgba(17, 17, 17, 0.12);
-    background: var(--color-paper);
+    border: 1px solid var(--color-rule);
+    background: var(--color-surface);
   }
 
   .findings-reader-panel__nav a[aria-current="page"] {
