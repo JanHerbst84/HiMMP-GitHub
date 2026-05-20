@@ -3574,3 +3574,91 @@ html a.download-link:hover {
     color: var(--color-graphite) !important;
   }
 }
+
+/*
+ * Slice D-3-d (FRESH-2) — audio.html producer-mix card chrome.
+ *
+ * /audio.html renders 9 native `<audio controls>` elements: 1 "HiMMP /
+ * Team Mix" (.mix-comparison-section .mix-comparison-player) and 8
+ * producer stems (.producer-mixes-section .mix-player). Without
+ * chrome, they read as white-pill defaults on a dark, art-directed
+ * page — the single biggest "looks unfinished" moment on the build.
+ *
+ * Approach: wrap each player in a surface card with a mint hairline
+ * accent (left-edge bar, the same gesture the chapter callouts use)
+ * and ask dark-scheme browsers to render the native controls in
+ * their dark variant via `color-scheme: dark` + `accent-color`. This
+ * is a CSS-only change — no JSX edits — riding the existing class
+ * hooks already in `AudioPage.tsx`.
+ *
+ * Cross-browser: `color-scheme` is honored by Chromium and Firefox,
+ * ignored by Safari (which uses its own translucent control style
+ * that already looks acceptable on dark). `accent-color` paints the
+ * seek-bar fill in Chromium/Firefox.
+ *
+ * Light scheme: the card chrome stays the same (paper surface, mint
+ * left edge); audio reverts to the native light pill, which reads
+ * fine on the paper surface. The `color-scheme: dark` declaration
+ * is scoped to dark themes only via `:root:not([data-theme="light"])`
+ * and `[data-theme="dark"]`.
+ */
+[data-page="audio"] .mix-comparison-section,
+[data-page="audio"] .producer-mixes-section {
+  padding: var(--space-5) 0;
+}
+
+[data-page="audio"] .mix-comparison-section > .container,
+[data-page="audio"] .producer-mixes-section > .container {
+  max-width: 880px;
+}
+
+[data-page="audio"] .mix-comparison-section h3,
+[data-page="audio"] .producer-mixes-section h3 {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-size: var(--type-md, 1.25rem);
+  font-weight: 600;
+  color: var(--color-fg);
+  margin: 0 0 var(--space-3);
+  letter-spacing: -0.005em;
+}
+
+[data-page="audio"] .mix-comparison-player,
+[data-page="audio"] .mix-player {
+  background: var(--color-surface);
+  border: 1px solid var(--color-rule);
+  border-left: 2px solid var(--color-mint);
+  border-radius: var(--radius-md, 6px);
+  padding: var(--space-5) var(--space-5) var(--space-4);
+}
+
+[data-page="audio"] .mix-comparison-player audio,
+[data-page="audio"] .mix-player audio {
+  display: block;
+  width: 100%;
+  accent-color: var(--color-mint);
+  border-radius: var(--radius-md, 6px);
+  margin: 0;
+}
+
+[data-page="audio"] .mix-comparison-section .download-link-container,
+[data-page="audio"] .producer-mixes-section .download-link-container {
+  margin-top: var(--space-3);
+}
+
+[data-page="audio"] .mix-comparison-section .download-link-container a.download-link,
+[data-page="audio"] .producer-mixes-section .download-link-container a.download-link {
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="dark"] [data-page="audio"] .mix-comparison-player audio,
+[data-theme="dark"] [data-page="audio"] .mix-player audio {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-page="audio"] .mix-comparison-player audio,
+  :root:not([data-theme="light"]) [data-page="audio"] .mix-player audio {
+    color-scheme: dark;
+  }
+}
