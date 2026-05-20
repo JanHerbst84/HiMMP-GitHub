@@ -1973,12 +1973,20 @@ html .publication-link {
  * slice. A follow-up palette pass can retune to the variable.
  */
 html .publication-section-nav {
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-sm) 0;
   position: sticky;
-  top: 92px;
+  /* Anchor to the current site header height (the legacy 92px was
+     for the pre-redesign header; current header is 125px). Use
+     the token so it auto-tracks any future header retune. */
+  top: var(--site-header-height, 125px);
   z-index: 90;
   margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
+  /* Opaque background so content scrolling beneath the sticky
+     strip does not show through. Border-bottom marks the strip
+     as a separator from the content that scrolls under it. */
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-rule);
 }
 
 html .section-nav-buttons {
@@ -2322,7 +2330,7 @@ html .sidebar-box strong {
    space. Tighten to a calmer 24px so the callout reads as a
    close-aside, not a stand-alone section. */
 html .content-section:has(> .container > .sidebar-box:only-child) {
-  padding: 24px 0;
+  padding: 8px 0;
 }
 
 /* Chapter footer nav */
@@ -2423,9 +2431,12 @@ html .author-bio::after {
 
 /* Chapter section nav (Slice S did palette; D adds structural decls) */
 html .chapter-section-nav {
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-sm) 0;
   position: sticky;
-  top: 92px;
+  /* Anchor to the current site header height (the legacy 92px
+     was the pre-redesign header). Background + border are set
+     up at line 1663+. */
+  top: var(--site-header-height, 125px);
   z-index: 90;
   margin-bottom: var(--spacing-lg);
 }
