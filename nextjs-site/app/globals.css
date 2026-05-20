@@ -2023,6 +2023,13 @@ html .team-grid {
   gap: var(--spacing-md);
 }
 
+/* Researchers grid has exactly 2 items (PI + co-I); force a
+   2-column layout instead of letting auto-fill stretch to a
+   narrow 3-column at desktop widths. */
+html .team-grid.researchers-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
 html .team-member {
   margin-bottom: var(--spacing-lg);
 }
@@ -2840,7 +2847,7 @@ html .footer-nav ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--spacing-md);
+  gap: 14px 22px;
   margin-bottom: var(--spacing-md);
   padding: 0;
 }
@@ -3188,8 +3195,8 @@ html a.findings-promo-banner__cta:hover {
 /* Light-mode publication-card background fix: --color-paper is
    a palette primitive (cream in both schemes by design). For dark
    mode, repaint these surfaces to --color-surface. */
-[data-theme="dark"] html .publication-card,
-[data-theme="dark"] html .publication-item,
+[data-theme="dark"] .publication-card,
+[data-theme="dark"] .publication-item,
 [data-theme="dark"] .advisor-item,
 [data-theme="dark"] .department-item,
 [data-theme="dark"] .researcher,
@@ -3198,7 +3205,9 @@ html a.findings-promo-banner__cta:hover {
 [data-theme="dark"] .panel,
 [data-theme="dark"] .accordion,
 [data-theme="dark"] .contact-card,
-[data-theme="dark"] .chapter-card {
+[data-theme="dark"] .chapter-card,
+[data-theme="dark"] .section-nav-button,
+[data-theme="dark"] .chapter-nav-button {
   background-color: var(--color-surface) !important;
   color: var(--color-fg) !important;
 }
@@ -3356,8 +3365,8 @@ html a.download-link:hover {
    visually inconsistent but readable). Deferred. */
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) html .publication-card,
-  :root:not([data-theme="light"]) html .publication-item,
+  :root:not([data-theme="light"]) .publication-card,
+  :root:not([data-theme="light"]) .publication-item,
   :root:not([data-theme="light"]) .advisor-item,
   :root:not([data-theme="light"]) .department-item,
   :root:not([data-theme="light"]) .researcher,
@@ -3366,7 +3375,9 @@ html a.download-link:hover {
   :root:not([data-theme="light"]) .panel,
   :root:not([data-theme="light"]) .accordion,
   :root:not([data-theme="light"]) .contact-card,
-  :root:not([data-theme="light"]) .chapter-card {
+  :root:not([data-theme="light"]) .chapter-card,
+  :root:not([data-theme="light"]) .section-nav-button,
+  :root:not([data-theme="light"]) .chapter-nav-button {
     background-color: var(--color-surface) !important;
     color: var(--color-fg) !important;
   }
