@@ -466,34 +466,19 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 21,
-    "expr": "{ backgroundColor: \"#f8f9fa\", padding: \"50px 0\", borderTop: \"1px solid #eee\", borderBottom: \"1px solid #eee\" }",
+    "expr": "{ padding: \"50px 0\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "backgroundColor",
-        "value": "\"#f8f9fa\""
-      },
       {
         "kind": "kv",
         "key": "padding",
         "value": "\"50px 0\""
-      },
-      {
-        "kind": "kv",
-        "key": "borderTop",
-        "value": "\"1px solid #eee\""
-      },
-      {
-        "kind": "kv",
-        "key": "borderBottom",
-        "value": "\"1px solid #eee\""
       }
     ]
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 23,
-    "expr": "{ textAlign: \"center\", fontSize: \"2rem\", marginBottom: \"40px\", color: \"#333\", fontWeight: \"bold\", textTransform: \"uppercase\", letterSpacing: \"1px\" }",
+    "expr": "{ textAlign: \"center\", fontSize: \"2rem\", marginBottom: \"40px\", fontWeight: \"bold\", textTransform: \"uppercase\", letterSpacing: \"1px\" }",
     "entries": [
       {
         "kind": "kv",
@@ -509,11 +494,6 @@
         "kind": "kv",
         "key": "marginBottom",
         "value": "\"40px\""
-      },
-      {
-        "kind": "kv",
-        "key": "color",
-        "value": "\"#333\""
       },
       {
         "kind": "kv",
@@ -552,13 +532,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 26,
-    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "expr": "{ padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "backgroundColor",
-        "value": "\"#fff\""
-      },
       {
         "kind": "kv",
         "key": "padding",
@@ -573,16 +548,6 @@
         "kind": "kv",
         "key": "textAlign",
         "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "boxShadow",
-        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
-      },
-      {
-        "kind": "kv",
-        "key": "transition",
-        "value": "\"all 0.3s ease\""
       }
     ]
   },
@@ -613,13 +578,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 32,
-    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "expr": "{ padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "backgroundColor",
-        "value": "\"#fff\""
-      },
       {
         "kind": "kv",
         "key": "padding",
@@ -634,16 +594,6 @@
         "kind": "kv",
         "key": "textAlign",
         "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "boxShadow",
-        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
-      },
-      {
-        "kind": "kv",
-        "key": "transition",
-        "value": "\"all 0.3s ease\""
       }
     ]
   },
@@ -674,13 +624,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 38,
-    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "expr": "{ padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "backgroundColor",
-        "value": "\"#fff\""
-      },
       {
         "kind": "kv",
         "key": "padding",
@@ -695,16 +640,6 @@
         "kind": "kv",
         "key": "textAlign",
         "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "boxShadow",
-        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
-      },
-      {
-        "kind": "kv",
-        "key": "transition",
-        "value": "\"all 0.3s ease\""
       }
     ]
   },
@@ -735,13 +670,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 44,
-    "expr": "{ backgroundColor: \"#fff\", padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\", boxShadow: \"0 4px 15px rgba(0,0,0,0.07)\", transition: \"all 0.3s ease\" }",
+    "expr": "{ padding: \"30px\", borderRadius: \"8px\", textAlign: \"center\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "backgroundColor",
-        "value": "\"#fff\""
-      },
       {
         "kind": "kv",
         "key": "padding",
@@ -756,16 +686,6 @@
         "kind": "kv",
         "key": "textAlign",
         "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "boxShadow",
-        "value": "\"0 4px 15px rgba(0,0,0,0.07)\""
-      },
-      {
-        "kind": "kv",
-        "key": "transition",
-        "value": "\"all 0.3s ease\""
       }
     ]
   },
@@ -796,18 +716,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 64,
-    "expr": "{ backgroundImage: \"linear-gradient(to right, #e9f8f5, #f8f9fa)\", borderLeft: \"5px solid #5DC69F\", padding: \"25px\", margin: \"40px auto\", textAlign: \"center\", borderRadius: \"8px\", boxShadow: \"0 4px 12px rgba(0,0,0,0.05)\", maxWidth: \"800px\" }",
+    "expr": "{ padding: \"25px\", margin: \"40px auto\", textAlign: \"center\", borderRadius: \"8px\", maxWidth: \"800px\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "backgroundImage",
-        "value": "\"linear-gradient(to right, #e9f8f5, #f8f9fa)\""
-      },
-      {
-        "kind": "kv",
-        "key": "borderLeft",
-        "value": "\"5px solid #5DC69F\""
-      },
       {
         "kind": "kv",
         "key": "padding",
@@ -830,11 +740,6 @@
       },
       {
         "kind": "kv",
-        "key": "boxShadow",
-        "value": "\"0 4px 12px rgba(0,0,0,0.05)\""
-      },
-      {
-        "kind": "kv",
         "key": "maxWidth",
         "value": "\"800px\""
       }
@@ -843,17 +748,12 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 65,
-    "expr": "{ marginTop: \"0\", color: \"#333\", fontSize: \"1.5em\" }",
+    "expr": "{ marginTop: \"0\", fontSize: \"1.5em\" }",
     "entries": [
       {
         "kind": "kv",
         "key": "marginTop",
         "value": "\"0\""
-      },
-      {
-        "kind": "kv",
-        "key": "color",
-        "value": "\"#333\""
       },
       {
         "kind": "kv",
@@ -899,29 +799,12 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 110,
-    "expr": "{ textAlign: \"center\", color: \"white\" }",
+    "expr": "{ textAlign: \"center\" }",
     "entries": [
       {
         "kind": "kv",
         "key": "textAlign",
         "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "color",
-        "value": "\"white\""
-      }
-    ]
-  },
-  {
-    "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 111,
-    "expr": "{ color: \"white\" }",
-    "entries": [
-      {
-        "kind": "kv",
-        "key": "color",
-        "value": "\"white\""
       }
     ]
   },
@@ -950,18 +833,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 115,
-    "expr": "{ background: \"white\", color: \"#333\", padding: \"12px 30px\", fontSize: \"1.1em\" }",
+    "expr": "{ padding: \"12px 30px\", fontSize: \"1.1em\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "background",
-        "value": "\"white\""
-      },
-      {
-        "kind": "kv",
-        "key": "color",
-        "value": "\"#333\""
-      },
       {
         "kind": "kv",
         "key": "padding",

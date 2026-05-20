@@ -18,30 +18,30 @@
 export function HomeMain() {
   return (
     <>
-<section className="content-section" style={{ backgroundColor: "#f8f9fa", padding: "50px 0", borderTop: "1px solid #eee", borderBottom: "1px solid #eee" }}>
+<section className="content-section content-section--archive" style={{ padding: "50px 0" }}>
             <div className="container">
-                <h2 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "40px", color: "#333", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>Project Archive &amp; Key Outputs</h2>
+                <h2 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "40px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>Project Archive &amp; Key Outputs</h2>
                 <div className="section-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px" }}>
                     
-                    <div className="output-card" style={{ backgroundColor: "#fff", padding: "30px", borderRadius: "8px", textAlign: "center", boxShadow: "0 4px 15px rgba(0,0,0,0.07)", transition: "all 0.3s ease" }}>
+                    <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>The Complete Dataset</h3>
                         <p>Access the full multitrack of 'In Solitude', all producer mixes, stems, and video interviews.</p>
                         <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1.1em" }}>+ ACCESS DATA</a>
                     </div>
                     
-                    <div className="output-card" style={{ backgroundColor: "#fff", padding: "30px", borderRadius: "8px", textAlign: "center", boxShadow: "0 4px 15px rgba(0,0,0,0.07)", transition: "all 0.3s ease" }}>
+                    <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>Project Publications</h3>
                         <p>Explore academic articles, book chapters, and other scholarly resources from the project.</p>
                         <a href="publications.html" className="read-more" style={{ fontSize: "1.1em" }}>+ VIEW PUBLICATIONS</a>
                     </div>
                     
-                    <div className="output-card" style={{ backgroundColor: "#fff", padding: "30px", borderRadius: "8px", textAlign: "center", boxShadow: "0 4px 15px rgba(0,0,0,0.07)", transition: "all 0.3s ease" }}>
+                    <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>Producer Videos &amp; Mixes</h3>
                         <p>Watch in-depth interviews and compare the final audio mixes from our producers.</p>
                         <a href="videos.html" className="read-more" style={{ fontSize: "1.1em" }}>+ WATCH &amp; LISTEN</a>
                     </div>
 
-                    <div className="output-card" style={{ backgroundColor: "#fff", padding: "30px", borderRadius: "8px", textAlign: "center", boxShadow: "0 4px 15px rgba(0,0,0,0.07)", transition: "all 0.3s ease" }}>
+                    <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>Key Findings: Producer's Guide</h3>
                         <p>An interactive HTML eBook breaking down our research with practical examples and audio.</p>
                         <a href="findings.html" className="read-more" style={{ fontSize: "1.1em" }}>+ READ GUIDE</a>
@@ -61,8 +61,8 @@ export function HomeMain() {
 
         <section className="content-section">
             <div className="container">
-                <div style={{ backgroundImage: "linear-gradient(to right, #e9f8f5, #f8f9fa)", borderLeft: "5px solid #5DC69F", padding: "25px", margin: "40px auto", textAlign: "center", borderRadius: "8px", boxShadow: "0 4px 12px rgba(0,0,0,0.05)", maxWidth: "800px" }}>
-                    <h3 style={{ marginTop: "0", color: "#333", fontSize: "1.5em" }}>Project Completed</h3>
+                <div className="project-completed-card" style={{ padding: "25px", margin: "40px auto", textAlign: "center", borderRadius: "8px", maxWidth: "800px" }}>
+                    <h3 style={{ marginTop: "0", fontSize: "1.5em" }}>Project Completed</h3>
                     <p style={{ fontSize: "1.2em", marginBottom: "0" }}>
                         The HiMMP research project has now concluded. Several outputs are still forthcoming and will be made available on this website as they are finalized. This website will be regularly updated and remain online as a resource for metal music (production) scholars, producers, artists, and anybody else who may be interested in the topic of heaviness in metal music production.
                     </p>
@@ -106,13 +106,13 @@ export function HomeMain() {
             </div>
         </section>
 
-        <section className="content-section" style={{ background: "linear-gradient(135deg, #5DC69F 0%, #4BA87E 100%)", padding: "40px 0" }}>
-            <div className="container" style={{ textAlign: "center", color: "white" }}>
-                <h2 style={{ color: "white" }}>New: Interactive Findings Guide</h2>
+        <section className="content-section findings-promo-banner" style={{ background: "linear-gradient(135deg, #5DC69F 0%, #4BA87E 100%)", padding: "40px 0" }}>
+            <div className="container" style={{ textAlign: "center" }}>
+                <h2>New: Interactive Findings Guide</h2>
                 <p style={{ fontSize: "1.2em", maxWidth: "700px", margin: "0 auto 20px" }}>
                     Want a practical, accessible companion to the academic books? Our HTML-based guide translates the research into actionable insights with embedded audio examples.
                 </p>
-                <a href="findings.html" className="read-more" style={{ background: "white", color: "#333", padding: "12px 30px", fontSize: "1.1em" }}>Explore the Guide &rarr;</a>
+                <a href="findings.html" className="read-more findings-promo-banner__cta" style={{ padding: "12px 30px", fontSize: "1.1em" }}>Explore the Guide &rarr;</a>
             </div>
         </section>
 
