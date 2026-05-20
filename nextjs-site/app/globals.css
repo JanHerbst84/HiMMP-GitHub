@@ -2094,6 +2094,106 @@ html a.read-more.read-more--ghost:hover {
   }
 }
 
+/*
+ * Slice D-9-g-2 (FRESH-9) — audio.html hero parity treatment.
+ *
+ * Pre-slice the audio hero rendered noticeably weaker than the home
+ * hero: same legacy `.hero` chrome but no min-height boost, no mint
+ * hairline at the band edge, no graded overlay. The home hero has a
+ * dedicated `[data-page="home"] .hero` ruleset at line ~597 that
+ * provides min-height, layered overlay gradient, and the mint
+ * hairline `::after`. Apply the same treatment at 50% scale on
+ * audio.html so the band feels kindred to the home, not a stripped-
+ * down sibling.
+ *
+ * Scoped to `[data-page="audio"]` so the videos / about / approach /
+ * etc. heroes that share the legacy `.hero` chrome are unaffected.
+ */
+[data-page="audio"] .hero {
+  min-height: clamp(360px, 45vh, 520px);
+  padding: clamp(40px, 6vh, 72px) 0;
+  position: relative;
+  isolation: isolate;
+}
+
+[data-page="audio"] .hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-mint-hairline, rgba(93, 198, 159, 0.4));
+  z-index: 3;
+}
+
+[data-page="audio"] .hero-overlay {
+  background-color: rgba(8, 10, 12, 0.78);
+  background-image: linear-gradient(
+    100deg,
+    rgba(8, 10, 12, 0.92) 0%,
+    rgba(8, 10, 12, 0.78) 50%,
+    rgba(8, 10, 12, 0.55) 100%
+  );
+}
+
+[data-page="audio"] .hero .container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+[data-page="audio"] .hero-content {
+  max-width: 720px;
+  margin: 0;
+  text-align: left;
+}
+
+[data-page="audio"] .hero-title {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  /* Audio hero title at ~75% of home hero scale (home uses
+   * clamp(2.4rem, 1.6rem + 3.6vw, 4.4rem) per line ~644). */
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 18px;
+  text-align: left;
+  color: var(--color-chrome-fg, #f2efe8) !important;
+  text-shadow: none;
+}
+
+[data-page="audio"] .hero-text {
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: clamp(1rem, 0.94rem + 0.30vw, 1.12rem);
+  line-height: 1.55;
+  color: rgba(242, 239, 232, 0.9);
+  text-shadow: none;
+  max-width: 56ch;
+}
+
+/*
+ * Mobile override (FRESH-9): the legacy mobile rule at line ~915
+ * scopes a smaller hero `min-height: clamp(320px, 44vh, 440px)` and
+ * `padding: 40px 0` via `:is([data-page=...], ..., [data-page="audio"],
+ * ...) .hero`. That selector has the same specificity (0,2,0) as the
+ * new desktop `[data-page="audio"] .hero` rule above, and my rule
+ * appears LATER in source order so it would win at mobile too —
+ * Codex re-review caught the cascade collision. Re-declare the
+ * mobile sizing inside an audio-scoped media query so the narrow-
+ * viewport sizing wins again.
+ */
+@media (max-width: 720px) {
+  [data-page="audio"] .hero {
+    min-height: clamp(320px, 44vh, 440px);
+    padding: 40px 0;
+  }
+
+  [data-page="audio"] .hero-content {
+    max-width: 100%;
+  }
+}
+
 html .resource-button {
   display: inline-flex;
   align-items: center;
