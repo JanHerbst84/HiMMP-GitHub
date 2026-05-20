@@ -161,6 +161,16 @@ function collectComparisonBindings(): ComparisonBinding[] {
   }
 
   for (const container of document.querySelectorAll<HTMLElement>(".mix-comparison-player")) {
+    // D-3-a: skip React-owned mix-comparison-player surfaces. The
+    // MixComparisonEmbed component sets `data-mix-comparison-embed`
+    // on the wrapper; when present, React already owns the click
+    // handlers + state for that block and DOM-walking would double-
+    // bind. EnhancedAudioController is otherwise retained for
+    // legacy LegacyStyles-driven .mix-comparison-player blocks that
+    // haven't been migrated yet (none today after Slice D-3-a).
+    if (container.hasAttribute("data-mix-comparison-embed")) {
+      continue;
+    }
     const audio = container.querySelector<HTMLAudioElement>("audio");
     const buttons = Array.from(container.querySelectorAll<AudioButton>(".mix-button"));
 

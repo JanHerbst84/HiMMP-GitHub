@@ -104,6 +104,96 @@ function convertMain(html) {
     .replace(/\bstyle="([^"]+)"/g, (_match, decl) => cssToJsxStyle(decl));
 }
 
+/*
+ * D-3-a — detect <div class="mix-comparison-player"> blocks in the
+ * chapter HTML and replace them with `<MixComparisonEmbed mixes={...}
+ * note="...">` JSX so the React component owns the surface (markup +
+ * state) instead of EnhancedAudioController DOM-walking it after
+ * hydration.
+ *
+ * Returns { html, mixEmbeds }. The HTML has placeholders that survive
+ * convertMain unchanged; mixEmbeds contains the parsed data each
+ * placeholder substitutes back to. The placeholder format is the
+ * literal string `__MIX_EMBED_<index>__` wrapped in a marker div so
+ * JSX parsing is preserved through convertMain.
+ */
+function extractMixEmbeds(html) {
+  const mixEmbeds = [];
+  const openRe = /<div\s+class="mix-comparison-player"[^>]*>/gi;
+  const segments = [];
+  let cursor = 0;
+  let openMatch;
+  while ((openMatch = openRe.exec(html)) !== null) {
+    const openStart = openMatch.index;
+    const openEnd = openMatch.index + openMatch[0].length;
+    // Walk forward counting balanced <div ...>...</div> until the
+    // outer mix-comparison-player closes. Non-div tags don't affect
+    // the count; only <div and </div> shift the depth. This avoids
+    // the non-greedy-regex pitfall where nested inner divs were
+    // matched as the closing tag.
+    let depth = 1;
+    let i = openEnd;
+    while (i < html.length && depth > 0) {
+      const nextOpen = html.indexOf('<div', i);
+      const nextClose = html.indexOf('</div>', i);
+      if (nextClose === -1) break;
+      if (nextOpen !== -1 && nextOpen < nextClose) {
+        depth++;
+        i = nextOpen + 4;
+      } else {
+        depth--;
+        i = nextClose + 6;
+      }
+    }
+    if (depth !== 0) {
+      // unbalanced — bail out, leave the rest of the HTML untouched
+      segments.push(html.slice(cursor));
+      cursor = html.length;
+      break;
+    }
+    const closeEnd = i;
+    const innerHtml = html.slice(openEnd, closeEnd - '</div>'.length);
+
+    const buttonRe = /<button\s+class="mix-button(?:\s+active)?"\s+data-src="([^"]+)"\s+data-name="([^"]+)"\s*>([\s\S]*?)<\/button>/gi;
+    const mixes = [];
+    let bm;
+    while ((bm = buttonRe.exec(innerHtml)) !== null) {
+      mixes.push({
+        src: bm[1],
+        name: bm[2],
+        label: bm[3].replace(/<[^>]+>/g, '').trim()
+      });
+    }
+    const noteMatch = innerHtml.match(/<div\s+class="embed-note"[^>]*>([\s\S]*?)<\/div>/i);
+    const note = noteMatch ? noteMatch[1].replace(/<[^>]+>/g, '').trim() : null;
+    const idx = mixEmbeds.length;
+    mixEmbeds.push({ mixes, note });
+
+    segments.push(html.slice(cursor, openStart));
+    segments.push(`<MixComparisonEmbedPlaceholder index="${idx}" />`);
+    cursor = closeEnd;
+    openRe.lastIndex = closeEnd;
+  }
+  segments.push(html.slice(cursor));
+  return { html: segments.join(''), mixEmbeds };
+}
+
+function substituteMixEmbeds(jsx, mixEmbeds) {
+  return jsx.replace(/<MixComparisonEmbedPlaceholder index="(\d+)" \/>/g, (_m, idxStr) => {
+    const idx = Number(idxStr);
+    const entry = mixEmbeds[idx];
+    if (!entry) return _m;
+    const mixesLiteral = entry.mixes
+      .map(
+        (mix) =>
+          `        { src: ${JSON.stringify(mix.src)}, name: ${JSON.stringify(mix.name)}, label: ${JSON.stringify(mix.label)} }`
+      )
+      .join(',\n');
+    const noteAttr = entry.note ? ` note={${JSON.stringify(entry.note)}}` : '';
+    return `<MixComparisonEmbed${noteAttr} mixes={[\n${mixesLiteral}\n      ]} />`;
+  });
+}
+
 for (const { slug, component } of chapters) {
   const sourcePath = path.join(repoRoot, 'findings', `${slug}.html`);
   const source = readFileSync(sourcePath, 'utf8');
@@ -118,7 +208,13 @@ for (const { slug, component } of chapters) {
   // ids. `injectH2Ids` runs again inside `convertMain` but it is
   // idempotent — pre-existing ids survive the second pass.
   const bodyWithIds = injectH2Ids(body);
-  const jsx = convertMain(bodyWithIds);
+  // D-3-a — extract mix-comparison-player blocks and replace with
+  // placeholders that survive convertMain unchanged. After conversion
+  // we substitute the placeholders with React component invocations.
+  const { html: bodyWithEmbedsExtracted, mixEmbeds } = extractMixEmbeds(bodyWithIds);
+  const rawJsx = convertMain(bodyWithEmbedsExtracted);
+  const jsx = substituteMixEmbeds(rawJsx, mixEmbeds);
+  const hasMixEmbeds = mixEmbeds.length > 0;
 
   // Collect h2 list for D-8 TOC. The "endnotes" heading is skipped
   // because it is a chapter-footer landmark, not a content section a
@@ -140,6 +236,12 @@ for (const { slug, component } of chapters) {
     ? '[\n' + headings.map((h) => '  { id: ' + JSON.stringify(h.id) + ', text: ' + JSON.stringify(h.text) + ' }').join(',\n') + '\n]'
     : '[]';
 
+  const importLines = [];
+  if (hasMixEmbeds) {
+    importLines.push(`import { MixComparisonEmbed } from "@/src/site/components/MixComparisonEmbed";`);
+  }
+  const importBlock = importLines.length ? importLines.join('\n') + '\n\n' : '';
+
   const out = `/**
  * Findings chapter "${slug}" — auto-generated by
  * \`scripts/port-findings-chapters.mjs\` from the legacy
@@ -148,9 +250,13 @@ for (const { slug, component } of chapters) {
  * mechanical JSX-safety conversions only (\`class=\` ->
  * \`className=\`, void-element self-close, kebab-case style ->
  * camelCase JSX style prop, \`srcset=\` -> \`srcSet=\`,
- * \`for=\` -> \`htmlFor=\`). No content is altered.
+ * \`for=\` -> \`htmlFor=\`). Mix-comparison-player blocks are
+ * additionally replaced with \`<MixComparisonEmbed>\` React
+ * component calls (D-3-a) so the chapter audio surfaces own their
+ * markup and state instead of relying on EnhancedAudioController's
+ * post-hydration DOM walk.
  */
-export type FindingsChapterHeading = { id: string; text: string };
+${importBlock}export type FindingsChapterHeading = { id: string; text: string };
 
 /*
  * Chapter h2 headings, in document order. The D-8 within-chapter

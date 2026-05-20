@@ -6,7 +6,11 @@
  * mechanical JSX-safety conversions only (`class=` ->
  * `className=`, void-element self-close, kebab-case style ->
  * camelCase JSX style prop, `srcset=` -> `srcSet=`,
- * `for=` -> `htmlFor=`). No content is altered.
+ * `for=` -> `htmlFor=`). Mix-comparison-player blocks are
+ * additionally replaced with `<MixComparisonEmbed>` React
+ * component calls (D-3-a) so the chapter audio surfaces own their
+ * markup and state instead of relying on EnhancedAudioController's
+ * post-hydration DOM walk.
  */
 export type FindingsChapterHeading = { id: string; text: string };
 

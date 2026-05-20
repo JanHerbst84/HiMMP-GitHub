@@ -1461,7 +1461,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter01.tsx",
-    "line": 28,
+    "line": 32,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1488,7 +1488,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter01.tsx",
-    "line": 59,
+    "line": 63,
     "expr": "{ \"--chapter\": \"'1'\" } as Record<string, string>",
     "entries": [
       {
@@ -1499,7 +1499,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter02.tsx",
-    "line": 36,
+    "line": 40,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1526,7 +1526,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter02.tsx",
-    "line": 67,
+    "line": 71,
     "expr": "{ \"--chapter\": \"'2'\" } as Record<string, string>",
     "entries": [
       {
@@ -1537,7 +1537,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter03.tsx",
-    "line": 28,
+    "line": 32,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1564,7 +1564,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter03.tsx",
-    "line": 59,
+    "line": 63,
     "expr": "{ \"--chapter\": \"'3'\" } as Record<string, string>",
     "entries": [
       {
@@ -1575,7 +1575,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter04.tsx",
-    "line": 29,
+    "line": 33,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1602,7 +1602,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter04.tsx",
-    "line": 60,
+    "line": 64,
     "expr": "{ \"--chapter\": \"'4'\" } as Record<string, string>",
     "entries": [
       {
@@ -1613,7 +1613,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter05.tsx",
-    "line": 29,
+    "line": 33,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1640,7 +1640,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter05.tsx",
-    "line": 60,
+    "line": 64,
     "expr": "{ \"--chapter\": \"'5'\" } as Record<string, string>",
     "entries": [
       {
@@ -1651,7 +1651,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter06.tsx",
-    "line": 30,
+    "line": 34,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1678,7 +1678,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter06.tsx",
-    "line": 61,
+    "line": 65,
     "expr": "{ \"--chapter\": \"'6'\" } as Record<string, string>",
     "entries": [
       {
@@ -1689,7 +1689,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter07.tsx",
-    "line": 31,
+    "line": 37,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1716,7 +1716,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter07.tsx",
-    "line": 62,
+    "line": 68,
     "expr": "{ \"--chapter\": \"'7'\" } as Record<string, string>",
     "entries": [
       {
@@ -1727,7 +1727,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter08.tsx",
-    "line": 31,
+    "line": 37,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1754,7 +1754,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter08.tsx",
-    "line": 54,
+    "line": 60,
     "expr": "{ \"--chapter\": \"'8'\" } as Record<string, string>",
     "entries": [
       {
@@ -1765,7 +1765,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter09.tsx",
-    "line": 28,
+    "line": 34,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1792,7 +1792,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter09.tsx",
-    "line": 59,
+    "line": 65,
     "expr": "{ \"--chapter\": \"'9'\" } as Record<string, string>",
     "entries": [
       {
@@ -1803,7 +1803,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter10.tsx",
-    "line": 27,
+    "line": 33,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1830,7 +1830,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter10.tsx",
-    "line": 58,
+    "line": 64,
     "expr": "{ \"--chapter\": \"'10'\" } as Record<string, string>",
     "entries": [
       {
@@ -1841,7 +1841,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter11.tsx",
-    "line": 30,
+    "line": 34,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1868,7 +1868,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter11.tsx",
-    "line": 61,
+    "line": 65,
     "expr": "{ \"--chapter\": \"'11'\" } as Record<string, string>",
     "entries": [
       {
@@ -1879,7 +1879,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter12.tsx",
-    "line": 30,
+    "line": 34,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1906,7 +1906,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter12.tsx",
-    "line": 61,
+    "line": 65,
     "expr": "{ \"--chapter\": \"'12'\" } as Record<string, string>",
     "entries": [
       {
@@ -1917,7 +1917,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter13.tsx",
-    "line": 28,
+    "line": 32,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1944,7 +1944,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter13.tsx",
-    "line": 59,
+    "line": 63,
     "expr": "{ \"--chapter\": \"'13'\" } as Record<string, string>",
     "entries": [
       {
@@ -1955,7 +1955,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter14.tsx",
-    "line": 29,
+    "line": 33,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -1982,7 +1982,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter14.tsx",
-    "line": 60,
+    "line": 64,
     "expr": "{ \"--chapter\": \"'14'\" } as Record<string, string>",
     "entries": [
       {
@@ -1993,7 +1993,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsChapter14.tsx",
-    "line": 120,
+    "line": 124,
     "expr": "{ color: \"var(--medium-gray)\" }",
     "entries": [
       {
@@ -2005,7 +2005,7 @@
   },
   {
     "file": "src/site/components/pages/findings/FindingsGlossary.tsx",
-    "line": 24,
+    "line": 28,
     "expr": "{ backgroundImage: \"url('Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {

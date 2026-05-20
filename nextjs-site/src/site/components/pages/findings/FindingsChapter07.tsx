@@ -6,8 +6,14 @@
  * mechanical JSX-safety conversions only (`class=` ->
  * `className=`, void-element self-close, kebab-case style ->
  * camelCase JSX style prop, `srcset=` -> `srcSet=`,
- * `for=` -> `htmlFor=`). No content is altered.
+ * `for=` -> `htmlFor=`). Mix-comparison-player blocks are
+ * additionally replaced with `<MixComparisonEmbed>` React
+ * component calls (D-3-a) so the chapter audio surfaces own their
+ * markup and state instead of relying on EnhancedAudioController's
+ * post-hydration DOM walk.
  */
+import { MixComparisonEmbed } from "@/src/site/components/MixComparisonEmbed";
+
 export type FindingsChapterHeading = { id: string; text: string };
 
 /*
@@ -124,24 +130,17 @@ export function FindingsChapter07() {
         <div className="mix-comparison-embed" aria-label="Interactive Mix Comparison">
           <h3>Interactive Mix Comparison</h3>
           <p className="embed-intro">Listen for the meta-instrument effect by switching producers mid-playback.</p>
-          <div className="mix-comparison-player">
-            <div className="currently-playing">Now Playing: <span className="current-mix-name">HiMMP Team</span></div>
-            <audio controls preload="metadata">
-              <source src="../assets/audio/HiMMP.mp3" type="audio/mpeg" />
-            </audio>
-            <div className="mix-button-group">
-              <button className="mix-button active" data-src="../assets/audio/HiMMP.mp3" data-name="HiMMP Team">HiMMP</button>
-              <button className="mix-button" data-src="../assets/audio/Bogren.mp3" data-name="Jens Bogren">Bogren</button>
-              <button className="mix-button" data-src="../assets/audio/Exeter.mp3" data-name="Mike Exeter">Exeter</button>
-              <button className="mix-button" data-src="../assets/audio/Getgood.mp3" data-name="Adam ‘Nolly’ Getgood">Getgood</button>
-              <button className="mix-button" data-src="../assets/audio/Middleton.mp3" data-name="Josh Middleton">Middleton</button>
-              <button className="mix-button" data-src="../assets/audio/Nordstrom.mp3" data-name="Fredrik Nordström">Nordström</button>
-              <button className="mix-button" data-src="../assets/audio/Odeholm.mp3" data-name="Buster Odeholm">Odeholm</button>
-              <button className="mix-button" data-src="../assets/audio/Otero.mp3" data-name="Dave Otero">Otero</button>
-              <button className="mix-button" data-src="../assets/audio/Scheps.mp3" data-name="Andrew Scheps">Scheps</button>
-            </div>
-            <div className="embed-note">Tip: Switching preserves the current play position.</div>
-          </div>
+          <MixComparisonEmbed note={"Tip: Switching preserves the current play position."} mixes={[
+        { src: "../assets/audio/HiMMP.mp3", name: "HiMMP Team", label: "HiMMP" },
+        { src: "../assets/audio/Bogren.mp3", name: "Jens Bogren", label: "Bogren" },
+        { src: "../assets/audio/Exeter.mp3", name: "Mike Exeter", label: "Exeter" },
+        { src: "../assets/audio/Getgood.mp3", name: "Adam ‘Nolly’ Getgood", label: "Getgood" },
+        { src: "../assets/audio/Middleton.mp3", name: "Josh Middleton", label: "Middleton" },
+        { src: "../assets/audio/Nordstrom.mp3", name: "Fredrik Nordström", label: "Nordström" },
+        { src: "../assets/audio/Odeholm.mp3", name: "Buster Odeholm", label: "Odeholm" },
+        { src: "../assets/audio/Otero.mp3", name: "Dave Otero", label: "Otero" },
+        { src: "../assets/audio/Scheps.mp3", name: "Andrew Scheps", label: "Scheps" }
+      ]} />
         </div>
 
         <h2 id="variations-across-production-philosophies">Variations Across Production Philosophies</h2>
