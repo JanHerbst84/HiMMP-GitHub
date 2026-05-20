@@ -359,6 +359,7 @@ html .nav-links a::after {
 
 html .nav-links a.active {
   color: var(--color-fg);
+  background-color: transparent;
 }
 
 @media (max-width: 767px) {
@@ -920,7 +921,7 @@ a {
 
 [data-page="about"] .content-section .aim-item {
   padding: clamp(20px, 2.4vw, 28px);
-  background: rgba(242, 239, 232, 0.7);
+  background: var(--color-surface);
   border-left: 2px solid var(--color-mint-hairline, rgba(93, 198, 159, 0.45));
 }
 
@@ -973,7 +974,7 @@ a {
 [data-page="about"] .collaboration-note {
   border-left: 2px solid var(--color-mint-hairline, rgba(93, 198, 159, 0.5));
   padding: clamp(16px, 2vw, 24px) clamp(20px, 2.4vw, 28px);
-  background: rgba(242, 239, 232, 0.55);
+  background: var(--color-surface);
   font-size: clamp(0.96rem, 0.9rem + 0.2vw, 1.05rem);
   line-height: 1.6;
   margin-block: clamp(20px, 2.4vh, 32px);
@@ -2957,10 +2958,30 @@ html .chapter-hero {
   align-items: center;
 }
 
-html .chapter-hero .hero-overlay {
+html .chapter-hero .hero-overlay,
+html [data-page="findings"] .hero .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
+  background-color: rgba(8, 10, 12, 0.74);
+  background-image: linear-gradient(
+    105deg,
+    rgba(8, 10, 12, 0.9) 0%,
+    rgba(8, 10, 12, 0.74) 55%,
+    rgba(8, 10, 12, 0.5) 100%
+  );
+}
+
+/* Findings hero text — both the chapter pages (using
+   `.chapter-hero`) and the findings index page (using `.hero`
+   with data-page="findings"). Findings was deliberately excluded
+   from the inner-page `:is(...)` allowlist; restore bone text
+   here so heroes are readable against the dark overlay. */
+html .chapter-hero .hero-title,
+html .chapter-hero .hero-text,
+html [data-page="findings"] .hero .hero-title,
+html [data-page="findings"] .hero .hero-text {
+  color: var(--color-chrome-fg);
 }
 
 html .chapter-hero .container {
@@ -3175,7 +3196,9 @@ html a.findings-promo-banner__cta:hover {
 [data-theme="dark"] .partner-item,
 [data-theme="dark"] .university-logo-container,
 [data-theme="dark"] .panel,
-[data-theme="dark"] .accordion {
+[data-theme="dark"] .accordion,
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .chapter-card {
   background-color: var(--color-surface) !important;
   color: var(--color-fg) !important;
 }
@@ -3201,15 +3224,19 @@ html a.findings-promo-banner__cta:hover {
 }
 
 /* Mint chips with white text: in dark mode, white-on-mint = 2.09:1
-   (fails AA). Switch to graphite text (8.83:1 on mint). */
+   (fails AA). Switch to graphite text (8.83:1 on mint).
+   NOTE: scoped to /publications.html via [data-page="publications"]
+   so the .collaboration-note on /about.html (which has --color-surface
+   bg, NOT mint) is not forced to graphite text on a near-graphite bg. */
 [data-theme="dark"] .publication-type,
 [data-theme="dark"] .publication-link,
 [data-theme="dark"] .internal-link,
-[data-theme="dark"] .collaboration-note {
+[data-theme="dark"] [data-page="publications"] .collaboration-note {
   color: var(--color-graphite) !important;
 }
 
-/* Light-mode same fixes for white-on-mint (also fails in light). */
+/* Light-mode same fixes for white-on-mint (also fails in light).
+   Same publications-only scope on .collaboration-note. */
 html .publication-type {
   color: var(--color-graphite) !important;
 }
@@ -3219,16 +3246,104 @@ html .publication-link {
 html .internal-link {
   color: var(--color-graphite) !important;
 }
-html .collaboration-note {
+html [data-page="publications"] .collaboration-note,
+html [data-page="team"] .collaboration-note {
+  color: var(--color-graphite) !important;
+}
+
+html [data-page="team"] .collaboration-note p {
   color: var(--color-graphite) !important;
 }
 
 /* /publications.html active filter pill: bone on #ddd in dark.
    Override the active state to mint accent. */
 [data-theme="dark"] .section-nav-button.active,
-[data-theme="dark"] .chapter-nav-button.active {
+[data-theme="dark"] .chapter-nav-button.active,
+[data-theme="dark"] .filter-button.active,
+[data-theme="dark"] .filter-button:hover {
   background-color: var(--color-mint) !important;
   color: var(--color-graphite) !important;
+}
+
+/* /privacy.html ships an inline `strong { color: #333 }` rule
+   inside the page <style> block that cascades to every strong on
+   the page. In dark mode #333 on graphite body fails contrast.
+   Override scoped to the page so we don't accidentally touch
+   strong elsewhere. */
+[data-theme="dark"] [data-page="privacy"] strong {
+  color: var(--color-fg) !important;
+}
+
+/* /publications.html PublicationsPage.tsx line 75 has an inline-
+   style highlight box `backgroundColor: "#f0f8f5"` (mint-tint
+   cream) with no class hook to override. Pre-existing inline
+   style; bg passes contrast in light mode but in dark mode the
+   inherited bone text on the cream bg fails. Pin the text color
+   to graphite in dark mode via the section ancestor. */
+[data-theme="dark"] [data-page="publications"] div[style*="f0f8f5"],
+[data-theme="dark"] [data-page="publications"] div[style*="#f0f8f5"] {
+  background-color: var(--color-surface) !important;
+}
+[data-theme="dark"] [data-page="publications"] div[style*="f0f8f5"] *,
+[data-theme="dark"] [data-page="publications"] div[style*="#f0f8f5"] * {
+  color: var(--color-fg) !important;
+}
+
+/* /contact.html — legacy inline <style> block uses bare h3 +
+   .required rules with hardcoded #333 / #e74c3c colors that
+   bleed into the contact-card. In dark mode the contact-card
+   bg is --color-surface but the h3 / required text stays
+   #333 / #e74c3c, which fails contrast. Scope overrides to
+   the contact page. */
+[data-theme="dark"] [data-page="contact"] h3,
+[data-theme="dark"] [data-page="contact"] label {
+  color: var(--color-fg) !important;
+}
+[data-theme="dark"] [data-page="contact"] input,
+[data-theme="dark"] [data-page="contact"] textarea {
+  background-color: var(--color-surface) !important;
+  color: var(--color-fg) !important;
+  border: 1px solid var(--color-rule) !important;
+}
+
+/* /publications.html — the page's legacy inline <style> block
+   defines `.read-more` separately from globals.css with a mint
+   bg. In dark mode the read-more text inherits bone (legacy
+   stylesheet retired), so the mint pill becomes bone-on-mint
+   = 1.82:1. Scope a graphite override for publications. */
+[data-theme="dark"] [data-page="publications"] a.read-more {
+  color: var(--color-graphite) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-page="contact"] h3,
+  :root:not([data-theme="light"]) [data-page="contact"] label {
+    color: var(--color-fg) !important;
+  }
+  :root:not([data-theme="light"]) [data-page="contact"] input,
+  :root:not([data-theme="light"]) [data-page="contact"] textarea {
+    background-color: var(--color-surface) !important;
+    color: var(--color-fg) !important;
+    border: 1px solid var(--color-rule) !important;
+  }
+  :root:not([data-theme="light"]) [data-page="publications"] a.read-more {
+    color: var(--color-graphite) !important;
+  }
+}
+
+/* /audio.html .download-link in light mode missing background
+   (legacy main.css set it to black pill, but the legacy
+   stylesheet was retired by D-1 §4.9). Restore a dark pill in
+   both schemes. */
+html a.download-link {
+  background-color: var(--color-graphite);
+  padding: 8px 14px;
+  border-radius: var(--radius-md, 6px);
+  display: inline-block;
+}
+
+html a.download-link:hover {
+  background-color: var(--color-fg-muted);
 }
 
 /* /publications.html inline-style #f0f8f5 highlight box. Scoped
@@ -3249,8 +3364,26 @@ html .collaboration-note {
   :root:not([data-theme="light"]) .partner-item,
   :root:not([data-theme="light"]) .university-logo-container,
   :root:not([data-theme="light"]) .panel,
-  :root:not([data-theme="light"]) .accordion {
+  :root:not([data-theme="light"]) .accordion,
+  :root:not([data-theme="light"]) .contact-card,
+  :root:not([data-theme="light"]) .chapter-card {
     background-color: var(--color-surface) !important;
+    color: var(--color-fg) !important;
+  }
+  :root:not([data-theme="light"]) .filter-button.active,
+  :root:not([data-theme="light"]) .filter-button:hover {
+    background-color: var(--color-mint) !important;
+    color: var(--color-graphite) !important;
+  }
+  :root:not([data-theme="light"]) [data-page="privacy"] strong {
+    color: var(--color-fg) !important;
+  }
+  :root:not([data-theme="light"]) [data-page="publications"] div[style*="f0f8f5"],
+  :root:not([data-theme="light"]) [data-page="publications"] div[style*="#f0f8f5"] {
+    background-color: var(--color-surface) !important;
+  }
+  :root:not([data-theme="light"]) [data-page="publications"] div[style*="f0f8f5"] *,
+  :root:not([data-theme="light"]) [data-page="publications"] div[style*="#f0f8f5"] * {
     color: var(--color-fg) !important;
   }
   :root:not([data-theme="light"]) .accordion {
@@ -3272,7 +3405,7 @@ html .collaboration-note {
   :root:not([data-theme="light"]) .publication-type,
   :root:not([data-theme="light"]) .publication-link,
   :root:not([data-theme="light"]) .internal-link,
-  :root:not([data-theme="light"]) .collaboration-note {
+  :root:not([data-theme="light"]) [data-page="publications"] .collaboration-note {
     color: var(--color-graphite) !important;
   }
   :root:not([data-theme="light"]) .section-nav-button.active,
