@@ -2,7 +2,26 @@
 
 Date drafted: 2026-05-19 (post-D-1 §4.9 link retirement)
 Author: Claude (Opus 4.7) — proposal for Codex pressure-test and JPH sign-off
-Status: draft v2 (post-Codex v1 review), awaiting JPH approval
+Status: **SHIPPED (2026-05-20)** — all 8 slices landed on `origin/main`. Stability window now running (~7 days per CLAUDE.md convention).
+
+## Completion record (added 2026-05-20)
+
+All Phase 3 slices landed via the slice loop (do → parallel internal `feature-dev:code-reviewer` + Codex adversarial-review → integrate findings → commit → push via `codex-push.sh`):
+
+| Slice | SHA | Workstream |
+|---|---|---|
+| D-9-a (semantic tokens) | (Phase 2 carry-over) | dark mode |
+| D-9-b (dark scheme override) | `6ec1826` | dark mode |
+| D-9-c (WCAG contrast audit) | `d82a5b1` | dark mode |
+| D-9-d (theme toggle UI + media-query fallback) | `2658722` | dark mode |
+| D-3-a (MixComparisonEmbed) | `4ebea0d` + follow-up `547f6e0` | audio re-skin |
+| D-3-b (retire EnhancedAudioController) | `b48caf3` | audio re-skin |
+| D-3-c (audio-page palette retune, test-side) | `1fa6c1a` | audio re-skin |
+| D-6 phase-1 (procedural waveform strip) | `956a861` | audio re-skin |
+
+All gates green at HEAD: typecheck, build, parity:content 27/27, parity:text 27/27, audit:family-coverage:all, audit:contrast, audit:tsx-inline-styles, Playwright 76/76. Dual-review findings integrated pre-commit in every slice (see commit messages for the finding → fix mappings). High-risk slices D-3-a/b gated on explicit human confirmation pre-push as required by the slice plan.
+
+Deferred phase-2 work (D-6 phase-2 feature-derived waveforms from real audio analysis) remains explicitly out of scope — covered in `docs/nextjs-phase-2-design-refresh-future.md`.
 
 v1 returned `needs-attention` with 1 HIGH + 1 MEDIUM:
 

@@ -539,7 +539,10 @@ work**:
   record. Each D-* item names a gating constraint. Do not re-propose
   any deferred item without first addressing its gate.
 
-Current state (migration complete as of HEAD `25e8eb1`):
+Current state (Phase 3 audio re-skin + dark mode shipped as of HEAD `956a861`; Phase 2 migration completed at `25e8eb1`):
+
+- **Phase 3 SHIPPED 2026-05-20**: dark-mode toggle (D-9-b/c/d), audio surface re-skin (D-3-a/b/c), procedural waveform strip (D-6 phase-1). See `docs/nextjs-phase-3-far-goal.md` § Completion record for the slice list and SHAs. `EnhancedAudioController` was deleted in D-3-b; all `.mix-comparison-player` surfaces are React-owned via `<MixComparisonEmbed>` and `<AudioComparison>`.
+- **Phase 2 migration baseline (still true)**:
 
 - **All 27 routes are React-owned.** Every page has a dedicated
   `app/<route>/page.tsx` (12 root routes) or is served by the dynamic
@@ -555,22 +558,28 @@ Current state (migration complete as of HEAD `25e8eb1`):
   component (D-2 proper, commit `25e8eb1`) that preserves the
   `.hero-title` / `.hero-text` class hooks for the JSON-LD
   SpeakableSpecification selectors.
-- Findings chapters use `EnhancedFindingsShell` + `EnhancedAudioController`;
-  videos use `EnhancedVideoController`; audio uses `<AudioComparison>`.
-  All controllers run as `"use client"` effects after hydration, with
-  legacy audio-player.js suppressed on the routes that integrate the
-  React components.
+- Findings chapters use `EnhancedFindingsShell` + `<MixComparisonEmbed>`
+  (D-3-a, chapters 7-10); videos use `EnhancedVideoController`; audio
+  uses `<AudioComparison>`. All controllers run as `"use client"`
+  effects after hydration, with legacy audio-player.js suppressed on
+  the routes that integrate the React components.
+  `EnhancedAudioController` was retired in D-3-b — no controller
+  DOM-walks chapter audio surfaces any more.
 - The legacy SEO surface (head metadata + JSON-LD scripts + body
   scripts) flows through `getLegacyPageContent()` + `<LegacyHeadExtras>`
   / `<LegacyStyles>` / `<LegacyScripts>` unchanged.
-- The legacy `/assets/css/main.css` + `/assets/css/responsive.css` are
-  still loaded and drive layout for every page. The D-1
+- The legacy `/assets/css/main.css` + `/assets/css/responsive.css`
+  are **no longer loaded** by any page (D-1 §4.9 link-retirement
+  shipped 2026-05-19). The files still exist on disk in
+  `assets/css/` and in `out/assets/css/` as orphan assets;
+  deletion (D-7) is gated separately on the D-1 §4.9 stability
+  window and a parity-baseline redirect (see
+  `docs/nextjs-phase-2-design-refresh-future.md` § D-7). The D-1
   structural-coverage audit at
   `docs/nextjs-phase-2-d1-main-css-audit.md` enumerates the 207
-  STRUCTURAL rules across 12 selector families and is the gating
-  prerequisite for any future stylesheet-removal slice. Companion
-  scripts: `nextjs-site/scripts/audit-legacy-css.mjs` (tokenizer +
-  classifier) and `nextjs-site/scripts/classify-css-families.mjs`
+  STRUCTURAL rules across 12 selector families that drove the
+  re-skin. Companion scripts: `nextjs-site/scripts/audit-legacy-css.mjs`
+  (tokenizer + classifier) and `nextjs-site/scripts/classify-css-families.mjs`
   (family bin + zero-unclassified gate).
 - Page-port conversion scripts are committed at
   `nextjs-site/scripts/port-{home,privacy,publications,contact,

@@ -58,6 +58,16 @@ Gating constraints, both required:
 
 ### D-3: Audio Page Dark-First Re-Skin
 
+**Status update (2026-05-20): SHIPPED across Phase 3 Workstream 2 — slices D-3-a (4ebea0d + 547f6e0), D-3-b (b48caf3), D-3-c (1fa6c1a). All gating constraints met.**
+
+What was delivered:
+
+- **D-3-a** — `<MixComparisonEmbed>` React component owns the in-chapter `.mix-comparison-player` markup for findings chapters 7-10. Mirrors `<AudioComparison>`'s pattern with the chapter-local name-only display mode. `data-mix-comparison-embed="react"` on the wrapper signals the controller-bound code path to skip these surfaces during the migration window.
+- **D-3-b** — `EnhancedAudioController` deleted. With every `.mix-comparison-player` surface React-owned and every `#comparison-player` surface owned by `<AudioComparison>`, the controller had zero remaining DOM consumers.
+- **D-3-c** — audio-page palette retune. The `.audio-comparison` block at `globals.css:1000+` was already token-driven (`--color-chrome-bg`, `--color-chrome-fg`, `--color-mint`, `--color-sulfur`); the substantive change was retiring the literal-`rgb()` Playwright assertions on mix-button colours (replaced with class-state + computed-style inequality) and adding a dark-mode chrome-distinction test with a minimum RGB Manhattan distance gate (≥10).
+
+D-7 reference assets: the legacy `assets/css/main.css` + `responsive.css` are no longer loaded by any page (D-1 §4.9 link-retirement) but still on disk; their removal is gated separately on the D-1 §4.9 stability window (started 2026-05-19).
+
 What was proposed: re-skin `/audio.html` chrome dark-first (graphite background, bone text, sulfur "playing" state on active mix buttons), plus a CSS waveform-strip decoration above the comparison player. Plan claimed it was "visual-only" with no controller-binding changes.
 
 Why it was rejected:
@@ -98,6 +108,12 @@ Why it was deferred: the View Transitions integration in Next.js 16 requires `vi
 Gating constraint: a separate spike on `viewTransition: true` in a branch with at least two real route boundaries before this is proposed as part of a refresh plan. The spike must measure first-paint impact on the existing static export and confirm `prefers-reduced-motion` actually bypasses the transition (not just the duration).
 
 ### D-6: Sonic-Visualisation Decorations
+
+**Status update (2026-05-20): Phase 1 SHIPPED at 956a861. Phase 2 (feature-derived from real audio analysis) remains deferred.**
+
+What was delivered (phase 1): a procedural CSS waveform strip rendered above every comparison player. Bar heights are deterministic per audio `src` (FNV-1a + xorshift32 in `Waveform.server.ts`, guarded with `import "server-only"`). The generator never ships in the client bundle — chapter components bake heights as literals at port-script time, `<AudioPage>` (server component) computes heights at module scope and passes as a prop to `<AudioComparison>`. Verified by grepping `.next/static` for FNV constants (clean). Playwright pins the first 3 bar heights for both surfaces so an unintentional hash change is a commit-time failure. `aria-hidden="true"` on the strip; hover-pulse routed through the parent container (the strip itself has `pointer-events: none` so the audio controls stay clickable). Reduced-motion gated.
+
+What still deferred (phase 2): feature-derived per-stem waveforms requiring offline audio analysis. Gating constraint unchanged (per-stem asset pipeline outside any visual-refresh slice).
 
 What was proposed: a CSS-only procedural waveform strip on the audio page (zero JS cost); longer-term, generative SVG/canvas glyphs derived from real audio features (RMS envelope, spectral centroid trace) per section.
 
