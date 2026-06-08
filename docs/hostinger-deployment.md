@@ -60,8 +60,8 @@ Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 - `/publications.html` returned `200 OK`.
 - `/findings/08-drums.html` returned `200 OK`.
 - `/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
-- `/about` returned `404 Not Found`, preserving the `.html` public URL policy.
-- `/findings/08-drums` returned `404 Not Found`, preserving the `.html` public URL policy for nested routes.
+- `/about` returned `404 Not Found`; this was the original `.html` public URL policy before the 2026-06-08 canonical redirect update.
+- `/findings/08-drums` returned `404 Not Found`; this was the original `.html` public URL policy for nested routes before the 2026-06-08 canonical redirect update.
 - `/config.php` returned `404 Not Found`.
 - `/contact_submissions/` returned `404 Not Found`.
 - `/get-csrf-token.php` returned JSON with a CSRF token and set a PHP session cookie.
@@ -73,7 +73,7 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/about.html` returned `200 OK`.
 - `https://www.himmp.net/about.html` returned `200 OK`.
 - `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
-- `https://himmp.net/about` returned `404 Not Found`.
+- `https://himmp.net/about` returned `404 Not Found`; this was later changed on 2026-06-08 to a canonical `.html` redirect.
 - `https://himmp.net/config.php` returned `404 Not Found`.
 - `https://himmp.net/contact_submissions/` returned `404 Not Found`.
 - `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed.
@@ -87,6 +87,16 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/contact-handler.php` and `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed after syncing the SMTP-capable PHP handler.
 - `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow-production-submit` passed after adding the private Brevo SMTP config.
 - PHP local mail transport check on the VPS found no usable `/usr/sbin/sendmail`; production contact submissions use the configured SMTP relay instead.
+
+Checked live over HTTPS on 2026-06-08 after release `/var/www/himmp-site/releases/20260608-074327` and the canonical extensionless-route redirect update:
+
+- `https://himmp.net/findings/07-meta-instrument.html` returned `200 OK`.
+- `https://himmp.net/findings/07-meta-instrument` returned `301 Moved Permanently` to `https://himmp.net/findings/07-meta-instrument.html`.
+- `https://himmp.net/about` returned `301 Moved Permanently` to `https://himmp.net/about.html`.
+- `https://himmp.net/nonexistent` returned `404 Not Found`.
+- `https://himmp.net/config` returned `404 Not Found`.
+- `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
+- `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed.
 
 ## Remaining Before Production Cutover
 
@@ -129,7 +139,7 @@ CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php -- --submit --allow
 ## Post-DNS TLS Plan
 
 - Ensure HTTP redirects to HTTPS.
-- Keep the `.html` URL policy under HTTPS: representative `.html` routes return `200`, extensionless routes return `404` or an explicitly documented canonical strategy.
+- Keep the `.html` URL policy under HTTPS: representative `.html` routes return `200`, and extensionless routes for existing pages redirect to the matching `.html` canonical URL.
 - Recheck PHP contact endpoints over HTTPS so PHP receives the expected HTTPS request context.
 - Consider HSTS only after HTTPS is stable for both apex and `www`.
 - Do not run the production `--submit --allow-production-submit` contact smoke until mail transport is configured.

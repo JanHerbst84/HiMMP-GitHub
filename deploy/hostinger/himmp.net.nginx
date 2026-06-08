@@ -72,6 +72,10 @@ server {
     }
 
     location ~ ^/[^.]+$ {
+        if (-f $request_filename.html) {
+            return 301 $uri.html$is_args$args;
+        }
+
         return 404;
     }
 
