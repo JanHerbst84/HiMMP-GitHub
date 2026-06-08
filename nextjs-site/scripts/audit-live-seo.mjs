@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 
-const baseUrl = process.env.SEO_AUDIT_BASE_URL ?? "https://himmp.net";
+const fetchBaseUrl = (process.env.SEO_AUDIT_BASE_URL ?? "https://himmp.net").replace(/\/$/, "");
+const expectedOrigin = (process.env.SEO_AUDIT_EXPECTED_ORIGIN ?? fetchBaseUrl).replace(/\/$/, "");
 const routesSource = readFileSync("src/site/routes.ts", "utf8");
 const routes = [...routesSource.matchAll(/sourceFile:\s*"([^"]+\.html)"/g)].map(
   (match) => match[1]
@@ -86,7 +87,11 @@ function nodesFromJsonLd(value) {
 }
 
 function routeUrl(route) {
-  return `${baseUrl.replace(/\/$/, "")}/${route}`;
+  return `${fetchBaseUrl}/${route}`;
+}
+
+function expectedRouteUrl(route) {
+  return `${expectedOrigin}/${route}`;
 }
 
 function addSameOriginStructuredUrl(route, key, value) {
@@ -94,8 +99,7 @@ function addSameOriginStructuredUrl(route, key, value) {
     return;
   }
 
-  const siteOrigin = baseUrl.replace(/\/$/, "");
-  if (!value.startsWith(`${siteOrigin}/`)) {
+  if (!value.startsWith(`${expectedOrigin}/`)) {
     return;
   }
 
@@ -134,6 +138,7 @@ let jsonLdTotal = 0;
 
 for (const route of routes) {
   const url = routeUrl(route);
+  const expectedUrl = expectedRouteUrl(route);
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -164,8 +169,8 @@ for (const route of routes) {
 
   if (canonical.length !== 1) {
     failures.push(`${route}: canonical count ${canonical.length}`);
-  } else if (canonical[0] !== url) {
-    warnings.push(`${route}: canonical ${canonical[0]} does not match route URL ${url}`);
+  } else if (canonical[0] !== expectedUrl) {
+    warnings.push(`${route}: canonical ${canonical[0]} does not match expected URL ${expectedUrl}`);
   }
 
   if (
@@ -214,7 +219,8 @@ for (const route of routes) {
 }
 
 for (const [url, sources] of sameOriginStructuredUrls) {
-  const response = await fetch(url, { method: "HEAD" });
+  const parsed = new URL(url);
+  const response = await fetch(`${fetchBaseUrl}${parsed.pathname}${parsed.search}`, { method: "HEAD" });
   if (!response.ok) {
     const sourceList = sources.map((source) => `${source.route}:${source.key}`).join(", ");
     failures.push(
@@ -223,14 +229,14 @@ for (const [url, sources] of sameOriginStructuredUrls) {
   }
 }
 
-const sitemapResponse = await fetch(`${baseUrl.replace(/\/$/, "")}/sitemap.xml`);
+const sitemapResponse = await fetch(`${fetchBaseUrl}/sitemap.xml`);
 if (!sitemapResponse.ok) {
   failures.push(`sitemap.xml: HTTP ${sitemapResponse.status}`);
 } else {
   const sitemap = await sitemapResponse.text();
   const sitemapLocs = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]));
   for (const route of routes) {
-    const url = routeUrl(route);
+    const url = expectedRouteUrl(route);
     if (!sitemapLocs.has(url)) {
       failures.push(`${route}: missing from sitemap`);
     }
