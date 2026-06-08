@@ -1,9 +1,9 @@
 # HiMMP SEO Audit
 
-Audit date: 2026-06-08  
-Production URL: https://himmp.net  
-Production release observed earlier in deployment audit:
-`/var/www/himmp-site/releases/20260608-074327`
+Audit date: 2026-06-08
+Production URL: https://himmp.net
+Latest production release verified in this audit:
+`/var/www/himmp-site/releases/20260608-101001`
 
 This audit applies the reusable scholarly project SEO SOP in
 `/home/jan-herbst/github/wikis/web-ops-wiki/wiki/seo/research-project-seo.md`
@@ -23,7 +23,10 @@ HiMMP has a strong SEO baseline:
 - `robots.txt`, `sitemap.xml`, `llms.txt`, and `favicon.png` are deployed.
 - The site has an explicit AI reuse policy in `llms.txt`.
 
-The main issues are structured-data correctness, not crawlability.
+The original structured-data failures found earlier on 2026-06-08 have been
+fixed and deployed. The current priority is output-level academic discovery:
+publication/dataset identifiers, ORCID links, and correctly scoped Scholar
+metadata.
 
 ## Live Audit Command
 
@@ -39,17 +42,19 @@ The script checks all routes from `src/site/routes.ts`, then verifies:
 - Title, meta description, canonical, robots, H1, Open Graph, and Twitter card
   presence.
 - JSON-LD parseability.
+- Scholar-style `citation_*` metadata shape when present.
 - Sitemap coverage.
 - Same-origin URLs referenced inside parseable JSON-LD.
 
-The command currently exits `1` because production has SEO failures listed
-below.
+The command currently exits `0` against production with zero failures and zero
+warnings.
 
-## Current Production Findings
+## Resolved Production Findings
 
 ### 1. Invalid JSON-LD on `team.html`
 
-Severity: high  
+Status: fixed and deployed
+Severity at discovery: high
 Source: `team.html:54`
 
 The first `application/ld+json` block on `team.html` is invalid JSON due to a
@@ -72,17 +77,18 @@ Impact:
 - The deployed page still has other valid JSON-LD blocks, so the issue is
   localized rather than site-wide.
 
-Recommended fix:
+Fix applied:
 
-- Remove the trailing comma in `team.html`.
-- Also correct the image URLs inside the same block from lowercase filenames to
+- Removed the trailing comma in `team.html`.
+- Corrected the image URLs inside the same block from lowercase filenames to
   deployed filenames:
   - `assets/images/people/herbst.jpg` -> `assets/images/people/Herbst.jpg`
   - `assets/images/people/mynett.jpg` -> `assets/images/people/Mynett.jpg`
 
 ### 2. Broken structured-data logo URL across multiple pages
 
-Severity: high  
+Status: fixed and deployed
+Severity at discovery: high
 Affected URL:
 `https://himmp.net/assets/images/logos/HiMMP-logo-small.png`
 
@@ -110,16 +116,16 @@ Impact:
 - Organization/entity markup is weaker because the declared logo URL is not
   resolvable.
 
-Recommended fix:
+Fix applied:
 
 - Replace `https://himmp.net/assets/images/logos/HiMMP-logo-small.png` with
   `https://himmp.net/assets/images/logos/HiMMP-Logo-small.png` in legacy
   JSON-LD source pages.
-- Rerun `npm run audit:seo:live` after deployment.
 
 ### 3. Long meta descriptions on four findings chapters
 
-Severity: medium
+Status: fixed and deployed
+Severity at discovery: medium
 
 The audit flags descriptions above 180 characters:
 
@@ -135,10 +141,29 @@ Impact:
 - The current descriptions are close to the threshold, so this is a polishing
   issue after structured-data errors are fixed.
 
-Recommended fix:
+Fix applied:
 
-- Shorten each description to roughly 145-165 characters while preserving
+- Shortened each description to roughly 145-165 characters while preserving
   academic clarity.
+
+## Project Output SEO Pass
+
+Implemented after the first production SEO repair:
+
+- Removed `citation_*` tags from `publications.html` because it is a collection
+  page listing many outputs. Google Scholar's guidance says each article or
+  abstract needs a separate URL and that tags apply to the exact page on which
+  they are provided.
+- Added `citation_*` tags to `findings.html`, the self-hosted practical guide
+  page with DOI `10.5281/zenodo.17608064`.
+- Added `Book` JSON-LD to `findings.html` for the practical guide, including
+  DOI, Zenodo/Pure `sameAs` links, ORCID-backed authors, publication date, and
+  CC BY 4.0 license.
+- Added the University of Huddersfield dataset DOI `10.34696/9s05-wv03` and
+  Pure dataset record to the `Dataset` JSON-LD on `audio.html`.
+- Wrapped Jan Herbst and Mark Mynett author names on `publications.html` with
+  ORCID links where those names already appear as authors. The visible text is
+  unchanged.
 
 ## Scholar And Academic Discoverability
 
@@ -155,9 +180,8 @@ Scholar-relevant strengths:
 
 Potential improvements:
 
-- Add ORCID links for researchers where available.
-- For any self-hosted publication landing pages or PDFs, add Scholar-supported
-  `citation_*` meta tags and ensure one output per URL.
+- For future self-hosted publication landing pages or PDFs, add
+  Scholar-supported `citation_*` meta tags and ensure one output per URL.
 - Link institutional repository records next to publisher/DOI records where
   available.
 - Do not represent `ScholarlyArticle` JSON-LD as a Scholar-ranking mechanism;
@@ -172,7 +196,8 @@ The live audit found 73 JSON-LD blocks across 27 routes. Types observed:
 - `Organization`: 10
 - `WebSite`: 10
 - `Person`: 126
-- `WebPage`: 4
+- `WebPage`: 5
+- `Book`: 1
 - `BreadcrumbList`: 21
 - `MusicComposition`: 1
 - `ItemList`: 2
@@ -210,10 +235,9 @@ Notes:
 1. Fix JSON-LD syntax and case-sensitive image/logo URLs.
 2. Rerun `npm run audit:seo:live` against production after deployment.
 3. Shorten the four long findings descriptions.
-4. Add ORCID and repository links where authoritative URLs are known.
-5. Consider richer publication-level metadata only if HiMMP will host dedicated
+4. Consider richer publication-level metadata only if HiMMP will host dedicated
    landing pages or PDFs for individual scholarly outputs.
-6. Optionally validate representative pages in Google's Rich Results Test and
+5. Optionally validate representative pages in Google's Rich Results Test and
    Schema.org Validator:
    - `index.html`
    - `team.html`

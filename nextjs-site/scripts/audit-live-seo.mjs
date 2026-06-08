@@ -38,6 +38,21 @@ function metas(html, attributeName, key) {
   return values;
 }
 
+function metaMap(html, attributeName, prefix) {
+  const values = {};
+
+  for (const match of html.matchAll(/<meta\b[^>]*>/gi)) {
+    const tag = match[0];
+    const name = attr(tag, attributeName) ?? "";
+    if (name.toLowerCase().startsWith(prefix.toLowerCase())) {
+      values[name] ??= [];
+      values[name].push(attr(tag, "content") ?? "");
+    }
+  }
+
+  return values;
+}
+
 function links(html, rel) {
   const values = [];
 
@@ -154,8 +169,10 @@ for (const route of routes) {
   const ogUrl = metas(html, "property", "og:url");
   const ogImage = metas(html, "property", "og:image");
   const twitterCard = metas(html, "name", "twitter:card");
+  const citationMeta = metaMap(html, "name", "citation_");
   const jsonLd = jsonLdScripts(html);
   const jsonLdTypes = [];
+  const citationNames = Object.keys(citationMeta).sort();
 
   if (title(html).length < 10) {
     failures.push(`${route}: weak or missing title`);
@@ -188,6 +205,26 @@ for (const route of routes) {
     failures.push(`${route}: missing h1`);
   }
 
+  if (citationNames.length) {
+    for (const required of ["citation_title", "citation_author", "citation_publication_date"]) {
+      if (!citationMeta[required]?.some(Boolean)) {
+        failures.push(`${route}: citation metadata missing ${required}`);
+      }
+    }
+
+    if ((citationMeta.citation_title?.length ?? 0) > 1) {
+      failures.push(`${route}: multiple citation_title tags on one route`);
+    }
+
+    for (const value of citationMeta.citation_pdf_url ?? []) {
+      if (!/^https?:\/\//.test(value)) {
+        failures.push(`${route}: citation_pdf_url is not absolute: ${value}`);
+      } else if (!new URL(value).pathname.toLowerCase().endsWith(".pdf")) {
+        warnings.push(`${route}: citation_pdf_url does not end in .pdf: ${value}`);
+      }
+    }
+  }
+
   jsonLdTotal += jsonLd.length;
 
   for (const script of jsonLd) {
@@ -212,6 +249,7 @@ for (const route of routes) {
     descriptionLength: description[0]?.length ?? 0,
     canonical: canonical[0] ?? null,
     ogImage: ogImage[0] ?? null,
+    citationMeta: citationNames,
     jsonLd: jsonLd.length,
     jsonLdTypes: [...new Set(jsonLdTypes)],
     h1: h1(html)

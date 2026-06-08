@@ -123,8 +123,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">Heaviness in Metal Music Production, Volume 1: How and Why It Works</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Abingdon: Routledge</div>
                             <div className="publication-links">
@@ -140,8 +140,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">Heaviness in Metal Music Production, Volume 2: Learn from the Masters</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Abingdon: Routledge</div>
                             <div className="publication-links">
@@ -157,8 +157,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">Heaviness in Metal Music Production: A Practical Guide (Findings eBook)</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Huddersfield: HiMMP (Self-Published)</div>
                             <div className="publication-links">
@@ -178,8 +178,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">Metal Music and the Aesthetics of Heaviness: Sonic, Structural, and Affective Perspectives</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta"><em>Rock Music Studies</em></div>
                             <div className="publication-links">
@@ -194,8 +194,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">Aesthetic Tensions in Metal Production: Genre Expectations, Technological Mediation, and Creative Freedom</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta"><em>Popular Music & Society</em> 49(2)</div>
                             <div className="publication-links">
@@ -210,7 +210,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">"Mixed" Results: An Introduction to Analyzing Metal Production through Eight Commissioned Metal Mixes</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
                                 <span className="publication-author">Smialek, Eric</span>
                             </div>
                             <div className="publication-meta"><em>Zeitschrift der Gesellschaft für Musiktheorie</em> (Journal of the German-Speaking Society for Music Theory), 22/1</div>
@@ -229,8 +229,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2025</div>
                             <div className="publication-title">Contemporary Approaches to Metal Music Mixing and Production: Heavy Metal, Death Metal, and Metalcore</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">In Lori Burns & Ciro Scotto (eds.). The Routledge Handbook of Metal Music Composition. Abingdon: Routledge, pp. 469–481</div>
                             <div className="publication-links">
@@ -245,8 +245,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2024</div>
                             <div className="publication-title">Masters of the Art of Mixing: 8 Producers – One Song – Infinite Insights</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>{" & "}
-                                <span className="publication-author">Herbst, Jan</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                             </div>
                             <div className="publication-meta">Sound on Sound, 9/2024, pp. 52–61</div>
                             <div className="publication-links">
@@ -261,8 +261,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2023</div>
                             <div className="publication-title">Mapping the Origins of Heaviness Between 1970 and 1995: A Historical Overview of Metal Music Production</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">In Jan Herbst (ed.). The Cambridge Companion to Metal Music. Cambridge: Cambridge University Press, pp. 29–42</div>
                             <div className="publication-links">
@@ -277,8 +277,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2023</div>
                             <div className="publication-title">Lorna Shore's 'To the Hellfire': A Study in Heaviness</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Metal Music Studies, 9(2), pp. 189–213</div>
                             <div className="publication-links">
@@ -293,8 +293,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2023</div>
                             <div className="publication-title">"I Just Go with What Feels Right." Variance and Commonality in Metal Music Mixing Practice</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">El Oido Pensante, 11(1), pp. 4–31</div>
                             <div className="publication-links">
@@ -309,8 +309,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2022</div>
                             <div className="publication-title">What Exactly Is "Heaviness" in Heavy Metal Music?</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Futurum, 9/2022</div>
                             <div className="publication-links">
@@ -325,8 +325,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2022</div>
                             <div className="publication-title">What is 'Heavy' in Metal? A Netnographic Analysis of Online Forums for Metal Musicians and Producers</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Popular Music and Society, 45(5), pp. 633–653</div>
                             <div className="publication-links">
@@ -341,8 +341,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2022</div>
                             <div className="publication-title">Toward a Systematic Understanding of "Heaviness" in Metal Music Production</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Rock Music Studies, 10(1), pp. 16–37</div>
                             <div className="publication-links">
@@ -357,8 +357,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2021</div>
                             <div className="publication-title">Nail the Mix: Standardization in Mixing Metal Music?</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Popular Music and Society, 44(5), pp. 628–649</div>
                             <div className="publication-links">
@@ -373,8 +373,8 @@ export function PublicationsPage() {
                             <div className="publication-year">2021</div>
                             <div className="publication-title">(No?) Adventures in Recording Land: Engineering Conventions in Metal Music</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Rock Music Studies, 9(2), pp. 137–156</div>
                             <div className="publication-links">
@@ -398,7 +398,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2023</div>
                             <div className="publication-title">The Cambridge Companion to Metal Music</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span> (Editor)
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a> (Editor)
                             </div>
                             <div className="publication-meta">Cambridge University Press</div>
                             <div className="publication-links">
@@ -413,7 +413,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2023</div>
                             <div className="publication-title">Rock Guitar Virtuosos. Advances in Electric Guitar Playing, Technology, and Culture</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>{" & "}
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
                                 <span className="publication-author">Vallejo, Alexander</span>
                             </div>
                             <div className="publication-meta">Cambridge: Cambridge University Press</div>
@@ -429,7 +429,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2022</div>
                             <div className="publication-title">Rammsteins "Deutschland": Pop - Politik - Provokationen</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span> et al.
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a> et al.
                             </div>
                             <div className="publication-meta">Stuttgart: J.B. Metzler</div>
                             <div className="publication-links">
@@ -444,7 +444,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2016</div>
                             <div className="publication-title">Die Gitarrenverzerrung in der Rockmusik. Studien zu Spielweise und Ästhetik</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Herbst, Jan</span>
+                                <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                             </div>
                             <div className="publication-meta">Münster: LIT</div>
                             <div className="publication-links">
@@ -460,7 +460,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2023</div>
                         <div className="publication-title">Harmonic Structures in Twenty-First-Century Metal Music: A Harmonic Analysis of Five Major Metal Genres</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>{" & "}
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
                             <span className="publication-author">Boddington-Jordan, Jamie</span>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 9(1), pp. 27–58</div>
@@ -471,7 +471,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2022</div>
                         <div className="publication-title">Dissonance in Metal Music: Musical and Sociocultural Reasons for Metal's Appreciation of Dissonance</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>{" & "}
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
                             <span className="publication-author">Swallow, Reuben</span>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 8(3), pp. 351–379</div>
@@ -482,7 +482,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2022</div>
                         <div className="publication-title">Keeper of the Seven Keys: Audio Heritage in Metal Music Production</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 8(1), pp. 109–126</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202022%20-%20Keeper.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -492,7 +492,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2021</div>
                         <div className="publication-title">Teutonic Metal: Effects of Place- and Mythology-Based Labels on Record Production</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>{" & "}
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
                             <span className="publication-author">Bauerfeind, Karl</span>
                         </div>
                         <div className="publication-meta">International Journal of the Sociology of Leisure, 4, pp. 291–313</div>
@@ -503,7 +503,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2022</div>
                         <div className="publication-title">The Recording Industry as the Enemy? A Case Study of Early West German Metal Music</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">International Journal of the Sociology of Leisure, 5, pp. 229–254</div>
                         <a href="https://link.springer.com/article/10.1007%2Fs41978-021-00098-z" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -513,7 +513,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2021</div>
                         <div className="publication-title">The Politics of Rammstein's Sound: Decoding a Production Aesthetic</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Journal of Popular Music Studies, 33(2), pp. 51–76</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202021%20-%20Politics.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -523,7 +523,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2021</div>
                         <div className="publication-title">Culture-Specific Production and Performance Characteristics. An Interview Study with "Teutonic" Metal Producers</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 7(3), pp. 445–467</div>
                         <a href="http://gfpm-samples.de/Samples18/Herbst2.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -533,7 +533,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2020</div>
                         <div className="publication-title">Metronomic Precision of 'Teutonic Metal': A Methodological Challenge for Rhythm and Performance Research</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">ASPM Samples, 18, pp. 1–27</div>
                         <a href="http://gfpm-samples.de/Samples18/Herbst.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -543,7 +543,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2020</div>
                         <div className="publication-title">Sonic Signatures in Metal Music Production. Teutonic vs British vs American Sound</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">ASPM Samples, 18, pp. 1–26</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202020%20-%20From%20Bach%20to%20Helloween.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -553,7 +553,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2020</div>
                         <div className="publication-title">From Bach to Helloween. "Teutonic" Stereotypes in the History of Popular Music</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 6(1), pp. 87–108</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202019%20-%20Distortion%20and%20Rock%20Guitar%20Harmony.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -563,7 +563,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2019</div>
                         <div className="publication-title">Distortion and Rock Guitar Harmony. The Influence of Distortion Level and Structural Complexity on Acoustic Features and Perceived Pleasantness of Guitar Chords</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Music Perception, 36(4), pp. 335-352</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202019%20-%20Formation.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -573,7 +573,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2019</div>
                         <div className="publication-title">The Formation of the West German Power Metal Scene and the Question of a "Teutonic" Sound</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 5(2), pp. 201–223</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202019%20-%20Old%20Sounds.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -583,7 +583,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2019</div>
                         <div className="publication-title">Old Sounds with New Technologies? Examining the Creative Potential of Guitar "Profiling" Technology and the Future of Metal Music from Producers' Perspectives</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 5(1), pp. 53–69</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%20et%20al%202018%20-%20Profiling.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -593,7 +593,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2018</div>
                         <div className="publication-title">Guitar Profiling Technology in Metal Music Production: Public Reception, Capability, Consequences and Perspectives</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>,
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>,
                             <span className="publication-author">Czedik-Eysenberg, Isabella</span>{" & "}
                             <span className="publication-author">Reuter, Christoph</span>
                         </div>
@@ -605,7 +605,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2018</div>
                         <div className="publication-title">Heaviness and the Electric Guitar: Considering the Interaction Between Distortion and Harmonic Structures</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 4(1), pp. 95–113</div>
                         <a href="https://janherbst.net/publications/research_articles/Herbst%202017%20-%20Historical%20Development.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -615,7 +615,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2017</div>
                         <div className="publication-title">Historical Development, Sound Aesthetics and Production Techniques of the Distorted Electric Guitar in Metal Music</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 3(1), pp. 24–46</div>
                         <a href="https://www.psycharchives.org/bitstream/20.500.12034/2420/1/27_2017_02_Herbst.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -628,7 +628,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2020</div>
                         <div className="publication-title">German Metal Attack: Power Metal in and from Germany</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">In Oliver Seibt, Martin Ringsmut & David-Emil Wickström (eds). Made in Germany. Abingdon: Routledge, pp. 81–89</div>
                     </li>
@@ -637,7 +637,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2020</div>
                         <div className="publication-title">Views of German Producers on "Teutonic" metal: Production Approaches and Generational Effects</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">In Ralf von Appen & Thorsten Hindrichs (eds). One Nation Under a Groove. Nation als Kategorie populärer Musik?. Bielefeld: transcript, 183–206</div>
                         <a href="https://janherbst.net/publications/chapters/Herbst%202020%20-%20Views%20of%20German%20Producers%20on%20Teutonic%20Metal.pdf" className="external-link" target="_blank" rel="noopener noreferrer">Download</a>
@@ -647,7 +647,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2017</div>
                         <div className="publication-title">Influence of Distortion on Guitar Chord Structures: Acoustic Effects and Perceptual Correlates</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">In Wolfgang Auhagen, Claudia Bullerjahn & Christoph Louven (eds). Musikpsychologie, vol. 27: Akustik und musikalische Hörwahrnehmung. Göttingen: Hogrefe, pp. 26–47</div>
                         <a href="#" className="external-link">Download</a>
@@ -660,7 +660,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2024</div>
                         <div className="publication-title">The Electric Guitar in Rock Music: Guitar Playing, Technology, and Culture</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">Higher Doctorate by Publication, Leuphana University of Lüneburg</div>
                         <a href="https://doi.org/10.48548/pubdata-1664" className="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
@@ -670,7 +670,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2023</div>
                         <div className="publication-title">Metal Music in the Federal Republic of Germany in the 1980s and 1990s: Record Production, Industry, and Heritage</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Herbst, Jan</span>
+                            <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>
                         </div>
                         <div className="publication-meta">PhD by Publication, University of Huddersfield</div>
                         <a href="https://pure.hud.ac.uk/en/studentTheses/metal-music-in-the-federal-republic-of-germany-in-the-1980s-and-1" className="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
@@ -692,7 +692,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2013</div>
                         <div className="publication-title">Contemporary Metal Music Production</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">PhD thesis, University of Huddersfield</div>
                         <a href="http://eprints.hud.ac.uk/id/eprint/19314/" className="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
@@ -707,7 +707,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2017</div>
                             <div className="publication-title">Metal Music Manual: Producing, Engineering, Mixing, and Mastering Contemporary Heavy Music</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Routledge</div>
                             <div className="publication-links">
@@ -723,7 +723,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2019</div>
                         <div className="publication-title">Defining Contemporary Metal Music: Performance, Sounds and Practices</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">Metal Music Studies, 5(3), pp. 297–313</div>
                         <a href="https://www.ingentaconnect.com/contentone/intellect/mms/2019/00000005/00000003/art00002" className="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
@@ -733,7 +733,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2012</div>
                         <div className="publication-title">Achieving Intelligibility whilst Maintaining Heaviness when Producing Contemporary Metal Music</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">Journal on the Art of Record Production, 6</div>
                         <a href="https://www.arpjournal.com/asarpwp/achieving-intelligibility-whilst-maintaining-heaviness-when-producing-contemporary-metal-music" className="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
@@ -743,7 +743,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2011</div>
                         <div className="publication-title">Sound at Source: The Creative Practice of Re-Heading, Dampening and Drum Tuning for the Contemporary Metal Genre</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">Journal on the Art of Record Production, 5</div>
                         <a href="https://www.arpjournal.com/asarpwp/sound-at-source-the-creative-practice-of-re-heading-dampening-and-drum-tuning-for-the-contemporary-metal-genre" className="external-link" target="_blank" rel="noopener noreferrer">Open Access</a>
@@ -756,7 +756,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2020</div>
                         <div className="publication-title">Maximum Sonic Impact: (Authenticity/Commerciality) Fidelity-Dualism in Contemporary Metal Music Production</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">In Simon Zagorski-Thomas & Andrew Bourbon (eds). The Bloomsbury Handbook of Music Production. London: Bloomsbury, pp. 293–302</div>
                         <a href="https://www.bloomsbury.com/us/the-bloomsbury-handbook-of-music-production-9781501334047" className="external-link" target="_blank" rel="noopener noreferrer">Access</a>
@@ -766,7 +766,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2019</div>
                         <div className="publication-title">Heaviness in Three Dimensions: The Use of Sonic Space in Contemporary Metal Music Production</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">In Simon Zagorski-Thomas, Katia Isakoff, Sophie Stévance & Serge Lacasse (eds). The Art of Record Production: Creative Practice in the Studio. Abingdon: Routledge, pp. 66–79</div>
                         <a href="https://www.routledge.com/The-Art-of-Record-Production-Creative-Practice-in-the-Studio/Zagorski-Thomas-Isakoff-Lacasse-Stevance/p/book/9781138205161" className="external-link" target="_blank" rel="noopener noreferrer">Access</a>
@@ -776,7 +776,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2016</div>
                         <div className="publication-title">The Distortion Paradox: Analysing Contemporary Metal Production</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                         </div>
                         <div className="publication-meta">In Andy R. Brown, Karl Spracklen, Keith Kahn-Harris & Niall Scott (eds). Global Metal Music and Culture: Current Directions in Metal Studies. Abingdon: Routledge, pp. 68–87</div>
                         <a href="https://www.routledge.com/Global-Metal-Music-and-Culture-Current-Directions-in-Metal-Studies-1st/Brown-Spracklen-Kahn-Harris-Scott/p/book/9781138822382" className="external-link" target="_blank" rel="noopener noreferrer">Access</a>
@@ -786,7 +786,7 @@ export function PublicationsPage() {
                         <div className="publication-year">2010</div>
                         <div className="publication-title">Intelligent Equalisation Principles and Techniques for Minimising Masking when Mixing the Extreme Modern Metal Genre</div>
                         <div className="publication-authors">
-                            <span className="publication-author">Mynett, Mark</span>,
+                            <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>,
                             <span className="publication-author">Wakefield, Jonathan</span>{" & "}
                             <span className="publication-author">Till, Rupert</span>
                         </div>
@@ -803,7 +803,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2018</div>
                             <div className="publication-title">Session Notes Pt. 3; Making Modern Metal, Mixing and Mastering</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Sound on Sound, 3/2018</div>
                             <div className="publication-links">
@@ -818,7 +818,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2018</div>
                             <div className="publication-title">Session Notes Pt. 2; Making Modern Metal, Engineering</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Sound on Sound, 2/2018</div>
                             <div className="publication-links">
@@ -833,7 +833,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2018</div>
                             <div className="publication-title">Session Notes Pt. 1; Making Modern Metal, Pre-Production</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Sound on Sound, 1/2018</div>
                             <div className="publication-links">
@@ -848,7 +848,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2010</div>
                             <div className="publication-title">Get the Perfect Bass</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Computer Music, 12/2010, pp. 63–70</div>
                         </div>
@@ -860,7 +860,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2010</div>
                             <div className="publication-title">The Sound and the Fury: Part 2</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Guitar World, 5/2010, pp. 72–86</div>
                             <div className="publication-links">
@@ -875,7 +875,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2010</div>
                             <div className="publication-title">The Sound and the Fury: Part 1</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Guitar World, 4/2010, pp. 71–80</div>
                             <div className="publication-links">
@@ -890,7 +890,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2009</div>
                             <div className="publication-title">Mixing Metal: The SOS Guide to Extreme Metal Production: Part 2</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Sound on Sound, 12/2009, pp. 118–126</div>
                             <div className="publication-links">
@@ -905,7 +905,7 @@ export function PublicationsPage() {
                             <div className="publication-year">2009</div>
                             <div className="publication-title">Extreme Metal: The SOS Guide to Recording & Producing Modern Metal</div>
                             <div className="publication-authors">
-                                <span className="publication-author">Mynett, Mark</span>
+                                <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
                             <div className="publication-meta">Sound on Sound, 11/2009, pp. 120–133</div>
                             <div className="publication-links">
