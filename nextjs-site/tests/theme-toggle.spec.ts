@@ -6,9 +6,8 @@
  *  1. Clicking the toggle cycles light → dark → system; the
  *     `<html data-theme>` attribute flips accordingly; the
  *     `localStorage` `himmp-theme` value persists across reloads.
- *  2. With no `localStorage` set, a browser with
- *     `prefers-color-scheme: dark` activates the dark scheme via
- *     the @media fallback in tokens.css.
+ *  2. With no `localStorage` set, the early init script activates
+ *     the site's dark default before first paint.
  *  3. An explicit "light" choice in localStorage wins over a
  *     dark-OS system preference.
  */
@@ -46,15 +45,18 @@ test.describe("D-9-d theme toggle", () => {
     await page.evaluate(() => localStorage.removeItem("himmp-theme"));
   });
 
-  test("system preference (dark OS) activates dark scheme without explicit choice", async ({ browser }) => {
+  test("no explicit choice activates dark default before first paint", async ({ browser }) => {
     const ctx = await browser.newContext({ colorScheme: "dark" });
     const page = await ctx.newPage();
     await page.goto("/");
     // Confirm no localStorage value — the early-init script should
-    // leave data-theme unset and the media query takes over.
+    // set the site's intended dark default when no explicit user
+    // choice exists.
+    const storedTheme = await page.evaluate(() => localStorage.getItem("himmp-theme"));
+    expect(storedTheme).toBeNull();
     const themeAttr = await page.locator("html").getAttribute("data-theme");
-    expect(themeAttr).toBeNull();
-    // Body bg should resolve to graphite via the media query.
+    expect(themeAttr).toBe("dark");
+    // Body bg should resolve to graphite via data-theme="dark".
     const bodyBg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
     expect(bodyBg).toBe("rgb(17, 20, 24)");
     await ctx.close();

@@ -7,6 +7,7 @@ const legacyPaths = legacyRoutes.map((route) =>
 const findingsRoutes = legacyRoutes.filter(
   (route) => route.sourceFile === "findings.html" || route.sourceFile.startsWith("findings/")
 );
+const findingsReaderRoutes = findingsRoutes.filter((route) => route.sourceFile.startsWith("findings/"));
 const enhancedAccessibilityRoutes = [
   "/findings.html",
   "/findings/07-meta-instrument.html",
@@ -606,17 +607,14 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
-  test("enhanced findings hub exposes guide navigation without replacing the legacy main content", async ({ page }) => {
+  test("findings hub renders direct index content without reader shell", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/findings.html");
 
-    await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
+    await expect(page.locator(".enhanced-findings-shell")).toHaveCount(0);
     await expect(page.locator("#main-content h1")).toContainText("Heaviness in Metal Music Production");
-    await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toHaveText("Guide home");
-    await expect(page.locator(".findings-reader-topbar a[rel='next']")).toHaveAttribute(
-      "aria-label",
-      "Next: 1. The Pursuit of Heaviness"
-    );
+    await expect(page.locator(".chapters-grid .chapter-card")).toHaveCount(15);
+    await expect(page.locator(".chapters-grid .chapter-card").first()).toContainText("1. The Pursuit of Heaviness");
 
     const portraitWidths = await page
       .locator("#main-content .author-bio .figure.portrait")
@@ -634,7 +632,7 @@ test.describe("static export legacy route smoke", () => {
   test("enhanced findings shell is enabled across the full guide", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
 
-    for (const route of findingsRoutes) {
+    for (const route of findingsReaderRoutes) {
       await page.goto(findingsHref(route.sourceFile));
 
       await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
@@ -893,8 +891,8 @@ test.describe("static export legacy route smoke", () => {
 
     await expect(firstFrame).toHaveAttribute("src", "https://www.youtube.com/embed/TkLQaOkAtlw");
     await expect(page.locator(".lazy-video-trigger")).toHaveCount(21);
-    await youtubeFetchFired;
-    expect(youtubeRequests).toEqual(["https://www.youtube.com/embed/TkLQaOkAtlw"]);
+    const youtubeRequest = await youtubeFetchFired;
+    expect(youtubeRequest.url()).toBe("https://www.youtube.com/embed/TkLQaOkAtlw");
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
@@ -1028,8 +1026,8 @@ test.describe("static export legacy route smoke", () => {
       await page.goto(route);
 
       const body = page.locator("body");
-      await expect(body).toHaveCSS("background-color", "rgb(242, 239, 232)");
-      await expect(body).toHaveCSS("color", "rgb(17, 20, 24)");
+      await expect(body).toHaveCSS("background-color", "rgb(17, 20, 24)");
+      await expect(body).toHaveCSS("color", "rgb(242, 239, 232)");
       const bodyFont = await body.evaluate((el) => getComputedStyle(el).fontFamily);
       expect(bodyFont).toMatch(/Inter Tight/i);
 
