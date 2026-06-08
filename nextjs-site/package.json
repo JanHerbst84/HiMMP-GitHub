@@ -31,7 +31,8 @@
     "audit:token-coverage": "node scripts/audit-token-coverage.mjs --legacy-styles",
     "audit:tsx-inline-styles": "node scripts/audit-tsx-inline-styles.mjs",
     "audit:tsx-inline-styles:update": "node scripts/audit-tsx-inline-styles.mjs --update",
-    "audit:contrast": "node scripts/audit-contrast.mjs"
+    "audit:contrast": "node scripts/audit-contrast.mjs",
+    "audit:seo:live": "node scripts/audit-live-seo.mjs"
   },
   "engines": {
     "node": ">=24.0.0",
