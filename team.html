@@ -58,13 +58,11 @@
           "name": "HiMMP Research Team",
           "description": "Meet the team behind the HiMMP project exploring heaviness in metal music production.",
           "isPartOf": {
-            "@type": "ResearchProject",
-            "name": "Heaviness in Metal Music Production",
-            "alternateName": "HiMMP",
-            "url": "https://himmp.net"
+            "@id": "https://himmp.net/#website"
           },
           "mainEntity": {
-            "@type": "ResearchOrganization",
+            "@type": "Organization",
+            "additionalType": "https://schema.org/ResearchOrganization",
             "name": "HiMMP Research Team",
             "member": [
               {
@@ -72,7 +70,11 @@
                 "name": "Jan Herbst",
                 "honorificPrefix": "Prof. Dr. Dr.",
                 "jobTitle": "Principal Investigator",
-                "affiliation": "University of Huddersfield",
+                "affiliation": {
+                  "@type": "Organization",
+                  "name": "University of Huddersfield",
+                  "url": "https://www.hud.ac.uk/"
+                },
                 "image": "https://himmp.net/assets/images/people/Herbst.jpg",
                 "url": "https://janherbst.net/",
                 "mainEntityOfPage": "https://pure.hud.ac.uk/en/persons/jan-herbst"
@@ -82,7 +84,11 @@
                 "name": "Mark Mynett",
                 "honorificPrefix": "Dr.",
                 "jobTitle": "Co-Investigator",
-                "affiliation": "University of Huddersfield",
+                "affiliation": {
+                  "@type": "Organization",
+                  "name": "University of Huddersfield",
+                  "url": "https://www.hud.ac.uk/"
+                },
                 "image": "https://himmp.net/assets/images/people/Mynett.jpg",
                 "url": "https://www.mynetaur.com/",
                 "mainEntityOfPage": "https://pure.hud.ac.uk/en/persons/mark-mynett"
