@@ -874,8 +874,8 @@ test.describe("static export legacy route smoke", () => {
     const frames = page.locator(".video-container iframe[data-lazy-youtube-src]");
     const firstFrame = frames.first();
     await expect(page.locator("[data-enhanced-video-controller='ready']")).toHaveCount(1);
-    await expect(frames).toHaveCount(22);
-    await expect(page.locator(".lazy-video-trigger")).toHaveCount(22);
+    await expect(frames).toHaveCount(27);
+    await expect(page.locator(".lazy-video-trigger")).toHaveCount(27);
     await expect(firstFrame).toHaveAttribute("data-lazy-youtube-src", "https://www.youtube.com/embed/TkLQaOkAtlw");
     await expect(firstFrame).not.toHaveAttribute("src", /youtube\.com/);
     expect(youtubeRequests).toEqual([]);
@@ -890,7 +890,7 @@ test.describe("static export legacy route smoke", () => {
     await page.locator(".lazy-video-trigger").first().click();
 
     await expect(firstFrame).toHaveAttribute("src", "https://www.youtube.com/embed/TkLQaOkAtlw");
-    await expect(page.locator(".lazy-video-trigger")).toHaveCount(21);
+    await expect(page.locator(".lazy-video-trigger")).toHaveCount(26);
     const youtubeRequest = await youtubeFetchFired;
     expect(youtubeRequest.url()).toBe("https://www.youtube.com/embed/TkLQaOkAtlw");
 

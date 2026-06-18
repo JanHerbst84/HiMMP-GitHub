@@ -4,7 +4,7 @@
  *
  * Structural notes specific to this page:
  *
- * - All 22 iframes carry `data-lazy-youtube-src` instead of `src`,
+ * - All 27 iframes carry `data-lazy-youtube-src` instead of `src`,
  *   matching what the catch-all's `prepareEnhancedVideoHtml`
  *   produced for this route. The existing `<EnhancedVideoController>`
  *   (rendered by the route file) reads that attribute after
@@ -67,6 +67,19 @@ const userVideos: ReadonlyArray<UserVideo> = [
   { embedId: "DOgtV0Gn87A", iframeTitle: "믹싱의 기준 (Basis for Mixing)", heading: "믹싱의 기준 (Basis for Mixing)", meta: "미디생활 (Live of MIDI) • 2 March 2025" }
 ];
 
+// Independent practitioners who downloaded the open 'In Solitude'
+// multitracks/DIs and published their own mixes/reamps. Distinct from the
+// reaction videos above: this is reuse of the research data, not commentary
+// on it. IDs + dates verified against YouTube API metadata (2026-06-01) in
+// the impact case-study tracker; titles confirmed via YouTube oEmbed.
+const reuseVideos: ReadonlyArray<UserVideo> = [
+  { embedId: "UaEQNxLrvko", iframeTitle: "Warlock Studios mix and master of In Solitude", heading: "In Solitude - Warlock Studios mix and master", meta: "Warlock Studios • 18 September 2025" },
+  { embedId: "EotCnk5bAE8", iframeTitle: "Al R mix of In Solitude", heading: "In Solitude - Al R mix", meta: "Al R • 17 September 2025" },
+  { embedId: "IFO698VENMk", iframeTitle: "Pradhe mix of In Solitude", heading: "In Solitude - Pradhe mix", meta: "Pradhe • 21 August 2025" },
+  { embedId: "5QDnVNiI5nM", iframeTitle: "Pradhe short mix of In Solitude", heading: "In Solitude - Pradhe mix (short)", meta: "Pradhe • 17 August 2025" },
+  { embedId: "IZDfsAneeHc", iframeTitle: "djabthrash reamping the In Solitude guitar DIs", heading: "Reamping the In Solitude guitar DIs", meta: "djabthrash • 26 August 2025" }
+];
+
 function LazyYouTubeIframe({ embedId, title }: { embedId: string; title: string }) {
   return (
     <iframe
@@ -124,6 +137,7 @@ export function VideosPage() {
             <button className="section-nav-button" data-target="mixing-videos-section">Mixing Sessions</button>
             <button className="section-nav-button" data-target="bonus-videos-section">Bonus Content</button>
             <button className="section-nav-button" data-target="user-generated-videos-section">User-Generated</button>
+            <button className="section-nav-button" data-target="practitioner-reuse-videos-section">Practitioner Reuse</button>
           </div>
         </div>
       </div>
@@ -182,6 +196,24 @@ export function VideosPage() {
           <p>Third-party videos and reactions featuring the HiMMP research content:</p>
           <div className="video-grid">
             {userVideos.map(({ embedId, iframeTitle, heading, meta }) => (
+              <div key={embedId} className="video-item">
+                <div className="video-container">
+                  <LazyYouTubeIframe embedId={embedId} title={iframeTitle} />
+                </div>
+                <h4>{heading}</h4>
+                <p className="video-meta">{meta}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section practitioner-reuse-videos-section" id="practitioner-reuse-videos-section">
+        <div className="container">
+          <h3>Practitioner Reuse</h3>
+          <p>Independent producers and engineers who downloaded the open 'In Solitude' multitracks and shared their own mixes, masters, and reamps:</p>
+          <div className="video-grid">
+            {reuseVideos.map(({ embedId, iframeTitle, heading, meta }) => (
               <div key={embedId} className="video-item">
                 <div className="video-container">
                   <LazyYouTubeIframe embedId={embedId} title={iframeTitle} />
