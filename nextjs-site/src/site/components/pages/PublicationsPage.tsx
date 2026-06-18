@@ -113,6 +113,28 @@ export function PublicationsPage() {
                             </div>
                         </div>
                     </div>
+
+                    <div className="publication-card">
+                        <div className="publication-type">Dataset</div>
+                        <div className="publication-content">
+                            <div className="publication-title">'In Solitude' Multitrack</div>
+                            <div className="publication-meta">Raw research multitrack (2026)</div>
+                            <div className="publication-links">
+                                <a href="https://doi.org/10.5281/zenodo.20607978" className="publication-link" target="_blank" rel="noopener noreferrer">DOI</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="publication-card">
+                        <div className="publication-type">Dataset</div>
+                        <div className="publication-content">
+                            <div className="publication-title">'In Solitude' Producer Mixes and Stems</div>
+                            <div className="publication-meta">Producer mixes and stems (2026)</div>
+                            <div className="publication-links">
+                                <a href="https://doi.org/10.5281/zenodo.20608441" className="publication-link" target="_blank" rel="noopener noreferrer">DOI</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <h4 className="section-heading">Books</h4>
@@ -197,7 +219,7 @@ export function PublicationsPage() {
                                 <a href="https://orcid.org/0000-0001-7453-0141" className="publication-author" target="_blank" rel="noopener noreferrer">Herbst, Jan</a>{" & "}
                                 <a href="https://orcid.org/0000-0001-5145-4668" className="publication-author" target="_blank" rel="noopener noreferrer">Mynett, Mark</a>
                             </div>
-                            <div className="publication-meta"><em>Popular Music & Society</em> 49(2)</div>
+                            <div className="publication-meta"><em>Popular Music & Society</em> 49(1)</div>
                             <div className="publication-links">
                                 <a href="https://doi.org/10.1080/03007766.2025.2530807" className="publication-link" target="_blank" rel="noopener noreferrer">Open Access</a>
                             </div>
@@ -712,6 +734,7 @@ export function PublicationsPage() {
                             <div className="publication-meta">Routledge</div>
                             <div className="publication-links">
                                 <a href="https://www.routledge.com/Metal-Music-Manual-Producing-Engineering-Mixing-and-Mastering-Contemporary/Mynett/p/book/9781138809321" className="publication-link" target="_blank" rel="noopener noreferrer">Access</a>
+                                <a href="https://doi.org/10.4324/9781315750071" className="publication-link" target="_blank" rel="noopener noreferrer">DOI</a>
                             </div>
                         </div>
                     </div>
