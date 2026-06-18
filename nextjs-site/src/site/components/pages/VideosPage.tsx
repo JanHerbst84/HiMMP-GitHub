@@ -4,7 +4,7 @@
  *
  * Structural notes specific to this page:
  *
- * - All 27 iframes carry `data-lazy-youtube-src` instead of `src`,
+ * - All 28 iframes carry `data-lazy-youtube-src` instead of `src`,
  *   matching what the catch-all's `prepareEnhancedVideoHtml`
  *   produced for this route. The existing `<EnhancedVideoController>`
  *   (rendered by the route file) reads that attribute after
@@ -29,7 +29,7 @@
 type ConceptVideo = { embedId: string; iframeTitle: string; heading: string };
 type MixingVideo = { embedId: string; iframeTitle: string; heading: string };
 type BonusVideo = { embedId: string; iframeTitle: string; heading: string };
-type UserVideo = { embedId: string; iframeTitle: string; heading: string; meta: string };
+type UserVideo = { embedId: string; iframeTitle: string; heading: string; meta: string; start?: number };
 
 const conceptVideos: ReadonlyArray<ConceptVideo> = [
   { embedId: "TkLQaOkAtlw", iframeTitle: "Jens Bogren on Heaviness", heading: "Jens Bogren on 'Heaviness'" },
@@ -64,7 +64,13 @@ const userVideos: ReadonlyArray<UserVideo> = [
   { embedId: "U_TtJo2_bh8", iframeTitle: "8 Top Mix Engineers Mix The Same Track", heading: "8 Top Mix Engineers Mix The Same Track", meta: "Sound on Sound • 24 July 2024" },
   { embedId: "3u-NNeLa8lc", iframeTitle: "Mastering Engineer Reacts to 8 Pro Mixes of the Same Song", heading: "Mastering Engineer Reacts to 8 Pro Mixes of the Same Song", meta: "Production Advice • 19 September 2024" },
   { embedId: "OZloYQA56UQ", iframeTitle: "8 Famous Mix Engineers Mixed the Same Song - The Difference Is Shocking", heading: "8 Famous Mix Engineers Mixed the Same Song - The Difference Is Shocking", meta: "Beats and Meats • 9 July 2025" },
-  { embedId: "DOgtV0Gn87A", iframeTitle: "믹싱의 기준 (Basis for Mixing)", heading: "믹싱의 기준 (Basis for Mixing)", meta: "미디생활 (Live of MIDI) • 2 March 2025" }
+  { embedId: "DOgtV0Gn87A", iframeTitle: "믹싱의 기준 (Basis for Mixing)", heading: "믹싱의 기준 (Basis for Mixing)", meta: "미디생활 (Live of MIDI) • 2 March 2025" },
+  // German-language video essay (~49 min) that features and endorses the
+  // HiMMP website on screen ~27:00-31:40 and takes up HiMMP's multi-dimensional
+  // conception of heaviness. `start: 1622` deep-links the embed to the HiMMP
+  // segment (27:02). Transcript-verified; date corroborated (recorded Thu
+  // 2 Apr 2026, Good Friday next day).
+  { embedId: "Gl2qWQhHFEg", iframeTitle: "Bloodred — Perfektion ist der Feind guter Musik (features HiMMP)", heading: "Perfektion ist der Feind guter Musik", meta: "Bloodred • 2 April 2026 • German-language feature (HiMMP from 27:00)", start: 1622 }
 ];
 
 // Independent practitioners who downloaded the open 'In Solitude'
@@ -80,11 +86,17 @@ const reuseVideos: ReadonlyArray<UserVideo> = [
   { embedId: "IZDfsAneeHc", iframeTitle: "djabthrash reamping the In Solitude guitar DIs", heading: "Reamping the In Solitude guitar DIs", meta: "djabthrash • 26 August 2025" }
 ];
 
-function LazyYouTubeIframe({ embedId, title }: { embedId: string; title: string }) {
+function LazyYouTubeIframe({ embedId, title, start }: { embedId: string; title: string; start?: number }) {
+  // Optional `start` deep-links the embed to a timestamp (seconds). The
+  // lazy controller assigns data-lazy-youtube-src as the real src on click,
+  // so the ?start= query rides along and YouTube honours it.
+  const lazySrc = start
+    ? `https://www.youtube.com/embed/${embedId}?start=${start}`
+    : `https://www.youtube.com/embed/${embedId}`;
   return (
     <iframe
       loading="lazy"
-      data-lazy-youtube-src={`https://www.youtube.com/embed/${embedId}`}
+      data-lazy-youtube-src={lazySrc}
       title={title}
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -193,12 +205,12 @@ export function VideosPage() {
       <section className="content-section user-generated-videos-section" id="user-generated-videos-section">
         <div className="container">
           <h3>User-Generated Content</h3>
-          <p>Third-party videos and reactions featuring the HiMMP research content:</p>
+          <p>Third-party videos, reactions, and features of the HiMMP research content:</p>
           <div className="video-grid">
-            {userVideos.map(({ embedId, iframeTitle, heading, meta }) => (
+            {userVideos.map(({ embedId, iframeTitle, heading, meta, start }) => (
               <div key={embedId} className="video-item">
                 <div className="video-container">
-                  <LazyYouTubeIframe embedId={embedId} title={iframeTitle} />
+                  <LazyYouTubeIframe embedId={embedId} title={iframeTitle} start={start} />
                 </div>
                 <h4>{heading}</h4>
                 <p className="video-meta">{meta}</p>
