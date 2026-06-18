@@ -1591,6 +1591,19 @@ a {
   max-width: 960px;
 }
 
+.enhanced-findings-shell .on-this-page {
+  width: 100%;
+  max-width: 960px;
+  margin: 24px auto 0;
+  padding: 0 var(--spacing-md);
+}
+
+@media screen and (max-width: 479px) {
+  .enhanced-findings-shell .on-this-page {
+    padding: 0 var(--spacing-sm);
+  }
+}
+
 .enhanced-findings-shell #main-content .chapter-content {
   font-size: 1.03rem;
   line-height: 1.78;
