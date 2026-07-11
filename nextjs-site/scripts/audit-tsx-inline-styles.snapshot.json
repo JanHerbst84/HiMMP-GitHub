@@ -85,7 +85,7 @@
   },
   {
     "file": "app/findings/page.tsx",
-    "line": 31,
+    "line": 36,
     "expr": "{ display: \"contents\" }",
     "entries": [
       {
@@ -375,7 +375,7 @@
   },
   {
     "file": "src/site/components/pages/FindingsIndexPage.tsx",
-    "line": 18,
+    "line": 17,
     "expr": "{ camel: \"val\" }",
     "entries": [
       {
@@ -387,7 +387,7 @@
   },
   {
     "file": "src/site/components/pages/FindingsIndexPage.tsx",
-    "line": 33,
+    "line": 32,
     "expr": "{ backgroundImage: \"url('findings/Figures/0_Cover.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {
@@ -414,7 +414,7 @@
   },
   {
     "file": "src/site/components/pages/FindingsIndexPage.tsx",
-    "line": 54,
+    "line": 53,
     "expr": "{ marginTop: \"1rem\" }",
     "entries": [
       {
@@ -426,7 +426,7 @@
   },
   {
     "file": "src/site/components/pages/FindingsIndexPage.tsx",
-    "line": 213,
+    "line": 212,
     "expr": "{ textAlign: \"center\" }",
     "entries": [
       {
@@ -716,13 +716,8 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 64,
-    "expr": "{ padding: \"25px\", margin: \"40px auto\", textAlign: \"center\", borderRadius: \"8px\", maxWidth: \"800px\" }",
+    "expr": "{ margin: \"40px auto\", textAlign: \"center\" }",
     "entries": [
-      {
-        "kind": "kv",
-        "key": "padding",
-        "value": "\"25px\""
-      },
       {
         "kind": "kv",
         "key": "margin",
@@ -732,16 +727,6 @@
         "kind": "kv",
         "key": "textAlign",
         "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "borderRadius",
-        "value": "\"8px\""
-      },
-      {
-        "kind": "kv",
-        "key": "maxWidth",
-        "value": "\"800px\""
       }
     ]
   },
@@ -781,7 +766,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 109,
+    "line": 115,
     "expr": "{ background: \"linear-gradient(135deg, #5DC69F 0%, #4BA87E 100%)\", padding: \"40px 0\" }",
     "entries": [
       {
@@ -798,7 +783,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 110,
+    "line": 116,
     "expr": "{ textAlign: \"center\" }",
     "entries": [
       {
@@ -810,7 +795,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 112,
+    "line": 118,
     "expr": "{ fontSize: \"1.2em\", maxWidth: \"700px\", margin: \"0 auto 20px\" }",
     "entries": [
       {
@@ -832,7 +817,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 115,
+    "line": 121,
     "expr": "{ padding: \"12px 30px\", fontSize: \"1.1em\" }",
     "entries": [
       {
@@ -849,7 +834,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 119,
+    "line": 125,
     "expr": "{ paddingTop: \"0\" }",
     "entries": [
       {
@@ -861,7 +846,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 121,
+    "line": 127,
     "expr": "{ textAlign: \"center\", marginBottom: \"40px\" }",
     "entries": [
       {
@@ -878,7 +863,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 122,
+    "line": 128,
     "expr": "{ gridTemplateColumns: \"1fr 1fr\", gap: \"40px\", alignItems: \"start\" }",
     "entries": [
       {
@@ -900,90 +885,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 123,
-    "expr": "{ textAlign: \"center\", display: \"flex\", flexDirection: \"column\", alignItems: \"center\" }",
-    "entries": [
-      {
-        "kind": "kv",
-        "key": "textAlign",
-        "value": "\"center\""
-      },
-      {
-        "kind": "kv",
-        "key": "display",
-        "value": "\"flex\""
-      },
-      {
-        "kind": "kv",
-        "key": "flexDirection",
-        "value": "\"column\""
-      },
-      {
-        "kind": "kv",
-        "key": "alignItems",
-        "value": "\"center\""
-      }
-    ]
-  },
-  {
-    "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 126,
-    "expr": "{ width: \"100%\", maxWidth: \"300px\", border: \"1px solid #ddd\", marginBottom: \"15px\" }",
-    "entries": [
-      {
-        "kind": "kv",
-        "key": "width",
-        "value": "\"100%\""
-      },
-      {
-        "kind": "kv",
-        "key": "maxWidth",
-        "value": "\"300px\""
-      },
-      {
-        "kind": "kv",
-        "key": "border",
-        "value": "\"1px solid #ddd\""
-      },
-      {
-        "kind": "kv",
-        "key": "marginBottom",
-        "value": "\"15px\""
-      }
-    ]
-  },
-  {
-    "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 128,
-    "expr": "{ marginBottom: \"5px\" }",
-    "entries": [
-      {
-        "kind": "kv",
-        "key": "marginBottom",
-        "value": "\"5px\""
-      }
-    ]
-  },
-  {
-    "file": "src/site/components/pages/HomeMain.tsx",
     "line": 129,
-    "expr": "{ fontSize: \"1em\", marginTop: \"10px\" }",
-    "entries": [
-      {
-        "kind": "kv",
-        "key": "fontSize",
-        "value": "\"1em\""
-      },
-      {
-        "kind": "kv",
-        "key": "marginTop",
-        "value": "\"10px\""
-      }
-    ]
-  },
-  {
-    "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 131,
     "expr": "{ textAlign: \"center\", display: \"flex\", flexDirection: \"column\", alignItems: \"center\" }",
     "entries": [
       {
@@ -1037,7 +939,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 133,
+    "line": 134,
     "expr": "{ marginBottom: \"5px\" }",
     "entries": [
       {
@@ -1049,7 +951,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 134,
+    "line": 135,
     "expr": "{ fontSize: \"1em\", marginTop: \"10px\" }",
     "entries": [
       {
@@ -1067,6 +969,89 @@
   {
     "file": "src/site/components/pages/HomeMain.tsx",
     "line": 137,
+    "expr": "{ textAlign: \"center\", display: \"flex\", flexDirection: \"column\", alignItems: \"center\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "textAlign",
+        "value": "\"center\""
+      },
+      {
+        "kind": "kv",
+        "key": "display",
+        "value": "\"flex\""
+      },
+      {
+        "kind": "kv",
+        "key": "flexDirection",
+        "value": "\"column\""
+      },
+      {
+        "kind": "kv",
+        "key": "alignItems",
+        "value": "\"center\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 138,
+    "expr": "{ width: \"100%\", maxWidth: \"300px\", border: \"1px solid #ddd\", marginBottom: \"15px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "width",
+        "value": "\"100%\""
+      },
+      {
+        "kind": "kv",
+        "key": "maxWidth",
+        "value": "\"300px\""
+      },
+      {
+        "kind": "kv",
+        "key": "border",
+        "value": "\"1px solid #ddd\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"15px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 139,
+    "expr": "{ marginBottom: \"5px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "marginBottom",
+        "value": "\"5px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 140,
+    "expr": "{ fontSize: \"1em\", marginTop: \"10px\" }",
+    "entries": [
+      {
+        "kind": "kv",
+        "key": "fontSize",
+        "value": "\"1em\""
+      },
+      {
+        "kind": "kv",
+        "key": "marginTop",
+        "value": "\"10px\""
+      }
+    ]
+  },
+  {
+    "file": "src/site/components/pages/HomeMain.tsx",
+    "line": 143,
     "expr": "{ textAlign: \"center\", marginTop: \"40px\" }",
     "entries": [
       {
@@ -1083,7 +1068,7 @@
   },
   {
     "file": "src/site/components/pages/HomeMain.tsx",
-    "line": 138,
+    "line": 144,
     "expr": "{ fontSize: \"1.2em\" }",
     "entries": [
       {
@@ -1232,7 +1217,7 @@
   },
   {
     "file": "src/site/components/pages/PublicationsPage.tsx",
-    "line": 391,
+    "line": 413,
     "expr": "{ paddingTop: \"20px\" }",
     "entries": [
       {
@@ -1244,7 +1229,7 @@
   },
   {
     "file": "src/site/components/pages/PublicationsPage.tsx",
-    "line": 687,
+    "line": 709,
     "expr": "{ paddingTop: \"20px\" }",
     "entries": [
       {
@@ -1256,7 +1241,7 @@
   },
   {
     "file": "src/site/components/pages/PublicationsPage.tsx",
-    "line": 925,
+    "line": 948,
     "expr": "{ paddingTop: \"20px\" }",
     "entries": [
       {
@@ -1268,7 +1253,7 @@
   },
   {
     "file": "src/site/components/pages/PublicationsPage.tsx",
-    "line": 1111,
+    "line": 1134,
     "expr": "{ paddingTop: \"20px\" }",
     "entries": [
       {
@@ -1307,7 +1292,7 @@
   },
   {
     "file": "src/site/components/pages/VideosPage.tsx",
-    "line": 88,
+    "line": 113,
     "expr": "{ backgroundImage: \"url('assets/images/background/HiMMP-bg-welcome.jpg')\", backgroundSize: \"cover\", backgroundPosition: \"center\", position: \"relative\" }",
     "entries": [
       {

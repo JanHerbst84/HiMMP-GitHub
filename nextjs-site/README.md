@@ -14,7 +14,6 @@ Deployment assumptions and non-deployment decisions are tracked in
 ```bash
 npm run inventory
 npm run build
-npm run build:audio
 npm run typecheck
 npm run parity
 npm run parity:content
@@ -23,6 +22,8 @@ npm run parity:links
 npm run parity:sitemap
 npm run parity:visual
 npm run test:e2e
+npm run test:hardening
+npm run preflight:deploy
 ```
 
 `npm run build` syncs CSS, JavaScript, images, figures, favicon, `robots.txt`,
@@ -30,7 +31,16 @@ npm run test:e2e
 use `npm run sync:public:audio` only after confirming the deployment target can
 host the MP3 payload.
 
-Use `npm run build:audio` for an export artifact that co-hosts the MP3 payload.
+Use `npm run build:audio` for the staging or production artifact. The deployment
+preflight requires all source MP3s, so a lightweight `npm run build` artifact
+cannot pass `npm run preflight:deploy` or be promoted accidentally.
+Because `npm run test:e2e` performs a lightweight build first, create and check
+the promotable artifact afterwards:
+
+```bash
+npm run build:audio
+npm run preflight:deploy
+```
 
 `npm run parity:visual` compares representative legacy and Next-export
 screenshots with ImageMagick and writes artifacts to `.migration/visual-parity/`.

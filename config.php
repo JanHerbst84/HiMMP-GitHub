@@ -33,16 +33,31 @@ defined('RATE_LIMIT_WINDOW') || define('RATE_LIMIT_WINDOW', 3600); // 1 hour in 
 // CSRF token settings
 defined('CSRF_TOKEN_NAME') || define('CSRF_TOKEN_NAME', 'himmp_csrf_token');
 defined('CSRF_TOKEN_EXPIRY') || define('CSRF_TOKEN_EXPIRY', 7200); // 2 hours in seconds
+defined('SESSION_COOKIE_SECURE') || define('SESSION_COOKIE_SECURE', true);
 
 // Logging directory
 defined('SUBMISSIONS_DIR') || define('SUBMISSIONS_DIR', __DIR__ . '/contact_submissions');
 
 // Ensure submissions directory exists
-if (!file_exists(SUBMISSIONS_DIR)) {
-    mkdir(SUBMISSIONS_DIR, 0755, true);
+if (!is_dir(SUBMISSIONS_DIR)) {
+    if (!@mkdir(SUBMISSIONS_DIR, 0700, true) && !is_dir(SUBMISSIONS_DIR)) {
+        throw new RuntimeException('Contact submissions directory could not be created.');
+    }
+}
+if (!chmod(SUBMISSIONS_DIR, 0700)) {
+    throw new RuntimeException('Contact submissions directory permissions could not be secured.');
 }
 
 // Session settings for CSRF protection
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.use_only_cookies', '1');
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => SESSION_COOKIE_SECURE,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
     session_start();
 }

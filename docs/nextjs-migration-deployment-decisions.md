@@ -169,9 +169,11 @@ If production will co-host audio, use the audio-aware build command:
 ```bash
 npm run build:audio
 npm run parity:links
+npm run preflight:deploy
 ```
 
 `npm run build:audio` runs the full public-asset sync including audio immediately before `next build`, avoiding dependence on the default `prebuild` sync that intentionally excludes audio.
+`npm run preflight:deploy` requires the complete source MP3 count; it is a production gate and intentionally fails after the lightweight non-audio build.
 
 If production will co-host PHP, verify the exported static site and PHP endpoints together with the actual server configuration. The local static-export test server cannot prove PHP execution.
 

@@ -3,8 +3,8 @@
     "family": "L",
     "selector": ".read-more",
     "legacyDecl": { "property": "padding", "value": "8px 16px" },
-    "replacementDecl": { "property": "padding", "value": "6px 0" },
-    "rationale": "Slice H deliberately tightened pill padding for the dark-academic palette (mint background, graphite text). Legacy `8px 16px` created a visually heavier pill; the redesign uses `6px 0` which works with the new mint-on-graphite contrast treatment. Intentional modernisation, not a coverage gap."
+    "replacementDecl": { "property": "padding", "value": "10px 20px" },
+    "rationale": "Slice D-9-e-2 (93bf7be) deliberately replaced the earlier 6px 0 text-link treatment with 10px 20px when `.read-more` became an explicit mint pill after legacy stylesheet retirement. The commit records graphite-on-mint contrast at approximately 8.83:1 and identifies opaque padding/background as the fix for the deployed low-contrast state."
   },
   {
     "family": "L",
@@ -89,5 +89,89 @@
     "legacyDecl": { "property": "margin", "value": "0 auto" },
     "replacementDecl": { "property": "margin", "value": "0" },
     "rationale": "Hero re-skin uses flex centering on the hero parent rather than auto margin on the child. Functionally equivalent visual result. Intentional."
+  },
+  {
+    "family": "C",
+    "selector": ".chapter-hero",
+    "legacyDecl": { "property": "padding", "value": "var(--spacing-lg) 0" },
+    "replacementDecl": { "property": "padding", "value": "clamp(36px, 6vh, 72px) 0" },
+    "rationale": "Slice D-9-e-11 (d16c141) deliberately gave findings and chapter heroes the same responsive 36-72px padding as the already-redesigned inner-page heroes. The commit records that the legacy fixed spacing left findings at a collapsed ~233px height instead of the intended ~450px hero presence."
+  },
+  {
+    "family": "C",
+    "selector": ".chapter-hero",
+    "legacyDecl": { "property": "min-height", "value": "320px" },
+    "replacementDecl": { "property": "min-height", "value": "clamp(360px, 50vh, 520px)" },
+    "rationale": "Slice D-9-e-11 (d16c141) deliberately aligned findings/chapter hero height with the inner-page hero sizing after direct user feedback that the findings hero was barely visible. The responsive clamp was visually measured at 450px on a 1440px viewport and reviewed before shipping."
+  },
+  {
+    "family": "D",
+    "selector": ".sidebar-box",
+    "legacyDecl": { "property": "margin", "value": "var(--spacing-md) 0" },
+    "replacementDecl": { "property": "margin", "value": "0 auto" },
+    "rationale": "Slice D-9-e-15 (7502f74) intentionally removed vertical margin after user feedback that the callout had excessive top/bottom distance; the wrapping content section already supplied vertical padding. Auto horizontal margins retain the redesigned 720px centred callout."
+  },
+  {
+    "family": "D",
+    "selector": ".sidebar-box strong",
+    "legacyDecl": { "property": "margin-bottom", "value": "12px" },
+    "replacementDecl": { "property": "margin-bottom", "value": "14px" },
+    "rationale": "Slice D-9-h / FRESH-12 (61aacfd) intentionally introduced Fraunces callout-heading typography and increased the heading separation by 2px as part of that reviewed typographic treatment. Light/dark computed contrast was verified in the shipping commit."
+  },
+  {
+    "family": "G",
+    "selector": ".publication-section-nav",
+    "legacyDecl": { "property": "padding", "value": "var(--spacing-md) 0" },
+    "replacementDecl": { "property": "padding", "value": "var(--spacing-sm) 0" },
+    "rationale": "Slice D-9-e-16 (0da57b2) deliberately reduced sticky publication-nav padding from 32px to 16px so the persistent strip occupies less reading space. This accompanied the opacity and header-offset correction requested after live review."
+  },
+  {
+    "family": "G",
+    "selector": ".publication-section-nav",
+    "legacyDecl": { "property": "top", "value": "92px" },
+    "replacementDecl": { "property": "top", "value": "var(--site-header-height, 125px)" },
+    "rationale": "Slice D-9-e-16 (0da57b2) corrected the legacy 92px offset after the redesigned header became 125px; the old value allowed content to overlap through a 33px gap. The tokenised replacement tracks future header-height changes."
+  },
+  {
+    "family": "D",
+    "selector": ".chapter-section-nav",
+    "legacyDecl": { "property": "padding", "value": "var(--spacing-md) 0" },
+    "replacementDecl": { "property": "padding", "value": "var(--spacing-sm) 0" },
+    "rationale": "Slice D-9-e-16 (0da57b2) applied the same reviewed compact sticky-strip treatment to chapter navigation as publication navigation, reducing persistent chrome from 32px to 16px padding."
+  },
+  {
+    "family": "D",
+    "selector": ".chapter-section-nav",
+    "legacyDecl": { "property": "top", "value": "92px" },
+    "replacementDecl": { "property": "top", "value": "var(--site-header-height, 125px)" },
+    "rationale": "Slice D-9-e-16 (0da57b2) corrected the chapter sticky-nav offset from the obsolete 92px header height to the shared current-header token, preventing scroll-content overlap."
+  },
+  {
+    "family": "K",
+    "selector": ".footer-nav ul",
+    "legacyDecl": { "property": "gap", "value": "var(--spacing-md)" },
+    "replacementDecl": { "property": "gap", "value": "14px 22px" },
+    "rationale": "Slice D-9-e-7 (e0a07bd) deliberately tightened footer row/column gaps after live user feedback showed Privacy Policy wrapping alone. The shipping commit measured the nine-link row against the available desktop width."
+  },
+  {
+    "family": "K",
+    "selector": ".footer-nav li",
+    "legacyDecl": { "property": "padding", "value": "0 var(--spacing-sm)" },
+    "replacementDecl": { "property": "padding", "value": "0" },
+    "rationale": "Slice D-9-e-9 (9b4b923) removed redundant item padding after measuring 432px of combined list/anchor padding that forced the final footer link onto its own row. Flex gap remains the spacing mechanism."
+  },
+  {
+    "family": "K",
+    "selector": ".footer-nav li:not(:last-child)::after",
+    "legacyDecl": { "property": "right", "value": "-5px" },
+    "replacementDecl": { "property": "right", "value": "-12px" },
+    "rationale": "Slice D-9-e-9 (9b4b923) moved the legacy separator by 7px to compensate exactly for the deliberately removed list-item/anchor padding in the single-row footer layout."
+  },
+  {
+    "family": "K",
+    "selector": ".footer-nav a",
+    "legacyDecl": { "property": "padding", "value": "0 var(--spacing-xs)" },
+    "replacementDecl": { "property": "padding", "value": "0" },
+    "rationale": "Slice D-9-e-9 (9b4b923) removed redundant anchor padding together with list-item padding so the footer fit its desktop container; flex gap supplies separation and the change was verified before shipping."
   }
 ]

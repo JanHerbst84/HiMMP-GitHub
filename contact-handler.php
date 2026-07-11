@@ -7,6 +7,11 @@
 
 require_once 'config.php';
 
+if (!defined('HIMMP_CONTACT_TEST_MODE')) {
+    handleContactRequest();
+}
+
+function handleContactRequest() {
 // Set headers for JSON response
 header('Content-Type: application/json');
 
@@ -30,18 +35,11 @@ if (!validateCSRFToken()) {
     exit;
 }
 
-// Check rate limiting
-if (!checkRateLimit()) {
-    $response['message'] = 'Too many submissions. Please try again later.';
-    echo json_encode($response);
-    exit;
-}
-
 // Get and sanitize form data (PHP 8.1+ compatible)
-$name = trim(filter_input(INPUT_POST, 'name', FILTER_UNSAFE_RAW) ?? '');
-$email = trim(filter_input(INPUT_POST, 'email', FILTER_UNSAFE_RAW) ?? '');
-$subject = trim(filter_input(INPUT_POST, 'subject', FILTER_UNSAFE_RAW) ?? '');
-$message = trim(filter_input(INPUT_POST, 'message', FILTER_UNSAFE_RAW) ?? '');
+$name = requestPostString('name');
+$email = requestPostString('email');
+$subject = requestPostString('subject');
+$message = requestPostString('message');
 
 // Sanitize strings (replace deprecated FILTER_SANITIZE_STRING)
 $name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
@@ -94,6 +92,13 @@ if (!empty($errors)) {
     exit;
 }
 
+// Count accepted submissions before performing any logging or mail I/O.
+if (!consumeRateLimitAttempt()) {
+    $response['message'] = 'Too many submissions. Please try again later.';
+    echo json_encode($response);
+    exit;
+}
+
 // Log submission to file (backup in case email fails)
 $submission_logged = logSubmission($name, $email, $subject, $message);
 
@@ -118,7 +123,6 @@ $mail_sent = sendContactEmail($to, $email_subject, $email_message, $headers, $em
 if ($mail_sent) {
     $response['success'] = true;
     $response['message'] = 'Thank you for your message! We will get back to you soon.';
-    recordRateLimitAttempt(); // Only count successful submissions
 } else {
     $response['message'] = 'There was a problem sending your message. ' .
                           ($submission_logged ? 'However, your submission has been logged and we will review it.' : 'Please try again or contact us directly at ' . CONTACT_EMAIL . '.');
@@ -127,6 +131,7 @@ if ($mail_sent) {
 // Return response as JSON
 echo json_encode($response);
 exit;
+}
 
 /**
  * Validates CSRF token
@@ -164,52 +169,64 @@ function validateCSRFToken() {
 /**
  * Checks rate limiting based on IP address
  */
-function checkRateLimit() {
+function consumeRateLimitAttempt() {
     $ip = $_SERVER['REMOTE_ADDR'];
     $rate_limit_file = SUBMISSIONS_DIR . '/rate_limit_' . md5($ip) . '.json';
-
-    if (!file_exists($rate_limit_file)) {
-        return true;
-    }
-
-    $data = json_decode(file_get_contents($rate_limit_file), true);
-
-    if (!$data || !isset($data['count']) || !isset($data['timestamp'])) {
-        return true;
-    }
-
-    // Check if rate limit window has passed
-    if (time() - $data['timestamp'] > RATE_LIMIT_WINDOW) {
-        unlink($rate_limit_file);
-        return true;
-    }
-
-    // Check if limit exceeded
-    if ($data['count'] >= RATE_LIMIT_SUBMISSIONS) {
+    $handle = @fopen($rate_limit_file, 'c+');
+    if ($handle === false) {
+        error_log('HiMMP contact rate limit file could not be opened.');
         return false;
     }
 
-    return true;
-}
-
-/**
- * Records a rate limit attempt
- */
-function recordRateLimitAttempt() {
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $rate_limit_file = SUBMISSIONS_DIR . '/rate_limit_' . md5($ip) . '.json';
-
-    $data = ['count' => 1, 'timestamp' => time()];
-
-    if (file_exists($rate_limit_file)) {
-        $existing_data = json_decode(file_get_contents($rate_limit_file), true);
-        if ($existing_data && isset($existing_data['count'])) {
-            $data['count'] = $existing_data['count'] + 1;
-            $data['timestamp'] = $existing_data['timestamp'];
-        }
+    if (!chmod($rate_limit_file, 0600)) {
+        fclose($handle);
+        error_log('HiMMP contact rate limit file permissions could not be secured.');
+        return false;
     }
+    try {
+        if (!flock($handle, LOCK_EX)) {
+            error_log('HiMMP contact rate limit lock could not be acquired.');
+            return false;
+        }
 
-    file_put_contents($rate_limit_file, json_encode($data));
+        rewind($handle);
+        $raw = stream_get_contents($handle);
+        $existing = $raw !== false && $raw !== '' ? json_decode($raw, true) : null;
+        $validExistingState = is_array($existing)
+            && isset($existing['count'], $existing['timestamp'])
+            && is_int($existing['count'])
+            && is_int($existing['timestamp'])
+            && $existing['count'] >= 0
+            && $existing['timestamp'] > 0;
+        if ($raw === false || ($raw !== '' && !$validExistingState)) {
+            error_log('HiMMP contact rate limit state is malformed; refusing submission.');
+            return false;
+        }
+        $now = time();
+        $withinWindow = $validExistingState
+            && $now - $existing['timestamp'] <= RATE_LIMIT_WINDOW;
+        $count = $withinWindow ? $existing['count'] : 0;
+        $timestamp = $withinWindow ? $existing['timestamp'] : $now;
+
+        if ($count >= RATE_LIMIT_SUBMISSIONS) {
+            return false;
+        }
+
+        $data = json_encode(['count' => $count + 1, 'timestamp' => $timestamp]);
+        if ($data === false) {
+            return false;
+        }
+        rewind($handle);
+        if (!ftruncate($handle, 0) || !writeAll($handle, $data) || !fflush($handle)) {
+            error_log('HiMMP contact rate limit file could not be written.');
+            return false;
+        }
+
+        return true;
+    } finally {
+        flock($handle, LOCK_UN);
+        fclose($handle);
+    }
 }
 
 /**
@@ -230,7 +247,43 @@ function logSubmission($name, $email, $subject, $message) {
     $log_content .= "Message:\n$message\n";
     $log_content .= "\n=================================\n";
 
-    return file_put_contents($filename, $log_content) !== false;
+    $handle = @fopen($filename, 'x');
+    if ($handle === false) {
+        return false;
+    }
+    if (!chmod($filename, 0600)) {
+        fclose($handle);
+        @unlink($filename);
+        return false;
+    }
+    try {
+        return writeAll($handle, $log_content) && fflush($handle);
+    } finally {
+        fclose($handle);
+    }
+}
+
+function requestPostString($name) {
+    $value = filter_input(INPUT_POST, $name, FILTER_UNSAFE_RAW);
+    if ($value === null) {
+        $value = $_POST[$name] ?? '';
+    }
+
+    return is_string($value) ? trim($value) : '';
+}
+
+function writeAll($handle, $content) {
+    $length = strlen($content);
+    $written = 0;
+    while ($written < $length) {
+        $result = fwrite($handle, substr($content, $written));
+        if ($result === false || $result === 0) {
+            return false;
+        }
+        $written += $result;
+    }
+
+    return true;
 }
 
 /**
