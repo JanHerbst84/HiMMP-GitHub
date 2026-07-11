@@ -64,6 +64,7 @@ Checked live on 2026-07-11 after hardening release `/var/www/himmp-site/releases
 - The 27-route live SEO audit passed with 73 JSON-LD blocks and no failures or warnings.
 - Representative live browser checks (home, audio, videos with an activated YouTube embed, and a findings chapter) produced no report-only CSP console violations.
 - A tagged real submission (`HARDENING DEPLOY fd80590`) passed the SMTP/log path and created a `www-data:www-data` mode-`600` record; that test record was deleted after verification.
+- The recipient confirmed delivery of the tagged hardening-deploy email, closing the end-to-end SMTP verification.
 - Existing contact storage was migrated to `www-data:www-data`, directory mode `700`, and file mode `600`. One older deterministic smoke record was also deleted. Four historical submission records remain pending correspondence-owner retention adjudication; their contents were not exposed in the deployment log.
 
 Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
@@ -112,7 +113,6 @@ Checked live over HTTPS on 2026-06-08 after release `/var/www/himmp-site/release
 
 ## Remaining Before Production Cutover
 
-- Ask the recipient to confirm that the production smoke-test email arrived.
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
 - Run `sudo bash deploy/hostinger/harden-contact-storage.sh` (or its equivalent against `/var/www/himmp-site/php/contact_submissions`) once during this deploy so the directory and existing files are owned by `www-data:www-data` and move to directory mode `700` and file mode `600`.
 - Review the resulting filename-only retention inventory with the correspondence owner. The deployment must not guess which messages have completed correspondence; delete only records the owner confirms are no longer required under the published retention policy.
