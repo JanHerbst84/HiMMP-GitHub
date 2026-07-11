@@ -40,6 +40,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { validateEquivalenceReplacement } from './lib/d1-equivalence.mjs';
 import { isStructuralProp } from './lib/css-classes.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -355,7 +356,18 @@ for (const mRule of targetRules) {
   for (const legacyDecl of mRule.structuralDecls) {
     if (!isStructuralProp(legacyDecl.property)) continue;
     const equivalence = findEquivalence(mRule.family, mRule.selector, legacyDecl);
-    if (equivalence) continue;
+    if (equivalence) {
+      const equivalenceFailure = validateEquivalenceReplacement(equivalence, presentProps);
+      if (equivalenceFailure) {
+        failures.push({
+          ...equivalenceFailure,
+          family: mRule.family,
+          selector: mRule.selector,
+          atRule: legacyAt
+        });
+      }
+      continue;
+    }
     const present = presentProps.get(legacyDecl.property);
     if (!present) {
       failures.push({
@@ -446,6 +458,12 @@ for (const f of failures) {
     console.log(`    [missing-decl]     ${f.family} ${f.selector}${f.atRule ? ` @ ${f.atRule}` : ''} :: ${f.property}: ${f.expectedValue}`);
   } else if (f.kind === 'wrong-value') {
     console.log(`    [wrong-value]      ${f.family} ${f.selector}${f.atRule ? ` @ ${f.atRule}` : ''} :: ${f.property}: expected '${f.expectedValue}', got '${f.actualValue}' (${f.actualSource})`);
+  } else if (f.kind === 'invalid-equivalence') {
+    console.log(`    [invalid-equivalence] ${f.family} ${f.selector}${f.atRule ? ` @ ${f.atRule}` : ''} :: replacementDecl must name a property and string value`);
+  } else if (f.kind === 'missing-equivalence-replacement') {
+    console.log(`    [missing-equivalence-replacement] ${f.family} ${f.selector}${f.atRule ? ` @ ${f.atRule}` : ''} :: ${f.property}: expected '${f.expectedValue}'`);
+  } else if (f.kind === 'wrong-equivalence-replacement') {
+    console.log(`    [wrong-equivalence-replacement] ${f.family} ${f.selector}${f.atRule ? ` @ ${f.atRule}` : ''} :: ${f.property}: expected '${f.expectedValue}', got '${f.actualValue}' (${f.actualSource})`);
   } else if (f.kind === 'legacy-style-unaccounted') {
     console.log(`    [legacy-style-unaccounted] ${f.legacyRoute}#${f.sourceBlockIndex} ${f.selector}${f.atRule ? ` @ ${f.atRule}` : ''} :: ${f.property}: ${f.value}`);
   }

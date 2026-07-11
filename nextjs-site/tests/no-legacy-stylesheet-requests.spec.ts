@@ -9,27 +9,12 @@
  * re-introduce the request without changing `app/layout.tsx` — only
  * a real browser network observation closes that gap.
  *
- * Until D-1 §4.9 (the link-retirement gate slice) lands, this test
- * would FAIL on every route because the legacy links are still in
- * `app/layout.tsx`. So the suite SKIPS unconditionally unless the
- * `RUN_D1_RETIREMENT_GATE=1` env var is set. The gate slice will flip
- * that env var to 1 in CI / npm script and the trip-wire activates.
- * Until then, `npx playwright test` stays green.
- *
- * To run this gate locally:
- *   RUN_D1_RETIREMENT_GATE=1 npx playwright test no-legacy-stylesheet-requests
- *
  * See `docs/nextjs-phase-2-far-goal.md` criterion 1.
  */
 
 import { test, expect } from "@playwright/test";
 
-const D1_GATE_ACTIVE = process.env.RUN_D1_RETIREMENT_GATE === "1";
 test.describe.configure({ mode: "default" });
-test.skip(
-  !D1_GATE_ACTIVE,
-  "D-1 link-retirement gate is inactive — set RUN_D1_RETIREMENT_GATE=1 to enable."
-);
 
 const LEGACY_STYLESHEETS = [
   "/assets/css/main.css",

@@ -8,14 +8,7 @@ const findingsRoutes = legacyRoutes.filter(
   (route) => route.sourceFile === "findings.html" || route.sourceFile.startsWith("findings/")
 );
 const findingsReaderRoutes = findingsRoutes.filter((route) => route.sourceFile.startsWith("findings/"));
-const enhancedAccessibilityRoutes = [
-  "/findings.html",
-  "/findings/07-meta-instrument.html",
-  "/findings/09-guitars-bass.html",
-  "/findings/glossary.html",
-  "/audio.html",
-  "/videos.html"
-];
+const accessibilityRoutes = legacyPaths;
 
 function findingsHref(sourceFile: string): string {
   return `/${sourceFile}`;
@@ -898,7 +891,7 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
-  for (const route of enhancedAccessibilityRoutes) {
+  for (const route of accessibilityRoutes) {
     test(`${route} passes accessibility smoke checks`, async ({ page }) => {
       await page.goto(route);
 

@@ -55,7 +55,7 @@ Run from `nextjs-site/` on 2026-05-11:
 
 These items remain intentionally outside the local migration:
 
-- Audio deployment: `assets/audio` is about 523 MB and is excluded from default sync/build. The host can carry the audio payload, so staging/production prep should use `npm run build:audio` and `npm run preflight:deploy:audio`.
+- Audio deployment: `assets/audio` is about 523 MB and is excluded from default sync/build. The host can carry the audio payload, so staging/production prep must use `npm run build:audio`; `npm run preflight:deploy` now rejects a non-audio artifact.
 - PHP contact workflow: the static export preserves the browser-side contract. The first deployment should co-host `get-csrf-token.php`, `contact-handler.php`, `config.php`, and a non-public writable `contact_submissions/` directory, with `npm run smoke:contact:php` used against staging.
 - Host URL behavior: the production host must serve representative `.html` URLs directly, without redirecting them to extensionless routes.
 - Duplicate route handling: the current export also emits extensionless routes. Production must either avoid serving those publicly or define an explicit canonical/indexation strategy that keeps `.html` as the public URL surface.
