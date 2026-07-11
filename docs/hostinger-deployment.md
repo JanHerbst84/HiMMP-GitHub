@@ -125,9 +125,9 @@ The versioned Nginx configuration now:
 - limits `/get-csrf-token.php` to 30 requests/minute per address with a burst of 10;
 - limits `/contact-handler.php` to 10 requests/minute per address with a burst of 10, returning HTTP 429 at the Nginx layer;
 - emits HSTS and a restrictive Permissions-Policy;
-- emits Content-Security-Policy in `Report-Only` mode. Do not promote it to an enforcing `Content-Security-Policy` header until live browser checks show no required resource would be blocked.
+- emits an enforcing Content-Security-Policy after the report-only observation window and a subsequent all-route browser audit found no required resource violations.
 
-After deployment, inspect representative routes and an activated YouTube embed for report-only CSP console violations. The expected external origins are `analytics.himmp.net`, `img.youtube.com`, and `www.youtube.com`.
+After any resource or embed change, rerun the live all-route CSP browser audit before deployment. The approved external origins are `analytics.himmp.net`, `img.youtube.com`, and `www.youtube.com`.
 
 ## Contact Mail Setup
 

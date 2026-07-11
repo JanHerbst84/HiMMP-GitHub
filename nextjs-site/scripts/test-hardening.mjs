@@ -164,10 +164,10 @@ try {
   for (const block of tlsBlocks) {
     assert(block.includes('Strict-Transport-Security "max-age=31536000; includeSubDomains" always'), "HSTS header missing from a TLS server block");
     assert(block.includes('Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always'), "Permissions-Policy header missing from a TLS server block");
-    assert(block.includes("Content-Security-Policy-Report-Only"), "report-only CSP missing from a TLS server block");
+    assert(block.includes('add_header Content-Security-Policy "'), "enforcing CSP missing from a TLS server block");
     assert(block.includes("server_tokens off;"), "server token suppression missing from a TLS server block");
   }
-  assert(!nginx.includes("add_header Content-Security-Policy \""), "enforcing CSP must remain a separate promotion step");
+  assert(!nginx.includes("Content-Security-Policy-Report-Only"), "report-only CSP remained after enforcement promotion");
   assert(nginx.includes("zone=himmp_csrf:10m rate=30r/m"), "CSRF endpoint rate zone missing");
   assert(nginx.includes("zone=himmp_contact:10m rate=10r/m"), "contact endpoint rate zone missing");
   assert(nginx.includes("limit_req zone=himmp_csrf burst=10 nodelay;"), "CSRF endpoint rate limit missing");
