@@ -44,7 +44,7 @@ server {
 
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
-    add_header Content-Security-Policy-Report-Only "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+    add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
 
     return 301 https://himmp.net$request_uri;
 }
@@ -68,7 +68,7 @@ server {
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
-    add_header Content-Security-Policy-Report-Only "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+    add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
     limit_req_status 429;
 
     location = /get-csrf-token.php {
@@ -81,7 +81,7 @@ server {
         add_header Referrer-Policy "strict-origin-when-cross-origin" always;
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
-        add_header Content-Security-Policy-Report-Only "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+        add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /var/www/himmp-site/php/get-csrf-token.php;
         fastcgi_param SCRIPT_NAME /get-csrf-token.php;
@@ -102,7 +102,7 @@ server {
         add_header Referrer-Policy "strict-origin-when-cross-origin" always;
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
-        add_header Content-Security-Policy-Report-Only "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+        add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /var/www/himmp-site/php/contact-handler.php;
         fastcgi_param SCRIPT_NAME /contact-handler.php;
@@ -137,7 +137,7 @@ server {
         add_header Referrer-Policy "strict-origin-when-cross-origin" always;
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
-        add_header Content-Security-Policy-Report-Only "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+        add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
     }
 
     location = / {
