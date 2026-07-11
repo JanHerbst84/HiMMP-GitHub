@@ -54,6 +54,18 @@ For local Host-header testing from outside the VPS, use the VPS IP with `curl --
 
 ## Verified On VPS
 
+Checked live on 2026-07-11 after hardening release `/var/www/himmp-site/releases/20260711-150216-fd80590` (rollback target `/var/www/himmp-site/releases/20260618-112346`):
+
+- Nginx configuration test and reload succeeded; the service remained active.
+- Apex returned `200`; `www` returned `301` to the apex; the `Server` header no longer disclosed the Nginx version.
+- HSTS, Permissions-Policy, and report-only CSP were present on HTML, audio, redirect, and PHP responses.
+- The CSRF session cookie included `Secure`, `HttpOnly`, and `SameSite=Lax`.
+- The audio-inclusive release served `HiMMP.mp3` as `audio/mpeg`; deployment preflight counted all 45 MP3 files.
+- The 27-route live SEO audit passed with 73 JSON-LD blocks and no failures or warnings.
+- Representative live browser checks (home, audio, videos with an activated YouTube embed, and a findings chapter) produced no report-only CSP console violations.
+- A tagged real submission (`HARDENING DEPLOY fd80590`) passed the SMTP/log path and created a `www-data:www-data` mode-`600` record; that test record was deleted after verification.
+- Existing contact storage was migrated to `www-data:www-data`, directory mode `700`, and file mode `600`. One older deterministic smoke record was also deleted. Four historical submission records remain pending correspondence-owner retention adjudication; their contents were not exposed in the deployment log.
+
 Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 
 - `/about.html` returned `200 OK`.
