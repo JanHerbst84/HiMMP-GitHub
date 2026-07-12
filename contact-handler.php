@@ -172,60 +172,83 @@ function validateCSRFToken() {
 function consumeRateLimitAttempt() {
     $ip = $_SERVER['REMOTE_ADDR'];
     $rate_limit_file = SUBMISSIONS_DIR . '/rate_limit_' . md5($ip) . '.json';
-    $handle = @fopen($rate_limit_file, 'c+');
-    if ($handle === false) {
-        error_log('HiMMP contact rate limit file could not be opened.');
+    $maintenance_lock_file = SUBMISSIONS_DIR . '/.rate_limit_cleanup.lock';
+    $maintenance_handle = @fopen($maintenance_lock_file, 'c');
+    if ($maintenance_handle === false) {
+        error_log('HiMMP contact rate limit maintenance lock could not be opened.');
         return false;
     }
 
-    if (!chmod($rate_limit_file, 0600)) {
-        fclose($handle);
-        error_log('HiMMP contact rate limit file permissions could not be secured.');
+    if (!chmod($maintenance_lock_file, 0600)) {
+        fclose($maintenance_handle);
+        error_log('HiMMP contact rate limit maintenance lock permissions could not be secured.');
         return false;
     }
+    if (!flock($maintenance_handle, LOCK_SH)) {
+        fclose($maintenance_handle);
+        error_log('HiMMP contact rate limit maintenance lock could not be acquired.');
+        return false;
+    }
+
     try {
-        if (!flock($handle, LOCK_EX)) {
-            error_log('HiMMP contact rate limit lock could not be acquired.');
+        $handle = @fopen($rate_limit_file, 'c+');
+        if ($handle === false) {
+            error_log('HiMMP contact rate limit file could not be opened.');
             return false;
         }
 
-        rewind($handle);
-        $raw = stream_get_contents($handle);
-        $existing = $raw !== false && $raw !== '' ? json_decode($raw, true) : null;
-        $validExistingState = is_array($existing)
-            && isset($existing['count'], $existing['timestamp'])
-            && is_int($existing['count'])
-            && is_int($existing['timestamp'])
-            && $existing['count'] >= 0
-            && $existing['timestamp'] > 0;
-        if ($raw === false || ($raw !== '' && !$validExistingState)) {
-            error_log('HiMMP contact rate limit state is malformed; refusing submission.');
+        if (!chmod($rate_limit_file, 0600)) {
+            fclose($handle);
+            error_log('HiMMP contact rate limit file permissions could not be secured.');
             return false;
         }
-        $now = time();
-        $withinWindow = $validExistingState
-            && $now - $existing['timestamp'] <= RATE_LIMIT_WINDOW;
-        $count = $withinWindow ? $existing['count'] : 0;
-        $timestamp = $withinWindow ? $existing['timestamp'] : $now;
+        try {
+            if (!flock($handle, LOCK_EX)) {
+                error_log('HiMMP contact rate limit lock could not be acquired.');
+                return false;
+            }
 
-        if ($count >= RATE_LIMIT_SUBMISSIONS) {
-            return false;
-        }
+            rewind($handle);
+            $raw = stream_get_contents($handle);
+            $existing = $raw !== false && $raw !== '' ? json_decode($raw, true) : null;
+            $validExistingState = is_array($existing)
+                && isset($existing['count'], $existing['timestamp'])
+                && is_int($existing['count'])
+                && is_int($existing['timestamp'])
+                && $existing['count'] >= 0
+                && $existing['timestamp'] > 0;
+            if ($raw === false || ($raw !== '' && !$validExistingState)) {
+                error_log('HiMMP contact rate limit state is malformed; refusing submission.');
+                return false;
+            }
+            $now = time();
+            $withinWindow = $validExistingState
+                && $now - $existing['timestamp'] <= RATE_LIMIT_WINDOW;
+            $count = $withinWindow ? $existing['count'] : 0;
+            $timestamp = $withinWindow ? $existing['timestamp'] : $now;
 
-        $data = json_encode(['count' => $count + 1, 'timestamp' => $timestamp]);
-        if ($data === false) {
-            return false;
-        }
-        rewind($handle);
-        if (!ftruncate($handle, 0) || !writeAll($handle, $data) || !fflush($handle)) {
-            error_log('HiMMP contact rate limit file could not be written.');
-            return false;
-        }
+            if ($count >= RATE_LIMIT_SUBMISSIONS) {
+                return false;
+            }
 
-        return true;
+            $data = json_encode(['count' => $count + 1, 'timestamp' => $timestamp]);
+            if ($data === false) {
+                return false;
+            }
+            rewind($handle);
+            if (!ftruncate($handle, 0) || !writeAll($handle, $data) || !fflush($handle)) {
+                error_log('HiMMP contact rate limit file could not be written.');
+                return false;
+            }
+
+            return true;
+        } finally {
+            flock($handle, LOCK_UN);
+            fclose($handle);
+        }
     } finally {
-        flock($handle, LOCK_UN);
-        fclose($handle);
+        flock($maintenance_handle, LOCK_UN);
+        fclose($maintenance_handle);
     }
 }
 
