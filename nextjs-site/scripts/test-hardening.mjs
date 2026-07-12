@@ -1,4 +1,4 @@
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, symlinkSync, utimesSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync, spawn } from "node:child_process";
@@ -10,6 +10,8 @@ const phpConfig = path.join(repoRoot, "config.php");
 const phpHandler = path.join(repoRoot, "contact-handler.php");
 const nginxConfig = path.join(repoRoot, "deploy/hostinger/himmp.net.nginx");
 const storageHardeningScript = path.join(repoRoot, "deploy/hostinger/harden-contact-storage.sh");
+const rateLimitCleanupScript = path.join(repoRoot, "deploy/hostinger/cleanup-contact-rate-limits.php");
+const rateLimitCleanupCron = path.join(repoRoot, "deploy/hostinger/himmp-rate-limit-cleanup.cron");
 const tempRoot = mkdtempSync(path.join(tmpdir(), "himmp-hardening-"));
 
 function phpLiteral(value) {
@@ -81,6 +83,34 @@ async function concurrentRateLimitTest() {
   const stored = JSON.parse(readFileSync(rateFile, "utf8"));
   assert(stored.count === 5, `concurrent rate count is ${stored.count}, expected 5`);
   assert((statSync(rateFile).mode & 0o777) === 0o600, "rate-limit file mode is not 0600");
+  const maintenanceLock = path.join(directory, ".rate_limit_cleanup.lock");
+  assert((statSync(maintenanceLock).mode & 0o777) === 0o600, "maintenance lock mode is not 0600");
+}
+
+async function cleanupLockContentionTest(directory, staleFile) {
+  const lockFile = path.join(directory, ".rate_limit_cleanup.lock");
+  const source = `$h=fopen(${phpLiteral(lockFile)},'c');flock($h,LOCK_SH);echo "locked\\n";` +
+    `fflush(STDOUT);fgets(STDIN);flock($h,LOCK_UN);fclose($h);`;
+  const holder = spawn("php", ["-r", source], { stdio: ["pipe", "pipe", "pipe"] });
+  await new Promise((resolve, reject) => {
+    let output = "";
+    holder.stdout.on("data", (chunk) => {
+      output += chunk;
+      if (output.includes("locked\n")) resolve();
+    });
+    holder.on("error", reject);
+    holder.on("exit", (code) => reject(new Error(`maintenance lock holder exited early with ${code}`)));
+  });
+
+  const skipped = spawnSync("php", [rateLimitCleanupScript, directory, "7200"], { encoding: "utf8" });
+  assert(skipped.status === 0, skipped.stderr || "locked cleanup did not exit successfully");
+  assert(skipped.stdout.includes("deleted=0 deferred=150 failed=0"), `cleanup did not defer locked state: ${skipped.stdout.trim()}`);
+  assert(existsSync(staleFile), "cleanup deleted state while the contact-handler lock was held");
+
+  holder.stdin.write("\n");
+  await new Promise((resolve, reject) => {
+    holder.on("exit", (code) => code === 0 ? resolve() : reject(new Error(`maintenance lock holder exited ${code}`)));
+  });
 }
 
 try {
@@ -109,6 +139,42 @@ try {
     `echo json_encode($accepted);`
   );
   assert(JSON.stringify(JSON.parse(sequential)) === JSON.stringify([true, true, true, true, true, false]), "sequential rate limit failed");
+
+  const cleanupDirectory = path.join(tempRoot, "cleanup");
+  runPhp(`define('SUBMISSIONS_DIR', ${phpLiteral(cleanupDirectory)}); require ${phpLiteral(phpConfig)};`);
+  const staleRateFiles = [];
+  for (let index = 0; index < 150; index++) {
+    const file = path.join(cleanupDirectory, `rate_limit_${index.toString(16).padStart(32, "0")}.json`);
+    writeFileSync(file, JSON.stringify({ count: 1, timestamp: 1 }));
+    utimesSync(file, 0, 0);
+    staleRateFiles.push(file);
+  }
+  const freshRateFile = path.join(cleanupDirectory, `rate_limit_${"a".repeat(32)}.json`);
+  const unrelatedFile = path.join(cleanupDirectory, "submission_retained.txt");
+  const symlinkRateFile = path.join(cleanupDirectory, `rate_limit_${"b".repeat(32)}.json`);
+  const nonRegularRatePath = path.join(cleanupDirectory, `rate_limit_${"c".repeat(32)}.json`);
+  writeFileSync(freshRateFile, JSON.stringify({ count: 1, timestamp: Math.floor(Date.now() / 1000) }));
+  writeFileSync(unrelatedFile, "retained fixture");
+  utimesSync(unrelatedFile, 0, 0);
+  symlinkSync(unrelatedFile, symlinkRateFile);
+  mkdirSync(nonRegularRatePath);
+  utimesSync(nonRegularRatePath, 0, 0);
+
+  await cleanupLockContentionTest(cleanupDirectory, staleRateFiles[0]);
+  const cleanup = spawnSync("php", [rateLimitCleanupScript, cleanupDirectory, "7200"], { encoding: "utf8" });
+  assert(cleanup.status === 0, cleanup.stderr || "rate-limit cleanup failed");
+  assert(cleanup.stdout.includes("examined=151 deleted=150 deferred=0 failed=0"), `unexpected cleanup report: ${cleanup.stdout.trim()}`);
+  assert(staleRateFiles.every((file) => !existsSync(file)), "full cleanup left expired state beyond the former 100-entry boundary");
+  assert(existsSync(freshRateFile), "cleanup deleted fresh rate-limit state");
+  assert(existsSync(unrelatedFile), "cleanup deleted an unrelated submission file");
+  assert(existsSync(symlinkRateFile), "cleanup followed or deleted a symbolic link");
+  assert(existsSync(nonRegularRatePath), "cleanup deleted a matching-name non-regular entry");
+
+  const cleanupCron = readFileSync(rateLimitCleanupCron, "utf8");
+  assert(cleanupCron.includes("17 * * * * www-data"), "hourly rate-limit cleanup schedule is missing");
+  assert(cleanupCron.includes("/usr/bin/nice -n 10"), "cleanup schedule is not low priority");
+  assert(cleanupCron.includes("cleanup-contact-rate-limits.php"), "cleanup schedule does not invoke the collector");
+  assert(cleanupCron.includes(" 7200 "), "cleanup schedule does not enforce two-window retention");
 
   const invalidStoragePath = path.join(tempRoot, "invalid-storage");
   runPhp(`define('SUBMISSIONS_DIR', ${phpLiteral(invalidStoragePath)}); require ${phpLiteral(phpConfig)};`);

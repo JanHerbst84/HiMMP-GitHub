@@ -1,0 +1,4 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+17 * * * * www-data /usr/bin/nice -n 10 /usr/bin/php /var/www/himmp-site/php/cleanup-contact-rate-limits.php /var/www/himmp-site/php/contact_submissions 7200 2>&1 | /usr/bin/logger -t himmp-rate-limit-cleanup

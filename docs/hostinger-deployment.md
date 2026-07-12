@@ -10,6 +10,8 @@ This records the Hostinger VPS layout for the migrated HiMMP website.
 - Active static symlink: `/var/www/himmp-site/current`
 - PHP contact endpoint directory: `/var/www/himmp-site/php`
 - Writable contact storage: `/var/www/himmp-site/php/contact_submissions`
+- Rate-limit cleanup command: `/var/www/himmp-site/php/cleanup-contact-rate-limits.php`
+- Rate-limit cleanup schedule: `/etc/cron.d/himmp-rate-limit-cleanup`
 - Nginx site config: `/etc/nginx/sites-available/himmp.net`
 
 ## Serving Model
@@ -81,6 +83,8 @@ Contact-storage retention closed on 2026-07-12:
 - The correspondence owner reviewed the two remaining submission records through a minimal-data decision surface and classified both as non-actionable automated junk.
 - After explicit approval, those two records and four expired one-hour rate-limit state files were deleted. No personal data was added to the repository audit trail.
 - The production `contact_submissions` directory was verified empty after deletion and retained `www-data:www-data` ownership with mode `700`. Future valid requests or rejected submission attempts will create new mode-`600` submission or rate-limit files as designed.
+- An hourly, low-priority maintenance job removes rate-limit state older than two rate-limit windows. Contact requests hold a shared maintenance lock while opening and updating their IP state; cleanup takes the exclusive lock only around each deletion, so traversal does not block requests and deletion cannot race an active limiter update. Busy candidates are deferred to a later pass. A separate job lock prevents overlapping collectors. The collector traverses the complete directory outside request handling, filters exact rate-state filenames, and ignores submissions, symbolic links, and unrelated files.
+- Deploy and roll back `contact-handler.php`, `cleanup-contact-rate-limits.php`, and `/etc/cron.d/himmp-rate-limit-cleanup` as one compatibility unit: an older handler does not participate in the maintenance lock protocol.
 
 Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 
