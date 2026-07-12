@@ -65,7 +65,7 @@ Checked live on 2026-07-11 after hardening release `/var/www/himmp-site/releases
 - Representative live browser checks (home, audio, videos with an activated YouTube embed, and a findings chapter) produced no report-only CSP console violations.
 - A tagged real submission (`HARDENING DEPLOY fd80590`) passed the SMTP/log path and created a `www-data:www-data` mode-`600` record; that test record was deleted after verification.
 - The recipient confirmed delivery of the tagged hardening-deploy email, closing the end-to-end SMTP verification.
-- Existing contact storage was migrated to `www-data:www-data`, directory mode `700`, and file mode `600`. Three older deterministic smoke records were also deleted. Two genuine submission records remain pending correspondence-owner retention adjudication; their contents were not exposed in the deployment log.
+- Existing contact storage was migrated to `www-data:www-data`, directory mode `700`, and file mode `600`. Previously identified deterministic smoke records were deleted; the two remaining records were held for correspondence-owner adjudication without exposing their contents in the deployment log.
 
 Checked live on 2026-07-11 after enforcing CSP from commit `6b2fcf8` (Nginx rollback copy `/etc/nginx/sites-available/himmp.net.pre-6b2fcf8-20260711-170447`; static release unchanged):
 
@@ -75,6 +75,12 @@ Checked live on 2026-07-11 after enforcing CSP from commit `6b2fcf8` (Nginx roll
 - The 27-route live SEO audit again passed with 73 JSON-LD blocks and no failures or warnings.
 - The non-submitting production contact smoke passed; the previously confirmed SMTP path was not invoked again.
 - Nginx and PHP-FPM journals contained no new warnings or errors after deployment. The only HTTP `4xx` entries during the audit were `499` client-close events from the browser ending media/image requests as pages closed.
+
+Contact-storage retention closed on 2026-07-12:
+
+- The correspondence owner reviewed the two remaining submission records through a minimal-data decision surface and classified both as non-actionable automated junk.
+- After explicit approval, those two records and four expired one-hour rate-limit state files were deleted. No personal data was added to the repository audit trail.
+- The production `contact_submissions` directory was verified empty after deletion and retained `www-data:www-data` ownership with mode `700`. Future valid requests or rejected submission attempts will create new mode-`600` submission or rate-limit files as designed.
 
 Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 
@@ -124,7 +130,7 @@ Checked live over HTTPS on 2026-06-08 after release `/var/www/himmp-site/release
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
 - Run `sudo bash deploy/hostinger/harden-contact-storage.sh` (or its equivalent against `/var/www/himmp-site/php/contact_submissions`) once during this deploy so the directory and existing files are owned by `www-data:www-data` and move to directory mode `700` and file mode `600`.
-- Review the resulting filename-only retention inventory with the correspondence owner. The deployment must not guess which messages have completed correspondence; delete only records the owner confirms are no longer required under the published retention policy.
+- Review future filename-only retention inventories with the correspondence owner. Do not guess which messages have completed correspondence; delete only records the owner confirms are no longer required under the published retention policy.
 
 ## Hardening Headers and Edge Limits
 
