@@ -86,6 +86,13 @@ Contact-storage retention closed on 2026-07-12:
 - An hourly, low-priority maintenance job removes rate-limit state older than two rate-limit windows. Contact requests hold a shared maintenance lock while opening and updating their IP state; cleanup takes the exclusive lock only around each deletion, so traversal does not block requests and deletion cannot race an active limiter update. Busy candidates are deferred to a later pass. A separate job lock prevents overlapping collectors. The collector traverses the complete directory outside request handling, filters exact rate-state filenames, and ignores submissions, symbolic links, and unrelated files.
 - Deploy and roll back `contact-handler.php`, `cleanup-contact-rate-limits.php`, and `/etc/cron.d/himmp-rate-limit-cleanup` as one compatibility unit: an older handler does not participate in the maintenance lock protocol.
 
+Rate-limit retention automation deployed on 2026-07-12 from commit `cd6381d` (handler rollback copy `/var/www/himmp-site/php/contact-handler.php.pre-cd6381d-20260712-080420`):
+
+- The handler and collector passed PHP lint on the VPS; PHP-FPM 8.3 was reloaded and remained active, and the cron service remained active.
+- The handler and collector are `root:www-data` mode `640`; the cron definition is `root:root` mode `644`. The two runtime lock files are `www-data:www-data` mode `600`, and the storage directory remains `www-data:www-data` mode `700`.
+- A reserved documentation-range test IP exercised the deployed limiter without sending mail. Its mode-`600` synthetic state was aged by three hours, the installed collector reported one examined and deleted state with no deferrals or failures, and the fixture was confirmed absent afterward.
+- A subsequent collector pass reported no rate-state candidates. The live non-submitting contact smoke passed, and PHP-FPM and cron journals contained no new warnings.
+
 Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 
 - `/about.html` returned `200 OK`.
