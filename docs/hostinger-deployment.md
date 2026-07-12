@@ -92,6 +92,7 @@ Rate-limit retention automation deployed on 2026-07-12 from commit `cd6381d` (ha
 - The handler and collector are `root:www-data` mode `640`; the cron definition is `root:root` mode `644`. The two runtime lock files are `www-data:www-data` mode `600`, and the storage directory remains `www-data:www-data` mode `700`.
 - A reserved documentation-range test IP exercised the deployed limiter without sending mail. Its mode-`600` synthetic state was aged by three hours, the installed collector reported one examined and deleted state with no deferrals or failures, and the fixture was confirmed absent afterward.
 - A subsequent collector pass reported no rate-state candidates. The live non-submitting contact smoke passed, and PHP-FPM and cron journals contained no new warnings.
+- The first natural cron tick ran as `www-data` at 08:17 UTC on 2026-07-12 using the installed low-priority command and reported `examined=0 deleted=0 deferred=0 failed=0`. Cron and PHP-FPM remained active, storage permissions were unchanged, and only the two mode-`600` coordination lock files remained.
 
 Checked on 2026-05-12 with `Host: himmp.net` against `127.0.0.1` on the VPS:
 
