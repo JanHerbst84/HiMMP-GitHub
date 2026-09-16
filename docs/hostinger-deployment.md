@@ -138,6 +138,13 @@ Checked live over HTTPS on 2026-06-08 after release `/var/www/himmp-site/release
 - `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`.
 - `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed.
 
+Checked live over HTTPS on 2026-09-16 after release `/var/www/himmp-site/releases/20260916-205457-d9de9b9` (rollback target `/var/www/himmp-site/releases/20260711-150216-fd80590`), synced with `rsync --link-dest` against the previous release and switched by replacing the `current` symlink:
+
+- `https://himmp.net/videos.html` returned `200 OK` and contains the new `bilibili-videos-section` with five link cards (source commit `d9de9b9`).
+- `https://himmp.net/about.html` and `https://himmp.net/findings/08-drums.html` returned `200 OK`.
+- `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK` with `Content-Type: audio/mpeg`; the export carried all 45 MP3 files (preflight passed).
+- No CSP change: the Bilibili items are plain links, not embeds, so the approved external origins are unchanged and the all-route CSP audit was not required.
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
