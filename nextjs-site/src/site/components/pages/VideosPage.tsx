@@ -100,6 +100,7 @@ const bilibiliVideos: ReadonlyArray<BilibiliVideo> = [
   { bvid: "BV1ujA1e6EAz", heading: "神仙打架！八位混音师各混同一首歌", meta: "JackieW钩钩 • 22 February 2025", note: "Chinese-language reaction to the eight producer mixes; the original of the YouTube cross-post listed above." },
   { bvid: "BV1ogaazmE5n", heading: 'Adam "Nolly" Getgood：混音《In Solitude》包含分轨地址', meta: "zzy071 • 5 September 2025", note: "Republication of the Adam 'Nolly' Getgood mixing session, pointing viewers to the open multitracks." },
   { bvid: "BV1XeW3zwEcD", heading: "Jens Bogren 混音《In Solitude》", meta: "zzy071 • 19 September 2025", note: "Republication of the Jens Bogren mixing session with a translated, chaptered description." },
+  { bvid: "BV1GMY3zpEsR", heading: "【搬运/混音教程/Buster Odeholm】Buster Odeholm: Mixing 'In Solitude'", meta: "M1kageThordendal • 7 September 2025", note: "Republication of the Buster Odeholm mixing session with the original description, credits and source link." },
   { bvid: "BV1HrycBJEnx", heading: "瞎混 | HiMMP - In Solitude | Mixing Training", meta: "明年还是胖的像橘猫 • 20 November 2025", note: "A Chinese producer's own mix of the open 'In Solitude' multitracks, published as mixing practice." }
 ];
 
