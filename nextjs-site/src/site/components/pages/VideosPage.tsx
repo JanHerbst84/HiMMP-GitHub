@@ -30,6 +30,11 @@ type ConceptVideo = { embedId: string; iframeTitle: string; heading: string };
 type MixingVideo = { embedId: string; iframeTitle: string; heading: string };
 type BonusVideo = { embedId: string; iframeTitle: string; heading: string };
 type UserVideo = { embedId: string; iframeTitle: string; heading: string; meta: string; start?: number };
+// Bilibili items are linked, not embedded: the site's Content-Security-Policy
+// allows frames and images from YouTube only, and a Bilibili player or thumbnail
+// would need a CSP change plus the live all-route audit. A link card carries no
+// external resource, so it is CSP-neutral.
+type BilibiliVideo = { bvid: string; heading: string; meta: string; note: string };
 
 const conceptVideos: ReadonlyArray<ConceptVideo> = [
   { embedId: "TkLQaOkAtlw", iframeTitle: "Jens Bogren on Heaviness", heading: "Jens Bogren on 'Heaviness'" },
@@ -84,6 +89,18 @@ const reuseVideos: ReadonlyArray<UserVideo> = [
   { embedId: "IFO698VENMk", iframeTitle: "Pradhe mix of In Solitude", heading: "In Solitude - Pradhe mix", meta: "Pradhe • 21 August 2025" },
   { embedId: "5QDnVNiI5nM", iframeTitle: "Pradhe short mix of In Solitude", heading: "In Solitude - Pradhe mix (short)", meta: "Pradhe • 17 August 2025" },
   { embedId: "IZDfsAneeHc", iframeTitle: "djabthrash reamping the In Solitude guitar DIs", heading: "Reamping the In Solitude guitar DIs", meta: "djabthrash • 26 August 2025" }
+];
+
+// Chinese-language republication, translation, reaction and reuse on Bilibili.
+// Found by native Bilibili search on 16 September 2026 and verified against
+// yt-dlp metadata (ids, uploaders, upload dates) in the impact case-study
+// tracker (metrics/track_bilibili.py). Dates are Bilibili upload dates.
+const bilibiliVideos: ReadonlyArray<BilibiliVideo> = [
+  { bvid: "BV14sdoYEEFi", heading: "（中字）什么才是“重”？Djent制作人“大光头”Adam Nolly GetGood如是说！", meta: "許柏林666 • 15 April 2025", note: "Chinese-subtitled translation of the Adam 'Nolly' Getgood interview on heaviness, crediting the project, the AHRC and the University of Huddersfield." },
+  { bvid: "BV1ujA1e6EAz", heading: "神仙打架！八位混音师各混同一首歌", meta: "JackieW钩钩 • 22 February 2025", note: "Chinese-language reaction to the eight producer mixes; the original of the YouTube cross-post listed above." },
+  { bvid: "BV1ogaazmE5n", heading: 'Adam "Nolly" Getgood：混音《In Solitude》包含分轨地址', meta: "zzy071 • 5 September 2025", note: "Republication of the Adam 'Nolly' Getgood mixing session, pointing viewers to the open multitracks." },
+  { bvid: "BV1XeW3zwEcD", heading: "Jens Bogren 混音《In Solitude》", meta: "zzy071 • 19 September 2025", note: "Republication of the Jens Bogren mixing session with a translated, chaptered description." },
+  { bvid: "BV1HrycBJEnx", heading: "瞎混 | HiMMP - In Solitude | Mixing Training", meta: "明年还是胖的像橘猫 • 20 November 2025", note: "A Chinese producer's own mix of the open 'In Solitude' multitracks, published as mixing practice." }
 ];
 
 function LazyYouTubeIframe({ embedId, title, start }: { embedId: string; title: string; start?: number }) {
@@ -150,6 +167,7 @@ export function VideosPage() {
             <button className="section-nav-button" data-target="bonus-videos-section">Bonus Content</button>
             <button className="section-nav-button" data-target="user-generated-videos-section">User-Generated</button>
             <button className="section-nav-button" data-target="practitioner-reuse-videos-section">Practitioner Reuse</button>
+            <button className="section-nav-button" data-target="bilibili-videos-section">Bilibili (中文)</button>
           </div>
         </div>
       </div>
@@ -232,6 +250,27 @@ export function VideosPage() {
                 </div>
                 <h4>{heading}</h4>
                 <p className="video-meta">{meta}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="content-section bilibili-videos-section" id="bilibili-videos-section">
+        <div className="container">
+          <h3>Chinese-language Republication and Reuse (Bilibili)</h3>
+          <p>Translations, reposts, reactions and practitioner reuse of the HiMMP material on Bilibili. These open on Bilibili; the project holds archived copies.</p>
+          <div className="video-grid">
+            {bilibiliVideos.map(({ bvid, heading, meta, note }) => (
+              <div key={bvid} className="video-item">
+                <h4>{heading}</h4>
+                <p className="video-meta">{meta}</p>
+                <p>{note}</p>
+                <p>
+                  <a className="resource-button" href={`https://www.bilibili.com/video/${bvid}/`} target="_blank" rel="noopener noreferrer">
+                    Watch on Bilibili
+                  </a>
+                </p>
               </div>
             ))}
           </div>
