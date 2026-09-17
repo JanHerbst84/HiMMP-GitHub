@@ -164,6 +164,10 @@ Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/release
 - Mobile/dark-mode remediation (source commit `f70a731`) verified with a mobile-emulated Chromium against the live site: sticky header 93px at 375px in both schemes (was 209px), hamburger rendered as a transparent three-bar control, theme toggle on the logo row, no logo/toggle overlap at 320px, open menu without list bullets or stray pseudo-content, publications sticky strip offset equal to the header height, FAQ and team pages at 375px document width, contact submit button on the mint pill treatment.
 - No CSP change: only CSS, one scoped inline style selector on the publications page, and a YouTube embed from the already approved origin.
 
+Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/releases/20260917-092921-46d0a83` (rollback target `releases/20260917-075818-7902c2b`):
+
+- `https://himmp.net/videos.html` returned `200 OK` with seven Bilibili link cards (source commit `46d0a83`); about and audio routes `200 OK`. No CSP change (links, not embeds).
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
