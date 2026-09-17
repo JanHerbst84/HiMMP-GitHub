@@ -99,6 +99,7 @@ const reuseVideos: ReadonlyArray<UserVideo> = [
 // tracker (metrics/track_bilibili.py). Dates are Bilibili upload dates.
 const bilibiliVideos: ReadonlyArray<BilibiliVideo> = [
   { bvid: "BV14sdoYEEFi", heading: "（中字）什么才是“重”？Djent制作人“大光头”Adam Nolly GetGood如是说！", meta: "許柏林666 • 15 April 2025", note: "Chinese-subtitled translation of the Adam 'Nolly' Getgood interview on heaviness, crediting the project, the AHRC and the University of Huddersfield." },
+  { bvid: "BV1UvXWYQE7F", heading: "（中字）最重型的制作人听过最重的专辑是？Buster Odeholm 接受英国 HiMMP 专访", meta: "許柏林666 • 22 March 2025", note: "Chinese-subtitled translation of the Buster Odeholm interview on heaviness, crediting the project and the AHRC grant." },
   { bvid: "BV1ujA1e6EAz", heading: "神仙打架！八位混音师各混同一首歌", meta: "JackieW钩钩 • 22 February 2025", note: "Chinese-language reaction to the eight producer mixes; the original of the YouTube cross-post listed above." },
   { bvid: "BV1ogaazmE5n", heading: 'Adam "Nolly" Getgood：混音《In Solitude》包含分轨地址', meta: "zzy071 • 5 September 2025", note: "Republication of the Adam 'Nolly' Getgood mixing session, pointing viewers to the open multitracks." },
   { bvid: "BV1XeW3zwEcD", heading: "Jens Bogren 混音《In Solitude》", meta: "zzy071 • 19 September 2025", note: "Republication of the Jens Bogren mixing session with a translated, chaptered description." },
