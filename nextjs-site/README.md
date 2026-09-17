@@ -1,10 +1,12 @@
 # HiMMP Next.js Site
 
-This is the isolated migration workspace for rebuilding the current static/PHP
-HiMMP site in Next.js and TypeScript.
+This is the Next.js/TypeScript source of the live HiMMP website. The static
+export built from here is what https://himmp.net serves.
 
-The existing root HTML/PHP site is the source of truth until automated and
-manual parity checks pass.
+The root HTML/PHP site one level up is the archived legacy site: a frozen
+reference that the build still reads for head metadata, JSON-LD and shared
+assets, and that the parity gates compare against. It is not deployed
+anywhere. See `../README.md` for the split between live and archived paths.
 
 Deployment assumptions and non-deployment decisions are tracked in
 `../docs/nextjs-migration-deployment-decisions.md`.

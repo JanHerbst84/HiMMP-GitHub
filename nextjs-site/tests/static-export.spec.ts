@@ -924,6 +924,31 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("videos body keeps every section and the Bilibili link cards", async ({ page }) => {
+    // videos.html is exempt from parity:text (React-extended page); this
+    // smoke is the replacement safety net named in check-text-parity.mjs.
+    const unexpectedFailures = trackUnexpectedFailures(page);
+    await page.goto("/videos.html");
+
+    for (const heading of [
+      "Conceptual Interviews about 'Heaviness'",
+      "Mixing 'In Solitude'",
+      "Bonus Content",
+      "User-Generated Content",
+      "Practitioner Reuse",
+      "Chinese-language Republication and Reuse (Bilibili)"
+    ]) {
+      await expect(page.locator("#main-content h3", { hasText: heading }), heading).toHaveCount(1);
+    }
+    await expect(page.locator(".section-nav-button")).toHaveCount(6);
+    await expect(page.locator(".bilibili-videos-section a[href^='https://www.bilibili.com/video/']")).toHaveCount(6);
+    await expect(page.locator(".practitioner-reuse-videos-section .video-item")).toHaveCount(6);
+    await expect(page.locator("#main-content", { hasText: "Key Findings Guide" })).toHaveCount(1);
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("video embeds load YouTube only after activation", async ({ page }) => {
     const youtubeRequests: string[] = [];
 

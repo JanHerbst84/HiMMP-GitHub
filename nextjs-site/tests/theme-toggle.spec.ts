@@ -16,7 +16,11 @@ import { test, expect } from "@playwright/test";
 
 test.describe("D-9-d theme toggle", () => {
   test("click cycles light → dark → system and persists across reload", async ({ page, context }) => {
-    await page.goto("/");
+    // The theme attribute is set by the synchronous early-init script in
+    // app/layout.tsx, so DOMContentLoaded is sufficient; waiting for the
+    // full load event also waits on the third-party Matomo script and
+    // times out under parallel-worker load.
+    await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const toggle = page.locator("button.theme-toggle");
     await expect(toggle).toBeVisible();
@@ -38,7 +42,7 @@ test.describe("D-9-d theme toggle", () => {
     await toggle.click(); // → light
     await toggle.click(); // → dark
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-    await page.reload();
+    await page.reload({ waitUntil: "domcontentloaded" });
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
     // Cleanup so subsequent tests start from clean state.

@@ -118,7 +118,27 @@ if (!existsSync(outDir)) {
 const inventory = JSON.parse(readFileSync(inventoryPath, "utf8"));
 const findings = [];
 
+/*
+ * Routes whose React page has deliberately grown beyond the archived
+ * legacy HTML. The legacy root is a frozen reference (see ../README.md);
+ * once a page is extended in React, the byte-exact text comparison stops
+ * being the safety net and a Playwright body smoke in
+ * tests/static-export.spec.ts takes over. Each entry names the smoke test
+ * that covers it. Do not add a route here without that test.
+ */
+const TEXT_PARITY_EXEMPT = new Map([
+  [
+    "videos.html",
+    "React-only Key Findings walkthrough box (D-9) and Bilibili link-card section (d9de9b9, 2026-09-16); covered by 'videos body keeps every section and the Bilibili link cards' in tests/static-export.spec.ts"
+  ]
+]);
+const exempted = [];
+
 for (const page of inventory.pages) {
+  if (TEXT_PARITY_EXEMPT.has(page.path)) {
+    exempted.push(page.path);
+    continue;
+  }
   const legacyPath = path.join(repoRoot, page.path);
   const generatedPath = path.join(outDir, page.path);
 
@@ -145,4 +165,7 @@ if (findings.length) {
   process.exit(1);
 }
 
-console.log(`Text parity passed for ${inventory.pages.length} generated HTML files.`);
+for (const route of exempted) {
+  console.log(`Text parity skipped for ${route} (React-extended page): ${TEXT_PARITY_EXEMPT.get(route)}`);
+}
+console.log(`Text parity passed for ${inventory.pages.length - exempted.length} generated HTML files.`);

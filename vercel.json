@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "comment": "himmp-git-hub.vercel.app is a legacy auto-deployment of this repository's archived root HTML. The live site is https://himmp.net (Hostinger VPS, Next.js static export from nextjs-site/). Redirect everything there so the archive is never mistaken for the live site.",
+  "redirects": [
+    { "source": "/(.*)", "destination": "https://himmp.net/$1", "permanent": true }
+  ]
+}
