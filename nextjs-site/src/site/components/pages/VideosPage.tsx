@@ -75,7 +75,8 @@ const userVideos: ReadonlyArray<UserVideo> = [
   // conception of heaviness. `start: 1622` deep-links the embed to the HiMMP
   // segment (27:02). Transcript-verified; date corroborated (recorded Thu
   // 2 Apr 2026, Good Friday next day).
-  { embedId: "Gl2qWQhHFEg", iframeTitle: "Bloodred — Perfektion ist der Feind guter Musik (features HiMMP)", heading: "Perfektion ist der Feind guter Musik", meta: "Bloodred • 2 April 2026 • German-language feature (HiMMP from 27:00)", start: 1622 }
+  { embedId: "Gl2qWQhHFEg", iframeTitle: "Bloodred — Perfektion ist der Feind guter Musik (features HiMMP)", heading: "Perfektion ist der Feind guter Musik", meta: "Bloodred • 2 April 2026 • German-language feature (HiMMP from 27:00)", start: 1622 },
+  { embedId: "nxkTL94OXto", iframeTitle: "JackieW — Chinese-language reaction to the eight producer mixes (YouTube cross-post)", heading: "神仙打架！8位金属圈混音大咖各混同一首歌", meta: "JackieW • 1 March 2025 • Chinese-language reaction; YouTube cross-post of the Bilibili original listed below" }
 ];
 
 // Independent practitioners who downloaded the open 'In Solitude'
