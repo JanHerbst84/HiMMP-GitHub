@@ -13,6 +13,10 @@ This records the Hostinger VPS layout for the migrated HiMMP website.
 - Rate-limit cleanup command: `/var/www/himmp-site/php/cleanup-contact-rate-limits.php`
 - Rate-limit cleanup schedule: `/etc/cron.d/himmp-rate-limit-cleanup`
 - Nginx site config: `/etc/nginx/sites-available/himmp.net`
+- Release retention (since 2026-09-17): `/usr/local/bin/prune-releases.sh`
+  (daily cron `/etc/cron.d/prune-releases`) keeps the newest 3 releases and never
+  removes the `current` target. Do not rely on more than the previous release
+  existing as a rollback target.
 
 ## Serving Model
 
