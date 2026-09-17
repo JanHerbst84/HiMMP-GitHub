@@ -89,7 +89,8 @@ const reuseVideos: ReadonlyArray<UserVideo> = [
   { embedId: "EotCnk5bAE8", iframeTitle: "Al R mix of In Solitude", heading: "In Solitude - Al R mix", meta: "Al R • 17 September 2025" },
   { embedId: "IFO698VENMk", iframeTitle: "Pradhe mix of In Solitude", heading: "In Solitude - Pradhe mix", meta: "Pradhe • 21 August 2025" },
   { embedId: "5QDnVNiI5nM", iframeTitle: "Pradhe short mix of In Solitude", heading: "In Solitude - Pradhe mix (short)", meta: "Pradhe • 17 August 2025" },
-  { embedId: "IZDfsAneeHc", iframeTitle: "djabthrash reamping the In Solitude guitar DIs", heading: "Reamping the In Solitude guitar DIs", meta: "djabthrash • 26 August 2025" }
+  { embedId: "IZDfsAneeHc", iframeTitle: "djabthrash reamping the In Solitude guitar DIs", heading: "Reamping the In Solitude guitar DIs", meta: "djabthrash • 26 August 2025" },
+  { embedId: "fpvd9woR-oM", iframeTitle: "Marnetmar mix of In Solitude", heading: "In Solitude - Marnetmar mix", meta: "Marnetmar • 29 August 2026" }
 ];
 
 // Chinese-language republication, translation, reaction and reuse on Bilibili.
