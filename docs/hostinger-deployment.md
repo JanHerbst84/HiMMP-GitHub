@@ -153,6 +153,13 @@ Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/release
 - `https://himmp.net/about.html` returned `200 OK`; `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK`.
 - No CSP change: the embed origin is `www.youtube.com`, already approved.
 
+Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/releases/20260917-075818-7902c2b` (rollback target `releases/20260917-070720-d1d2b90`), synced with `rsync --link-dest` against the previous release and switched by replacing `current`; `nginx -t` passed and no Nginx change was needed:
+
+- `videos.html`, `about.html`, `publications.html` and `assets/audio/HiMMP.mp3` returned `200 OK`; the audio file is byte-identical to the previous release (45 MP3 files, deployment preflight passed for 27 routes).
+- `https://himmp.net/videos.html` now embeds the Marnetmar 'In Solitude' mix `fpvd9woR-oM` in Practitioner Reuse alongside the JackieW cross-post `nxkTL94OXto` (source commit `7902c2b`).
+- Mobile/dark-mode remediation (source commit `f70a731`) verified with a mobile-emulated Chromium against the live site: sticky header 93px at 375px in both schemes (was 209px), hamburger rendered as a transparent three-bar control, theme toggle on the logo row, no logo/toggle overlap at 320px, open menu without list bullets or stray pseudo-content, publications sticky strip offset equal to the header height, FAQ and team pages at 375px document width, contact submit button on the mint pill treatment.
+- No CSP change: only CSS, one scoped inline style selector on the publications page, and a YouTube embed from the already approved origin.
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
