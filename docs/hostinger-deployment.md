@@ -147,6 +147,12 @@ Checked live over HTTPS on 2026-09-16 after release `/var/www/himmp-site/release
 
 Checked live over HTTPS on 2026-09-16 after release `/var/www/himmp-site/releases/20260916-211055-060b4bc` (rollback target `/var/www/himmp-site/releases/20260916-205457-d9de9b9`): `videos.html`, `about.html` and the MP3 asset returned `200 OK`; the Bilibili section now lists six link cards (source commit `060b4bc`).
 
+Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/releases/20260917-070720-d1d2b90` (rollback target `releases/20260916-211055-060b4bc`), synced with rsync and switched by replacing `current`:
+
+- `https://himmp.net/videos.html` returned `200 OK` and now embeds the JackieW YouTube cross-post `nxkTL94OXto` in User-Generated Content (source commit `d1d2b90`); the Bilibili link-card section is unchanged.
+- `https://himmp.net/about.html` returned `200 OK`; `https://himmp.net/assets/audio/HiMMP.mp3` returned `200 OK`.
+- No CSP change: the embed origin is `www.youtube.com`, already approved.
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
