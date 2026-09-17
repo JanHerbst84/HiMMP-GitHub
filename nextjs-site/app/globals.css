@@ -2476,7 +2476,9 @@ html .section-nav-button {
 
 @media screen and (max-width: 767px) {
   html .publication-section-nav {
-    top: 80px;
+    /* D-9-m: track the phone header (93px) instead of the legacy
+       80px; the token is re-derived at this breakpoint. */
+    top: var(--site-header-height, 93px);
   }
   html .section-nav-buttons {
     gap: 8px;
@@ -2507,8 +2509,10 @@ html .team-grid {
 /* Researchers grid has exactly 2 items (PI + co-I); force a
    2-column layout instead of letting auto-fill stretch to a
    narrow 3-column at desktop widths. */
-html .team-grid.researchers-grid {
-  grid-template-columns: repeat(2, 1fr);
+@media (min-width: 768px) {
+  html .team-grid.researchers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 html .team-member {
@@ -2969,7 +2973,9 @@ html .chapter-nav-button {
 
 @media screen and (max-width: 767px) {
   html .chapter-section-nav {
-    top: 80px;
+    /* D-9-m: track the phone header (93px) instead of the legacy
+       80px; the token is re-derived at this breakpoint. */
+    top: var(--site-header-height, 93px);
   }
   html .chapter-nav-buttons {
     overflow-x: auto;
@@ -3347,6 +3353,7 @@ html .main-nav {
 
 html .nav-links {
   display: flex;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
@@ -4402,4 +4409,209 @@ html a.download-link:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 28px -16px rgba(93, 198, 159, 0.55);
   }
+}
+
+/*
+ * D-9-m — mobile header, hamburger, submit button, and wrapping
+ * remediation (2026-09-17 mobile/dark-mode audit).
+ *
+ * The D-1 Family B migration carried the STRUCTURAL `.menu-toggle`
+ * decls (display toggling, absolute placement, span geometry) but not
+ * the legacy PALETTE decls (`background: transparent; border: none;
+ * cursor: pointer` and the span `background-color`). Since the legacy
+ * stylesheet links were retired (D-1 §4.9) the hamburger has rendered
+ * as an unstyled UA button — a white 125x48 box with a 2px outset
+ * border, inheriting `html button { padding: 1rem 3rem }` — and the
+ * bar inside it was invisible. Same root cause for the contact form's
+ * submit button (legacy `button { background: primary; color: white;
+ * border: none; border-radius: 5px }` never migrated).
+ *
+ * Mobile header height was 209px at 375px wide (2rem padding x2 +
+ * 60px logo + 2rem logo margin + 36px theme toggle + 1rem margin),
+ * sticky, so a quarter of every phone viewport was chrome. This slice
+ * puts the theme toggle on the logo row beside the hamburger, drops
+ * the logo margin, and halves the header padding on phones; the
+ * collapsed header is now ~93px. `--site-header-height` is re-derived
+ * at the same breakpoint, and the two phone sticky section-nav
+ * offsets (.publication-section-nav / .chapter-section-nav, which
+ * were hardcoded to the legacy 80px) now read it. The findings
+ * reader panel is static at <=980px and does not consume it.
+ */
+html .menu-toggle {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md, 6px);
+  cursor: pointer;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-fg);
+}
+
+html .menu-toggle:focus-visible {
+  outline: 2px solid var(--color-mint);
+  outline-offset: 2px;
+}
+
+html .menu-toggle span {
+  position: relative;
+  margin: 0;
+  background-color: currentColor;
+  transition: background-color var(--duration-fast, 160ms) var(--easing-standard, ease);
+}
+
+html .menu-toggle span::before,
+html .menu-toggle span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 25px;
+  height: 2px;
+  background-color: currentColor;
+  transition: transform var(--duration-fast, 160ms) var(--easing-standard, ease);
+}
+
+html .menu-toggle span::before {
+  top: -7px;
+}
+
+html .menu-toggle span::after {
+  top: 7px;
+}
+
+html .menu-toggle.active span {
+  background-color: transparent;
+}
+
+html .menu-toggle.active span::before {
+  transform: translateY(7px) rotate(45deg);
+}
+
+html .menu-toggle.active span::after {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --site-header-height: calc((var(--spacing-sm) * 2) + 61px);
+    --site-header-inline-pad: var(--spacing-md);
+  }
+
+  html .site-header {
+    padding: var(--spacing-sm) 0;
+  }
+
+  /* When the menu is open the sticky header can outgrow a short
+   * (landscape) viewport; let it scroll internally rather than trap
+   * the lower links off-screen. */
+  html .site-header:has(.nav-links.active) {
+    max-height: 100dvh;
+    overflow-y: auto;
+  }
+
+  /* While the open header scrolls internally (short landscape
+   * viewports), pin both toggles to the viewport so the close (X)
+   * control never scrolls out of reach. The sticky header sits at
+   * viewport top whenever it is stuck, so the same offsets apply. */
+  html .site-header:has(.nav-links.active) .menu-toggle,
+  html .site-header:has(.nav-links.active) .theme-toggle {
+    position: fixed;
+  }
+
+  html .logo {
+    margin-bottom: 0;
+  }
+
+  html .menu-toggle {
+    display: flex;
+    top: calc(var(--spacing-sm) + 8px);
+    right: var(--site-header-inline-pad);
+  }
+
+  html .main-nav {
+    display: block;
+    width: 100%;
+  }
+
+  html .theme-toggle {
+    position: absolute;
+    top: calc(var(--spacing-sm) + 12px);
+    right: calc(var(--site-header-inline-pad) + 52px);
+    margin: 0;
+    z-index: 20;
+  }
+
+  html .nav-links {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-xs) 0;
+  }
+
+  html .nav-links li {
+    margin: 0;
+  }
+
+  html .nav-links a {
+    padding: var(--spacing-xs) 0;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  :root {
+    --site-header-inline-pad: var(--spacing-sm);
+  }
+
+  /* Reserve the toggle cluster's footprint (36px theme toggle + 8px
+   * gap + 44px hamburger + 12px clearance) so the logo scales down
+   * instead of sliding under the theme toggle on 320px-class phones.
+   * At >=352px the logo's natural 216px width is unaffected. */
+  html .logo {
+    display: flex;
+    align-items: center;
+    /* Hold the logo row at the image's natural 60px so the header
+     * stays 93px (the `--site-header-height` value the sticky strips
+     * read) even when the image itself scales down. */
+    min-height: 60px;
+    max-width: calc(100% - 100px);
+  }
+
+  html .logo-image {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Contact form submit — accent-pair pill, matching .read-more. Text
+ * stays graphite on mint in both schemes (see tokens.css note on
+ * accent-pair contexts). */
+html .contact-form button[type="submit"] {
+  background-color: var(--color-mint);
+  color: var(--color-graphite);
+  border: none;
+  border-radius: var(--radius-md, 6px);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast, 160ms) var(--easing-standard, ease),
+    transform var(--duration-fast, 160ms) var(--easing-standard, ease);
+}
+
+html .contact-form button[type="submit"]:hover {
+  background-color: var(--color-mint-dark, #4ab089);
+}
+
+html .contact-form button[type="submit"]:focus-visible {
+  outline: 2px solid var(--color-mint);
+  outline-offset: 3px;
+}
+
+/* Long bare URLs (FAQ dataset links) pushed the document to 542px
+ * wide on a 375px phone. Break only when a link would otherwise
+ * overflow its line box. */
+html #main-content a {
+  overflow-wrap: anywhere;
 }

@@ -275,6 +275,89 @@ test.describe("static export legacy route smoke", () => {
     expect(unexpectedFailures).toEqual([]);
   });
 
+  test("mobile header keeps logo, theme toggle and hamburger from overlapping", async ({ page }) => {
+    // D-9-m regression: the theme toggle sits on the logo row at <=767px,
+    // so the three controls must never intersect, and the collapsed
+    // sticky header must stay under 100px on phones (it was 209px).
+    const unexpectedFailures = trackUnexpectedFailures(page);
+
+    for (const width of [320, 335, 375, 480, 767]) {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto("/publications.html");
+
+      const boxes = await page.evaluate(() => {
+        const rect = (selector: string) => {
+          const r = document.querySelector(selector)?.getBoundingClientRect();
+          return r ? { left: r.left, right: r.right, top: r.top, bottom: r.bottom } : null;
+        };
+        const strip = document.querySelector(".publication-section-nav");
+        return {
+          header: rect(".site-header"),
+          logo: rect(".logo-image"),
+          theme: rect(".theme-toggle"),
+          menu: rect(".menu-toggle"),
+          // Resolved `top` of the sticky strip = the `--site-header-height` token.
+          stickyOffset: strip ? parseFloat(getComputedStyle(strip).top) : NaN
+        };
+      });
+
+      // The sticky section-nav must sit flush under the header: the token
+      // it reads has to equal the rendered header height at every width.
+      expect(Math.abs(boxes.stickyOffset - (boxes.header!.bottom - boxes.header!.top)), `sticky offset vs header height at ${width}px`).toBeLessThanOrEqual(1);
+
+      const overlaps = (a: { left: number; right: number; top: number; bottom: number } | null, b: typeof a) =>
+        !!a && !!b && a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+
+      expect(boxes.logo, `logo at ${width}px`).not.toBeNull();
+      expect(boxes.theme, `theme toggle rendered at ${width}px`).not.toBeNull();
+      expect(boxes.theme!.right - boxes.theme!.left, `theme toggle visible at ${width}px`).toBeGreaterThan(0);
+      expect(overlaps(boxes.logo, boxes.theme), `logo/theme overlap at ${width}px`).toBe(false);
+      expect(overlaps(boxes.logo, boxes.menu), `logo/menu overlap at ${width}px`).toBe(false);
+      expect(overlaps(boxes.theme, boxes.menu), `theme/menu overlap at ${width}px`).toBe(false);
+      expect(boxes.header!.bottom - boxes.header!.top, `header height at ${width}px`).toBeLessThan(100);
+      expect(boxes.menu!.right, `hamburger inside viewport at ${width}px`).toBeLessThanOrEqual(width);
+    }
+
+    // Short landscape viewport: the open header clamps to the viewport
+    // and scrolls internally; both toggles are pinned so the close
+    // control stays reachable after an internal scroll.
+    await page.setViewportSize({ width: 667, height: 375 });
+    await page.goto("/publications.html");
+    const menuToggle = page.locator(".menu-toggle");
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "true");
+    const landscape = await page.evaluate(() => {
+      const header = document.querySelector(".site-header") as HTMLElement;
+      const box = (selector: string) => document.querySelector(selector)!.getBoundingClientRect();
+      const before = { menu: box(".menu-toggle").top, theme: box(".theme-toggle").top };
+      header.scrollTop = 150;
+      return {
+        headerHeight: header.getBoundingClientRect().height,
+        headerScrollTop: header.scrollTop,
+        before,
+        after: { menu: box(".menu-toggle").top, theme: box(".theme-toggle").top },
+        menuBottom: box(".menu-toggle").bottom,
+        themeBottom: box(".theme-toggle").bottom
+      };
+    });
+    expect(landscape.headerHeight).toBeLessThanOrEqual(375);
+    expect(landscape.headerScrollTop).toBeGreaterThan(0);
+    // Pinned toggles must not move with the header's internal scroll and
+    // must stay on screen (an upper bound alone would also pass when they
+    // scroll off the top into negative coordinates).
+    expect(Math.abs(landscape.after.menu - landscape.before.menu)).toBeLessThanOrEqual(1);
+    expect(Math.abs(landscape.after.theme - landscape.before.theme)).toBeLessThanOrEqual(1);
+    expect(landscape.after.menu).toBeGreaterThanOrEqual(0);
+    expect(landscape.after.theme).toBeGreaterThanOrEqual(0);
+    expect(landscape.menuBottom).toBeLessThanOrEqual(375);
+    expect(landscape.themeBottom).toBeLessThanOrEqual(375);
+    await menuToggle.click();
+    await expect(menuToggle).toHaveAttribute("aria-expanded", "false");
+
+    await waitForLocalResponses();
+    expect(unexpectedFailures).toEqual([]);
+  });
+
   test("about body refresh renders redesigned layout primitives", async ({ page }) => {
     const unexpectedFailures = trackUnexpectedFailures(page);
     await page.goto("/about.html");

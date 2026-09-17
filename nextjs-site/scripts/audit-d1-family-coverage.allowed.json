@@ -173,5 +173,68 @@
     "legacyDecl": { "property": "padding", "value": "0 var(--spacing-xs)" },
     "replacementDecl": { "property": "padding", "value": "0" },
     "rationale": "Slice D-9-e-9 (9b4b923) removed redundant anchor padding together with list-item padding so the footer fit its desktop container; flex gap supplies separation and the change was verified before shipping."
+  },
+  {
+    "family": "B",
+    "selector": ".menu-toggle span",
+    "legacyDecl": { "property": "margin", "value": "5px 0" },
+    "replacementDecl": { "property": "margin", "value": "0" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) draws the hamburger as three bars via ::before/::after around a relatively positioned span; the legacy 5px vertical margin belonged to the single-bar layout and would offset the X animation pivot."
+  },
+  {
+    "family": "B",
+    "selector": ".logo",
+    "legacyDecl": { "property": "margin-bottom", "value": "var(--spacing-md)" },
+    "replacementDecl": { "property": "margin-bottom", "value": "0" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) moved the theme toggle onto the logo row so nothing sits below the logo in the collapsed phone header; the 2rem gap was one of the reasons the sticky header consumed 209px of a 375px-wide viewport."
+  },
+  {
+    "family": "B",
+    "selector": ".menu-toggle",
+    "legacyDecl": { "property": "display", "value": "block" },
+    "replacementDecl": { "property": "display", "value": "flex" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) centres the hamburger bars inside an explicit 44x44 hit target; flex is the box model the centring relies on and the toggle is still shown only at <=767px."
+  },
+  {
+    "family": "B",
+    "selector": ".menu-toggle",
+    "legacyDecl": { "property": "top", "value": "var(--spacing-md)" },
+    "replacementDecl": { "property": "top", "value": "calc(var(--spacing-sm) + 8px)" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) halved the phone header padding to 1rem and vertically centres the 44px toggle on the 60px logo row (1rem + (60 - 44) / 2)."
+  },
+  {
+    "family": "B",
+    "selector": ".menu-toggle",
+    "legacyDecl": { "property": "right", "value": "var(--spacing-md)" },
+    "replacementDecl": { "property": "right", "value": "var(--site-header-inline-pad)" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) aligns the toggle with the container's inline padding, which is 2rem at 480-767px but 1rem at <=479px; the legacy fixed 2rem left it 16px inboard of the logo edge on phones."
+  },
+  {
+    "family": "B",
+    "selector": ".nav-links",
+    "legacyDecl": { "property": "padding", "value": "var(--spacing-md) 0" },
+    "replacementDecl": { "property": "padding", "value": "var(--spacing-xs) 0" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) tightened the open phone menu so all ten links fit within the viewport below the header; the legacy 2rem padding plus per-item margins pushed the open header past 800px."
+  },
+  {
+    "family": "B",
+    "selector": ".nav-links li",
+    "legacyDecl": { "property": "margin", "value": "var(--spacing-xs) 0" },
+    "replacementDecl": { "property": "margin", "value": "0" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) removed per-item margins in the open phone menu; the anchors keep 0.5rem padding so each link remains a 41px target."
+  },
+  {
+    "family": "G",
+    "selector": ".publication-section-nav",
+    "legacyDecl": { "property": "top", "value": "80px" },
+    "replacementDecl": { "property": "top", "value": "var(--site-header-height, 93px)" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) retuned the <=767px sticky-strip offset from the legacy 80px (pre-redesign mobile header) to the shared header token, which the same slice re-derives to 93px at that breakpoint; 80px left the strip's top 13px clipped under the redesigned phone header."
+  },
+  {
+    "family": "D",
+    "selector": ".chapter-section-nav",
+    "legacyDecl": { "property": "top", "value": "80px" },
+    "replacementDecl": { "property": "top", "value": "var(--site-header-height, 93px)" },
+    "rationale": "Slice D-9-m (2026-09-17 mobile/dark-mode audit) applied the same phone header-offset correction to the chapter sticky strip as to the publications strip."
   }
 ]
