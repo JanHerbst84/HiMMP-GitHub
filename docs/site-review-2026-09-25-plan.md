@@ -1,6 +1,6 @@
 # himmp.net review and remediation plan (2026-09-25)
 
-Status: **plan v1, awaiting Sol review.** Branch `site-review-2026-09` from `main` at `f484e59`.
+Status: **plan v2 (Sol review integrated, all 9 findings accepted; see §6).** Branch `site-review-2026-09` from `main` at `f484e59`.
 
 Requested by JPH on 2026-09-25: review the main HiMMP website for its visual presentation, technical and
 performance criteria and discoverability; write the review up with the planned action; have Sol review it;
@@ -82,11 +82,14 @@ same commit with the reason. No new npm dependencies.
 ### Slice A — server, 404 and sitemap (T2, T5, D1)
 
 1. `app/not-found.tsx` with site shell, one `<title>`, `noindex`, links to home/findings/publications.
-2. Nginx vhost: `error_page 404 /404.html;` plus `location = /404.html { internal; }` (security headers repeated,
-   since `add_header` in a location drops the server-level set). Apply to the explicit `return 404` blocks too.
-3. Nginx caching: `location ^~ /_next/static/` → `Cache-Control "public, max-age=31536000, immutable"`; add
-   `svg|ico|gif|avif` to the static regex; replace `expires 30d` + `add_header Cache-Control "public"` with a single
-   `Cache-Control "public, max-age=2592000"` header.
+2. Nginx vhost: `error_page 404 /404.html;` plus `location = /404.html { internal; }`. Apply to the explicit
+   `return 404` blocks too.
+3. Nginx caching: `location ^~ /_next/static/` (keeping `try_files $uri =404`) → `Cache-Control "public,
+   max-age=31536000, immutable"`; add `svg|ico|gif|avif` to the static regex; drop `expires 30d` so only one
+   `Cache-Control "public, max-age=2592000"` header is sent.
+   **Every location that contains any `add_header` (the 404, `_next/static` and static-asset blocks) repeats the
+   complete security-header set**, because one `add_header` in a location suppresses all server-level ones. A
+   deterministic check (script over the vhost) asserts this.
 4. Sitemap `lastmod` = newest commit date across the files that actually produce the route (legacy HTML, the
    route's React page/chapter component, `app/<route>/page.tsx`, and the metadata/JSON-LD data files introduced in
    slice C), excluding a named list of non-content bulk commits (initially `0d20f4c`, the archive banner). Unit
@@ -98,36 +101,54 @@ same commit with the reason. No new npm dependencies.
    → `/`; Nginx `location = /index.html { return 301 /; }`. Verify `location = /`'s `try_files /index.html` is not
    caught by the new redirect (curl both). Update `parity:sitemap`/`parity:links` expectations if they encode
    `index.html`.
-2. Home `<title>` ≈ "HiMMP – Heaviness in Metal Music Production | AHRC research project" (≤ 65) and description
-   ≤ 160 via `metadata-overrides.json`; keep OG/Twitter in step.
-3. Findings OG/Twitter title → "A Practical Guide".
-4. Rewrite `llms.txt` facts from the site's own content only (DOIs copied verbatim from `PublicationsPage.tsx` and
+2. Home `<title>` ≤ 60 chars (e.g. "HiMMP – Heaviness in Metal Music Production", 43) and description ≤ 160 via
+   `metadata-overrides.json`. `metadata.ts` gains `openGraphTitle`/`twitterTitle` (and description) overrides, and
+   social titles fall back to the overridden title when no explicit social override exists.
+3. Findings OG/Twitter title → "A Practical Guide" through the new social-title override.
+4. Parity strategy (applies to B and C): `check-content-parity.mjs` and `check-sitemap-parity.mjs` derive the
+   intended title/description/canonical/sitemap expectations from the governed overrides instead of the frozen
+   inventory; the frozen inventory itself is not regenerated. The gate still fails on any *unintended* drift.
+5. Rewrite `llms.txt` facts from the site's own content only (DOIs copied verbatim from `PublicationsPage.tsx` and
    `audio`/`findings` pages); remove the geo claim; update the date.
 
 Chapter titles over 60 chars are left as they are (descriptive, low impact).
 
 ### Slice C — structured data (D2, D3, D6)
 
-1. Add a React-side JSON-LD seam: `src/site/data/jsonld/*.ts` exporting per-`sourceFile` transforms applied to the
-   legacy-extracted blocks (replace, patch or append), mirroring how `metadata-overrides.json` patches head metadata.
+1. Add a React-side JSON-LD seam: `src/site/data/jsonld/*.ts` exporting per-`sourceFile` patch functions applied to
+   the legacy-extracted blocks, mirroring how `metadata-overrides.json` patches head metadata. **Existing graphs are
+   patched in place so each page's JSON-LD script count is unchanged** (the content-parity gate stores counts).
 2. Fixes: Volumes I/II → `Book` (keep existing name/author/publisher/DOI/URL fields; add ISBN only if already in
-   repo content); `ResearchProject` → `foundingDate`/`dissolutionDate`/`member`, and `funding` → `Grant`
-   (`identifier` `AH/T010991/1`, `funder` AHRC); chapter `isPartOf` → the guide `Book` `@id`.
-3. Append the 8 missing DOI outputs on `publications.html` and `VideoObject`s for the post-freeze videos using only
-   fields present in the page source (title, embed URL, thumbnail). `uploadDate` is omitted where the repo has no
-   date — no invented dates.
-4. Test: every emitted block parses, has `@context`/`@type`, no duplicate `@id`, and the known type/property fixes
-   hold; rerun `audit:seo:live`-style checks against the local export.
+   repo content); chapter `isPartOf` → the guide `Book` `@id`.
+3. Project graph, designed explicitly: `ResearchProject` keeps no invalid properties. Lifecycle dates become
+   `foundingDate`/`dissolutionDate` (valid on Organization, which ResearchProject inherits). PI and Co-I become
+   `member` entries as `OrganizationRole` with `roleName` (replacing `founder`). The eight producers stay
+   `contributor`. The six musicians move off the project onto a `MusicRecording` node for "In Solitude"
+   (`byArtist`), since they performed on the recording rather than in the project. `funding` → `Grant`
+   (`identifier` `AH/T010991/1`, `funder` AHRC).
+4. Append the 8 missing DOI outputs on `publications.html`, copying title/authors/year/DOI from the page source.
+   Add `VideoObject`s for videos without one, with `name`, `embedUrl`, `thumbnailUrl`, `contentUrl`
+   (`https://www.youtube.com/watch?v=<id>`) and ISO `uploadDate` taken from the date the page source shows
+   (e.g. `nxkTL94OXto` 1 March 2025, `fpvd9woR-oM` 29 August 2026); `uploadDate` is omitted only where the source has
+   no date.
+5. Test: every emitted block parses, has `@context`/`@type`, no duplicate `@id`, every `VideoObject` has the
+   Google-required `name`/`thumbnailUrl`/`uploadDate` (or is listed as knowingly incomplete), no `ResearchProject`
+   carries `startDate`/`endDate`/`performer`, both volumes are `Book`; rerun the SEO audit against the local export.
 
 ### Slice D — performance (T1, T3, T6)
 
 1. Reusable script `nextjs-site/scripts/optimize-figures.mjs` (uses the system `magick` CLI; no npm dependency):
-   writes WebP derivatives, max 1600 px wide, to `findings/Figures/web/` (committed, synced by `sync:public`), and a
-   JSON manifest of intrinsic sizes. Originals stay and remain reachable: each figure links to its full-resolution
+   writes WebP derivatives to `findings/Figures/web/` (committed, synced by `sync:public`) with explicit settings —
+   max 1600 px wide, never upscaled, lossy q=82 for photographs (`.jpg`), lossless WebP for PNG diagrams if that
+   is smaller than the q=90 lossy result, alpha preserved — and a JSON manifest recording source hash, output
+   dimensions and encoder settings. Originals stay and remain reachable: each figure links to its full-resolution
    original.
-2. Chapter components: `<img src="Figures/web/….webp" width height loading="lazy" decoding="async">` via one small
-   `<ChapterFigure>` component or a mechanical rewrite; first above-the-fold image may stay eager. Chapter hero
-   background images pointed at the WebP derivative where one exists.
+2. Chapter components use `<picture><source type="image/webp" srcSet="Figures/web/….webp"><img src="<original>"
+   width height loading="lazy" decoding="async"></picture>`, so the original is the fallback. The dark-mode paper
+   background rules that currently select `img[src$=".png"]` (`globals.css:1640-1657`) are retargeted to a figure
+   class (e.g. `.figure--diagram`) so transparent diagrams keep their backing. Text-heavy figures are inspected
+   visually at native and mobile widths. The first above-the-fold image may stay eager. Chapter hero backgrounds use
+   the WebP derivative where one exists.
 3. Producer portraits and other below-fold images: `loading="lazy"` (removes the React preloads).
 4. YouTube facade for the home, audio and approach embeds, reusing the videos-page `data-lazy-youtube-src`
    pattern and `EnhancedVideoController` (no CSP change: `img.youtube.com` and `www.youtube.com` are approved).
@@ -137,16 +158,23 @@ Chapter titles over 60 chars are left as they are (descriptive, low impact).
 
 ### Slice E — accessibility (T4, T7 partial)
 
-1. `assets/js/main.js` smooth scrolling: skip `.skip-link`, move focus to the target (`tabindex="-1"` when needed),
-   use `behavior: 'auto'` under `prefers-reduced-motion: reduce`, and update `location.hash`.
+1. Skip link (`.skip-to-content`, `SiteHeader.tsx:25`): every `<main id="main-content">` gets `tabIndex={-1}`.
+   `assets/js/main.js` handles in-page anchors by focusing the target with `{ preventScroll: true }` (adding
+   `tabindex="-1"` to non-focusable targets), then scrolling with `behavior: 'auto'` under
+   `prefers-reduced-motion: reduce` and `'smooth'` otherwise, and updating the hash with `history.replaceState`
+   (no duplicate history entries). A Playwright test asserts that activating the skip link moves
+   `document.activeElement` to `#main-content`.
 2. Heading skips: fix the structural ones in shared components (chapter sidebar, home card grid) where CSS is
    class-based; the remaining per-page skips are recorded, not fixed, in this pass.
 
 ### Slice F — visual (V1–V4)
 
-1. Chapter shell: move the "On this page" list below the chapter hero (or into the desktop reader panel under the
-   current chapter) and style it; on mobile collapse the reader panel into a closed `<details>` so the chapter title
-   is near the top.
+1. Chapter shell: render two navigation presentations instead of one disclosure. Desktop (≥ 980 px): the existing
+   sticky reader panel, with the "On this page" list nested under the current chapter and styled. Mobile (< 980 px):
+   a separate compact `<details>` "Chapters and sections" (closed by default) holding the same links; the desktop
+   panel is `display: none` on mobile and the mobile disclosure is `display: none` on desktop, so assistive
+   technology only ever meets the visible one. Both keep `aria-current`, work without JavaScript and by keyboard;
+   Playwright covers both sides of the 980 px breakpoint. The standalone TOC above the hero is removed.
 2. Counter: "Chapter 7 of 14", "Glossary", "Guide home" instead of the route index.
 3. Home outputs grid: 4 columns ≥ 1100 px, 2×2 below, 1 column on phones; tighten section spacing.
 4. Page heroes: reduce desktop min-height (target ≈ 320 px); align the publications section nav heading with its pills.
@@ -160,8 +188,20 @@ audio re-encoding; `youtube-nocookie` adoption.
 
 Per slice: `npm run typecheck`, `npm run build`, `parity:content`, `parity:text`, `parity:links`,
 `parity:sitemap`, `npx playwright test`, `audit:contrast`; before/after screenshots and byte counts with the
-review scripts; Sol review of the slice diff (`codex exec -m gpt-5.6-sol`, medium effort, read-only) before the
-slice commit. Findings are dispositioned ACCEPT/REJECT/DEFER in §6 with evidence.
+review scripts.
+
+Review gate per slice (the repository's blocking dual-review protocol, `project-context` §Dual-review): run in
+parallel (1) the internal `feature-dev:code-reviewer` and (2) a Sol adversarial review of the full slice diff
+(`codex exec -m gpt-5.6-sol`, medium effort, read-only sandbox). Take the union of real findings, fix before the
+commit, and rerun both reviews after any substantive fix. Findings are dispositioned ACCEPT/REJECT/DEFER in §6 with
+evidence. The all-route Chromium CSP audit runs at slice D acceptance (embed markup change) and again after
+deployment.
+
+Baseline before any change (unchanged tree, 2026-09-25): typecheck, build, all four parity gates, `audit:contrast`
+and `test:hardening` pass; Playwright 128 passed, 4 failed, 49 not run. Failures: the videos smoke test expects 6
+Bilibili cards but the page has had 7 since `46d0a83` (stale test, fixed in slice A); three `page.goto` timeouts
+(`contrast-audit-oneoff` light `/approach.html`, two `theme-toggle` tests) to be re-run in isolation to separate
+flakiness from defects.
 
 ## 5. Deployment
 
@@ -174,4 +214,19 @@ backup. Record the release in `docs/hostinger-deployment.md`.
 
 ## 6. Review and decision log
 
-(Sol plan review and per-slice dispositions are appended here.)
+### 6.1 Sol plan review (v1 → v2), 2026-09-25
+
+Reviewer: `gpt-5.6-sol`, medium effort, read-only. Verdict: approve with changes. Each finding was checked against
+the source before disposition; all 9 were ACCEPTED, so there was no disagreement to escalate.
+
+| # | Sev | Finding (short) | Evidence checked | Disposition |
+|---|---|---|---|---|
+| 1 | H | `founder`/`performer` semantics; musicians are not project members | `index.html:83-115` | ACCEPT → §C3 redesigned |
+| 2 | M | Video dates exist in source; `uploadDate` omission reason wrong | `VideosPage.tsx:79,93` | ACCEPT → §C4 |
+| 3 | H | Title/description, sitemap and added JSON-LD scripts break content/sitemap parity | `check-content-parity.mjs`, `check-sitemap-parity.mjs` | ACCEPT → §B4, §C1 (patch in place) |
+| 4 | M | No social-title overrides in `metadata.ts`; proposed title 67 chars | `metadata.ts:7-14,74-95` | ACCEPT → §B2 |
+| 5 | M | `_next/static` location drops security headers | vhost `add_header` inheritance | ACCEPT → §A3 + check |
+| 6 | M | Class is `.skip-to-content`; `<main>` not focusable | `SiteHeader.tsx:25` | ACCEPT → §E1 |
+| 7 | M | `.webp` src breaks `img[src$=".png"]` dark-mode backing; conversion rules unspecified | `globals.css:1640-1657` | ACCEPT → §D1-2 |
+| 8 | M | One `<details>` cannot be closed on mobile and open on desktop | `EnhancedFindingsShell.tsx` | ACCEPT → §F1 |
+| 9 | H | Repo requires dual review per slice | `project-context` §Dual-review | ACCEPT → §4 |
