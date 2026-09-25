@@ -1,6 +1,6 @@
 # himmp.net review and remediation plan (2026-09-25)
 
-Status: **plan v2 (Sol review integrated, all 9 findings accepted; see §6).** Branch `site-review-2026-09` from `main` at `f484e59`.
+Status: **implemented and deployed 2026-09-25** (release `20260925-202909-811b57d`; plan v2 after Sol review, §6; deployment record in `docs/hostinger-deployment.md`). Branch `site-review-2026-09` from `main` at `f484e59`.
 
 Requested by JPH on 2026-09-25: review the main HiMMP website for its visual presentation, technical and
 performance criteria and discoverability; write the review up with the planned action; have Sol review it;

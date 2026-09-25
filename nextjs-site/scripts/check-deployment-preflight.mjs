@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import { siteOrigin } from "./site-config.mjs";
+import { locFor } from "./site-config.mjs";
 
 const appRoot = process.cwd();
 const repoRoot = path.resolve(appRoot, "..");
@@ -189,7 +189,7 @@ for (const sourceFile of routeSourceFiles) {
 
   const html = readText(htmlPath);
   const sourceHtml = existsSync(sourcePath) ? readText(sourcePath) : "";
-  const expectedUrl = `${siteOrigin}/${sourceFile}`;
+  const expectedUrl = locFor(sourceFile);
   const sourceCanonical = firstAttr(sourceHtml, /<link\s+rel="canonical"\s+href="([^"]+)"/i);
   const sourceOgUrl = firstAttr(sourceHtml, /<meta\s+property="og:url"\s+content="([^"]+)"/i);
   const canonical = firstAttr(html, /<link\s+rel="canonical"\s+href="([^"]+)"/i);

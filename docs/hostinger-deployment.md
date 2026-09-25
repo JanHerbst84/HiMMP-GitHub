@@ -125,7 +125,7 @@ Checked live over HTTPS on 2026-05-12 after issuing the certificate and adding t
 - `https://himmp.net/index.html` includes legacy `robots`, `keywords`, `geo.*`, preconnect, and DNS-prefetch head markers.
 - `https://himmp.net/publications.html` includes legacy citation and article timestamp metadata.
 - `https://himmp.net/findings/08-drums.html` includes legacy chapter `prev`/`next` links, canonical/OpenGraph markers, and JSON-LD scripts.
-- `https://himmp.net/sitemap.xml` is generated from the Next route inventory and includes git-backed `lastmod` values for all 27 generated routes.
+- `https://himmp.net/sitemap.xml` is generated from the Next route inventory and includes git-backed `lastmod` values for all 27 generated routes. (Since 2026-09-25 `lastmod` comes from the files that produce each route, not the archived legacy HTML alone; see `nextjs-site/scripts/lib/sitemap-lastmod.mjs`.)
 - `https://himmp.net/acknowledgements.html` includes canonical, `og:url`, `og:image`, Twitter image metadata, and `robots` with `max-image-preview:large`.
 - `https://himmp.net/audio.html` includes high-contrast producer switch buttons for the interactive mix comparison tool.
 - `https://himmp.net/contact-handler.php` and `CONTACT_BASE_URL=https://himmp.net npm run smoke:contact:php` passed after syncing the SMTP-capable PHP handler.
@@ -167,6 +167,14 @@ Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/release
 Checked live over HTTPS on 2026-09-17 after release `/var/www/himmp-site/releases/20260917-092921-46d0a83` (rollback target `releases/20260917-075818-7902c2b`):
 
 - `https://himmp.net/videos.html` returned `200 OK` with seven Bilibili link cards (source commit `46d0a83`); about and audio routes `200 OK`. No CSP change (links, not embeds).
+
+Checked live over HTTPS on 2026-09-25 after release `/var/www/himmp-site/releases/20260925-202909-811b57d` (rollback target `releases/20260917-092921-46d0a83`; Nginx rollback copy `/etc/nginx/sites-available/himmp.net.pre-811b57d-20260925-202924`), synced with `rsync --link-dest` against the previous release and switched atomically; site review 2026-09 (`docs/site-review-2026-09-25-plan.md`):
+
+- Vhost changes: site-scoped gzip for JS/CSS/JSON/XML/SVG/text (the global `nginx.conf` gzips `text/html` only); `error_page 404 /404.html` with an internal location; `/_next/static/` served `public, max-age=31536000, immutable`; one `Cache-Control` on static assets; `/index.html` 301 to `/` (query kept). `nginx -t` passed (only the pre-existing "protocol options redefined" warnings from other sites), reload succeeded, Nginx active; no HiMMP entries in the error log afterwards.
+- `/` 200; `/index.html` and `/index.html?x=1` 301 to `/` (and `/?x=1`); `/about` 301 to `/about.html`; unknown URLs, nested unknown URLs and a direct `/404.html` return 404 with the site's 404 page and the security headers; hashed JS gzip-compressed with the immutable cache header; `sitemap.xml` gzip-compressed and listing `https://himmp.net/`; `assets/audio/HiMMP.mp3` 200 (45 MP3 files, deployment preflight passed for 27 routes).
+- `npm run audit:seo:live`: 27 routes, 73 JSON-LD blocks, no failures or warnings. `npm run audit:csp:live` (new; enforcing CSP header required on every document, report-only rejected, first click-to-load embed activated on each of the 4 embed pages): no problems. No CSP change was needed: the home/audio/approach embeds use the already approved `www.youtube.com` and `img.youtube.com`.
+- Non-submitting production contact smoke passed.
+- Transfer on load (Chromium, CDP byte count): home 0.6 MB (was 2.0), chapter 7 0.8 MB (was 12.7), chapter 9 0.9 MB (was 18.1).
 
 ## Remaining Before Production Cutover
 
