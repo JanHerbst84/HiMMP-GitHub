@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { siteOrigin } from "./site-config.mjs";
+import { locFor, siteOrigin, sourceFileForLoc } from "./site-config.mjs";
 import { lastmodFor as contentLastmodFor } from "./lib/sitemap-lastmod.mjs";
 
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -28,10 +28,10 @@ const locs = new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) =
 const lastmods = lastmodsBySourceFile(sitemap);
 const fallbackLastmod = latestExistingLastmod(sitemap);
 const routeSourceFileSet = new Set(routeSourceFiles);
-const missing = routeSourceFiles.filter((sourceFile) => !locs.has(`${siteOrigin}/${sourceFile}`));
+const missing = routeSourceFiles.filter((sourceFile) => !locs.has(locFor(sourceFile)));
 const stale = [...locs]
-  .filter((loc) => loc.startsWith(`${siteOrigin}/`) && loc.endsWith(".html"))
-  .map((loc) => loc.slice(`${siteOrigin}/`.length))
+  .filter((loc) => loc.startsWith(`${siteOrigin}/`))
+  .map((loc) => sourceFileForLoc(loc))
   .filter((sourceFile) => !routeSourceFileSet.has(sourceFile));
 
 if (missing.length > 0) {
@@ -76,8 +76,9 @@ function lastmodsBySourceFile(sitemapSource) {
     const loc = firstTagValue(block, "loc");
     const lastmod = firstTagValue(block, "lastmod");
 
-    if (loc?.startsWith(`${siteOrigin}/`)) {
-      values.set(loc.slice(`${siteOrigin}/`.length), lastmod);
+    const sourceFile = loc ? sourceFileForLoc(loc) : null;
+    if (sourceFile) {
+      values.set(sourceFile, lastmod);
     }
   }
 

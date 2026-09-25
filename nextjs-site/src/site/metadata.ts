@@ -8,6 +8,8 @@ type MetadataOverrides = {
   title: Record<string, string>;
   description: Record<string, string>;
   canonical: Record<string, string>;
+  openGraphTitle: Record<string, string>;
+  twitterTitle: Record<string, string>;
   openGraphUrl: Record<string, string>;
   openGraphImage: Record<string, string>;
   twitterImage: Record<string, string>;
@@ -25,6 +27,35 @@ function descriptionFor(content: LegacyPageContent): string | null {
 
 function canonicalFor(content: LegacyPageContent): string | undefined {
   return metadataOverrides.canonical[content.sourceFile] ?? content.canonical;
+}
+
+/*
+ * Social titles: an explicit override wins; otherwise a page whose <title>
+ * is overridden uses that new title (so the legacy social title cannot
+ * drift from it); otherwise the legacy og:/twitter: title, then the title.
+ */
+function openGraphTitleFor(content: LegacyPageContent): string {
+  const override = metadataOverrides.openGraphTitle[content.sourceFile];
+  if (override) return override;
+  if (metadataOverrides.title[content.sourceFile]) return titleFor(content);
+  return content.openGraph.title ?? titleFor(content);
+}
+
+function twitterTitleFor(content: LegacyPageContent): string {
+  const override = metadataOverrides.twitterTitle[content.sourceFile];
+  if (override) return override;
+  if (metadataOverrides.title[content.sourceFile]) return titleFor(content);
+  return content.twitter.title ?? titleFor(content);
+}
+
+function openGraphDescriptionFor(content: LegacyPageContent): string | undefined {
+  if (metadataOverrides.description[content.sourceFile]) return descriptionFor(content) ?? undefined;
+  return content.openGraph.description ?? descriptionFor(content) ?? undefined;
+}
+
+function twitterDescriptionFor(content: LegacyPageContent): string | undefined {
+  if (metadataOverrides.description[content.sourceFile]) return descriptionFor(content) ?? undefined;
+  return content.twitter.description ?? descriptionFor(content) ?? undefined;
 }
 
 function openGraphUrlFor(content: LegacyPageContent): string | undefined {
@@ -73,8 +104,8 @@ export function legacyContentToMetadata(content: LegacyPageContent): Metadata {
 
     metadata.openGraph = {
       ...(openGraphType ? { type: openGraphType } : {}),
-      title: content.openGraph.title ?? title,
-      description: content.openGraph.description ?? description ?? undefined,
+      title: openGraphTitleFor(content),
+      description: openGraphDescriptionFor(content),
       url: openGraphUrlFor(content),
       siteName: content.openGraph.site_name,
       images: openGraphImage ? [openGraphImage] : undefined,
@@ -89,8 +120,8 @@ export function legacyContentToMetadata(content: LegacyPageContent): Metadata {
       }
         ? T
         : never,
-      title: content.twitter.title ?? title,
-      description: content.twitter.description ?? description ?? undefined,
+      title: twitterTitleFor(content),
+      description: twitterDescriptionFor(content),
       images: twitterImage ? [twitterImage] : undefined
     };
   }

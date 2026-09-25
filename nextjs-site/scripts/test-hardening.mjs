@@ -275,6 +275,8 @@ try {
   assert(/location = \/404\.html \{\s*internal;/.test(siteBlock), "404 page location is not internal");
   assert(/location \^~ \/_next\/static\/ \{[^}]*Cache-Control "public, max-age=31536000, immutable"/.test(siteBlock), "hashed Next.js assets are not cached as immutable");
   assert(!/\bexpires\b/.test(siteBlock), "expires would emit a second Cache-Control header");
+  assert(/location = \/index\.html \{\s*return 301 \/\$is_args\$args;/.test(siteBlock), "/index.html does not redirect to the canonical /");
+  assert(/location = \/ \{[^}]*try_files \/index\.html =404;/.test(siteBlock), "/ no longer serves index.html in place");
   assert(/gzip_types [^;]*application\/javascript[^;]*;/.test(siteBlock) && /gzip_types [^;]*text\/css/.test(siteBlock), "JS/CSS compression missing");
   assert(!nginx.includes("Content-Security-Policy-Report-Only"), "report-only CSP remained after enforcement promotion");
   assert(nginx.includes("zone=himmp_csrf:10m rate=30r/m"), "CSRF endpoint rate zone missing");

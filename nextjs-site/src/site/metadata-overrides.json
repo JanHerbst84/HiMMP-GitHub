@@ -1,13 +1,25 @@
 {
-  "title": {},
-  "description": {},
+  "title": {
+    "index.html": "HiMMP – Heaviness in Metal Music Production",
+    "findings.html": "Heaviness in Metal Music Production: A Practical Guide | HiMMP"
+  },
+  "description": {
+    "index.html": "AHRC-funded research on heaviness, metal music's defining sonic quality, through analysis of how eight world-leading producers mixed the same song."
+  },
   "canonical": {
     "acknowledgements.html": "https://himmp.net/acknowledgements.html",
-    "findings/glossary.html": "https://himmp.net/findings/glossary.html"
+    "findings/glossary.html": "https://himmp.net/findings/glossary.html",
+    "index.html": "https://himmp.net/"
+  },
+  "openGraphTitle": {
+    "findings.html": "Heaviness in Metal Music Production: A Practical Guide"
+  },
+  "twitterTitle": {
+    "findings.html": "Heaviness in Metal Music Production: A Practical Guide"
   },
   "openGraphUrl": {
     "acknowledgements.html": "https://himmp.net/acknowledgements.html",
-    "index.html": "https://himmp.net/index.html"
+    "index.html": "https://himmp.net/"
   },
   "openGraphImage": {},
   "twitterImage": {}

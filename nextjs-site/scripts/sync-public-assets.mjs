@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { siteOrigin } from "./site-config.mjs";
+import { locFor, sourceFileForLoc } from "./site-config.mjs";
 import { lastmodFor as contentLastmodFor } from "./lib/sitemap-lastmod.mjs";
 
 const repoRoot = path.resolve(process.cwd(), "..");
@@ -87,7 +87,7 @@ function generateSitemap() {
 
       return [
         "  <url>",
-        `    <loc>${siteOrigin}/${sourceFile}</loc>`,
+        `    <loc>${locFor(sourceFile)}</loc>`,
         `    <lastmod>${lastmodFor(sourceFile, fallbackLastmod)}</lastmod>`,
         `    <changefreq>${changefreq}</changefreq>`,
         `    <priority>${priority}</priority>`,
@@ -145,11 +145,12 @@ function sitemapMetadataBySourceFile(sitemap) {
     const block = match[1];
     const loc = firstTagValue(block, "loc");
 
-    if (!loc?.startsWith(`${siteOrigin}/`)) {
+    const sourceFile = loc ? sourceFileForLoc(loc) : null;
+
+    if (!sourceFile) {
       continue;
     }
 
-    const sourceFile = loc.slice(`${siteOrigin}/`.length);
     metadata.set(sourceFile, {
       changefreq: firstTagValue(block, "changefreq") ?? sitemapDefaultsFor(sourceFile).changefreq,
       priority: firstTagValue(block, "priority") ?? sitemapDefaultsFor(sourceFile).priority

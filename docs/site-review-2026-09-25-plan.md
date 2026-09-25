@@ -263,3 +263,36 @@ library, rechecked by `parity:sitemap` and `test:sitemap`).
 
 Round-4 fixes were a one-line change, a path restriction and tests; with no open finding left, the slice was
 committed without a fifth round.
+
+### 6.3 Slices B + C (metadata, llms.txt, structured data)
+
+Implemented and reviewed together because the home-URL canonicalisation spans head metadata, sitemap, Nginx and
+JSON-LD. Corrections to the findings found while implementing:
+
+- D2: the legacy publications `ItemList` already held 16 items; only 3 HiMMP outputs were missing (the two 2026
+  Zenodo datasets and the *Metal Music Studies* article). `10.1093/jaac/kpab065` is a third-party work in "Additional
+  Research", not a project output, and is not added.
+- D3: `about.html` and `approach.html` carry their own `ResearchProject` nodes; the normalisation now applies to
+  every `ResearchProject` on every page, and on `about.html` the recording is attached through the page's
+  `mentions`.
+- D6: the findings page `<title>` was a third name ("Key Findings: Deconstructing 'Heaviness'"); it now matches
+  the H1, `Book` and `citation_title` ("A Practical Guide").
+- Next.js renders the home canonical/`og:url` `https://himmp.net/` as `https://himmp.net` (same URL).
+
+New gate: `npm run check:jsonld` (parse, @context/@type, conflicting @id, VideoObject required fields, no invalid
+ResearchProject properties, volumes are Books, chapters point at the guide Book, no `/index.html` URLs).
+
+Review log (Sol + internal reviewer in parallel; gates after round 1: typecheck, build, four parity gates,
+`audit:contrast`, `test:hardening`, `test:sitemap`, `check:jsonld`, Playwright 182/182):
+
+| Round | Reviewer | Sev | Finding | Disposition |
+|---|---|---|---|---|
+| 1 | Sol | M | publications dedupe by exact URL duplicated the Lorna Shore article (legacy URL was the Intellect page) | ACCEPT: match by DOI, then normalised title; gate flags duplicate works |
+| 1 | Sol | M | matched legacy records kept `ScholarlyArticle` for the two chapters and the two magazine pieces | ACCEPT: the page's visible type is applied, DOI identifier added |
+| 1 | Sol | L | YouTube watch pages used as `VideoObject.contentUrl` | ACCEPT: removed (new and legacy); gate flags it |
+| 1 | Sol | L | Mark Deeks is credited with orchestration, not performance | ACCEPT: `contributor` Role "orchestration" |
+| 1 | internal | – | no findings | – |
+| 2 | both | M/H | a separate legacy `MusicRecording` on `approach.html` still had Deeks in `byArtist` | ACCEPT: every `MusicRecording` normalised; gate rejects Deeks in `byArtist` |
+
+The round-2 fix is a local extension of the round-1 fix; both reviewers named the same remaining defect and
+the gate now enforces it, so no third round was run.

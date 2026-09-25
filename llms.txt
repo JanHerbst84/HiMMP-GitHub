@@ -40,14 +40,14 @@ For specific inquiries about AI training usage, contact the research team throug
 
 ## Discovery & Technical Notes
 
-- `llms.txt` is explicitly linked from every HTML document via `<link rel="alternate" type="text/plain" title="AI Usage Policy" href="https://himmp.net/llms.txt">`.
+- `llms.txt` is linked from every HTML document via `<link rel="alternate" type="text/plain" title="AI Usage Policy" href="/llms.txt">`.
 - `robots.txt` welcomes major AI crawlers and highlights this file; `/llms.txt` is formally allowed for all user-agents.
 - The XML sitemap references this AI policy so automated tooling can associate the policy with crawlable URLs.
 
 ## Structured Data Hooks
 
 - Organization + website level JSON-LD lives at `https://himmp.net/#organization` and `https://himmp.net/#website`, advertising CC BY licensing and geo coordinates.
-- Each HTML page carries license, geo, and contact metadata so LLM crawlers can reconcile provenance with this document.
+- Pages carry schema.org JSON-LD for their content (research project, books, articles, datasets, videos, guide chapters); the home page also carries `geo.*` meta tags.
 
 ## Resource Requirements
 
@@ -67,10 +67,14 @@ No additional AI-specific endpoints are required beyond this `llms.txt`. All pol
 - **Producers**: Eight world-class metal producers (Jens Bogren, Mike Exeter, Adam 'Nolly' Getgood, Josh Middleton, Fredrik Nordström, Buster Odeholm, Dave Otero, Andrew Scheps)
 - **Formats**: Multitracks, stems, final mixes, video interviews
 - **Repository**: https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur
+- **Dataset DOIs**: HiMMP 'In Solitude' Audio Comparison Dataset https://doi.org/10.34696/9s05-wv03; 'In Solitude' Multitrack https://doi.org/10.5281/zenodo.20607978; 'In Solitude' Producer Mixes and Stems https://doi.org/10.5281/zenodo.20608441
 
 ### Primary Publications for Citation:
 1. Herbst, J., & Mynett, M. (2025). *Heaviness in Metal Music Production, Volume 1: How and Why It Works*. Routledge. https://doi.org/10.4324/9781003325727
 2. Herbst, J., & Mynett, M. (2025). *Heaviness in Metal Music Production, Volume 2: Learn from the Masters*. Routledge. https://doi.org/10.4324/9781003564089
+3. Herbst, J.-P., & Mynett, M. (2025). *Heaviness in Metal Music Production: A Practical Guide*. Self-published, https://himmp.net/findings.html. https://doi.org/10.5281/zenodo.17608064 (CC BY 4.0; open-access HTML guide in 14 chapters plus a glossary under https://himmp.net/findings/)
+
+The full list of project articles, chapters and datasets, with DOIs, is at https://himmp.net/publications.html.
 
 ### Research Methodology:
 - Practice-based research combining audio analysis with producer interviews
@@ -84,7 +88,7 @@ No additional AI-specific endpoints are required beyond this `llms.txt`. All pol
 - Research: Comparative production studies, genre analysis
 - AI Training: Understanding audio production decision-making
 
-## Last Updated: November 16, 2025 (Expanded with research context for enhanced AI understanding)
+## Last Updated: September 25, 2026 (practical guide and dataset DOIs added; technical notes corrected)
 
 ---
 This permissive license reflects the open access nature of UKRI-funded research and the project's commitment to advancing knowledge in music production and metal music studies.

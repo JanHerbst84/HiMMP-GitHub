@@ -65,7 +65,7 @@ const bonusVideos: ReadonlyArray<BonusVideo> = [
   { embedId: "MzkIatgG7oQ", iframeTitle: "HiMMP team mixing In Solitude", heading: "HiMMP team mixing 'In Solitude'" }
 ];
 
-const userVideos: ReadonlyArray<UserVideo> = [
+export const userVideos: ReadonlyArray<UserVideo> = [
   { embedId: "U_TtJo2_bh8", iframeTitle: "8 Top Mix Engineers Mix The Same Track", heading: "8 Top Mix Engineers Mix The Same Track", meta: "Sound on Sound • 24 July 2024" },
   { embedId: "3u-NNeLa8lc", iframeTitle: "Mastering Engineer Reacts to 8 Pro Mixes of the Same Song", heading: "Mastering Engineer Reacts to 8 Pro Mixes of the Same Song", meta: "Production Advice • 19 September 2024" },
   { embedId: "OZloYQA56UQ", iframeTitle: "8 Famous Mix Engineers Mixed the Same Song - The Difference Is Shocking", heading: "8 Famous Mix Engineers Mixed the Same Song - The Difference Is Shocking", meta: "Beats and Meats • 9 July 2025" },
@@ -84,7 +84,7 @@ const userVideos: ReadonlyArray<UserVideo> = [
 // reaction videos above: this is reuse of the research data, not commentary
 // on it. IDs + dates verified against YouTube API metadata (2026-06-01) in
 // the impact case-study tracker; titles confirmed via YouTube oEmbed.
-const reuseVideos: ReadonlyArray<UserVideo> = [
+export const reuseVideos: ReadonlyArray<UserVideo> = [
   { embedId: "UaEQNxLrvko", iframeTitle: "Warlock Studios mix and master of In Solitude", heading: "In Solitude - Warlock Studios mix and master", meta: "Warlock Studios • 18 September 2025" },
   { embedId: "EotCnk5bAE8", iframeTitle: "Al R mix of In Solitude", heading: "In Solitude - Al R mix", meta: "Al R • 17 September 2025" },
   { embedId: "IFO698VENMk", iframeTitle: "Pradhe mix of In Solitude", heading: "In Solitude - Pradhe mix", meta: "Pradhe • 21 August 2025" },

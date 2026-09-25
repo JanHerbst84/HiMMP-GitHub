@@ -173,7 +173,14 @@ server {
     }
 
     location = / {
+        # try_files serves the file inside this location (no internal
+        # redirect), so the /index.html redirect below cannot loop.
         try_files /index.html =404;
+    }
+
+    # The home page's canonical URL is `/`.
+    location = /index.html {
+        return 301 /$is_args$args;
     }
 
     location / {

@@ -34,6 +34,9 @@ if (!existsSync(inventoryPath)) {
 }
 
 const inventory = JSON.parse(readFileSync(inventoryPath, "utf8"));
+// Deliberate title/description changes are governed by the metadata
+// overrides; the frozen legacy inventory stays the default expectation.
+const overrides = JSON.parse(readFileSync(path.join(appRoot, "src/site/metadata-overrides.json"), "utf8"));
 const findings = [];
 
 for (const page of inventory.pages) {
@@ -56,11 +59,14 @@ for (const page of inventory.pages) {
   const iframeCount = (html.match(/<iframe\b/gi) ?? []).length;
   const audioCount = (html.match(/<audio\b/gi) ?? []).length;
 
-  if (title !== page.title) {
+  const expectedTitle = overrides.title?.[page.path] ?? page.title;
+  const expectedDescription = overrides.description?.[page.path] ?? page.description;
+
+  if (title !== expectedTitle) {
     findings.push(`${page.path}: title mismatch`);
   }
 
-  if ((description ? decodeEntities(description) : "") !== page.description) {
+  if ((description ? decodeEntities(description) : "") !== expectedDescription) {
     findings.push(`${page.path}: description mismatch`);
   }
 

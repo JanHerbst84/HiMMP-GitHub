@@ -28,7 +28,7 @@ export function SiteHeader({ activePath }: SiteHeaderProps) {
       <header className="site-header">
         <div className="container header-container">
           <div className="logo">
-            <a href="/index.html">
+            <a href="/">
               <img
                 src="/assets/images/logos/HiMMP-Logo-small.png"
                 alt="HiMMP - Heaviness in Metal Music Production"

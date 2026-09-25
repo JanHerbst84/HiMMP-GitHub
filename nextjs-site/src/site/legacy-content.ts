@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { applyJsonLdPatches } from "@/src/site/data/jsonld-patches";
 
 export type LegacyScript = {
   src: string | null;
@@ -264,7 +265,7 @@ export function getLegacyPageContent(sourceFile: string): LegacyPageContent {
     headMeta: extractHeadMeta(source),
     headLinks: extractHeadLinks(source),
     headStyles: extractHeadStyles(source),
-    jsonLdScripts: extractJsonLd(source),
+    jsonLdScripts: applyJsonLdPatches(sourceFile, extractJsonLd(source)),
     mainHtml: extractMain(source, sourceFile),
     bodyScripts: extractBodyScripts(source)
   };
