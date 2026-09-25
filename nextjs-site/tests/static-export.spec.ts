@@ -941,7 +941,7 @@ test.describe("static export legacy route smoke", () => {
       await expect(page.locator("#main-content h3", { hasText: heading }), heading).toHaveCount(1);
     }
     await expect(page.locator(".section-nav-button")).toHaveCount(6);
-    await expect(page.locator(".bilibili-videos-section a[href^='https://www.bilibili.com/video/']")).toHaveCount(6);
+    await expect(page.locator(".bilibili-videos-section a[href^='https://www.bilibili.com/video/']")).toHaveCount(7);
     await expect(page.locator(".practitioner-reuse-videos-section .video-item")).toHaveCount(6);
     await expect(page.locator("#main-content", { hasText: "Key Findings Guide" })).toHaveCount(1);
 
@@ -1226,5 +1226,22 @@ test.describe("static export legacy route smoke", () => {
       els.slice(0, 3).map((el) => (el as HTMLElement).style.height)
     );
     expect(firstThreeHeights).toEqual(["69%", "40%", "59%"]);
+  });
+});
+
+test.describe("site 404 page", () => {
+  test("404.html uses the site shell with one title and noindex", async ({ page }) => {
+    await page.goto("/404.html");
+    await expect(page).toHaveTitle("Page not found | HiMMP");
+    expect(await page.locator("head title").count()).toBe(1);
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(1);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator(".site-header")).toHaveCount(1);
+    await expect(page.locator("#main-content h1")).toHaveText("Page not found");
+    // Served for nested unknown URLs too, so links and assets must be root-absolute.
+    const relative = await page.locator("#main-content a").evaluateAll((links) =>
+      links.map((link) => link.getAttribute("href") ?? "").filter((href) => !href.startsWith("/"))
+    );
+    expect(relative).toEqual([]);
   });
 });

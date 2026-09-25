@@ -71,6 +71,27 @@ server {
     add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
     limit_req_status 429;
 
+    # Compression for text assets. The global nginx.conf enables gzip for
+    # text/html only (gzip_types is commented out there); keep the wider
+    # list scoped to this site.
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml application/javascript application/json application/xml application/rss+xml image/svg+xml;
+
+    # Unknown URLs get the site's own 404 page (Next export `out/404.html`).
+    error_page 404 /404.html;
+
+    location = /404.html {
+        internal;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
+        add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+    }
+
     location = /get-csrf-token.php {
         limit_req zone=himmp_csrf burst=10 nodelay;
         limit_except GET {
@@ -128,10 +149,21 @@ server {
         return 404;
     }
 
-    location ~* \.(?:mp3|png|jpg|jpeg|webp|css|js|woff2?)$ {
+    # Content-hashed Next.js build output never changes under a given URL.
+    location ^~ /_next/static/ {
         try_files $uri =404;
-        expires 30d;
-        add_header Cache-Control "public";
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+        add_header Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()" always;
+        add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self' https://analytics.himmp.net; font-src 'self'; form-action 'self'; frame-ancestors 'self'; frame-src https://www.youtube.com https://youtube.com; img-src 'self' data: https://img.youtube.com; media-src 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://analytics.himmp.net; style-src 'self' 'unsafe-inline'" always;
+    }
+
+    location ~* \.(?:mp3|png|jpg|jpeg|webp|avif|gif|svg|ico|css|js|woff2?)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=2592000";
         add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header Referrer-Policy "strict-origin-when-cross-origin" always;

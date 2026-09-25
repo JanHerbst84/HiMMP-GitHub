@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { siteOrigin } from "./site-config.mjs";
+import { lastmodFor as contentLastmodFor } from "./lib/sitemap-lastmod.mjs";
 
 const repoRoot = path.resolve(process.cwd(), "..");
 const publicRoot = path.resolve(process.cwd(), "public");
@@ -164,17 +165,7 @@ function firstTagValue(source, tagName) {
 }
 
 function lastmodFor(sourceFile, fallbackLastmod) {
-  try {
-    const output = execFileSync("git", ["log", "-1", "--format=%cs", "--", path.join(repoRoot, sourceFile)], {
-      cwd: repoRoot,
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"]
-    }).trim();
-
-    return output || fallbackLastmod;
-  } catch {
-    return fallbackLastmod;
-  }
+  return contentLastmodFor(sourceFile, fallbackLastmod, { repoRoot, appRoot: process.cwd() });
 }
 
 function sitemapDefaultsFor(sourceFile) {

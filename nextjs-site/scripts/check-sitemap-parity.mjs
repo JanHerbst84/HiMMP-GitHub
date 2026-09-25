@@ -4,6 +4,7 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { siteOrigin } from "./site-config.mjs";
+import { lastmodFor as contentLastmodFor } from "./lib/sitemap-lastmod.mjs";
 
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = path.resolve(appRoot, "..");
@@ -97,11 +98,5 @@ function firstTagValue(source, tagName) {
 }
 
 function lastmodFor(sourceFile, fallbackLastmod) {
-  const output = execFileSync("git", ["log", "-1", "--format=%cs", "--", sourceFile], {
-    cwd: repoRoot,
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "ignore"]
-  }).trim();
-
-  return output || fallbackLastmod;
+  return contentLastmodFor(sourceFile, fallbackLastmod, { repoRoot, appRoot });
 }

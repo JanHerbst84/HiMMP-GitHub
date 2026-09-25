@@ -38,6 +38,7 @@ FCP 0.5–0.7 s and LCP 0.7–1.4 s (lab). Audio players fetch only metadata unt
 | T5 | L | Hashed `/_next/static/` files get `expires 30d` + a second `Cache-Control: public` header rather than one `public, max-age=31536000, immutable`; `.svg/.ico/.gif/.avif` fall outside the static-cache regex. | live headers; vhost |
 | T6 | L | Producer portraits on chapter pages are eagerly loaded and preloaded by React (`<link rel=preload as=image>` for Nordström/Odeholm/Otero on ch. 7). | live `<head>` |
 | T7 | L | Heading-level skips (h1→h3) on 24 of 27 routes. | source audit |
+| T8 | M | JS, CSS, XML and text responses are sent uncompressed: the global `nginx.conf` has `gzip on` but `gzip_types` commented out, so only `text/html` is gzipped (home JS chunks 638 KB raw). The v1 "gzip" claim covered HTML only. Found during slice A. | `curl -H 'Accept-Encoding: gzip'` on `/_next/static/chunks/*.js` → no `Content-Encoding`; VPS `nginx.conf:46-53` |
 
 Not a site defect: a 21 s `load` event on `/` and `/audio.html` in this environment came from the local resolver
 failing `static.doubleclick.net` (YouTube embed); it disappears with T3.
@@ -79,7 +80,7 @@ the archived legacy HTML stays frozen except where the build reads it and there 
 gates stay green; where a deliberate change breaks a parity comparison, the gate's allow-list is updated in the
 same commit with the reason. No new npm dependencies.
 
-### Slice A — server, 404 and sitemap (T2, T5, D1)
+### Slice A — server, 404 and sitemap (T2, T5, T8, D1)
 
 1. `app/not-found.tsx` with site shell, one `<title>`, `noindex`, links to home/findings/publications.
 2. Nginx vhost: `error_page 404 /404.html;` plus `location = /404.html { internal; }`. Apply to the explicit
@@ -90,6 +91,8 @@ same commit with the reason. No new npm dependencies.
    **Every location that contains any `add_header` (the 404, `_next/static` and static-asset blocks) repeats the
    complete security-header set**, because one `add_header` in a location suppresses all server-level ones. A
    deterministic check (script over the vhost) asserts this.
+   Site-scoped `gzip_types` (JS, CSS, JSON, XML, SVG, text), `gzip_vary`, `gzip_comp_level 6` in the himmp.net
+   server block (T8); the global `nginx.conf` is left alone because it serves other sites.
 4. Sitemap `lastmod` = newest commit date across the files that actually produce the route (legacy HTML, the
    route's React page/chapter component, `app/<route>/page.tsx`, and the metadata/JSON-LD data files introduced in
    slice C), excluding a named list of non-content bulk commits (initially `0d20f4c`, the archive banner). Unit
@@ -230,3 +233,33 @@ the source before disposition; all 9 were ACCEPTED, so there was no disagreement
 | 7 | M | `.webp` src breaks `img[src$=".png"]` dark-mode backing; conversion rules unspecified | `globals.css:1640-1657` | ACCEPT → §D1-2 |
 | 8 | M | One `<details>` cannot be closed on mobile and open on desktop | `EnhancedFindingsShell.tsx` | ACCEPT → §F1 |
 | 9 | H | Repo requires dual review per slice | `project-context` §Dual-review | ACCEPT → §4 |
+
+### 6.2 Slice A (server, 404, sitemap) review log
+
+Reviewers per round: Sol (`gpt-5.6-sol`, medium, read-only) and the internal `feature-dev:code-reviewer`, in
+parallel on the staged diff. Gates after the final round: typecheck, build, four parity gates, `audit:contrast`,
+`test:hardening`, `test:sitemap`; Playwright 182/182 (after round 1; later rounds only changed the sitemap
+library, rechecked by `parity:sitemap` and `test:sitemap`).
+
+| Round | Reviewer | Sev | Finding | Disposition |
+|---|---|---|---|---|
+| 1 | Sol | M | lastmod dependency discovery missed metadata overrides, shared components, transitive data | ACCEPT: transitive import closure + keyed data files |
+| 1 | Sol | M | shallow clone / git failure silently published fallback dates | ACCEPT: hard error |
+| 1 | internal | H | empty source list → `git log --` scans the whole repo | ACCEPT: throws |
+| 1 | both | – | Nginx `error_page`/internal 404/header inheritance, 404 page | no findings |
+| 2 | Sol | M | `metadata.ts`/legacy emitters excluded as "chrome" though they produce SEO output | ACCEPT: only presentation chrome excluded |
+| 2 | Sol | M | shared keyed files attribute every commit to every key | ACCEPT: per-entry history for keyed JSON; unit test with dated git fixture |
+| 2 | internal | M | import regex matched paths quoted in comments | ACCEPT: comments stripped |
+| 2 | internal | L | shared `[slug]` route file bumps all chapters | REJECT: that file renders every chapter, so a change there is a content change for all |
+| 3 | internal | H | malformed historical JSON treated as absent | ACCEPT: throws (no malformed version exists in history, verified) |
+| 3 | internal | H | O(routes × history) `git show` calls | ACCEPT: caches keyed by repo+commit/HEAD+path; sync step < 1 s |
+| 3 | internal | M | merge-commit semantics untested | DEFER: first-parent comparison documented; branch commits appear in the log themselves |
+| 3 | internal | L | comment regex could strip `/*` inside strings | REJECT: no import line contains it; low likelihood, not a live defect |
+| 3 | Sol | M | deleting a route's override entry never inspected | ACCEPT: all governed keyed files always considered; tests for added/deleted entries |
+| 3 | Sol | L | malformed JSON / renames | malformed: ACCEPT (above); renames: DEFER, governed paths are fixed |
+| 4 | Sol | M | a deleted keyed JSON file under `src/site/data/` would drop out of discovery | ACCEPT: keyed data restricted to the fixed path `metadata-overrides.json` (no JSON exists under `src/site/data/`; other data lives in modules covered by the import closure); whole-file deletion test |
+| 4 | internal | M | root commit compared against `null` instead of "no entries" | ACCEPT: one-line fix |
+| 4 | internal | M | malformed-JSON throw path untested | ACCEPT: test added |
+
+Round-4 fixes were a one-line change, a path restriction and tests; with no open finding left, the slice was
+committed without a fifth round.

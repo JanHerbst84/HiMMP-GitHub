@@ -63,6 +63,33 @@ function nginxServerBlocks(source) {
   return blocks;
 }
 
+function nginxLocationBlocks(serverBlock) {
+  const blocks = [];
+  const marker = /\blocation\b[^{]*\{/g;
+  let match;
+  while ((match = marker.exec(serverBlock)) !== null) {
+    let depth = 1;
+    let index = marker.lastIndex;
+    while (index < serverBlock.length && depth > 0) {
+      if (serverBlock[index] === "{") depth += 1;
+      if (serverBlock[index] === "}") depth -= 1;
+      index += 1;
+    }
+    blocks.push(serverBlock.slice(match.index, index));
+    marker.lastIndex = index;
+  }
+  return blocks;
+}
+
+const securityHeaderNames = [
+  "X-Frame-Options",
+  "X-Content-Type-Options",
+  "Referrer-Policy",
+  "Strict-Transport-Security",
+  "Permissions-Policy",
+  "Content-Security-Policy"
+];
+
 async function concurrentRateLimitTest() {
   const directory = path.join(tempRoot, "concurrent");
   runPhp(`define('SUBMISSIONS_DIR', ${phpLiteral(directory)}); require ${phpLiteral(phpConfig)};`);
@@ -233,6 +260,22 @@ try {
     assert(block.includes('add_header Content-Security-Policy "'), "enforcing CSP missing from a TLS server block");
     assert(block.includes("server_tokens off;"), "server token suppression missing from a TLS server block");
   }
+  // Nginx drops every inherited add_header in a location that declares its
+  // own, so each such location must repeat the full security-header set.
+  const siteBlock = tlsBlocks.find((block) => /server_name\s+himmp\.net;/.test(block));
+  assert(siteBlock, "apex TLS server block missing");
+  for (const location of nginxLocationBlocks(siteBlock)) {
+    if (!/\badd_header\b/.test(location)) continue;
+    const head = location.slice(0, location.indexOf("{")).trim();
+    for (const name of securityHeaderNames) {
+      assert(new RegExp(`add_header\\s+${name}\\s`).test(location), `${head} sets headers but omits ${name}`);
+    }
+  }
+  assert(/error_page 404 \/404\.html;/.test(siteBlock), "site 404 page is not wired with error_page");
+  assert(/location = \/404\.html \{\s*internal;/.test(siteBlock), "404 page location is not internal");
+  assert(/location \^~ \/_next\/static\/ \{[^}]*Cache-Control "public, max-age=31536000, immutable"/.test(siteBlock), "hashed Next.js assets are not cached as immutable");
+  assert(!/\bexpires\b/.test(siteBlock), "expires would emit a second Cache-Control header");
+  assert(/gzip_types [^;]*application\/javascript[^;]*;/.test(siteBlock) && /gzip_types [^;]*text\/css/.test(siteBlock), "JS/CSS compression missing");
   assert(!nginx.includes("Content-Security-Policy-Report-Only"), "report-only CSP remained after enforcement promotion");
   assert(nginx.includes("zone=himmp_csrf:10m rate=30r/m"), "CSRF endpoint rate zone missing");
   assert(nginx.includes("zone=himmp_contact:10m rate=10r/m"), "contact endpoint rate zone missing");
