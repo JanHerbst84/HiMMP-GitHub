@@ -4,3 +4,6 @@ himmp-ebook/himmp_ebook.zip
 test-results/
 .playwright-mcp/
 .DS_Store
+
+# Claude Code runtime locks
+.claude/scheduled_tasks.lock
