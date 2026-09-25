@@ -12,6 +12,8 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
+
 export type FindingsChapterHeading = { id: string; text: string };
 
 /*
@@ -37,7 +39,7 @@ export const FindingsChapter02Headings: FindingsChapterHeading[] = [
 export function FindingsChapter02() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -72,7 +74,7 @@ export function FindingsChapter02() {
         <p>This chapter introduces the eight world-class producers whose collective work forms the empirical backbone of the HiMMP research and validates the Naturalistic/Hyperreal spectrum discussed in Chapter 1. Their experience spans over three decades of metal, from its foundational sounds to its most technically advanced modern expressions (Figure 2.1).</p>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig2.1_Timeline.png" alt="Timeline showing three generations of producer experience across the metal genre" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.1_Timeline.png" alt="Timeline showing three generations of producer experience across the metal genre" />
           <div className="figure-caption">Timeline of metal production expertise.</div>
         </div>
 
@@ -96,7 +98,7 @@ export function FindingsChapter02() {
 
         <h2 id="jens-bogren-b-1979">Jens Bogren (b. 1979)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.2_Bogren.jpg" alt="Portrait of Jens Bogren" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.2_Bogren.jpg" alt="Portrait of Jens Bogren" />
           <div className="figure-caption">Jens Bogren</div>
         </div>
         <p>Jens Bogren is one of metal's most sought-after producers, with over 700 professional credits to his name. The founder of Sweden's <a href="https://www.fascinationstreet.se/" target="_blank" rel="noopener noreferrer">Fascination Street Studios</a>, Bogren has shaped the sound of modern metal through his work with a wide range of bands, including Opeth, Arch Enemy, At the Gates, Dimmu Borgir, and Amon Amarth. His notable productions include Opeth's <em>Ghost Reveries</em> (2005) and <em>Watershed</em> (2008), Amon Amarth's <em>Twilight of the Thunder God</em> (2008), and Kreator's <em>Phantom Antichrist</em> (2012).</p>
@@ -105,7 +107,7 @@ export function FindingsChapter02() {
 
         <h2 id="mike-exeter-b-1967">Mike Exeter (b. 1967)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.3_Exeter.jpg" alt="Portrait of Mike Exeter" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.3_Exeter.jpg" alt="Portrait of Mike Exeter" />
           <div className="figure-caption">Mike Exeter</div>
         </div>
         <p>Mike Exeter represents the traditional school of metal production, shaped through his extensive work with genre pioneers Black Sabbath and Judas Priest. After beginning his career as a rock producer with black metal band Cradle of Filth in the late 1990s, Exeter formed a long-lasting relationship with Tony Iommi and Black Sabbath and contributed to their Grammy-nominated album <em>13</em> (2013). His credits also include Heaven and Hell's <em>The Devil You Know</em> (2009) as well as Judas Priest's <em>Redeemer of Souls</em> (2014) and <em>Firepower</em> (2018).</p>
@@ -114,7 +116,7 @@ export function FindingsChapter02() {
 
         <h2 id="adam-nolly-getgood-b-1987">Adam "Nolly" Getgood (b. 1987)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.4_Getgood.jpg" alt="Portrait of Adam Nolly Getgood" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.4_Getgood.jpg" alt="Portrait of Adam Nolly Getgood" />
           <div className="figure-caption">Adam "Nolly" Getgood</div>
         </div>
         <p>Adam Getgood represents the new generation of metal producers who balance musical sensibility with technical innovation. Originally known as the bassist for progressive metal pioneers Periphery, Getgood co-produced several of their albums, including the Grammy-nominated <em>Periphery III: Select Difficulty</em> (2016). His production credits extend to influential progressive and technical metal acts, including Animals as Leaders' <em>The Joy of Motion</em> (2014), Devin Townsend Project's <em>Transcendence</em> (2016), and Architects' <em>Holy Hell</em> (2018).</p>
@@ -123,7 +125,7 @@ export function FindingsChapter02() {
 
         <h2 id="josh-middleton-b-1985">Josh Middleton (b. 1985)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.5_Middleton.jpg" alt="Portrait of Josh Middleton" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.5_Middleton.jpg" alt="Portrait of Josh Middleton" />
           <div className="figure-caption">Josh Middleton</div>
         </div>
         <p>Josh Middleton represents the musician-producer perspective in our study. Best known as the founding guitarist/vocalist of British thrash metal band Sylosis and former lead guitarist for Architects, Middleton's production credits include Sylosis' <em>Cycle of Suffering</em> (2020) and <em>A Sign of Things to Come</em> (2023), as well as co-production on Architects' <em>Holy Hell</em> (2018) and <em>For Those That Wish to Exist</em> (2021).</p>
@@ -133,7 +135,7 @@ export function FindingsChapter02() {
 
         <h2 id="fredrik-nordstrm-b-1967">Fredrik Nordström (b. 1967)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.6_Nordstrom.jpg" alt="Portrait of Fredrik Nordström" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.6_Nordstrom.jpg" alt="Portrait of Fredrik Nordström" />
           <div className="figure-caption">Fredrik Nordström</div>
         </div>
         <p>Fredrik Nordström is one of the most influential figures in the development of Scandinavian metal production. As the founder of <a href="http://www.studiofredman.com/" target="_blank" rel="noopener noreferrer">Studio Fredman</a> in Gothenburg, Nordström played a pivotal role in shaping the "Gothenburg Sound" that defined Swedish melodic death metal. His production credits include genre-defining works with In Flames, At the Gates, Dark Tranquility, and Arch Enemy, as well as significant releases from bands like HammerFall, Dimmu Borgir, and Opeth's acclaimed <em>Blackwater Park</em> (2001).</p>
@@ -142,7 +144,7 @@ export function FindingsChapter02() {
 
         <h2 id="buster-odeholm-b-1992">Buster Odeholm (b. 1992)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.7_Odeholm.jpg" alt="Portrait of Buster Odeholm" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.7_Odeholm.jpg" alt="Portrait of Buster Odeholm" />
           <div className="figure-caption">Buster Odeholm</div>
         </div>
         <p>Buster Odeholm represents the cutting edge of hyperreal metal production. As the youngest producer in our study, the Swedish multi-instrumentalist has quickly established himself as a leading figure in extreme metal production through his work with his own bands (Humanity's Last Breath and Vildhjarta) and productions for artists like Born of Osiris, Oceano, and Darkane.</p>
@@ -151,7 +153,7 @@ export function FindingsChapter02() {
 
         <h2 id="dave-otero-b-1981">Dave Otero (b. 1981)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.8_Otero.jpg" alt="Portrait of Dave Otero" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.8_Otero.jpg" alt="Portrait of Dave Otero" />
           <div className="figure-caption">Dave Otero</div>
         </div>
         <p>Dave Otero has established himself as a specialist in technical death metal and doom metal production through his work at <a href="https://www.flatlineaudio.com/" target="_blank" rel="noopener noreferrer">Flatline Audio</a> in Denver. His credits include every Cattle Decapitation release since 2012 and all of Khemmis's albums, as well as acclaimed technical death metal productions for Allegaeon and Archspire, whose albums <em>Relentless Mutation</em> (2017) and <em>Bleed the Future</em> (2021) have earned him widespread recognition.</p>
@@ -161,7 +163,7 @@ export function FindingsChapter02() {
 
         <h2 id="andrew-scheps-b-1969">Andrew Scheps (b. 1969)</h2>
         <div className="figure portrait">
-          <img src="Figures/Fig2.9_Scheps.jpg" alt="Portrait of Andrew Scheps" loading="lazy" />
+          <ChapterFigure src="Figures/Fig2.9_Scheps.jpg" alt="Portrait of Andrew Scheps" />
           <div className="figure-caption">Andrew Scheps</div>
         </div>
         <p>Andrew Scheps brings the broadest genre experience to our study as a Grammy-winning engineer who has worked across both pop and rock, as well as metal. His metal credits include engineering Black Sabbath's <em>13</em> (2013) and Metallica's <em>Death Magnetic</em> (2008), both produced by Rick Rubin. Beyond metal, his extensive client list includes Adele, Red Hot Chili Peppers, and Michael Jackson.</p>

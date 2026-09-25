@@ -12,6 +12,7 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
 import { MixComparisonEmbed } from "@/src/site/components/MixComparisonEmbed";
 
 export type FindingsChapterHeading = { id: string; text: string };
@@ -31,7 +32,7 @@ export const FindingsChapter09Headings: FindingsChapterHeading[] = [
 export function FindingsChapter09() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -69,8 +70,8 @@ export function FindingsChapter09() {
         <p>All producers agreed that guitar heaviness begins at the source, with appropriate amplification, cabinet selection, and microphone placement. In the 'In Solitude' mix, all producers but Scheps and Exeter reamped the provided DI tracks or used amplifier simulation<sup id="ref-1"><a href="#endnote-1">1</a></sup> to craft their signature high-gain sound, rather than working with pre-recorded guitar tracks (Figure 9.1). This approach emphasizes a central principle: in metal production, the foundational guitar tone must be established before mixing begins.</p>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig9.1_Amp1.png" alt="Virtual amplifier simulation in Middleton's mix, using his signature STL Tonality amplifier" loading="lazy" />
-          <img src="Figures/Fig9.1_Amp2.png" alt="Virtual amplifier simulation - additional view" loading="lazy" />
+          <ChapterFigure src="Figures/Fig9.1_Amp1.png" alt="Virtual amplifier simulation in Middleton's mix, using his signature STL Tonality amplifier" />
+          <ChapterFigure src="Figures/Fig9.1_Amp2.png" alt="Virtual amplifier simulation - additional view" />
           <div className="figure-caption">Virtual amplifier simulation in Middleton's mix, using his signature STL Tonality amplifier.</div>
         </div>
 
@@ -91,7 +92,7 @@ export function FindingsChapter09() {
             <footer>— Fredrik Nordström</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Nordstrom.jpg" alt="Fredrik Nordström" />
+            <img src="../assets/images/people/Nordstrom.jpg" alt="Fredrik Nordström" loading="lazy" />
           </div>
         </blockquote>
 
@@ -107,12 +108,12 @@ export function FindingsChapter09() {
         </ul>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig9.2_Symmetrical_Guitar.png" alt="Stereo-widened, symmetrical guitar panning in the mixes of Adam Getgood and Josh Middleton" loading="lazy" />
+          <ChapterFigure src="Figures/Fig9.2_Symmetrical_Guitar.png" alt="Stereo-widened, symmetrical guitar panning in the mixes of Adam Getgood and Josh Middleton" />
           <div className="figure-caption">Stereo-widened, symmetrical guitar panning in the mixes of Adam Getgood and Josh Middleton.</div>
         </div>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig9.3_Asymmetrical_Guitar.png" alt="Different EQ settings in the mixes of Mike Exeter and Andrew Scheps, creating an asymmetrical stereo impression comparably wide to other symmetrical mixes" loading="lazy" />
+          <ChapterFigure src="Figures/Fig9.3_Asymmetrical_Guitar.png" alt="Different EQ settings in the mixes of Mike Exeter and Andrew Scheps, creating an asymmetrical stereo impression comparably wide to other symmetrical mixes" />
           <div className="figure-caption">Different EQ settings in the mixes of Mike Exeter and Andrew Scheps, creating an asymmetrical stereo impression comparably wide to other symmetrical mixes.</div>
         </div>
 
@@ -197,7 +198,7 @@ export function FindingsChapter09() {
             <footer>— Buster Odeholm</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" />
+            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" loading="lazy" />
           </div>
         </blockquote>
 

@@ -30,7 +30,7 @@ export const FindingsChapter05Headings: FindingsChapterHeading[] = [
 export function FindingsChapter05() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -96,7 +96,7 @@ export function FindingsChapter05() {
             <footer>— Jens Bogren</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Bogren.jpg" alt="Jens Bogren" />
+            <img src="../assets/images/people/Bogren.jpg" alt="Jens Bogren" loading="lazy" />
           </div>
         </blockquote>
 
@@ -109,7 +109,7 @@ export function FindingsChapter05() {
             <footer>— Jens Bogren</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Bogren.jpg" alt="Jens Bogren" />
+            <img src="../assets/images/people/Bogren.jpg" alt="Jens Bogren" loading="lazy" />
           </div>
         </blockquote>
 

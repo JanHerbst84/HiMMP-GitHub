@@ -12,6 +12,7 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
 import { MixComparisonEmbed } from "@/src/site/components/MixComparisonEmbed";
 
 export type FindingsChapterHeading = { id: string; text: string };
@@ -30,7 +31,7 @@ export const FindingsChapter10Headings: FindingsChapterHeading[] = [
 export function FindingsChapter10() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -107,11 +108,11 @@ export function FindingsChapter10() {
         </ul>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig10.1_Soundstage1.png" alt="Soundstage visualization of the mixes of Bogren, Exeter, Getgood, and Middleton" loading="lazy" />
+          <ChapterFigure src="Figures/Fig10.1_Soundstage1.png" alt="Soundstage visualization of the mixes of Bogren, Exeter, Getgood, and Middleton" />
           <div className="figure-caption">Soundstage visualization of the mixes of Bogren, Exeter, Getgood, and Middleton. The soundstage represents stereo width and depth dimension. Height (frequency ranges) is not displayed.</div>
         </div>
         <div className="figure figure-numbered">
-          <img src="Figures/Fig10.2_Soundstage2.png" alt="Soundstage visualization of the mixes of Nordström, Odeholm, Otero, and Scheps" loading="lazy" />
+          <ChapterFigure src="Figures/Fig10.2_Soundstage2.png" alt="Soundstage visualization of the mixes of Nordström, Odeholm, Otero, and Scheps" />
           <div className="figure-caption">Soundstage visualization of the mixes of Nordström, Odeholm, Otero, and Scheps.</div>
         </div>
 

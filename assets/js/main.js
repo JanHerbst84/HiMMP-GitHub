@@ -52,29 +52,50 @@ function setupMobileNavigation() {
 }
 
 /**
- * Sets up smooth scrolling for anchor links
+ * Sets up in-page anchor navigation (including the skip link): scrolls the
+ * target below the sticky header, moves keyboard focus to it, honours
+ * prefers-reduced-motion, and records the hash without duplicating history
+ * entries.
  */
 function setupSmoothScrolling() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            const hash = this.getAttribute('href');
+            if (hash === '#') return;
+
+            let id = hash.slice(1);
+            try {
+                id = decodeURIComponent(id);
+            } catch (error) {
+                // keep the raw fragment
+            }
+            const targetElement = document.getElementById(id);
+            if (!targetElement) return;
+
             e.preventDefault();
 
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                // Calculate header height to offset the scroll position
-                const headerHeight = document.querySelector('.site-header').offsetHeight;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                
-                // Update URL without page reload
-                history.pushState(null, null, targetId);
+            // Offset by the sticky header so the target is not hidden under it.
+            const header = document.querySelector('.site-header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: reducedMotion.matches ? 'auto' : 'smooth'
+            });
+
+            // Move keyboard focus too, or the next Tab starts from the link.
+            if (!targetElement.matches('a[href], button, input, select, textarea, [tabindex]')) {
+                targetElement.setAttribute('tabindex', '-1');
+            }
+            targetElement.focus({ preventScroll: true });
+
+            if (window.location.hash === hash) {
+                history.replaceState(null, '', hash);
+            } else {
+                history.pushState(null, '', hash);
             }
         });
     });

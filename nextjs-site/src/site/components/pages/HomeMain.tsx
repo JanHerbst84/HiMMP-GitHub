@@ -21,7 +21,7 @@ export function HomeMain() {
 <section className="content-section content-section--archive" style={{ padding: "50px 0" }}>
             <div className="container">
                 <h2 style={{ textAlign: "center", fontSize: "2rem", marginBottom: "40px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>Project Archive &amp; Key Outputs</h2>
-                <div className="section-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "30px" }}>
+                <div className="section-grid output-grid">
                     
                     <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>The Complete Dataset</h3>
@@ -54,7 +54,7 @@ export function HomeMain() {
         <section className="video-feature">
             <div className="container">
                 <div className="video-container">
-                    <iframe loading="lazy" src="https://www.youtube.com/embed/OU1PoktmPmc" title="HiMMP - In Solitude" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <iframe loading="lazy" data-lazy-youtube-src="https://www.youtube.com/embed/OU1PoktmPmc" title="HiMMP - In Solitude" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
             </div>
         </section>

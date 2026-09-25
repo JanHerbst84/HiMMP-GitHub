@@ -12,6 +12,8 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
+
 export type FindingsChapterHeading = { id: string; text: string };
 
 /*
@@ -29,7 +31,7 @@ export const FindingsChapter01Headings: FindingsChapterHeading[] = [
 export function FindingsChapter01() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -74,7 +76,7 @@ export function FindingsChapter01() {
         <p>The eight producers featured in this research occupy different positions on a philosophical spectrum (Figure&nbsp;1.1). At one end stands the <em><strong>"Naturalistic School"</strong></em>, championed by veterans like Mike Exeter and Fredrik Nordström, which prioritizes expressive performance capture, dynamic preservation, and organic interaction between musicians. At the opposite end, the <em><strong>"Hyperreal School"</strong></em>, exemplified by younger generation producers like Buster Odeholm and Adam "Nolly" Getgood, employs precise editing, phase alignment<sup id="ref-6"><a href="#endnote-6">6</a></sup>, and other sophisticated processing to create heaviness that exceeds what performers could physically produce.</p>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig1.1_Spectrum.png" alt="Spectrum of production philosophies from naturalistic to hyperreal" loading="lazy" />
+          <ChapterFigure src="Figures/Fig1.1_Spectrum.png" alt="Spectrum of production philosophies from naturalistic to hyperreal" />
           <div className="figure-caption">The spectrum of production philosophies represented in the study, from naturalistic approaches prioritizing human feel to hyperreal techniques emphasizing maximum sonic impact.</div>
         </div>
 
@@ -104,7 +106,7 @@ export function FindingsChapter01() {
             <footer>— Dave Otero</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Otero.jpg" alt="Dave Otero" />
+            <img src="../assets/images/people/Otero.jpg" alt="Dave Otero" loading="lazy" />
           </div>
         </blockquote>
 
@@ -114,7 +116,7 @@ export function FindingsChapter01() {
             <footer>— Fredrik Nordström</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Nordstrom.jpg" alt="Fredrik Nordström" />
+            <img src="../assets/images/people/Nordstrom.jpg" alt="Fredrik Nordström" loading="lazy" />
           </div>
         </blockquote>
 

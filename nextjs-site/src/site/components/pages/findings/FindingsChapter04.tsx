@@ -12,6 +12,8 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
+
 export type FindingsChapterHeading = { id: string; text: string };
 
 /*
@@ -30,7 +32,7 @@ export const FindingsChapter04Headings: FindingsChapterHeading[] = [
 export function FindingsChapter04() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -80,7 +82,7 @@ export function FindingsChapter04() {
         <p>Setting aside subjectivity and subgenre variations, most producers agreed on a rough formula for what they considered heavy: metal is at its heaviest when it is slow, low, and dense (see also Figure 4.1). This is the mechanism behind effective breakdowns, which typically feature half-time tempos and open space for low-end frequencies<sup id="ref-2"><a href="#endnote-2">2</a></sup> to bloom. As Andrew Scheps noted regarding the breakdown in 'In Solitude': 'That's when the track just drops and gets really heavy because you have the room in the mix'.</p>
         <p>Across all production philosophies, all producers agreed that metal requires a balance between technical precision and emotional expression, as well as between clarity and density. They also stressed the need to balance individual instrument identity with collective impact. Finding the right balance for each production remains both the challenge and the art of creating effective heaviness in metal.</p>
         <div className="figure figure-numbered">
-          <img src="Figures/Fig4.1_Heaviness_Framework.png" alt="A visual breakdown of the multidimensional nature of heaviness" loading="lazy" />
+          <ChapterFigure src="Figures/Fig4.1_Heaviness_Framework.png" alt="A visual breakdown of the multidimensional nature of heaviness" />
           <div className="figure-caption">A visual breakdown of the multidimensional nature of heaviness.</div>
         </div>
 

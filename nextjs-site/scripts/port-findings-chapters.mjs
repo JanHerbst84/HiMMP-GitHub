@@ -262,6 +262,30 @@ function substituteMixEmbeds(jsx, mixEmbeds) {
   });
 }
 
+/*
+ * Site review 2026-09 (slice D): figures under `Figures/` become
+ * `<ChapterFigure>` calls, which serve the WebP derivative from
+ * `scripts/optimize-figures.mjs` with intrinsic width/height and keep the
+ * original as fallback and full-resolution link. Other content images
+ * (producer portraits) get `loading="lazy"`, which also stops React from
+ * emitting `<link rel="preload">` for them. Chapter hero backgrounds use
+ * the cover's WebP derivative.
+ */
+function optimiseImages(jsx) {
+  let hasFigures = false;
+  let out = jsx.replace(/<img\s+src="(Figures\/[^"]+)"([^>]*?)\s*\/>/g, (_m, src, rest) => {
+    const alt = rest.match(/\balt="([^"]*)"/);
+    if (!alt) throw new Error(`figure without alt text: ${src}`);
+    const className = rest.match(/\bclassName="([^"]*)"/);
+    const eager = /\bloading="eager"/.test(rest);
+    hasFigures = true;
+    return `<ChapterFigure src="${src}" alt="${alt[1]}"${className ? ` className="${className[1]}"` : ''}${eager ? ' loading="eager"' : ''} />`;
+  });
+  out = out.replace(/<img\s+(?![^>]*\bloading=)([^>]*?)\s*\/>/g, '<img $1 loading="lazy" />');
+  out = out.replace(/url\('Figures\/0_Cover\.jpg'\)/g, "url('Figures/web/0_Cover.webp')");
+  return { jsx: out, hasFigures };
+}
+
 for (const { slug, component } of chapters) {
   const sourcePath = path.join(repoRoot, 'findings', `${slug}.html`);
   const source = readFileSync(sourcePath, 'utf8');
@@ -281,7 +305,7 @@ for (const { slug, component } of chapters) {
   // we substitute the placeholders with React component invocations.
   const { html: bodyWithEmbedsExtracted, mixEmbeds } = extractMixEmbeds(bodyWithIds, sourcePath);
   const rawJsx = convertMain(bodyWithEmbedsExtracted);
-  const jsx = substituteMixEmbeds(rawJsx, mixEmbeds);
+  const { jsx, hasFigures } = optimiseImages(substituteMixEmbeds(rawJsx, mixEmbeds));
   const hasMixEmbeds = mixEmbeds.length > 0;
 
   // Collect h2 list for D-8 TOC. The "endnotes" heading is skipped
@@ -305,6 +329,9 @@ for (const { slug, component } of chapters) {
     : '[]';
 
   const importLines = [];
+  if (hasFigures) {
+    importLines.push(`import { ChapterFigure } from "@/src/site/components/ChapterFigure";`);
+  }
   if (hasMixEmbeds) {
     importLines.push(`import { MixComparisonEmbed } from "@/src/site/components/MixComparisonEmbed";`);
   }

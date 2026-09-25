@@ -12,6 +12,8 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
+
 export type FindingsChapterHeading = { id: string; text: string };
 
 /*
@@ -29,7 +31,7 @@ export const FindingsChapter03Headings: FindingsChapterHeading[] = [
 export function FindingsChapter03() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -79,12 +81,12 @@ export function FindingsChapter03() {
         <p>The complete dataset, including multi-track recordings (Figure 3.2), is available for research and educational purposes.<sup id="ref-7"><a href="#endnote-7">7</a></sup></p>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig3.1_Guitars.jpg" alt="Multiple microphone setups for the guitar recordings" loading="lazy" />
+          <ChapterFigure src="Figures/Fig3.1_Guitars.jpg" alt="Multiple microphone setups for the guitar recordings" />
           <div className="figure-caption">Multiple microphone setups for the guitar recordings.</div>
         </div>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig3.2_Arrangement.png" alt="Multi-track of 'In Solitude' in Pro Tools; all tracks except toms and production FX" loading="lazy" />
+          <ChapterFigure src="Figures/Fig3.2_Arrangement.png" alt="Multi-track of 'In Solitude' in Pro Tools; all tracks except toms and production FX" />
           <div className="figure-caption">Multi-track of 'In Solitude' in Pro Tools; all tracks except toms and production FX.</div>
         </div>
 

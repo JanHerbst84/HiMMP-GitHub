@@ -31,7 +31,7 @@ export const FindingsChapter06Headings: FindingsChapterHeading[] = [
 export function FindingsChapter06() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -113,7 +113,7 @@ export function FindingsChapter06() {
             <footer>— Buster Odeholm</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" />
+            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" loading="lazy" />
           </div>
         </blockquote>
 
@@ -125,7 +125,7 @@ export function FindingsChapter06() {
             <footer>— Buster Odeholm</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" />
+            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" loading="lazy" />
           </div>
         </blockquote>
 
@@ -135,7 +135,7 @@ export function FindingsChapter06() {
             <footer>— Josh Middleton</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Middleton.jpg" alt="Josh Middleton" />
+            <img src="../assets/images/people/Middleton.jpg" alt="Josh Middleton" loading="lazy" />
           </div>
         </blockquote>
 

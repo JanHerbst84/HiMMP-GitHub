@@ -24,13 +24,14 @@
  * `<section class="content-section">` open. Visible text is
  * unchanged; `parity:text` confirms.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
 export function FindingsIndexPage() {
   return (
     <main id="main-content">
       <section
         className="hero"
         style={{
-          backgroundImage: "url('findings/Figures/0_Cover.jpg')",
+          backgroundImage: "url('findings/Figures/web/0_Cover.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative"
@@ -51,7 +52,7 @@ export function FindingsIndexPage() {
                 <p>Our research suggests that 'heaviness' is not one single sound; it is the result of a producer's core philosophy. We found these approaches exist on a spectrum: from the 'Naturalistic' approach (focused on capturing organic performance) to the 'Hyperreal' approach (engineering a 'larger-than-life' sound). This guide breaks down our findings chapter by chapter, with practical examples and audio from the project.</p>
 
                 <div className="figure" style={{ marginTop: "1rem" }}>
-                    <img src="findings/Figures/0_Cover3.png" alt="Key Findings cover artwork for Deconstructing 'Heaviness'" loading="lazy" />
+                    <ChapterFigure src="findings/Figures/0_Cover3.png" alt="Key Findings cover artwork for Deconstructing 'Heaviness'" />
                     <div className="figure-caption">Key Findings: A Practical Guide</div>
                 </div>
 

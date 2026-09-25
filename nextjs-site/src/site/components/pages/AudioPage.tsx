@@ -92,7 +92,8 @@ export function AudioPage() {
           <h3>Video Comparison of Producer Mixes</h3>
           <div className="video-container">
             <iframe
-              src="https://www.youtube.com/embed/AuNs1Ga5xgM"
+              loading="lazy"
+              data-lazy-youtube-src="https://www.youtube.com/embed/AuNs1Ga5xgM"
               title="8 Top Mix Engineers Mix The Same Track"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

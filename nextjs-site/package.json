@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "npm run sync:public",
+    "prebuild": "npm run figures:check && npm run sync:public",
     "dev": "next dev",
     "build": "next build",
-    "build:audio": "npm run sync:public:audio && next build",
+    "build:audio": "npm run figures:check && npm run sync:public:audio && next build",
     "start": "python3 -m http.server 4173 -d out",
     "typecheck": "tsc --noEmit",
     "pretest:e2e": "npm run build",
@@ -36,7 +36,11 @@
     "audit:contrast": "node scripts/audit-contrast.mjs",
     "audit:seo:live": "node scripts/audit-live-seo.mjs",
     "test:sitemap": "node scripts/test-sitemap-lastmod.mjs",
-    "check:jsonld": "node scripts/check-jsonld.mjs"
+    "check:jsonld": "node scripts/check-jsonld.mjs",
+    "figures:optimize": "node scripts/optimize-figures.mjs",
+    "figures:check": "node scripts/optimize-figures.mjs --check",
+    "test:figures": "node scripts/test-optimize-figures.mjs",
+    "audit:csp:live": "node scripts/audit-live-csp.mjs"
   },
   "engines": {
     "node": ">=24.0.0",

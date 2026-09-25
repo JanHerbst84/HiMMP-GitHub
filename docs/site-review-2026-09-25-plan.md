@@ -296,3 +296,66 @@ Review log (Sol + internal reviewer in parallel; gates after round 1: typecheck,
 
 The round-2 fix is a local extension of the round-1 fix; both reviewers named the same remaining defect and
 the gate now enforces it, so no third round was run.
+
+### 6.4 Slices D + E + F (performance, accessibility, visual)
+
+Implemented together (they share the chapter shell and the same test surface). Measured on the local export
+(uncompressed static server, no third-party requests): chapter 7 transfer 12.7 MB → 1.1 MB, chapter 9
+18.1 MB → 1.4 MB (live, before), home 2.0 MB → 1.0 MB; the 25 figures total 43.5 MB as originals and 3.2 MB as
+WebP. Playwright wall time fell from 7.5 to 1.9 minutes.
+
+Implementation notes and deviations from plan v2:
+
+- D: figures are converted by `scripts/port-findings-chapters.mjs` (the chapter components are generated; the
+  generator was confirmed idempotent before the change) into `<ChapterFigure>`; the findings index cover uses the
+  same component. Because the `<img>` keeps the original `src` inside `<picture>`, the dark-mode
+  `img[src$=".png"]` backing still applies and no selector retargeting was needed (plan D2 anticipated one).
+  Text-heavy Fig. 4.1 (6444 px original) checked at its 860 px display width: legible; full resolution is one
+  click away. `npm run figures:check` fails when a derivative is stale.
+- D: the home, audio and approach YouTube embeds use the existing click-to-load controller; iframe elements stay
+  (content parity counts them), only `src` becomes `data-lazy-youtube-src`. No CSP change.
+- E: `main.js` focuses the target of every in-page link (adding `tabindex="-1"` when needed), honours
+  `prefers-reduced-motion`, and records history like native fragment navigation (one entry per new fragment,
+  none for re-activating the current one; plan E1's blanket `replaceState` would break Back after following an
+  endnote). The static `tabIndex={-1}` on every `<main>`
+  (plan E1) was not added: the script covers it on all 27 routes, and native fragment navigation without
+  JavaScript already moves the sequential focus point. Playwright asserts focus lands on `#main-content`.
+- F: chapter counter now "Chapter 7 of 14" / "Glossary of Technical Terms" / "14 chapters and a glossary"; the
+  section list is nested under the current chapter in the desktop panel; below 981 px the panel is replaced by a
+  closed `<details>` ("Chapters and sections") and the top paging bar is hidden (paging stays at the chapter end),
+  so the chapter title sits in the first mobile viewport. Home outputs grid: 4/2/1 columns. Publications section
+  heading centred over its pills.
+- F, not changed: V4 hero heights were tuned deliberately in earlier design slices (D-9-e-11, D-9-g-2); reducing
+  them would reverse a recorded design decision, so it is held for JPH. The "large gaps" in V3 were largely the
+  YouTube iframe rendering blank in the headless capture; with the facade the thumbnail fills that space.
+
+Held for JPH (content/brand): V5 CTA wording and the "welcome" nav label; V6 "Project Completed" wording and
+duplicate promotions; the home card still says "Key Findings: Producer's Guide" (visible text under
+`parity:text`); hero heights; audio re-encoding; `youtube-nocookie`.
+
+Review log (Sol + internal reviewer in parallel):
+
+| Round | Reviewer | Sev | Finding | Disposition |
+|---|---|---|---|---|
+| 1 | Sol | M | build trusted the manifest without checking the WebP file; `figures:check` not in the build | ACCEPT: `ChapterFigure` throws on a missing derivative; `figures:check` runs in `prebuild` and `build:audio` |
+| 1 | Sol | M | corrupted/truncated derivative counted as current; photo outputs written in place | ACCEPT: manifest stores `webpSha256`, verified by `--check` and incremental runs; all outputs via temp file + rename |
+| 1 | Sol | L | `pushState` per fragment instead of plan E1's `replaceState` | REJECT: matches native fragment navigation (Back returns through followed endnotes); plan wording corrected |
+| 1 | internal | M | `optimize-figures.mjs` had no unit test | ACCEPT: `npm run test:figures` (fixture tree; stale/altered/changed/removed/--check) |
+| 1 | both | – | a11y of duplicate nav, `<details>`, figure links, CSS specificity, image paths, hydration, facade | no findings |
+| 2 | Sol | M | `--check` required ImageMagick, so every build failed on a machine without it | ACCEPT: `magick` required only when encoding; test runs `--check` without it |
+| 2 | Sol | L | manifest written in place; a truncated manifest blocked recovery | ACCEPT: temp file + rename; unreadable manifest treated as empty (check fails, optimize rebuilds); test |
+| 2 | internal | – | no findings | – |
+
+Deployment tooling added with this slice (reviewed in round 3): `scripts/audit-live-csp.mjs` (`npm run
+audit:csp:live`, all-route Chromium CSP audit with click-to-load activation) and `audit-live-seo.mjs` now expects
+`/` as the home URL.
+| 3 | Sol | M | CSP audit ignored response headers (a removed or report-only CSP would pass) | ACCEPT: enforcing header required on every document, report-only rejected (`CSP_AUDIT_SKIP_HEADERS=1` only for a local static server) |
+| 3 | Sol | M | missing click-to-load triggers silently accepted | ACCEPT: every page with a lazy embed must load its first one; zero embed pages is a failure |
+| 3 | Sol | M | SEO audit only warned on canonical mismatch and never compared `og:url` | ACCEPT: both are failures now (with bare-origin slash equivalence) |
+| 3 | Sol | L | a parseable but malformed manifest (`{}`, `{"figures":null}`) blocked recovery | ACCEPT: manifest shape validated; tests |
+| 3 | internal | H | SEO audit fetches unguarded (network error or hang aborted the audit) | ACCEPT: fetches wrapped with a 30 s timeout and recorded as failures |
+
+Round-3 fixes were verified by running the tools: `test:figures` passes; the CSP audit against the local export
+activated 4/4 embed pages with no unexpected problems and against the current live site (headers checked)
+reported none; the SEO audit against the local export reported no failures other than the MP3s absent from a
+non-audio build.

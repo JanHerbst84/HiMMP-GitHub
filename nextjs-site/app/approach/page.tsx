@@ -1,4 +1,5 @@
 import { SiteShell } from "@/src/site/components/SiteShell";
+import { EnhancedVideoController } from "@/src/site/components/EnhancedVideoController";
 import { getLegacyPageContent } from "@/src/site/legacy-content";
 import { legacyContentToMetadata } from "@/src/site/metadata";
 import { LegacyScripts } from "@/src/site/components/LegacyScripts";
@@ -26,6 +27,7 @@ export default function ApproachRoute() {
           <LegacyScripts scripts={content.jsonLdScripts} />
           <ApproachPage />
         </div>
+        <EnhancedVideoController />
       </SiteShell>
       <script src="/assets/js/main.js" />
       <LegacyScripts scripts={content.bodyScripts} />

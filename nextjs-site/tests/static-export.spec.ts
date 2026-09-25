@@ -217,7 +217,7 @@ test.describe("static export legacy route smoke", () => {
     ];
     for (const route of longChapters) {
       await page.goto(route);
-      const toc = page.locator('nav.on-this-page[aria-label="On this page"]');
+      const toc = page.locator('.findings-reader-panel .findings-reader-sections[aria-label="On this page"]');
       await expect(toc, `${route} should render an on-this-page nav`).toBeVisible();
       const tocLinks = toc.locator("a");
       const linkCount = await tocLinks.count();
@@ -387,7 +387,7 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator("[data-page='approach']")).toHaveCount(1);
     await expect(page.locator(".timeline-item")).toHaveCount(3);
     await expect(
-      page.locator(".video-container iframe[src='https://www.youtube.com/embed/s51zs_ZVVoA']")
+      page.locator(".video-container iframe[data-lazy-youtube-src='https://www.youtube.com/embed/s51zs_ZVVoA']")
     ).toHaveCount(1);
     await expect(page.locator("h1.hero-title")).toHaveText("Research Approach & Methodology");
 
@@ -656,7 +656,7 @@ test.describe("static export legacy route smoke", () => {
     const shell = page.locator(".enhanced-findings-shell");
     await expect(shell).toBeVisible();
     await expect(page.locator("#main-content h1")).toContainText('The "Meta-Instrument" Concept');
-    await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toContainText(
+    await expect(page.locator(".findings-reader-panel .findings-reader-panel__nav a[aria-current='page']")).toContainText(
       '7. The "Meta-Instrument" Concept'
     );
     await expect(page.locator(".findings-reader-topbar a[rel='prev']")).toHaveAttribute(
@@ -713,7 +713,7 @@ test.describe("static export legacy route smoke", () => {
 
       await expect(page.locator(".enhanced-findings-shell")).toBeVisible();
       await expect(page.locator("#main-content")).toBeVisible();
-      await expect(page.locator(".findings-reader-panel__nav a[aria-current='page']")).toHaveAttribute(
+      await expect(page.locator(".findings-reader-panel .findings-reader-panel__nav a[aria-current='page']")).toHaveAttribute(
         "href",
         findingsHref(route.sourceFile)
       );
@@ -811,7 +811,7 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator("#main-content .chapter-content")).toContainText(
       "One of the most significant insights to result from the research was the concept"
     );
-    await expect(page.locator(".findings-reader-panel__status")).toHaveText("8 of 16");
+    await expect(page.locator(".findings-reader-panel__status")).toHaveText("Chapter 7 of 14");
     await expect(page.getByRole("navigation", { name: "Chapter paging at start" })).toBeVisible();
     await expect(page.getByRole("navigation", { name: "Chapter paging at end" })).toBeVisible();
     await expect(page.locator(".findings-reader-bottombar")).toBeVisible();
@@ -854,7 +854,11 @@ test.describe("static export legacy route smoke", () => {
           naturalHeight: (image as HTMLImageElement).naturalHeight
         }))
       )
-      .toEqual({ complete: true, naturalWidth: 2937, naturalHeight: 2644 });
+      // The <picture> serves the 1600 px WebP derivative (optimize-figures.mjs).
+      .toEqual({ complete: true, naturalWidth: 1600, naturalHeight: 1440 });
+    expect(await figure93.evaluate((image) => (image as HTMLImageElement).currentSrc)).toMatch(
+      /Figures\/web\/Fig9\.3_Asymmetrical_Guitar\.webp$/
+    );
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
@@ -1243,5 +1247,72 @@ test.describe("site 404 page", () => {
       links.map((link) => link.getAttribute("href") ?? "").filter((href) => !href.startsWith("/"))
     );
     expect(relative).toEqual([]);
+  });
+});
+
+test.describe("site review 2026-09 slices D-F", () => {
+  test("chapter figures reserve their box and link the full-resolution original", async ({ page }) => {
+    await page.goto("/findings/07-meta-instrument.html");
+    const figures = page.locator("#main-content .figure img");
+    const count = await figures.count();
+    expect(count).toBeGreaterThan(0);
+    const attrs = await figures.evaluateAll((images) =>
+      images.map((image) => ({
+        width: image.getAttribute("width"),
+        height: image.getAttribute("height"),
+        link: image.closest("a")?.getAttribute("href") ?? null,
+        webp: image.parentElement?.querySelector("source[type='image/webp']")?.getAttribute("srcset") ?? null,
+        src: image.getAttribute("src")
+      }))
+    );
+    for (const figure of attrs) {
+      expect(Number(figure.width)).toBeGreaterThan(0);
+      expect(Number(figure.height)).toBeGreaterThan(0);
+      expect(figure.link).toBe(figure.src);
+      expect(figure.webp).toMatch(/^Figures\/web\/.+\.webp$/);
+    }
+    // Portraits are lazy, so React no longer preloads them.
+    await expect(page.locator('link[rel="preload"][as="image"][href*="people/"]')).toHaveCount(0);
+  });
+
+  test("skip link moves keyboard focus to the main content", async ({ page }) => {
+    await page.goto("/about.html");
+    await page.keyboard.press("Tab");
+    await expect(page.locator(".skip-to-content")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page.locator("#main-content")).toBeFocused();
+  });
+
+  test("home, audio and approach embeds are click-to-load", async ({ page }) => {
+    for (const route of ["/index.html", "/audio.html", "/approach.html"]) {
+      await page.goto(route);
+      await expect(page.locator("iframe[src*='youtube.com']"), route).toHaveCount(0);
+      await expect(page.locator(".lazy-video-trigger").first(), route).toBeVisible();
+    }
+  });
+
+  test("chapter status and section list sit in the reader panel on desktop", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/findings/glossary.html");
+    await expect(page.locator(".findings-reader-panel__status")).toHaveText("Glossary of Technical Terms");
+    await page.goto("/findings/07-meta-instrument.html");
+    await expect(page.locator(".findings-reader-compact")).toBeHidden();
+    const sections = page.locator(".findings-reader-panel li:has(a[aria-current='page']) .findings-reader-sections a");
+    expect(await sections.count()).toBeGreaterThanOrEqual(2);
+  });
+
+  test("narrow screens use a closed compact chapter menu and show the title early", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/findings/07-meta-instrument.html");
+    await expect(page.locator(".findings-reader-panel")).toBeHidden();
+    const compact = page.locator(".findings-reader-compact");
+    await expect(compact).toBeVisible();
+    await expect(compact).not.toHaveAttribute("open", "");
+    await expect(compact.locator("summary")).toContainText("Chapter 7 of 14");
+    const titleTop = await page.locator("#main-content h1").evaluate((h1) => h1.getBoundingClientRect().top);
+    expect(titleTop).toBeLessThan(812 * 0.6);
+    await compact.locator("summary").click();
+    await expect(compact.locator("a[aria-current='page']")).toBeVisible();
+    await expect(compact.locator(".findings-reader-sections a").first()).toBeVisible();
   });
 });

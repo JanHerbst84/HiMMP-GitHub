@@ -12,6 +12,7 @@
  * markup and state. D-3-b retired the controller; nothing
  * DOM-walks chapter audio surfaces any more.
  */
+import { ChapterFigure } from "@/src/site/components/ChapterFigure";
 import { MixComparisonEmbed } from "@/src/site/components/MixComparisonEmbed";
 
 export type FindingsChapterHeading = { id: string; text: string };
@@ -34,7 +35,7 @@ export const FindingsChapter07Headings: FindingsChapterHeading[] = [
 export function FindingsChapter07() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
       <div className="hero-overlay"></div>
       <div className="container">
         <div className="hero-content">
@@ -104,17 +105,17 @@ export function FindingsChapter07() {
         </ul>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig7.1_Kick=Bass.png" alt="Overlapping frequencies reflective of the meta-instrument concept in the mixes of Josh Middleton and Buster Odeholm" loading="lazy" />
+          <ChapterFigure src="Figures/Fig7.1_Kick=Bass.png" alt="Overlapping frequencies reflective of the meta-instrument concept in the mixes of Josh Middleton and Buster Odeholm" />
           <div className="figure-caption">Overlapping frequencies reflective of the meta-instrument concept in the mixes of Josh Middleton and Buster Odeholm.</div>
         </div>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig7.2_Bass_under_Kick.png" alt="Positioning bass under the kick in the mixes of Mike Exeter and Adam Getgood" loading="lazy" />
+          <ChapterFigure src="Figures/Fig7.2_Bass_under_Kick.png" alt="Positioning bass under the kick in the mixes of Mike Exeter and Adam Getgood" />
           <div className="figure-caption">Positioning bass under the kick in the mixes of Mike Exeter and Adam Getgood. This frequency allocation was dominant before the proliferation of kick-trigger technology.</div>
         </div>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig7.3_Kick_under_Bass.png" alt="Placement of kick under bass, which is most common in contemporary productions" loading="lazy" />
+          <ChapterFigure src="Figures/Fig7.3_Kick_under_Bass.png" alt="Placement of kick under bass, which is most common in contemporary productions" />
           <div className="figure-caption">Placement of kick under bass, which is most common in contemporary productions.</div>
         </div>
 
@@ -123,7 +124,7 @@ export function FindingsChapter07() {
         </ul>
 
         <div className="figure figure-numbered">
-          <img src="Figures/Fig7.4_Widened_bass.png" alt="Widened stereo bass in the mixes of Buster Odeholm and Jens Bogren" loading="lazy" />
+          <ChapterFigure src="Figures/Fig7.4_Widened_bass.png" alt="Widened stereo bass in the mixes of Buster Odeholm and Jens Bogren" />
           <div className="figure-caption">Widened stereo bass in the mixes of Buster Odeholm and Jens Bogren.</div>
         </div>
 
@@ -167,7 +168,7 @@ export function FindingsChapter07() {
             <footer>— Fredrik Nordström</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Nordstrom.jpg" alt="Fredrik Nordström" />
+            <img src="../assets/images/people/Nordstrom.jpg" alt="Fredrik Nordström" loading="lazy" />
           </div>
         </blockquote>
 
@@ -177,7 +178,7 @@ export function FindingsChapter07() {
             <footer>— Buster Odeholm</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" />
+            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" loading="lazy" />
           </div>
         </blockquote>
 
@@ -187,7 +188,7 @@ export function FindingsChapter07() {
             <footer>— Dave Otero</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Otero.jpg" alt="Dave Otero" />
+            <img src="../assets/images/people/Otero.jpg" alt="Dave Otero" loading="lazy" />
           </div>
         </blockquote>
 

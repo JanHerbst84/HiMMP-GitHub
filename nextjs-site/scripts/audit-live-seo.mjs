@@ -105,8 +105,24 @@ function routeUrl(route) {
   return `${fetchBaseUrl}/${route}`;
 }
 
+// The home page's canonical URL is the origin root (`/`), not `/index.html`.
 function expectedRouteUrl(route) {
-  return `${expectedOrigin}/${route}`;
+  return route === "index.html" ? `${expectedOrigin}/` : `${expectedOrigin}/${route}`;
+}
+
+// Network errors and hangs are recorded as failures instead of aborting the audit.
+async function safeFetch(url, options = {}) {
+  try {
+    return await fetch(url, { ...options, signal: AbortSignal.timeout(30000) });
+  } catch (error) {
+    return { ok: false, status: `fetch failed (${error.name}: ${error.message})`, text: async () => "" };
+  }
+}
+
+// `https://example.org` and `https://example.org/` are the same URL.
+function sameUrl(a, b) {
+  const bare = (value) => (/^https?:\/\/[^/]+\/$/.test(value) ? value.slice(0, -1) : value);
+  return bare(a) === bare(b);
 }
 
 function addSameOriginStructuredUrl(route, key, value) {
@@ -154,7 +170,7 @@ let jsonLdTotal = 0;
 for (const route of routes) {
   const url = routeUrl(route);
   const expectedUrl = expectedRouteUrl(route);
-  const response = await fetch(url);
+  const response = await safeFetch(url);
 
   if (!response.ok) {
     failures.push(`${route}: HTTP ${response.status}`);
@@ -186,8 +202,12 @@ for (const route of routes) {
 
   if (canonical.length !== 1) {
     failures.push(`${route}: canonical count ${canonical.length}`);
-  } else if (canonical[0] !== expectedUrl) {
-    warnings.push(`${route}: canonical ${canonical[0]} does not match expected URL ${expectedUrl}`);
+  } else if (!sameUrl(canonical[0], expectedUrl)) {
+    failures.push(`${route}: canonical ${canonical[0]} does not match expected URL ${expectedUrl}`);
+  }
+
+  if (ogUrl.length && !sameUrl(ogUrl[0], expectedUrl)) {
+    failures.push(`${route}: og:url ${ogUrl[0]} does not match expected URL ${expectedUrl}`);
   }
 
   if (
@@ -258,7 +278,7 @@ for (const route of routes) {
 
 for (const [url, sources] of sameOriginStructuredUrls) {
   const parsed = new URL(url);
-  const response = await fetch(`${fetchBaseUrl}${parsed.pathname}${parsed.search}`, { method: "HEAD" });
+  const response = await safeFetch(`${fetchBaseUrl}${parsed.pathname}${parsed.search}`, { method: "HEAD" });
   if (!response.ok) {
     const sourceList = sources.map((source) => `${source.route}:${source.key}`).join(", ");
     failures.push(
@@ -267,7 +287,7 @@ for (const [url, sources] of sameOriginStructuredUrls) {
   }
 }
 
-const sitemapResponse = await fetch(`${fetchBaseUrl}/sitemap.xml`);
+const sitemapResponse = await safeFetch(`${fetchBaseUrl}/sitemap.xml`);
 if (!sitemapResponse.ok) {
   failures.push(`sitemap.xml: HTTP ${sitemapResponse.status}`);
 } else {

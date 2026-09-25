@@ -82,7 +82,7 @@ export function ApproachPage() {
           <div className="video-container">
             <iframe
               loading="lazy"
-              src="https://www.youtube.com/embed/s51zs_ZVVoA"
+              data-lazy-youtube-src="https://www.youtube.com/embed/s51zs_ZVVoA"
               title="Andrew Scheps Interview"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

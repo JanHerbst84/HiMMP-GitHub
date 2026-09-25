@@ -34,7 +34,7 @@ export const FindingsChapter08Headings: FindingsChapterHeading[] = [
 export function FindingsChapter08() {
   return (
     <main id="main-content">
-<section className="chapter-hero" style={{ backgroundImage: "url('Figures/0_Cover.jpg')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}><div className="hero-overlay"></div><div className="container"><div className="hero-content"><h1 className="hero-title">Chapter 8: Drum Production</h1><p className="hero-text">The foundation of impact in heavy production.</p></div></div></section>
+<section className="chapter-hero" style={{ backgroundImage: "url('Figures/web/0_Cover.webp')", backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}><div className="hero-overlay"></div><div className="container"><div className="hero-content"><h1 className="hero-title">Chapter 8: Drum Production</h1><p className="hero-text">The foundation of impact in heavy production.</p></div></div></section>
     <div className="chapter-section-nav">
       <div className="container">
         <h3>Navigate Chapters</h3>
@@ -188,7 +188,7 @@ export function FindingsChapter08() {
             <footer>— Buster Odeholm</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" />
+            <img src="../assets/images/people/Odeholm.jpg" alt="Buster Odeholm" loading="lazy" />
           </div>
         </blockquote>
         <blockquote className="pull-quote">
@@ -197,7 +197,7 @@ export function FindingsChapter08() {
             <footer>— Jens Bogren</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Bogren.jpg" alt="Jens Bogren" />
+            <img src="../assets/images/people/Bogren.jpg" alt="Jens Bogren" loading="lazy" />
           </div>
         </blockquote>
         <blockquote className="pull-quote">
@@ -206,7 +206,7 @@ export function FindingsChapter08() {
             <footer>— Dave Otero</footer>
           </div>
           <div className="pull-quote-photo">
-            <img src="../assets/images/people/Otero.jpg" alt="Dave Otero" />
+            <img src="../assets/images/people/Otero.jpg" alt="Dave Otero" loading="lazy" />
           </div>
         </blockquote>
 

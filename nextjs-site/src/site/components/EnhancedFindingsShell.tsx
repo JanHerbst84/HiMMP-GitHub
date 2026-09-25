@@ -7,7 +7,7 @@ type EnhancedFindingsShellProps = {
   currentRoute: LegacyRoute;
   children: ReactNode;
   /*
-   * D-8: the within-chapter "On this page" TOC reads from this list.
+   * D-8: the within-chapter section list ("On this page") reads from this list.
    * Headings are pre-computed at chapter port time so they appear in
    * the SSR HTML, not via a post-DOMContentLoaded mutation that would
    * race React hydration (the legacy on-this-page script was the
@@ -96,26 +96,55 @@ function PagingLink({
   );
 }
 
-function OnThisPageNav({ headings }: { headings: ChapterHeading[] }) {
+/*
+ * Site review 2026-09 (slice F): the within-chapter section list is nested
+ * under the current chapter in the reader navigation instead of sitting
+ * above the chapter hero. A 1-item list is degenerate and omitted.
+ */
+function SectionList({ headings }: { headings: ChapterHeading[] }) {
   if (headings.length < 2) return null;
   return (
-    <nav className="on-this-page" aria-label="On this page">
-      <strong>On this page</strong>
-      <ul>
-        {headings.map((h) => (
-          <li key={h.id}>
-            <a href={`#${h.id}`}>{h.text}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <ul className="findings-reader-sections" aria-label="On this page">
+      {headings.map((h) => (
+        <li key={h.id}>
+          <a href={`#${h.id}`}>{h.text}</a>
+        </li>
+      ))}
+    </ul>
   );
+}
+
+function ChapterList({ currentRoute, headings }: { currentRoute: LegacyRoute; headings?: ChapterHeading[] }) {
+  return (
+    <ol>
+      {chapterLinks.map((link) => {
+        const current = link.routePath === currentRoute.routePath;
+        return (
+          <li key={link.href}>
+            <a href={link.href} aria-current={current ? "page" : undefined}>
+              <ChapterLabel label={link.shortLabel} />
+            </a>
+            {current && headings ? <SectionList headings={headings} /> : null}
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+const numberedChapterCount = chapterLinks.filter((link) => /^\d+\.\s/.test(link.shortLabel)).length;
+
+/* "Chapter 7 of 14", "Glossary", or the guide's size on the guide home. */
+function pageStatusFor(link: ChapterLink | undefined): string {
+  const numbered = link?.shortLabel.match(/^(\d+)\.\s/);
+  if (numbered) return `Chapter ${numbered[1]} of ${numberedChapterCount}`;
+  if (link && link.shortLabel !== "Guide home") return link.shortLabel;
+  return `${numberedChapterCount} chapters and a glossary`;
 }
 
 export function EnhancedFindingsShell({ currentRoute, children, headings }: EnhancedFindingsShellProps) {
   const { currentIndex, previous, next } = neighborLinks(currentRoute);
-  const pageStatus =
-    currentIndex >= 0 ? `${currentIndex + 1} of ${chapterLinks.length}` : `${chapterLinks.length} chapters`;
+  const pageStatus = pageStatusFor(currentIndex >= 0 ? chapterLinks[currentIndex] : undefined);
 
   return (
     <div className="enhanced-findings-shell" data-enhanced-page="findings-guide">
@@ -126,26 +155,29 @@ export function EnhancedFindingsShell({ currentRoute, children, headings }: Enha
           <p className="findings-reader-panel__status">{pageStatus}</p>
         </div>
         <nav className="findings-reader-panel__nav" aria-label="Findings chapters">
-          <ol>
-            {chapterLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  aria-current={link.routePath === currentRoute.routePath ? "page" : undefined}
-                >
-                  <ChapterLabel label={link.shortLabel} />
-                </a>
-              </li>
-            ))}
-          </ol>
+          <ChapterList currentRoute={currentRoute} headings={headings} />
         </nav>
       </aside>
       <div className="enhanced-findings-shell__content">
+        {/*
+          Narrow screens get this closed disclosure instead of the panel (the
+          panel is display:none there, and this is display:none on wide
+          screens), so the chapter title sits near the top and assistive
+          technology only meets the visible navigation.
+        */}
+        <details className="findings-reader-compact">
+          <summary>
+            <span className="findings-reader-compact__status">{pageStatus}</span>
+            <span className="findings-reader-compact__label">Chapters and sections</span>
+          </summary>
+          <nav className="findings-reader-panel__nav" aria-label="Findings chapters">
+            <ChapterList currentRoute={currentRoute} headings={headings} />
+          </nav>
+        </details>
         <nav className="findings-reader-topbar" aria-label="Chapter paging at start">
           <PagingLink direction="Previous" link={previous} />
           <PagingLink direction="Next" link={next} />
         </nav>
-        {headings ? <OnThisPageNav headings={headings} /> : null}
         {children}
         <nav className="findings-reader-bottombar" aria-label="Chapter paging at end">
           <PagingLink direction="Previous" link={previous} />

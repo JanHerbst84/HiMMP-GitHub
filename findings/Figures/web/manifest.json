@@ -1,0 +1,452 @@
+{
+  "figures": {
+    "0_Cover.jpg": {
+      "source": "findings/Figures/0_Cover.jpg",
+      "sourceSha256": "0ad4d7cf5ee4cb8bdf9c7573da2bdf9acc3c556a2d5899dd8a808dd2e9bf177f",
+      "sourceBytes": 138906,
+      "sourceWidth": 1024,
+      "sourceHeight": 486,
+      "webp": "findings/Figures/web/0_Cover.webp",
+      "width": 1024,
+      "height": 486,
+      "bytes": 71876,
+      "webpSha256": "5bdc770abde2e0377603d1040cfeee732c9ab03458278f987f58bca4a7af1231",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "0_Cover3.png": {
+      "source": "findings/Figures/0_Cover3.png",
+      "sourceSha256": "3bfe0d6084212b3eeb2232353dd153b3d774b32cedb717d1483e597144e012ef",
+      "sourceBytes": 2367035,
+      "sourceWidth": 1024,
+      "sourceHeight": 1024,
+      "webp": "findings/Figures/web/0_Cover3.webp",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 216960,
+      "webpSha256": "d5db94ce29ed106636f9e2903101e80243c957a46d916de0aa202c27bd131ed5",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig1.1_Spectrum.png": {
+      "source": "findings/Figures/Fig1.1_Spectrum.png",
+      "sourceSha256": "6cc1ab6f4d46a5aecf5f12aaac5b13b6d9b8b502f1da10a6ace73a1ec6c77a48",
+      "sourceBytes": 306932,
+      "sourceWidth": 4505,
+      "sourceHeight": 1581,
+      "webp": "findings/Figures/web/Fig1.1_Spectrum.webp",
+      "width": 1600,
+      "height": 562,
+      "bytes": 39562,
+      "webpSha256": "40616ebdeb3ae0226aa3f592703a39974a1d32aa9dd1b12e114f8ddc7d0ce7aa",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig10.1_Soundstage1.png": {
+      "source": "findings/Figures/Fig10.1_Soundstage1.png",
+      "sourceSha256": "a39e06d544d9a1012928191a521e314f49e6a40685db6a78bcba7c610abbad18",
+      "sourceBytes": 1873155,
+      "sourceWidth": 4224,
+      "sourceHeight": 6197,
+      "webp": "findings/Figures/web/Fig10.1_Soundstage1.webp",
+      "width": 1600,
+      "height": 2347,
+      "bytes": 130242,
+      "webpSha256": "ca7d3e172275c4c3925cf98442de7d7faf68aaf1b2a1edbf380f806d22ba306d",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig10.2_Soundstage2.png": {
+      "source": "findings/Figures/Fig10.2_Soundstage2.png",
+      "sourceSha256": "dc60df97c08dcfb5a46d345823e5cd282dca0e6fde244149b55866fa21799a5a",
+      "sourceBytes": 1848873,
+      "sourceWidth": 4224,
+      "sourceHeight": 6222,
+      "webp": "findings/Figures/web/Fig10.2_Soundstage2.webp",
+      "width": 1600,
+      "height": 2357,
+      "bytes": 130928,
+      "webpSha256": "29f75569a334e2ad1f6c8805e56be5c9d48061e7ee29b554dd5550392a7e76da",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig2.1_Timeline.png": {
+      "source": "findings/Figures/Fig2.1_Timeline.png",
+      "sourceSha256": "3c25323176c3bd55c18c8c1d33e68986823f57bb9cf2957ad1d67517ce6c439f",
+      "sourceBytes": 106083,
+      "sourceWidth": 1595,
+      "sourceHeight": 817,
+      "webp": "findings/Figures/web/Fig2.1_Timeline.webp",
+      "width": 1595,
+      "height": 817,
+      "bytes": 24958,
+      "webpSha256": "aa1da1a20e96b156547bad585ad57c54099130bdabfa88dc4b47c3371cf0b73c",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossless"
+      }
+    },
+    "Fig2.2_Bogren.jpg": {
+      "source": "findings/Figures/Fig2.2_Bogren.jpg",
+      "sourceSha256": "34f113bed8e84ab3e146328ca98ea96504c23b79f8e969224b75d6389517c19f",
+      "sourceBytes": 386584,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.2_Bogren.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 75616,
+      "webpSha256": "8459bf8699155b50d017e644891ea9946622ccae56da882db7f665971a55996c",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.3_Exeter.jpg": {
+      "source": "findings/Figures/Fig2.3_Exeter.jpg",
+      "sourceSha256": "b0de50c51d928565b0e42780838fb5c6717f29713280dba0c327919219a13ceb",
+      "sourceBytes": 389869,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.3_Exeter.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 79670,
+      "webpSha256": "7ea3f8520cfdf0300ac0f60601bdaefcff580f3bdd1bc9206a358d6386c2ff86",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.4_Getgood.jpg": {
+      "source": "findings/Figures/Fig2.4_Getgood.jpg",
+      "sourceSha256": "2935fe23c6ba1aa7b5db2dda755dd38941f696319ff68c078b1a4420aa15615d",
+      "sourceBytes": 443305,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.4_Getgood.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 96954,
+      "webpSha256": "33556ec302af18b49b50ccb8043358ca7bf16becf862c0c4274e6b3236b581e3",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.5_Middleton.jpg": {
+      "source": "findings/Figures/Fig2.5_Middleton.jpg",
+      "sourceSha256": "ae3060c0bd76e78e95b7b7fba2eb869d7261c0f6a9b0cd4d2ec7b4f3d34e8c06",
+      "sourceBytes": 364652,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.5_Middleton.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 76556,
+      "webpSha256": "f8b58d948c9056eccfd8e28a12ca7f6c88bbd6adfacfdd95304d7a0b2ab559e9",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.6_Nordstrom.jpg": {
+      "source": "findings/Figures/Fig2.6_Nordstrom.jpg",
+      "sourceSha256": "63270df979dd6f37bc761040669cbec30b65b692da645804105c6173ad311fc4",
+      "sourceBytes": 353153,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.6_Nordstrom.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 65464,
+      "webpSha256": "3af0168bf92819a7e4c7b9bc9fec9fe84e9170c2a1e56190799a88be8e7b5fe7",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.7_Odeholm.jpg": {
+      "source": "findings/Figures/Fig2.7_Odeholm.jpg",
+      "sourceSha256": "2b437c18bd273707439a1746c9be1876bf7b94c6ccd805636bd3db6a6e7f68d3",
+      "sourceBytes": 440293,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.7_Odeholm.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 96024,
+      "webpSha256": "1a28d78cf10e97b67ad371ab4b3a3f322c2b5dee43a12fcafefb0d2043ea0943",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.8_Otero.jpg": {
+      "source": "findings/Figures/Fig2.8_Otero.jpg",
+      "sourceSha256": "7eec73f7817b3a2eb183ee880f1bd35df89a21f3dbf772391fa828fd4c369bde",
+      "sourceBytes": 411149,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.8_Otero.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 100128,
+      "webpSha256": "9c763b1c7c6166539cf4efe30912e3ba20f198d13a7b9890ba40b9fd1cb5c0c4",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig2.9_Scheps.jpg": {
+      "source": "findings/Figures/Fig2.9_Scheps.jpg",
+      "sourceSha256": "46fd1471be9d57250a08ccc15a35e26a3424afbdebf87fddd11d65e9657df8b6",
+      "sourceBytes": 417880,
+      "sourceWidth": 1920,
+      "sourceHeight": 1080,
+      "webp": "findings/Figures/web/Fig2.9_Scheps.webp",
+      "width": 1600,
+      "height": 900,
+      "bytes": 88790,
+      "webpSha256": "179cb987ecc43ebe7dae0456687198caba3ebcdbe9a380aa321140966040e3e1",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig3.1_Guitars.jpg": {
+      "source": "findings/Figures/Fig3.1_Guitars.jpg",
+      "sourceSha256": "61b551d6a26a23c0267b2504ce89657556f006baf375cbb09eb445822bb0bb16",
+      "sourceBytes": 4023698,
+      "sourceWidth": 6000,
+      "sourceHeight": 4000,
+      "webp": "findings/Figures/web/Fig3.1_Guitars.webp",
+      "width": 1600,
+      "height": 1067,
+      "bytes": 303684,
+      "webpSha256": "7877400f7b0a1b3fb16d7f77606150f08af56c4b6eba0b860f810e26f6ccc1ea",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 82
+      }
+    },
+    "Fig3.2_Arrangement.png": {
+      "source": "findings/Figures/Fig3.2_Arrangement.png",
+      "sourceSha256": "73a9e1211469434dacf84348c66cd734aae9370aca2cf20428b91c726671b0dc",
+      "sourceBytes": 436217,
+      "sourceWidth": 1763,
+      "sourceHeight": 804,
+      "webp": "findings/Figures/web/Fig3.2_Arrangement.webp",
+      "width": 1600,
+      "height": 730,
+      "bytes": 298500,
+      "webpSha256": "1208f4a4c0bb72a256f669d3cbebf701f6e8ba3826df67e7c59e3b03fd1bbf61",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig4.1_Heaviness_Framework.png": {
+      "source": "findings/Figures/Fig4.1_Heaviness_Framework.png",
+      "sourceSha256": "8421aaac02d550ae9ff9cf7df6f8a9e47388b246fa0cb9951a22c8317a007ce3",
+      "sourceBytes": 840336,
+      "sourceWidth": 6444,
+      "sourceHeight": 2965,
+      "webp": "findings/Figures/web/Fig4.1_Heaviness_Framework.webp",
+      "width": 1600,
+      "height": 736,
+      "bytes": 94850,
+      "webpSha256": "b070273ad6e882aca4e21f89e599dd8c1562daa83bfcb165823722780d8735c7",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossless"
+      }
+    },
+    "Fig7.1_Kick=Bass.png": {
+      "source": "findings/Figures/Fig7.1_Kick=Bass.png",
+      "sourceSha256": "3618a4384d1cb5dccfb4208c4e6ba89c43b2eb567a9c256274b4e62276c27c45",
+      "sourceBytes": 1434977,
+      "sourceWidth": 3851,
+      "sourceHeight": 2555,
+      "webp": "findings/Figures/web/Fig7.1_Kick=Bass.webp",
+      "width": 1600,
+      "height": 1062,
+      "bytes": 134868,
+      "webpSha256": "ae1e68e197515a4a8db5ca60451bad815ecd3faabb784cf207ac9e0d983eaa38",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig7.2_Bass_under_Kick.png": {
+      "source": "findings/Figures/Fig7.2_Bass_under_Kick.png",
+      "sourceSha256": "cc252b6c2da7601f7f6471acf10386809ffd2797cc4030f9fdfcd904dd7c51c8",
+      "sourceBytes": 1404531,
+      "sourceWidth": 3851,
+      "sourceHeight": 2633,
+      "webp": "findings/Figures/web/Fig7.2_Bass_under_Kick.webp",
+      "width": 1600,
+      "height": 1094,
+      "bytes": 134318,
+      "webpSha256": "3740ae4d714a3808927763495e3008828f3fb0004540335fc64f8d62034bcb23",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig7.3_Kick_under_Bass.png": {
+      "source": "findings/Figures/Fig7.3_Kick_under_Bass.png",
+      "sourceSha256": "95038dcecc6c40df3a5f39454b37a7ce111b3ecac929e3590502a09c6685a8b7",
+      "sourceBytes": 2759617,
+      "sourceWidth": 3851,
+      "sourceHeight": 4937,
+      "webp": "findings/Figures/web/Fig7.3_Kick_under_Bass.webp",
+      "width": 1600,
+      "height": 2051,
+      "bytes": 257838,
+      "webpSha256": "2453fcd3e5311ca1e4cf18f45e5855be125600856d92e30a8123de49c8f378ba",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig7.4_Widened_bass.png": {
+      "source": "findings/Figures/Fig7.4_Widened_bass.png",
+      "sourceSha256": "c2b586090e1216dee0ef19e2ab0bd995b3c730657306bb016326192c260fc48c",
+      "sourceBytes": 5872208,
+      "sourceWidth": 2818,
+      "sourceHeight": 2621,
+      "webp": "findings/Figures/web/Fig7.4_Widened_bass.webp",
+      "width": 1600,
+      "height": 1488,
+      "bytes": 122138,
+      "webpSha256": "c6e94360c369a19ffedb2220faee8745d4d57c98f8ec18b3af78193835016a0a",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig9.1_Amp1.png": {
+      "source": "findings/Figures/Fig9.1_Amp1.png",
+      "sourceSha256": "78bd842fce9d54babc2fbe5f3de531bd20c97d9fb1011d321927bcb4381ed478",
+      "sourceBytes": 3963415,
+      "sourceWidth": 2390,
+      "sourceHeight": 1439,
+      "webp": "findings/Figures/web/Fig9.1_Amp1.webp",
+      "width": 1600,
+      "height": 963,
+      "bytes": 158228,
+      "webpSha256": "9689cd016a02a6c4f2e74f3546e9bb5841142cebbcb64e0f3b65ded142774ab5",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig9.1_Amp2.png": {
+      "source": "findings/Figures/Fig9.1_Amp2.png",
+      "sourceSha256": "81eb686de7efaab0eff072a4f6bd6c6425af5836972b4f1393d8297c74c11127",
+      "sourceBytes": 3963538,
+      "sourceWidth": 2386,
+      "sourceHeight": 1443,
+      "webp": "findings/Figures/web/Fig9.1_Amp2.webp",
+      "width": 1600,
+      "height": 968,
+      "bytes": 194796,
+      "webpSha256": "669b957f286e0582754c61e911f110d290392cc0f2b559f2a7fa6628f3d00c04",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig9.2_Symmetrical_Guitar.png": {
+      "source": "findings/Figures/Fig9.2_Symmetrical_Guitar.png",
+      "sourceSha256": "c06093374a915056b4b11ef89ec3acd0c25918d01a4e116fc36494b58cd5b11f",
+      "sourceBytes": 4393528,
+      "sourceWidth": 2905,
+      "sourceHeight": 2626,
+      "webp": "findings/Figures/web/Fig9.2_Symmetrical_Guitar.webp",
+      "width": 1600,
+      "height": 1446,
+      "bytes": 98508,
+      "webpSha256": "fb85499b396ef1a6bdde8b81b40050287e32cc5de04e2e0eb6baed3ce01d2a9c",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    },
+    "Fig9.3_Asymmetrical_Guitar.png": {
+      "source": "findings/Figures/Fig9.3_Asymmetrical_Guitar.png",
+      "sourceSha256": "de1d37a7737b73e070750c7908812f11d254e97a1a530f89072bb7fc6f089ac7",
+      "sourceBytes": 4583079,
+      "sourceWidth": 2937,
+      "sourceHeight": 2644,
+      "webp": "findings/Figures/web/Fig9.3_Asymmetrical_Guitar.webp",
+      "width": 1600,
+      "height": 1440,
+      "bytes": 106250,
+      "webpSha256": "5f7894385ed8e3c16471ad6fb73748ab070686239af7c1a305d2ca29877958f2",
+      "settings": {
+        "version": 1,
+        "maxWidth": 1600,
+        "mode": "lossy",
+        "quality": 90
+      }
+    }
+  }
+}
