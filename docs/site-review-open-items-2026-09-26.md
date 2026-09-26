@@ -136,5 +136,5 @@ PI approval is met). Moderate value offered: `clamp(320px, 44vh, 440px)`, alread
      transferred to countries outside the European Economic Area or the United Kingdom" becomes "… except as
      described for embedded YouTube videos".
   2. Add the YouTube paragraph (drafted above) after the Cookies paragraph.
-  3. Keep thumbnails from `img.youtube.com` (disclosed) rather than self-hosting: about a third of the embedded
-     videos belong to other channels, and re-hosting their thumbnails would copy third-party images.
+  3. Keep thumbnails from `img.youtube.com` (disclosed) rather than self-hosting: 12 of the 30 videos on the videos page
+     belong to other channels (reaction and reuse videos), and re-hosting their thumbnails would copy third-party images.
