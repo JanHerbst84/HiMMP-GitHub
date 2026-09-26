@@ -118,3 +118,23 @@ PI approval is met). Moderate value offered: `clamp(320px, 44vh, 440px)`, alread
   with the `img.youtube.com` preconnect, so no connection to Google is opened on page load (thumbnails still load
   when a video section scrolls into view).
 - Internal reviewer: no findings.
+
+## JPH answers and final advice (2026-09-26)
+
+- **2a:** JPH confirmed outputs are still forthcoming. The "Project Completed" paragraph and the publications intro
+  stay as they are. Impact activities are also in preparation; JPH marked this as an internal note, not for the
+  website, so nothing is added.
+- **4 (Claude's advice, JPH delegated the call):** keep the current hero heights; closed. The proposed
+  `clamp(320px, 44vh, 440px)` gains about 54 px at 1440×900 (44vh = 396 px vs 450 px), too little to reverse a
+  reviewed design decision.
+- **7 (advice; privacy text awaits JPH's go-ahead as the named controller, `PrivacyPage.tsx` §2):** the page is
+  inaccurate beyond the YouTube gap. Evidence: the VPS address `5.182.18.217` (AS47583 Hostinger International)
+  geolocates to Manchester, UK (ipinfo.io, 2026-09-26; VERIFY the location in the Hostinger panel), while §11 says
+  "All data are stored on servers located in Germany" and the Matomo paragraph says "hosted on our own web server
+  in Germany" (Matomo runs on the same VPS). Recommended edits:
+  1. §11 and the Matomo paragraph: "Germany" → "the United Kingdom" (after the panel check). "No data are
+     transferred to countries outside the European Economic Area or the United Kingdom" becomes "… except as
+     described for embedded YouTube videos".
+  2. Add the YouTube paragraph (drafted above) after the Cookies paragraph.
+  3. Keep thumbnails from `img.youtube.com` (disclosed) rather than self-hosting: about a third of the embedded
+     videos belong to other channels, and re-hosting their thumbnails would copy third-party images.
