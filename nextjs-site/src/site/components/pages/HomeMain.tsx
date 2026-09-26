@@ -26,25 +26,25 @@ export function HomeMain() {
                     <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>The Complete Dataset</h3>
                         <p>Access the full multitrack of 'In Solitude', all producer mixes, stems, and video interviews.</p>
-                        <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1.1em" }}>+ ACCESS DATA</a>
+                        <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1.1em" }}>Access data &rarr;</a>
                     </div>
                     
                     <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>Project Publications</h3>
                         <p>Explore academic articles, book chapters, and other scholarly resources from the project.</p>
-                        <a href="publications.html" className="read-more" style={{ fontSize: "1.1em" }}>+ VIEW PUBLICATIONS</a>
+                        <a href="publications.html" className="read-more" style={{ fontSize: "1.1em" }}>View publications &rarr;</a>
                     </div>
                     
                     <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
                         <h3 style={{ marginTop: "0" }}>Producer Videos &amp; Mixes</h3>
                         <p>Watch in-depth interviews and compare the final audio mixes from our producers.</p>
-                        <a href="videos.html" className="read-more" style={{ fontSize: "1.1em" }}>+ WATCH &amp; LISTEN</a>
+                        <a href="videos.html" className="read-more" style={{ fontSize: "1.1em" }}>Watch &amp; listen &rarr;</a>
                     </div>
 
                     <div className="output-card" style={{ padding: "30px", borderRadius: "8px", textAlign: "center" }}>
-                        <h3 style={{ marginTop: "0" }}>Key Findings: Producer's Guide</h3>
+                        <h3 style={{ marginTop: "0" }}>Key Findings: A Practical Guide</h3>
                         <p>An interactive HTML eBook breaking down our research with practical examples and audio.</p>
-                        <a href="findings.html" className="read-more" style={{ fontSize: "1.1em" }}>+ READ GUIDE</a>
+                        <a href="findings.html" className="read-more" style={{ fontSize: "1.1em" }}>Read guide &rarr;</a>
                     </div>
 
                 </div>
@@ -54,7 +54,7 @@ export function HomeMain() {
         <section className="video-feature">
             <div className="container">
                 <div className="video-container">
-                    <iframe loading="lazy" data-lazy-youtube-src="https://www.youtube.com/embed/OU1PoktmPmc" title="HiMMP - In Solitude" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <iframe loading="lazy" data-lazy-youtube-src="https://www.youtube-nocookie.com/embed/OU1PoktmPmc" title="HiMMP - In Solitude" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </div>
             </div>
         </section>
@@ -93,7 +93,7 @@ export function HomeMain() {
                             defines 'heaviness', exploring how it is captured and conveyed in the{" "}
                             <a href="approach.html">production process</a>.
                         </p>
-                        <a href="about.html" className="read-more read-more--ghost">+ MORE</a>
+                        <a href="about.html" className="read-more read-more--ghost">Learn about HiMMP &rarr;</a>
                     </div>
                     <div className="section-content">
                         <h3>Our Approach</h3>
@@ -106,7 +106,7 @@ export function HomeMain() {
                             {" "}on a single song, 'In Solitude', we studied the diverse <a href="approach.html">approaches</a> to
                             mixing the track and creating heaviness.
                         </p>
-                        <a href="approach.html" className="read-more read-more--ghost">+ MORE</a>
+                        <a href="approach.html" className="read-more read-more--ghost">Explore the approach &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -114,11 +114,11 @@ export function HomeMain() {
 
         <section className="content-section findings-promo-banner" style={{ background: "linear-gradient(135deg, #5DC69F 0%, #4BA87E 100%)", padding: "40px 0" }}>
             <div className="container" style={{ textAlign: "center" }}>
-                <h2>New: Interactive Findings Guide</h2>
+                <h2>Interactive Findings Guide</h2>
                 <p style={{ fontSize: "1.2em", maxWidth: "700px", margin: "0 auto 20px" }}>
                     Want a practical, accessible companion to the academic books? Our HTML-based guide translates the research into actionable insights with embedded audio examples.
                 </p>
-                <a href="findings.html" className="read-more findings-promo-banner__cta" style={{ padding: "12px 30px", fontSize: "1.1em" }}>Explore the Guide &rarr;</a>
+                <a href="findings.html" className="read-more findings-promo-banner__cta" style={{ padding: "12px 30px", fontSize: "1.1em" }}>Explore the guide &rarr;</a>
             </div>
         </section>
 
@@ -132,16 +132,16 @@ export function HomeMain() {
                             <img src="assets/images/cover/himmp1.jpg" alt="Heaviness in Metal Music Production, Volume 1" style={{ width: "100%", maxWidth: "300px", border: "1px solid #ddd", marginBottom: "15px" }} loading="lazy" />
                         </picture>
                         <h4 style={{ marginBottom: "5px" }}>Volume 1: How and Why It Works</h4>
-                        <a href="https://doi.org/10.4324/9781003325727" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1em", marginTop: "10px" }}>+ OPEN ACCESS</a>
+                        <a href="https://doi.org/10.4324/9781003325727" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1em", marginTop: "10px" }}>Open access &rarr;</a>
                     </div>
                     <div className="book-item" style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <img src="assets/images/cover/himmp2.jpg" alt="Heaviness in Metal Music Production, Volume 2" style={{ width: "100%", maxWidth: "300px", border: "1px solid #ddd", marginBottom: "15px" }} loading="lazy" />
                         <h4 style={{ marginBottom: "5px" }}>Volume 2: Learn from the Masters</h4>
-                        <a href="https://doi.org/10.4324/9781003564089" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1em", marginTop: "10px" }}>+ OPEN ACCESS</a>
+                        <a href="https://doi.org/10.4324/9781003564089" target="_blank" rel="noopener noreferrer" className="read-more" style={{ fontSize: "1em", marginTop: "10px" }}>Open access &rarr;</a>
                     </div>
                 </div>
                 <div style={{ textAlign: "center", marginTop: "40px" }}>
-                    <a href="publications.html" className="read-more" style={{ fontSize: "1.2em" }}>+ VIEW ALL PUBLICATIONS</a>
+                    <a href="publications.html" className="read-more" style={{ fontSize: "1.2em" }}>View all publications &rarr;</a>
                 </div>
             </div>
         </section>
@@ -156,7 +156,7 @@ export function HomeMain() {
                             mixing experiments, the mixes and mixing stems of the producers, the
                             video interviews, and many other things.
                         </p>
-                        <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more read-more--ghost">+ MORE</a>
+                        <a href="https://huddersfield.app.box.com/s/8gren2ma4kesvf5vwip2axzz1v8sawur" target="_blank" rel="noopener noreferrer" className="read-more read-more--ghost">Access the dataset &rarr;</a>
                     </div>
                     <div className="section-content">
                         <h3>The Researchers</h3>
@@ -170,7 +170,7 @@ export function HomeMain() {
                             of eight world-renowned <a href="team.html">metal music producers</a>, whose
                             involvement is key to broadening our understanding of 'heaviness'.
                         </p>
-                        <a href="team.html" className="read-more read-more--ghost">+ MORE</a>
+                        <a href="team.html" className="read-more read-more--ghost">Meet the researchers &rarr;</a>
                     </div>
                 </div>
             </div>

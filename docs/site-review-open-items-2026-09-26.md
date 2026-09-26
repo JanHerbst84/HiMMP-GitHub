@@ -1,6 +1,6 @@
 # himmp.net review: open items (2026-09-26)
 
-Status: **Claude positions recorded; Sol positions pending.** Procedure: consensus rule
+Status: **resolved 2026-09-26** — consensus items implemented; 2a and 4 resolved by a Socratic pass (no change now, one question/option each for JPH); 5 closed; 7 raised to JPH. Procedure: consensus rule
 (`agent-instructions/references/model-delegation.md` § Consensus rule). Claude's positions are committed before Sol
 answers; Sol receives the facts and options only. Agreement is adopted; consequential disagreement goes to a
 Socratic pass, and only then to JPH. Items outside consensus authority (research stimuli, facts only JPH knows,
@@ -50,3 +50,71 @@ Context: `docs/site-review-2026-09-25-plan.md` §6.4 "Held for JPH".
 | 5 | Audio re-encoding | No change; close. | Stimuli (JPH-only), and the cost only arises on play; page load is 0.1 MB. |
 | 6 | youtube-nocookie | Switch embeds to `www.youtube-nocookie.com` (CSP `frame-src` adds it; keep thumbnails; rerun `audit:csp:live`). | Fewer cookies after the click, closer to what the privacy page says; reversible. |
 | 7 | Privacy page silent on YouTube | Raise to JPH with a drafted disclosure; do not edit the legal text. | Data-controller statement; not an agent decision. |
+
+## Sol's positions (`gpt-5.6-sol`, medium, read-only; blind to the section above)
+
+| # | Choice | Detail |
+|---|---|---|
+| 1a | Rewrite and standardise | Sentence case, no "+", trailing →. Replace the four ambiguous "+ MORE" links with descriptive text: "Learn about HiMMP →", "Explore the approach →", "Access the dataset →", "Meet the researchers →"; "Access data →", "View publications →", "Watch & listen →", "Read guide →", "Open access →", "View all publications →", "Explore the guide →". |
+| 1b | "home" | Lowercase kept. |
+| 2a | Ask the PI; change nothing meanwhile | Only the PI can confirm whether outputs are pending. |
+| 2b | Drop "New:" | "Interactive Findings Guide". |
+| 2c | Keep all | Different entry points, not verbatim duplication. |
+| 3 | Rename | "Heaviness in Metal Music Production: A Practical Guide". |
+| 4 | Reduce selected inner pages | `clamp(300px, 36vh, 400px)`; home and audio unchanged; wanted PI approval. |
+| 5 | No change | Stimuli; metadata preload and ranges already avoid full downloads. Noted that the audio page's players lacked an explicit `preload="metadata"`. |
+| 6 | youtube-nocookie | `frame-src https://www.youtube-nocookie.com` only; keep `img.youtube.com`; live CSP audit. |
+| 7 | Raise to the PI with a draft | Draft below; also flagged the privacy page's "all data stored in Germany / no transfers outside the EEA/UK" statements for legal reconciliation (`PrivacyPage.tsx:590`). |
+
+## Comparison and outcome
+
+| # | Claude | Sol | Status | Outcome |
+|---|---|---|---|---|
+| 1a | unify form, keep words | same form, descriptive text for "+ MORE" | consensus (detail) | **Adopted Sol's labels**: descriptive link text also satisfies WCAG 2.4.4 (link purpose); the form convention is shared. |
+| 1b | "home" | "home" | consensus | **Adopted.** |
+| 2a | neutral rewrite | ask PI, no change | disagreement → Socratic pass | **No change now; one yes/no question to JPH** (below). The pass found Claude's wording was not claim-free ("added here as they are published" is also a maintenance promise) and that the publications page (`PublicationsPage.tsx:73`) makes the same claim, so both pages must change together if at all. |
+| 2b | drop "New:" | drop "New:" | consensus | **Adopted.** |
+| 2c | keep | keep | consensus | **No change.** |
+| 3 | "Key Findings: A Practical Guide" | full title | consensus (detail) | **"Key Findings: A Practical Guide"**: it is the site's own caption for the guide cover (`FindingsIndexPage.tsx`), and the full 54-character title wraps to three lines in a quarter-width card. |
+| 4 | keep | reduce selected | disagreement → Socratic pass | **Keep now; option to JPH** (below). No design doc recorded a height floor, but content is not hidden (≈ 325 px of content visible at 1440×900) and the finding is Low; Sol itself wanted PI approval. |
+| 5 | no change | no change | consensus | **Closed.** Delivery fix adopted: `preload="metadata"` on the audio page's players (`AudioComparison.tsx`, `AudioPage.tsx`); the stimuli are unchanged. |
+| 6 | nocookie | nocookie, youtube.com dropped | consensus | **Adopted**: embeds and `frame-src` on `www.youtube-nocookie.com` only; structured-data `embedUrl`s stay on youtube.com. |
+| 7 | raise to JPH | raise to JPH with draft | consensus | **Raised to JPH** (legal text of the data controller; outside consensus authority). |
+
+### Socratic pass (fresh Claude subagent, 2026-09-26)
+
+Steelmanned both sides and put two questions to each. 2a: recommended Sol's position plus a ready replacement,
+acceptable to both. 4: recommended Claude's position plus one option for JPH, acceptable to both (Sol's condition of
+PI approval is met). Moderate value offered: `clamp(320px, 44vh, 440px)`, already used at two narrower breakpoints
+(`globals.css` ≈ 928, 2291).
+
+## For JPH
+
+1. **2a — one question:** Are HiMMP outputs still forthcoming? If yes, nothing changes. If no, the home "Project
+   Completed" paragraph and the publications intro (`PublicationsPage.tsx:73`) change together, e.g. "The HiMMP
+   research project (2020–2024) has concluded. Its outputs are collected on this website, which remains online as a
+   resource for …" (keeping "regularly updated" only if you still commit to it).
+2. **4 — optional design change:** inner-page heroes (not home, not audio) from `clamp(360px, 50vh, 520px)` to
+   `clamp(320px, 44vh, 440px)`. Today ≈ 325 px of content is visible on a 1440×900 screen; the earlier "thin strip"
+   (233 px) problem would not return.
+3. **7 — privacy page (legal text):** it says no information is shared with third parties and no non-essential
+   cookies are used, but does not mention YouTube. Since 2026-09-25 no request reaches YouTube's player before a
+   visitor clicks; thumbnails still load from `img.youtube.com` when a video section scrolls into view. Draft
+   (Sol's, lightly edited):
+
+   > **Embedded YouTube videos.** Pages with videos show preview images loaded from YouTube (Google). A video
+   > player is loaded only when you choose to play a video; your browser then connects to YouTube's
+   > privacy-enhanced service (youtube-nocookie.com), which may process connection data and use cookies or
+   > similar technologies. See Google's Privacy Policy for details.
+
+   Sol also flagged the page's statements that all data is stored in Germany and not transferred outside the
+   EEA/UK (`PrivacyPage.tsx` ≈ 590) for legal reconciliation. Technical alternative if you prefer no contact with
+   Google before a click: self-host the thumbnails (removes `img.youtube.com` from the CSP).
+4. **5 — audio (for the record):** kept at 320 kbps; no action needed.
+
+## Implementation review (Sol + internal, 2026-09-26)
+
+- Sol (Low): the home page still preconnected to `www.youtube.com` through the legacy head. ACCEPT: removed, together
+  with the `img.youtube.com` preconnect, so no connection to Google is opened on page load (thumbnails still load
+  when a video section scrolls into view).
+- Internal reviewer: no findings.

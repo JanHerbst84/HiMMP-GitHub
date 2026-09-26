@@ -387,7 +387,7 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator("[data-page='approach']")).toHaveCount(1);
     await expect(page.locator(".timeline-item")).toHaveCount(3);
     await expect(
-      page.locator(".video-container iframe[data-lazy-youtube-src='https://www.youtube.com/embed/s51zs_ZVVoA']")
+      page.locator(".video-container iframe[data-lazy-youtube-src='https://www.youtube-nocookie.com/embed/s51zs_ZVVoA']")
     ).toHaveCount(1);
     await expect(page.locator("h1.hero-title")).toHaveText("Research Approach & Methodology");
 
@@ -965,7 +965,7 @@ test.describe("static export legacy route smoke", () => {
         )
       })
     );
-    await page.route("https://www.youtube.com/embed/**", (route) => {
+    await page.route("https://www.youtube-nocookie.com/embed/**", (route) => {
       youtubeRequests.push(route.request().url());
       return route.fulfill({
         contentType: "text/html",
@@ -981,8 +981,8 @@ test.describe("static export legacy route smoke", () => {
     await expect(page.locator("[data-enhanced-video-controller='ready']")).toHaveCount(1);
     await expect(frames).toHaveCount(30);
     await expect(page.locator(".lazy-video-trigger")).toHaveCount(30);
-    await expect(firstFrame).toHaveAttribute("data-lazy-youtube-src", "https://www.youtube.com/embed/TkLQaOkAtlw");
-    await expect(firstFrame).not.toHaveAttribute("src", /youtube\.com/);
+    await expect(firstFrame).toHaveAttribute("data-lazy-youtube-src", "https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
+    await expect(firstFrame).not.toHaveAttribute("src", /youtube/);
     expect(youtubeRequests).toEqual([]);
 
     // Set up the request-fired promise BEFORE the click so the route
@@ -991,13 +991,13 @@ test.describe("static export legacy route smoke", () => {
     // immediately after the click) would intermittently see the array
     // before the route handler had executed the .push, even though
     // toHaveAttribute("src", ...) had already polled the iframe state.
-    const youtubeFetchFired = page.waitForRequest("https://www.youtube.com/embed/TkLQaOkAtlw");
+    const youtubeFetchFired = page.waitForRequest("https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
     await page.locator(".lazy-video-trigger").first().click();
 
-    await expect(firstFrame).toHaveAttribute("src", "https://www.youtube.com/embed/TkLQaOkAtlw");
+    await expect(firstFrame).toHaveAttribute("src", "https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
     await expect(page.locator(".lazy-video-trigger")).toHaveCount(29);
     const youtubeRequest = await youtubeFetchFired;
-    expect(youtubeRequest.url()).toBe("https://www.youtube.com/embed/TkLQaOkAtlw");
+    expect(youtubeRequest.url()).toBe("https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
 
     await waitForLocalResponses();
     expect(unexpectedFailures).toEqual([]);
@@ -1286,7 +1286,7 @@ test.describe("site review 2026-09 slices D-F", () => {
   test("home, audio and approach embeds are click-to-load", async ({ page }) => {
     for (const route of ["/index.html", "/audio.html", "/approach.html"]) {
       await page.goto(route);
-      await expect(page.locator("iframe[src*='youtube.com']"), route).toHaveCount(0);
+      await expect(page.locator("iframe[src*='youtube']"), route).toHaveCount(0);
       await expect(page.locator(".lazy-video-trigger").first(), route).toBeVisible();
     }
   });

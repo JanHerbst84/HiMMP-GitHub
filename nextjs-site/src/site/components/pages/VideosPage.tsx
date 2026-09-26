@@ -111,9 +111,10 @@ function LazyYouTubeIframe({ embedId, title, start }: { embedId: string; title: 
   // Optional `start` deep-links the embed to a timestamp (seconds). The
   // lazy controller assigns data-lazy-youtube-src as the real src on click,
   // so the ?start= query rides along and YouTube honours it.
+  // Privacy-enhanced mode (youtube-nocookie.com); CSP frame-src allows only this origin.
   const lazySrc = start
-    ? `https://www.youtube.com/embed/${embedId}?start=${start}`
-    : `https://www.youtube.com/embed/${embedId}`;
+    ? `https://www.youtube-nocookie.com/embed/${embedId}?start=${start}`
+    : `https://www.youtube-nocookie.com/embed/${embedId}`;
   return (
     <iframe
       loading="lazy"

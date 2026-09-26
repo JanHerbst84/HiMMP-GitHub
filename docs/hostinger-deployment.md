@@ -192,7 +192,7 @@ The versioned Nginx configuration now:
 - emits HSTS and a restrictive Permissions-Policy;
 - emits an enforcing Content-Security-Policy after the report-only observation window and a subsequent all-route browser audit found no required resource violations.
 
-After any resource or embed change, rerun the live all-route CSP browser audit before deployment. The approved external origins are `analytics.himmp.net`, `img.youtube.com`, and `www.youtube.com`.
+After any resource or embed change, rerun the live all-route CSP browser audit before deployment. The approved external origins are `analytics.himmp.net`, `img.youtube.com` (video thumbnails), and `www.youtube-nocookie.com` (privacy-enhanced embeds; `www.youtube.com` was dropped from `frame-src` on 2026-09-26).
 
 ## Contact Mail Setup
 

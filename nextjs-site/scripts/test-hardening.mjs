@@ -279,6 +279,10 @@ try {
   assert(/location = \/ \{[^}]*try_files \/index\.html =404;/.test(siteBlock), "/ no longer serves index.html in place");
   assert(/gzip_types [^;]*application\/javascript[^;]*;/.test(siteBlock) && /gzip_types [^;]*text\/css/.test(siteBlock), "JS/CSS compression missing");
   assert(!nginx.includes("Content-Security-Policy-Report-Only"), "report-only CSP remained after enforcement promotion");
+  // Embeds use YouTube's privacy-enhanced origin only.
+  for (const policy of nginx.match(/add_header Content-Security-Policy "[^"]*"/g) ?? []) {
+    assert(/frame-src https:\/\/www\.youtube-nocookie\.com;/.test(policy), "CSP frame-src is not limited to www.youtube-nocookie.com");
+  }
   assert(nginx.includes("zone=himmp_csrf:10m rate=30r/m"), "CSRF endpoint rate zone missing");
   assert(nginx.includes("zone=himmp_contact:10m rate=10r/m"), "contact endpoint rate zone missing");
   assert(nginx.includes("limit_req zone=himmp_csrf burst=10 nodelay;"), "CSRF endpoint rate limit missing");

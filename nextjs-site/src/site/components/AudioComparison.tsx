@@ -111,6 +111,7 @@ export function AudioComparison({ waveformHeights }: AudioComparisonProps) {
               ref={audioRef}
               id="comparison-player"
               controls
+              preload="metadata"
               src={activeMix.src}
               onLoadedMetadata={handleLoadedMetadata}
               onError={handleError}

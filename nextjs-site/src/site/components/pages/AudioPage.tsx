@@ -93,7 +93,7 @@ export function AudioPage() {
           <div className="video-container">
             <iframe
               loading="lazy"
-              data-lazy-youtube-src="https://www.youtube.com/embed/AuNs1Ga5xgM"
+              data-lazy-youtube-src="https://www.youtube-nocookie.com/embed/AuNs1Ga5xgM"
               title="8 Top Mix Engineers Mix The Same Track"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -109,7 +109,7 @@ export function AudioPage() {
         <div className="container">
           <h3>HiMMP / Team Mix</h3>
           <div className="mix-comparison-player">
-            <audio id="mix-player" controls>
+            <audio id="mix-player" controls preload="metadata">
               <source src="assets/audio/HiMMP.mp3" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
@@ -125,7 +125,7 @@ export function AudioPage() {
           <div className="container">
             <h3>{name}</h3>
             <div className="mix-player">
-              <audio controls>
+              <audio controls preload="metadata">
                 <source src={`assets/audio/${file}`} type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
