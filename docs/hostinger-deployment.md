@@ -181,6 +181,8 @@ Checked live over HTTPS on 2026-09-26 after release `/var/www/himmp-site/release
 - CSP `frame-src` is now `https://www.youtube-nocookie.com` only, in every header block; `nginx -t` and reload succeeded. `npm run audit:csp:live`: 4 embed pages, 4 embeds loaded, no problems. `npm run audit:seo:live`: 27 routes, 73 JSON-LD blocks, no failures or warnings. Non-submitting contact smoke passed; `assets/audio/HiMMP.mp3` 200 (45 MP3 files).
 - Home page shows the new call-to-action labels, "home" nav label and "Key Findings: A Practical Guide"; the YouTube preconnect hints are gone.
 
+Checked live over HTTPS on 2026-09-26 after release `/var/www/himmp-site/releases/20260926-104503-98ee7e2` (rollback target `releases/20260926-071441-784a39e`; no Nginx change): the privacy page states UK hosting (Hostinger), discloses embedded YouTube videos and the Brevo e-mail relay for contact messages, and gives about 14 days' server-log retention; no "Germany" statement remains. Home, privacy, a chapter and `HiMMP.mp3` returned 200; `audit:seo:live` 27 routes, 73 JSON-LD blocks, no failures or warnings.
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
