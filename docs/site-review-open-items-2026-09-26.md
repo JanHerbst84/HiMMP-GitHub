@@ -1,6 +1,6 @@
 # himmp.net review: open items (2026-09-26)
 
-Status: **resolved 2026-09-26** — consensus items implemented; 2a and 4 resolved by a Socratic pass (no change now, one question/option each for JPH); 5 closed; 7 raised to JPH. Procedure: consensus rule
+Status: **resolved 2026-09-26, deployed in release `20260926-071441-784a39e`** — consensus items implemented; 2a and 4 resolved by a Socratic pass (no change now, one question/option each for JPH); 5 closed; 7 raised to JPH. Procedure: consensus rule
 (`agent-instructions/references/model-delegation.md` § Consensus rule). Claude's positions are committed before Sol
 answers; Sol receives the facts and options only. Agreement is adopted; consequential disagreement goes to a
 Socratic pass, and only then to JPH. Items outside consensus authority (research stimuli, facts only JPH knows,

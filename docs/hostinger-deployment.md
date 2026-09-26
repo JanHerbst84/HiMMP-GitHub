@@ -176,6 +176,11 @@ Checked live over HTTPS on 2026-09-25 after release `/var/www/himmp-site/release
 - Non-submitting production contact smoke passed.
 - Transfer on load (Chromium, CDP byte count): home 0.6 MB (was 2.0), chapter 7 0.8 MB (was 12.7), chapter 9 0.9 MB (was 18.1).
 
+Checked live over HTTPS on 2026-09-26 after release `/var/www/himmp-site/releases/20260926-071441-784a39e` (rollback target `releases/20260925-202909-811b57d`; Nginx rollback copy `/etc/nginx/sites-available/himmp.net.pre-784a39e-20260926-071441`); open review items (`docs/site-review-open-items-2026-09-26.md`):
+
+- CSP `frame-src` is now `https://www.youtube-nocookie.com` only, in every header block; `nginx -t` and reload succeeded. `npm run audit:csp:live`: 4 embed pages, 4 embeds loaded, no problems. `npm run audit:seo:live`: 27 routes, 73 JSON-LD blocks, no failures or warnings. Non-submitting contact smoke passed; `assets/audio/HiMMP.mp3` 200 (45 MP3 files).
+- Home page shows the new call-to-action labels, "home" nav label and "Key Findings: A Practical Guide"; the YouTube preconnect hints are gone.
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
