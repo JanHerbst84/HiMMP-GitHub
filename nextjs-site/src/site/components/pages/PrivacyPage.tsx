@@ -193,8 +193,8 @@ export function PrivacyPage() {
                         Website: www.himmp.net
                     </p>
                     <p>
-                        The website is hosted by Telekom Deutschland GmbH, Bonn, Germany.<br />
-                        Server location: Germany.
+                        The website is hosted by Hostinger.<br />
+                        Server location: United Kingdom.
                     </p>
 
                     <div className="section-divider"></div>
@@ -233,11 +233,11 @@ export function PrivacyPage() {
 
                     <h3>4. Web Analytics</h3>
                     <p>
-                        This site uses Matomo, an open-source analytics tool hosted on our own web server in Germany.
+                        This site uses Matomo, an open-source analytics tool hosted on our own web server in the United Kingdom.
                         Matomo records anonymised usage data (e.g., pages visited, duration, browser type).
                         IP addresses are automatically truncated so that no individual can be identified.
                         The data are processed solely for statistical evaluation and improvement of the website.
-                        No information is shared with third parties.
+                        Matomo data are not sent to an external analytics provider.
                     </p>
                     <p>
                         <strong>Legal basis:</strong> Art. 6 (1)(f) GDPR / UK GDPR (legitimate interest in improving website usability).
@@ -246,8 +246,11 @@ export function PrivacyPage() {
                         Users may object to tracking at any time via their browser's "Do Not Track" setting, which Matomo respects.
                     </p>
                     <p>
-                        <strong>Cookies:</strong> This website does not use cookies other than those essential for technical operation.
+                        <strong>Cookies:</strong> Apart from embedded YouTube videos (see below), this website does not use cookies other than those essential for technical operation.
                         Matomo operates without tracking cookies.
+                    </p>
+                    <p>
+                        <strong>Embedded YouTube videos:</strong> Pages with videos show preview images loaded from YouTube (Google). A video player is loaded only when you choose to play a video; your browser then connects to YouTube's privacy-enhanced service (youtube-nocookie.com), which may process connection data and use cookies or similar technologies. Google may process these data outside the United Kingdom and the European Economic Area. See Google's Privacy Policy for details.
                     </p>
 
                     <div className="section-divider"></div>
@@ -261,8 +264,11 @@ export function PrivacyPage() {
                         contact form, the personal data transmitted by the data subject are
                         automatically stored. Such personal data transmitted on a voluntary
                         basis by a data subject to the data controller are stored for the purpose
-                        of processing or contacting the data subject. There is no transfer of this
-                        personal data to third parties.
+                        of processing or contacting the data subject. Messages sent via the contact
+                        form are stored on the website server and delivered by e-mail to the
+                        controller's University of Huddersfield address through the e-mail relay
+                        service Brevo; apart from the website's hosting provider (see section 2),
+                        they are not passed to any other third party.
                     </p>
 
                     <div className="section-divider"></div>
@@ -580,17 +586,17 @@ export function PrivacyPage() {
                     <ul>
                         <li>Analytics data (Matomo) are stored in anonymised form for up to 24 months.</li>
                         <li>Contact form messages are deleted after the correspondence is complete.</li>
-                        <li>Server logs are deleted automatically after routine system maintenance (normally 7 days).</li>
+                        <li>Server logs are deleted automatically after about 14 days.</li>
                     </ul>
 
                     <div className="section-divider"></div>
 
                     <h3>11. Data Transfers and Storage</h3>
                     <p>
-                        All data are stored on servers located in Germany.
+                        Data held on the website server, including analytics data and contact-form submissions, are stored in the United Kingdom.
                     </p>
                     <p>
-                        No data are transferred to countries outside the European Economic Area or the United Kingdom.
+                        Apart from the website's hosting provider (section 2), embedded YouTube videos (section 4) and the e-mail relay of contact messages via Brevo (section 5), no data are passed to other services or transferred to countries outside the European Economic Area or the United Kingdom.
                     </p>
 
                     <div className="section-divider"></div>

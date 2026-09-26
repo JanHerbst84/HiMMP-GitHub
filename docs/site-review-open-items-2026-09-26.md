@@ -138,3 +138,24 @@ PI approval is met). Moderate value offered: `clamp(320px, 44vh, 440px)`, alread
   2. Add the YouTube paragraph (drafted above) after the Cookies paragraph.
   3. Keep thumbnails from `img.youtube.com` (disclosed) rather than self-hosting: 12 of the 30 videos on the videos page
      belong to other channels (reaction and reuse videos), and re-hosting their thumbnails would copy third-party images.
+
+## Privacy-page corrections (applied 2026-09-26, JPH confirmed the UK server location)
+
+Changes to `PrivacyPage.tsx`, mirrored in the legacy `privacy.html`:
+- §2 hosting: "Telekom Deutschland GmbH, Bonn, Germany / Server location: Germany" → "Hostinger / Server location:
+  United Kingdom" (no legal entity named: the IP-registry name need not be the contracting entity).
+- §4: Matomo "hosted on our own web server in the United Kingdom"; "Matomo data are not sent to an external
+  analytics provider"; cookie statement excepts embedded YouTube videos; new "Embedded YouTube videos" paragraph.
+- §5: contact messages are stored on the website server and delivered by e-mail to the controller's University
+  address through the Brevo relay (`CONTACT_SMTP_HOST smtp-relay.brevo.com`, recipient from `config.php`).
+- §10: server logs deleted "after about 14 days" (`/etc/logrotate.d/nginx`: daily, rotate 14; previously "normally
+  7 days").
+- §11: storage statement limited to data held on the website server (UK); the transfer sentence names the hosting
+  provider, YouTube and Brevo as the only exceptions and does not assert Brevo's location.
+
+Review: Sol round 1 (2 M, 2 L: contradicting absolutes, undisclosed Brevo relay, exact retention, unverified legal
+entity; all ACCEPTED), internal reviewer no findings; Sol round 2 (1 M: the hosting provider is also a processor;
+ACCEPTED, wording qualified). The round-2 fix was a wording qualification of exactly that finding.
+
+Still for JPH (facts only the controller can confirm): that data-processing terms exist with Hostinger and Brevo,
+and where Brevo processes data. The page makes no claim about either.
