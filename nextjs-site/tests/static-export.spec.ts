@@ -946,7 +946,7 @@ test.describe("static export legacy route smoke", () => {
     }
     await expect(page.locator(".section-nav-button")).toHaveCount(6);
     await expect(page.locator(".bilibili-videos-section a[href^='https://www.bilibili.com/video/']")).toHaveCount(7);
-    await expect(page.locator(".practitioner-reuse-videos-section .video-item")).toHaveCount(6);
+    await expect(page.locator(".practitioner-reuse-videos-section .video-item")).toHaveCount(7);
     await expect(page.locator("#main-content", { hasText: "Key Findings Guide" })).toHaveCount(1);
 
     await waitForLocalResponses();
@@ -979,8 +979,8 @@ test.describe("static export legacy route smoke", () => {
     const frames = page.locator(".video-container iframe[data-lazy-youtube-src]");
     const firstFrame = frames.first();
     await expect(page.locator("[data-enhanced-video-controller='ready']")).toHaveCount(1);
-    await expect(frames).toHaveCount(30);
-    await expect(page.locator(".lazy-video-trigger")).toHaveCount(30);
+    await expect(frames).toHaveCount(31);
+    await expect(page.locator(".lazy-video-trigger")).toHaveCount(31);
     await expect(firstFrame).toHaveAttribute("data-lazy-youtube-src", "https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
     await expect(firstFrame).not.toHaveAttribute("src", /youtube/);
     expect(youtubeRequests).toEqual([]);
@@ -995,7 +995,7 @@ test.describe("static export legacy route smoke", () => {
     await page.locator(".lazy-video-trigger").first().click();
 
     await expect(firstFrame).toHaveAttribute("src", "https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
-    await expect(page.locator(".lazy-video-trigger")).toHaveCount(29);
+    await expect(page.locator(".lazy-video-trigger")).toHaveCount(30);
     const youtubeRequest = await youtubeFetchFired;
     expect(youtubeRequest.url()).toBe("https://www.youtube-nocookie.com/embed/TkLQaOkAtlw");
 
