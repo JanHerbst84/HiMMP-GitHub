@@ -183,6 +183,8 @@ Checked live over HTTPS on 2026-09-26 after release `/var/www/himmp-site/release
 
 Checked live over HTTPS on 2026-09-26 after release `/var/www/himmp-site/releases/20260926-104503-98ee7e2` (rollback target `releases/20260926-071441-784a39e`; no Nginx change): the privacy page states UK hosting (Hostinger), discloses embedded YouTube videos and the Brevo e-mail relay for contact messages, and gives about 14 days' server-log retention; no "Germany" statement remains. Home, privacy, a chapter and `HiMMP.mp3` returned 200; `audit:seo:live` 27 routes, 73 JSON-LD blocks, no failures or warnings.
 
+Checked live over HTTPS on 2026-09-28 after release `/var/www/himmp-site/releases/20260928-072225-f289408` (rollback target `releases/20260926-104503-98ee7e2`; no Nginx change), synced with `rsync --link-dest` against the previous release and switched atomically: `https://himmp.net/videos.html` embeds the NK Audio 'In Solitude' mix and master `V3iJ4gJmaKw` in Practitioner Reuse (source commit `f289408`). Home, videos, about, chapter 8 and `HiMMP.mp3` returned 200 (45 MP3 files, deployment preflight passed for 27 routes); `audit:seo:live` 27 routes, no failures or warnings; `audit:csp:live` 4 embed pages, 4 embeds activated, no problems.
+
 ## Remaining Before Production Cutover
 
 - Keep `/var/www/himmp-site/php/config.local.php` out of git and preserve `root:www-data` / `640` permissions when rotating credentials.
