@@ -4,7 +4,7 @@
  *
  * Structural notes specific to this page:
  *
- * - All 31 iframes carry `data-lazy-youtube-src` instead of `src`,
+ * - All 32 iframes carry `data-lazy-youtube-src` instead of `src`,
  *   matching what the catch-all's `prepareEnhancedVideoHtml`
  *   produced for this route. The existing `<EnhancedVideoController>`
  *   (rendered by the route file) reads that attribute after
@@ -91,7 +91,8 @@ export const reuseVideos: ReadonlyArray<UserVideo> = [
   { embedId: "5QDnVNiI5nM", iframeTitle: "Pradhe short mix of In Solitude", heading: "In Solitude - Pradhe mix (short)", meta: "Pradhe • 17 August 2025" },
   { embedId: "IZDfsAneeHc", iframeTitle: "djabthrash reamping the In Solitude guitar DIs", heading: "Reamping the In Solitude guitar DIs", meta: "djabthrash • 26 August 2025" },
   { embedId: "fpvd9woR-oM", iframeTitle: "Marnetmar mix of In Solitude", heading: "In Solitude - Marnetmar mix", meta: "Marnetmar • 29 August 2026" },
-  { embedId: "V3iJ4gJmaKw", iframeTitle: "NK Audio mix and master of In Solitude", heading: "In Solitude - NK Audio mix and master", meta: "NK Audio • 27 September 2026" }
+  { embedId: "V3iJ4gJmaKw", iframeTitle: "NK Audio mix and master of In Solitude", heading: "In Solitude - NK Audio mix and master", meta: "NK Audio • 27 September 2026" },
+  { embedId: "MQLqlNyEcWc", iframeTitle: "Fernando Javier Peralta mix and master of In Solitude", heading: "In Solitude - Fernando Javier Peralta mix and master", meta: "Fernando Javier Peralta • 20 November 2026" }
 ];
 
 // Chinese-language republication, translation, reaction and reuse on Bilibili.
